@@ -1,11 +1,11 @@
-name: Website build
+name: PR Website package
 
 on:
   pull_request:
 
 jobs:
-  build:
-    name: build
+  package:
+    name: package
     if: "! contains(toJSON(github.event.commits.*.message), '[skip-ci]')"
     runs-on: ubuntu-latest
     steps:
