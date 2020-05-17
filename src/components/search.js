@@ -17,6 +17,7 @@ const Search = () => {
             sculpt {
               colorways {
                 name
+                id
               }
               name
             }
@@ -53,7 +54,10 @@ const Search = () => {
         m.context.sculpt &&
         m.context.sculpt.name.toLowerCase().indexOf(innerQuery) > -1
       ) {
-        out.push({ title: `Sculpt ${m.context.sculpt.name}`, url: m.path });
+        out.push({
+          title: `Sculpt ${m.context.sculpt.name}`,
+          url: `${m.path}#${m.id}`,
+        });
         continue;
       }
       if (m.context.sculpt) {
@@ -61,7 +65,7 @@ const Search = () => {
           (x) => x.name.toLowerCase().indexOf(innerQuery) > -1,
         );
         if (f) {
-          out.push({ title: `Colorway ${f.name}`, url: m.path });
+          out.push({ title: `Colorway ${f.name}`, url: `${m.path}#${f.id}` });
         }
       }
     }
