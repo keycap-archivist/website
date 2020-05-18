@@ -1,4 +1,4 @@
-name: Website build
+name: Pull Request Package
 
 on:
   pull_request:
