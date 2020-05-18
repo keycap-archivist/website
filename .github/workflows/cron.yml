@@ -1,0 +1,33 @@
+name: Poll for database update
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # Every 6 hours
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.BOT_PAT }}
+      - id: nodeversion
+        run: echo ::set-output name=NODE::$(cat .nvmrc)
+      - name: restore Cache
+        uses: actions/cache@master
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+      - name: Use Node.js ${{steps.nodeversion.outputs.NODE}}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ steps.nodeversion.outputs.NODE }}
+      - name: install
+        run: yarn
+      - name: Update database
+        run: |
+          yarn update-db
+          git add catalog-revision.txt
+          git add src/db/catalog.json
+          git commit -m "Update catalog" || true
+          git push -f || true
