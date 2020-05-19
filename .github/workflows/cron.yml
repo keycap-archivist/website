@@ -27,6 +27,7 @@ jobs:
       - name: Update database
         run: |
           yarn update-db
+          git config --global user.name 'Keycap Archivist Bot'
           git add catalog-revision.txt
           git add src/db/catalog.json
           git commit -m "Update catalog" || true
