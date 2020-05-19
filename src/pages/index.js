@@ -8,9 +8,7 @@ import Layout from '../components/layout';
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
     query MyQuery {
-      allSitePage(
-        filter: { context: { type: { eq: "maker" } }, internal: {} }
-      ) {
+      allSitePage(filter: { context: { type: { eq: "maker" } }, internal: {} }) {
         nodes {
           context {
             maker {

@@ -4,8 +4,7 @@ const fs = require('fs').promises;
 
 const revFile = path.join(__dirname, '..', 'catalog-revision.txt');
 const catalogFile = path.join(__dirname, '..', 'src', 'db', 'catalog.json');
-const apiCatalogRev =
-  'https://api.github.com/repos/keycap-archivist/database/commits?path=db/catalog.json';
+const apiCatalogRev = 'https://api.github.com/repos/keycap-archivist/database/commits?path=db/catalog.json';
 
 async function getDistantRev() {
   return (await axios.get(apiCatalogRev)).data[0].sha;
@@ -26,10 +25,9 @@ async function checkNeedUpdate() {
 
 async function updateDb(revision) {
   const rawFile = (
-    await axios.get(
-      `https://raw.githubusercontent.com/keycap-archivist/database/${revision}/db/catalog.json`,
-      { transformResponse: [] },
-    )
+    await axios.get(`https://raw.githubusercontent.com/keycap-archivist/database/${revision}/db/catalog.json`, {
+      transformResponse: [],
+    })
   ).data;
   await fs.writeFile(catalogFile, rawFile);
   await fs.writeFile(revFile, revision);
