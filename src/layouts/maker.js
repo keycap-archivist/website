@@ -29,15 +29,13 @@ const Maker = (props) => {
     <Layout>
       <h1>{maker.name}</h1>
       <ul>
-        {maker.sculpts.map((s) => {
-          return (
-            <li key={s.id}>
-              <Link to={getLink(s.id)}>
-                <span className="font-bold">{s.name}</span>
-              </Link>
-            </li>
-          );
-        })}
+        {maker.sculpts.map((s) => (
+          <li key={s.id}>
+            <Link to={getLink(s.id)}>
+              <span className="font-bold">{s.name}</span>
+            </Link>
+          </li>
+        ))}
       </ul>
     </Layout>
   );
