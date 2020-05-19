@@ -43,6 +43,7 @@
   "scripts": {
     "check-db": "node scripts/check-db-rev.js",
     "update-db": "node scripts/update-db.js",
+    "lint": "npx eslint ./src --ext js",
     "build": "gatsby build",
     "package": "gatsby build --prefix-paths",
     "develop": "gatsby develop",

@@ -22,5 +22,7 @@ jobs:
           node-version: ${{ steps.nodeversion.outputs.NODE }}
       - name: install
         run: yarn
+      - name: lint
+        run: yarn lint
       - name: Package website
         run: yarn package
