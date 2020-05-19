@@ -2,8 +2,8 @@ import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 
 import Layout from '../components/layout';
-import Image from '../components/image';
-import SEO from '../components/seo';
+// import Image from '../components/image';
+// import SEO from '../components/seo';
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -28,13 +28,11 @@ const IndexPage = () => {
     <Layout>
       <h1>Hello world</h1>
       <ul>
-        {data.allSitePage.nodes.map((element) => {
-          return (
-            <li>
-              <Link to={element.path}>{element.context.maker.name}</Link>
-            </li>
-          );
-        })}
+        {data.allSitePage.nodes.map((element) => (
+          <li key={element.path}>
+            <Link to={element.path}>{element.context.maker.name}</Link>
+          </li>
+        ))}
       </ul>
     </Layout>
   );
