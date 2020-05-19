@@ -13,6 +13,11 @@
   "parserOptions": {
     "ecmaVersion": 2018
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "rules": {
     "max-len": ["error", { "code": 120 }],
     "implicit-arrow-linebreak": "off",
