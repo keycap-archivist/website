@@ -41,6 +41,7 @@
   },
   "license": "MIT",
   "scripts": {
+    "check-db": "node scripts/check-db-rev.js",
     "update-db": "node scripts/update-db.js",
     "build": "gatsby build",
     "package": "gatsby build --prefix-paths",

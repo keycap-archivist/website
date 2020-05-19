@@ -1,14 +1,16 @@
-name: Pull Request Package
+name: Poll for database update
 
 on:
-  pull_request:
+  schedule:
+    - cron: '0 */6 * * *' # Every 6 hours
 
 jobs:
-  package:
-    name: package
+  poll:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.BOT_PAT }}
       - id: nodeversion
         run: echo ::set-output name=NODE::$(cat .nvmrc)
       - name: restore Cache
@@ -22,5 +24,10 @@ jobs:
           node-version: ${{ steps.nodeversion.outputs.NODE }}
       - name: install
         run: yarn
-      - name: Package website
-        run: yarn package
+      - name: Update database
+        run: |
+          yarn update-db
+          git add catalog-revision.txt
+          git add src/db/catalog.json
+          git commit -m "Update catalog" || true
+          git push -f || true
