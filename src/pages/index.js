@@ -2,6 +2,7 @@ import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 
 import Layout from '../components/layout';
+import SEO from '../components/seo';
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -23,6 +24,7 @@ const IndexPage = () => {
 
   return (
     <Layout>
+      <SEO title="Home" />
       <ul className="flex flex-wrap flex-col md:flex-row w-full md:-mx-2">
         {data.allSitePage.nodes.map((element) => (
           <li key={element.id} className="flex md:w-1/3 lg:w-1/4 py-3 md:px-2">

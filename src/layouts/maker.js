@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useStaticQuery, graphql } from 'gatsby';
 
 import Layout from '../components/layout';
+import SEO from '../components/seo';
 
 const Maker = (props) => {
   const { pageContext } = props;
@@ -37,6 +38,7 @@ const Maker = (props) => {
 
   return (
     <Layout>
+      <SEO title={maker.name} />
       <h2 className="text-4xl mb-3">{maker.name}</h2>
       <h3 className="text-xl">Sculpts</h3>
       <ul className="flex flex-wrap flex-col md:flex-row w-full md:-mx-2">
