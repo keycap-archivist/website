@@ -43,7 +43,7 @@ const Maker = (props) => {
         {maker.sculpts.map((s) => (
           <li key={s.id} className="flex md:w-1/3 lg:w-1/5 py-3 md:px-2 text-center">
             <Link to={getLink(s.id)}>
-              <img src={getImg(s.id)} className="block max-w-full" />
+              <img src={getImg(s.id)} className="block max-w-full min-w-full" />
               <span className="font-bold">{s.name}</span>
             </Link>
           </li>
