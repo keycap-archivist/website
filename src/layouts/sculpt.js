@@ -5,8 +5,7 @@ import Layout from '../components/layout';
 
 const Maker = (props) => {
   const { pageContext } = props;
-  const { sculpt } = pageContext;
-  const { maker, makerUrl } = pageContext;
+  const { maker, makerUrl, sculpt } = pageContext;
 
   return (
     <Layout>
