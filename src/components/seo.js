@@ -26,6 +26,7 @@ function SEO({ description, lang, meta, title }) {
   );
 
   const metaDescription = description || site.siteMetadata.description;
+  const compiledTitle = `${site.siteMetadata.title} - ${title}`;
 
   return (
     <Helmet
@@ -41,7 +42,7 @@ function SEO({ description, lang, meta, title }) {
         },
         {
           property: 'og:title',
-          content: title,
+          content: compiledTitle,
         },
         {
           property: 'og:description',
@@ -61,7 +62,7 @@ function SEO({ description, lang, meta, title }) {
         },
         {
           name: 'twitter:title',
-          content: title,
+          content: compiledTitle,
         },
         {
           name: 'twitter:description',

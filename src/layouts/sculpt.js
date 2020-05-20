@@ -4,13 +4,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Layout from '../components/layout';
+import SEO from '../components/seo';
 
 const Maker = (props) => {
   const { pageContext, location } = props;
   const { maker, makerUrl, sculpt } = pageContext;
 
+  let seoTitle = `${maker.name} - ${sculpt.name}`;
+  if (location.hash) {
+    seoTitle += ` ${sculpt.colorways.find((x) => x.id === location.hash.replace('#', '')).name}`;
+  }
+
   return (
     <Layout>
+      <SEO title={seoTitle} />
       <h2 className="text-3xl mb-3">
         <Link to={makerUrl}>{maker.name}</Link> / <span className="font-bold">{sculpt.name}</span>
       </h2>
