@@ -75,6 +75,7 @@ exports.createPages = async ({ graphql, actions }) => {
         path: `maker/${slug(maker.name)}/${slug(sculpt.name)}`,
         component: sculptTpl,
         context: {
+          makerUrl: `maker/${slug(maker.name)}`,
           type: 'sculpt',
           sculpt,
           maker,
