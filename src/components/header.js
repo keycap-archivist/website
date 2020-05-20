@@ -4,50 +4,30 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: 'rebeccapurple',
-      marginBottom: '1.45rem',
-    }}
-  >
-    <div
-      style={{
-        margin: '0 auto',
-        maxWidth: 960,
-        padding: '1.45rem 1.0875rem',
-      }}
-    >
+  <header className="bg-blue-700 mb-3">
+    <div className="container flex flex-row justify-between mx-auto px-3 py-5">
       <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: 'white',
-            textDecoration: 'none',
-          }}
-        >
+        <Link to="/" className="text-xl font-bold text-white">
           {siteTitle}
         </Link>
-        <a
-          href="https://github.com/keycap-archivist"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            color: 'white',
-          }}
-        >
-          <FontAwesomeIcon icon={['fab', 'github']} />
-        </a>
-        <a
-          href="https://discord.gg/nXrShaa"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            color: 'white',
-          }}
-        >
-          <FontAwesomeIcon icon={['fab', 'discord']} />
-        </a>
       </h1>
+      <ul className="flex flex-row list-none space-x-3">
+        <li>
+          <a
+            href="https://github.com/keycap-archivist"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white text-xl"
+          >
+            <FontAwesomeIcon icon={['fab', 'github']} />
+          </a>
+        </li>
+        <li>
+          <a href="https://discord.gg/nXrShaa" target="_blank" rel="noopener noreferrer" className="text-white text-xl">
+            <FontAwesomeIcon icon={['fab', 'discord']} />
+          </a>
+        </li>
+      </ul>
     </div>
   </header>
 );

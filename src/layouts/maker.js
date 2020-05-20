@@ -27,8 +27,9 @@ const Maker = (props) => {
 
   return (
     <Layout>
-      <h1>{maker.name}</h1>
-      <ul>
+      <h2 className="text-4xl mb-3">{maker.name}</h2>
+      <h3 className="text-xl">Sculpts</h3>
+      <ul className="flex flex-col my-3 space-y-3">
         {maker.sculpts.map((s) => (
           <li key={s.id}>
             <Link to={getLink(s.id)}>

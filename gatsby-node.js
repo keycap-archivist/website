@@ -8,8 +8,7 @@ const slugify = require('slugify');
 const path = require('path');
 const fs = require('fs');
 
-const slug = (d) =>
-  slugify(d, { replacement: '-', remove: /[.:?]/g, lower: true });
+const slug = (d) => slugify(d, { replacement: '-', remove: /[.:?]/g, lower: true });
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
@@ -78,6 +77,7 @@ exports.createPages = async ({ graphql, actions }) => {
         context: {
           type: 'sculpt',
           sculpt,
+          maker,
         },
       });
     });
