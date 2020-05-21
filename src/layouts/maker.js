@@ -39,14 +39,16 @@ const Maker = (props) => {
   return (
     <Layout>
       <SEO title={maker.name} />
-      <h2 className="text-4xl mb-3">{maker.name}</h2>
+      <h2 className="text-4xl my-6">{maker.name}</h2>
       <h3 className="text-xl">Sculpts</h3>
       <ul className="flex flex-wrap flex-col md:flex-row w-full md:-mx-2">
         {maker.sculpts.map((s) => (
-          <li key={s.id} className="flex md:w-1/3 lg:w-1/5 py-3 md:px-2 text-center">
-            <Link to={getLink(s.id)} className="max-w-full min-w-full">
-              <img src={getImg(s.id)} className="block max-w-full min-w-full" />
-              <span className="font-bold">{s.name}</span>
+          <li key={s.id} className="flex w-64 mx-auto md:m-0 md:w-1/3 lg:w-1/5 py-2 md:px-2 text-center">
+            <Link to={getLink(s.id)} className="flex flex-col justify-between max-w-full min-w-full bg-white p-2">
+              <div className="w-full h-full bg-gray-300 thumbnail-wrapper">
+                <img src={getImg(s.id)} className="h-full w-full object-cover" />
+              </div>
+              <div className="font-bold p-4">{s.name}</div>
             </Link>
           </li>
         ))}

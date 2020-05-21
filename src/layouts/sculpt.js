@@ -18,21 +18,25 @@ const Maker = (props) => {
   return (
     <Layout>
       <SEO title={seoTitle} />
-      <h2 className="text-3xl mb-3">
+      <h2 className="text-3xl my-6">
         <Link to={makerUrl}>{maker.name}</Link> / <span className="font-bold">{sculpt.name}</span>
       </h2>
-      <ul className="flex flex-row flex-wrap w-full md:-mx-2">
+      <ul className="flex flex-wrap flex-col md:flex-row w-full md:-mx-2">
         {sculpt.colorways.map((c) => (
-          <li key={c.id} id={c.id} className="md:w-1/4 lg:w-1/6 py-3 md:px-2 text-center">
-            <img className="block max-w-full min-w-full" src={c.img} />
-            <p>
-              <CopyToClipboard text={`${location.href}#${c.id}`}>
-                <span className="cursor-pointer hover:text-blue-700">
-                  <FontAwesomeIcon icon={['fas', 'link']} />
-                </span>
-              </CopyToClipboard>
-              {c.name}
-            </p>
+          <li key={c.id} id={c.id} className="flex w-64 mx-auto md:m-0 md:w-1/3 lg:w-1/5 py-2 md:px-2">
+            <div className="flex flex-col max-w-full min-w-full bg-white p-2">
+              <div className="w-full h-full bg-gray-300 thumbnail-wrapper">
+                <img className="h-full w-full object-cover" src={c.img} />
+              </div>
+              <div className="flex flex-row justify-between content-center font-bold pt-4 pb-2 px-2">
+                <div className="pr-3">{c.name}</div>
+                <CopyToClipboard text={`${location.href}#${c.id}`}>
+                  <span className="cursor-pointer text-sm text-blue-500 hover:text-blue-800">
+                    <FontAwesomeIcon icon={['fas', 'link']} />
+                  </span>
+                </CopyToClipboard>
+              </div>
+            </div>
           </li>
         ))}
       </ul>
