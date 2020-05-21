@@ -23,6 +23,7 @@ const Search = () => {
             }
             maker {
               name
+              id
             }
             type
           }
@@ -43,29 +44,32 @@ const Search = () => {
       if (out.length === MAX_RESULT) {
         break;
       }
-      if (
-        m.context.maker &&
-        m.context.maker.name.toLowerCase().indexOf(innerQuery) > -1
-      ) {
-        out.push({ title: `Artist ${m.context.maker.name}`, url: m.path });
-        continue;
+      if (m.context.maker && m.context.maker.name.toLowerCase().indexOf(innerQuery) > -1) {
+        if (!out.find((x) => x.type === 'artist' && x.id === m.context.maker.id)) {
+          out.push({ type: 'artist', id: m.context.maker.id, title: `${m.context.maker.name}`, url: m.path });
+          continue;
+        }
       }
-      if (
-        m.context.sculpt &&
-        m.context.sculpt.name.toLowerCase().indexOf(innerQuery) > -1
-      ) {
-        out.push({
-          title: `Sculpt ${m.context.sculpt.name}`,
-          url: `${m.path}#${m.id}`,
-        });
-        continue;
+      if (m.context.sculpt && m.context.sculpt.name.toLowerCase().indexOf(innerQuery) > -1) {
+        if (!out.find((x) => x.type === 'sculpt' && x.id === m.context.sculpt.id)) {
+          out.push({
+            type: 'sculpt',
+            id: m.context.sculpt.id,
+            title: `${m.context.maker.name} ${m.context.sculpt.name}`,
+            url: `${m.path}`,
+          });
+          continue;
+        }
       }
       if (m.context.sculpt) {
-        const f = m.context.sculpt.colorways.find(
-          (x) => x.name.toLowerCase().indexOf(innerQuery) > -1,
-        );
+        const f = m.context.sculpt.colorways.find((x) => x.name.toLowerCase().indexOf(innerQuery) > -1);
         if (f) {
-          out.push({ title: `Colorway ${f.name}`, url: `${m.path}#${f.id}` });
+          out.push({
+            type: 'colorway',
+            id: f.id,
+            title: `${m.context.maker.name} ${m.context.sculpt.name} ${f.name}`,
+            url: `${m.path}#${f.id}`,
+          });
         }
       }
     }
@@ -80,37 +84,80 @@ const Search = () => {
   };
 
   const ResultList = () => {
-    if (results.length > 0) {
-      return results.map((page, i) => (
-        <div className="item-search" key={i}>
-          <Link to={page.url} className="link">
-            <h4>{page.title}</h4>
-          </Link>
-        </div>
-      ));
+    const artists = results.filter((x) => x.type === 'artist');
+    const sculpts = results.filter((x) => x.type === 'sculpt');
+    const cws = results.filter((x) => x.type === 'colorway');
+    const output = [];
+    if (artists.length) {
+      output.push(
+        <div className="item-cat-title font-bold bg-blue-700 text-white p-2 rounded rounded-b-none">
+          <span>Artist</span>
+        </div>,
+      );
+      output.push(
+        ...artists.map((page, i) => (
+          <div className="item-search hover:font-bold px-2 py-1" key={i}>
+            <Link to={page.url} className="link">
+              <h4>{page.title}</h4>
+            </Link>
+          </div>
+        )),
+      );
     }
-    if (query.length > 2) {
-      return `No results for ${query}`;
+    if (sculpts.length) {
+      output.push(
+        <div className="item-cat-title font-bold bg-blue-700 text-white p-2 rounded rounded-b-none">
+          <span>Sculpt</span>
+        </div>,
+      );
+      output.push(
+        ...sculpts.map((page, i) => (
+          <div className="item-search hover:font-bold px-2 py-1" key={i}>
+            <Link to={page.url} className="link">
+              <h4>{page.title}</h4>
+            </Link>
+          </div>
+        )),
+      );
     }
-    if (results.length === 0 && query.length > 0) {
-      return 'Please insert at least 3 characters';
+    if (cws.length) {
+      output.push(
+        <div className="item-cat-title font-bold bg-blue-700 text-white p-2 rounded rounded-b-none">
+          <span>Colorways</span>
+        </div>,
+      );
+      output.push(
+        ...cws.map((page, i) => (
+          <div className="item-search hover:font-bold px-2 py-1" key={i}>
+            <Link to={page.url} className="link">
+              <h4>{page.title}</h4>
+            </Link>
+          </div>
+        )),
+      );
     }
-    return '';
+    return output;
   };
 
   return (
-    <div>
-      <input
-        className="search__input"
-        type="text"
-        onChange={handleChange}
-        placeholder={'Search'}
-        value={query}
-      />
-      <div className="search__list">
-        <ResultList />
+    <>
+      <div className="relative mr-6">
+        <input
+          className="search__input bg-purple-white shadow rounded border-0 p-2"
+          type="search"
+          onChange={handleChange}
+          placeholder={'Search'}
+          value={query}
+        />
       </div>
-    </div>
+      {results.length ? (
+        <div className="search__list absolute bg-white shadow rounded border-black p-1">
+          <ResultList />
+        </div>
+      ) : (
+        ''
+      )}
+    </>
   );
 };
 

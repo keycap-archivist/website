@@ -2,6 +2,7 @@ import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Search from './search';
 
 const Header = ({ siteTitle }) => (
   <header className="bg-blue-700 mb-3">
@@ -12,6 +13,9 @@ const Header = ({ siteTitle }) => (
         </Link>
       </h1>
       <ul className="flex flex-row list-none space-x-3">
+        <li>
+          <Search />
+        </li>
         <li>
           <a
             href="https://github.com/keycap-archivist"
