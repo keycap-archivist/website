@@ -1,3 +1,23 @@
 li:target {
   background-color: #2b6cb0;
 }
+
+.thumbnail-wrapper {
+  min-height: 240px;
+  max-height: 240px;
+
+  @media (min-width: 768px) {
+    min-height: 216px;
+    max-height: 216px;
+  }
+
+  @media (min-width: 1024px) {
+    min-height: 168px;
+    max-height: 168px;
+  }
+
+  @media (min-width: 1280px) { 
+    min-height: 219px;
+    max-height: 219px;
+  }
+}
