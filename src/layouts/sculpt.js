@@ -14,7 +14,7 @@ const Maker = (props) => {
   if (location.hash) {
     seoTitle += ` ${sculpt.colorways.find((x) => x.id === location.hash.replace('#', '')).name}`;
   }
-
+  const toCopy = `${location.origin}${location.pathname}`;
   return (
     <Layout>
       <SEO title={seoTitle} />
@@ -30,7 +30,7 @@ const Maker = (props) => {
               </div>
               <div className="flex flex-row justify-between content-center font-bold pt-4 pb-2 px-2">
                 <div className="pr-3">{c.name}</div>
-                <CopyToClipboard text={`${location.href}#${c.id}`}>
+                <CopyToClipboard text={`${toCopy}#${c.id}`}>
                   <span className="cursor-pointer text-sm text-blue-500 hover:text-blue-800">
                     <FontAwesomeIcon icon={['fas', 'link']} />
                   </span>
