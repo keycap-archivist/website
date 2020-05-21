@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /**
  * Implement Gatsby's Node APIs in this file.
  *
@@ -7,6 +8,7 @@ const { createFilePath } = require('gatsby-source-filesystem');
 const slugify = require('slugify');
 const path = require('path');
 const fs = require('fs');
+const _ = require('lodash');
 
 const slug = (d) => slugify(d, { replacement: '-', remove: /[.:?]/g, lower: true });
 
@@ -62,23 +64,38 @@ exports.createPages = async ({ graphql, actions }) => {
   const makerTpl = require.resolve('./src/layouts/maker.js');
   const sculptTpl = require.resolve('./src/layouts/sculpt.js');
   db.forEach((maker) => {
+    maker.sculpts.forEach((element) => {
+      element.link = `maker/${slug(maker.name)}/${slug(element.name)}`;
+      const rng = Math.floor(Math.random() * element.colorways.length);
+      element.previewImg = element.colorways[rng].img;
+    });
+    const makerLightObj = _.cloneDeep(maker);
+    makerLightObj.sculpts.forEach((s) => {
+      delete s.colorways;
+    });
     createPage({
       path: `maker/${slug(maker.name)}`,
       component: makerTpl,
       context: {
-        maker,
+        maker: makerLightObj,
         type: 'maker',
       },
     });
     maker.sculpts.forEach((sculpt) => {
+      // Light maker object
+      const outMaker = {
+        ...maker,
+      };
+      delete outMaker.sculpts;
+
       createPage({
-        path: `maker/${slug(maker.name)}/${slug(sculpt.name)}`,
+        path: sculpt.link,
         component: sculptTpl,
         context: {
           makerUrl: `maker/${slug(maker.name)}`,
           type: 'sculpt',
           sculpt,
-          maker,
+          maker: outMaker,
         },
       });
     });
