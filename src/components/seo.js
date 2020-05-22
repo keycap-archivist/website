@@ -7,10 +7,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
 import { useStaticQuery, graphql } from 'gatsby';
+import { GatsbySeo } from 'gatsby-plugin-next-seo';
 
-function SEO({ description, lang, meta, title }) {
+function SEO({ description, meta, title, img }) {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -29,46 +29,16 @@ function SEO({ description, lang, meta, title }) {
   const compiledTitle = `${site.siteMetadata.title} - ${title}`;
 
   return (
-    <Helmet
-      htmlAttributes={{
-        lang,
+    <GatsbySeo
+      title={compiledTitle}
+      description={metaDescription}
+      openGraph={{
+        lang: 'en_US',
+        title: compiledTitle,
+        description: metaDescription,
+        images: [{ url: img }],
+        site_name: 'Keycap Archivist',
       }}
-      title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
-      meta={[
-        {
-          name: 'description',
-          content: metaDescription,
-        },
-        {
-          property: 'og:title',
-          content: compiledTitle,
-        },
-        {
-          property: 'og:description',
-          content: metaDescription,
-        },
-        {
-          property: 'og:type',
-          content: 'website',
-        },
-        {
-          name: 'twitter:card',
-          content: 'summary',
-        },
-        {
-          name: 'twitter:creator',
-          content: site.siteMetadata.author,
-        },
-        {
-          name: 'twitter:title',
-          content: compiledTitle,
-        },
-        {
-          name: 'twitter:description',
-          content: metaDescription,
-        },
-      ].concat(meta)}
     />
   );
 }

@@ -10,7 +10,7 @@ const path = require('path');
 const fs = require('fs');
 const _ = require('lodash');
 
-const slug = (d) => slugify(d, { replacement: '-', remove: /[.:?]/g, lower: true });
+const slug = (d) => slugify(d, { replacement: '-', remove: /[.:?]/g, lower: true }).toLowerCase();
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
@@ -30,7 +30,9 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
-
+  const makerTpl = require.resolve('./src/layouts/maker.js');
+  const sculptTpl = require.resolve('./src/layouts/sculpt.js');
+  const blogTpl = path.resolve('./src/layouts/blog-post.js');
   /**
    * Blog
    */
@@ -50,7 +52,7 @@ exports.createPages = async ({ graphql, actions }) => {
   result.data.allMarkdownRemark.edges.forEach(({ node }) => {
     createPage({
       path: node.fields.slug,
-      component: path.resolve('./src/layouts/blog-post.js'),
+      component: blogTpl,
       context: {
         slug: node.fields.slug,
       },
@@ -61,8 +63,6 @@ exports.createPages = async ({ graphql, actions }) => {
    * Artisan catalog
    */
   const db = JSON.parse(fs.readFileSync('./src/db/catalog.json'));
-  const makerTpl = require.resolve('./src/layouts/maker.js');
-  const sculptTpl = require.resolve('./src/layouts/sculpt.js');
   db.forEach((maker) => {
     maker.sculpts.forEach((element) => {
       element.link = `maker/${slug(maker.name)}/${slug(element.name)}`;
@@ -79,6 +79,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         maker: makerLightObj,
         type: 'maker',
+        slug: `maker/${slug(maker.name)}`,
       },
     });
     maker.sculpts.forEach((sculpt) => {
@@ -96,6 +97,7 @@ exports.createPages = async ({ graphql, actions }) => {
           type: 'sculpt',
           sculpt,
           maker: outMaker,
+          slug: sculpt.link,
         },
       });
     });

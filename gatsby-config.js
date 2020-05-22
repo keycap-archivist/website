@@ -1,5 +1,5 @@
 const plugins = [
-  'gatsby-plugin-react-helmet',
+  'gatsby-plugin-next-seo',
   'gatsby-plugin-sitemap',
   'gatsby-plugin-postcss',
   'gatsby-plugin-sass',
