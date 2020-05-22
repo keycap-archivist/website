@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 import { GatsbySeo } from 'gatsby-plugin-next-seo';
 
-function SEO({ description, meta, title, img }) {
+function SEO({ description, title, img }) {
   const { site } = useStaticQuery(
     graphql`
       query {
