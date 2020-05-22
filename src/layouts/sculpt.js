@@ -16,21 +16,22 @@ const Maker = (props) => {
     <Layout>
       <SEO title={seoTitle} img={sculpt.previewImg} />
       <h2 className="text-3xl my-6">
-        <Link to={makerUrl}>{maker.name}</Link> / <span className="font-bold">{sculpt.name}</span>
+        <Link to={makerUrl} className="text-blue-600">
+          {maker.name}
+        </Link>{' '}
+        / <span className="font-bold">{sculpt.name}</span>
       </h2>
       <ul className="flex flex-wrap flex-col md:flex-row w-full md:-mx-2">
         {sculpt.colorways.map((c) => (
           <li key={c.id} id={c.id} className={'flex w-64 mx-auto md:m-0 md:w-1/3 lg:w-1/5 py-2 md:px-2'}>
-            <div className="flex flex-col max-w-full min-w-full bg-white p-2">
+            <Link to={`${location.pathname}/${c.id}`} className="flex flex-col max-w-full min-w-full bg-white p-2">
               <div className="w-full h-full bg-gray-300 thumbnail-wrapper">
                 <img className="h-full w-full object-cover" src={c.img} />
               </div>
-              <Link to={`${location.pathname}/${c.id}`}>
-                <div className="flex flex-row justify-between content-center font-bold pt-4 pb-2 px-2">
-                  <div className="pr-3">{c.name}</div>
-                </div>
-              </Link>
-            </div>
+              <div className="font-bold pt-4 pb-2 px-2 text-center">
+                <div className="pr-3">{c.name}</div>
+              </div>
+            </Link>
           </li>
         ))}
       </ul>
