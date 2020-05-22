@@ -48,7 +48,7 @@
     "update-db": "node scripts/update-db.js",
     "lint": "npx eslint ./src --ext js",
     "build": "gatsby build",
-    "package": "cross-env TARGET=PROD gatsby build --prefix-paths",
+    "package": "cross-env TARGET=PROD gatsby build --prefix-paths && cp CNAME public/CNAME",
     "develop": "cross-env TARGET=DEV gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
