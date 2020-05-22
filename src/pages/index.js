@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
-
+import Img from 'gatsby-image';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 
@@ -19,8 +19,28 @@ const IndexPage = () => {
           id
         }
       }
+      allFile(filter: { relativePath: { glob: "logos/*" } }) {
+        nodes {
+          name
+          relativePath
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
     }
   `);
+  const img = data.allFile.nodes;
+
+  const getImg = (id) => {
+    const f = img.find((x) => x.name === id);
+    if (f !== undefined) {
+      return f.childImageSharp.fluid;
+    }
+    return img.find((x) => x.name === 'nologo').childImageSharp.fluid;
+  };
 
   return (
     <Layout>
@@ -32,7 +52,12 @@ const IndexPage = () => {
               to={element.path}
               className="block w-full py-4 font-semibold text-lg text-center border border-l-4 bg-white"
             >
-              {element.context.maker.name}
+              <div className="w-full h-full bg-gray-300 thumbnail-wrapper">
+                <Img fluid={getImg(element.context.maker.id)} className="h-full w-full object-cover" alt="" />
+              </div>
+              <div className="font-bold pt-4 pb-2 px-2 text-center">
+                <div className="pr-3">{element.context.maker.name}</div>
+              </div>
             </Link>
           </li>
         ))}
