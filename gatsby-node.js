@@ -31,6 +31,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
   const makerTpl = require.resolve('./src/layouts/maker.js');
+  const cwTpl = require.resolve('./src/layouts/cw.js');
   const sculptTpl = require.resolve('./src/layouts/sculpt.js');
   const blogTpl = path.resolve('./src/layouts/blog-post.js');
   /**
@@ -62,7 +63,11 @@ exports.createPages = async ({ graphql, actions }) => {
   /**
    * Artisan catalog
    */
-  const db = JSON.parse(fs.readFileSync('./src/db/catalog.json'));
+  let db = JSON.parse(fs.readFileSync('./src/db/catalog.json'));
+  // While developing only getting the 2 first makers
+  if (process.env.TARGET === 'DEV') {
+    db = [db[0], db[1]];
+  }
   db.forEach((maker) => {
     maker.sculpts.forEach((element) => {
       element.link = `maker/${slug(maker.name)}/${slug(element.name)}`;
@@ -73,13 +78,14 @@ exports.createPages = async ({ graphql, actions }) => {
     makerLightObj.sculpts.forEach((s) => {
       delete s.colorways;
     });
+    const makerUrl = `maker/${slug(maker.name)}`;
     createPage({
-      path: `maker/${slug(maker.name)}`,
+      path: makerUrl,
       component: makerTpl,
       context: {
         maker: makerLightObj,
         type: 'maker',
-        slug: `maker/${slug(maker.name)}`,
+        slug: makerUrl,
       },
     });
     maker.sculpts.forEach((sculpt) => {
@@ -93,12 +99,27 @@ exports.createPages = async ({ graphql, actions }) => {
         path: sculpt.link,
         component: sculptTpl,
         context: {
-          makerUrl: `maker/${slug(maker.name)}`,
+          makerUrl,
           type: 'sculpt',
           sculpt,
           maker: outMaker,
           slug: sculpt.link,
         },
+      });
+      sculpt.colorways.forEach((cw) => {
+        createPage({
+          path: `${sculpt.link}/${cw.id}`,
+          component: cwTpl,
+          context: {
+            makerUrl,
+            makerName: maker.name,
+            sculptName: sculpt.name,
+            sculptUrl: sculpt.link,
+            type: 'colorway',
+            colorway: cw,
+            slug: `${sculpt.link}/${cw.id}`,
+          },
+        });
       });
     });
   });
