@@ -50,12 +50,12 @@ if (process.env.TARGET === 'PROD') {
 }
 
 module.exports = {
-  pathPrefix: '/website',
+  pathPrefix: '/',
   siteMetadata: {
     title: 'Keycap Archivist',
     description: '',
     author: '@keycap-archivist',
-    siteUrl: 'https://keycap-archivist.github.io/website/',
+    siteUrl: 'https://keycap-archivist.com/',
   },
   plugins,
 };
