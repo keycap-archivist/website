@@ -26,7 +26,7 @@ function SEO({ description, title, img }) {
   );
 
   const metaDescription = description || site.siteMetadata.description;
-  const compiledTitle = `${site.siteMetadata.title} - ${title}`;
+  const compiledTitle = `${title}`;
 
   return (
     <GatsbySeo

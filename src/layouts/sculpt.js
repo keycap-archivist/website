@@ -20,7 +20,7 @@ const Maker = (props) => {
   const toCopy = `${location.origin}${location.pathname}`;
   return (
     <Layout>
-      <SEO title={seoTitle} />
+      <SEO title={seoTitle} img={sculpt.previewImg} />
       <h2 className="text-3xl my-6">
         <Link to={makerUrl}>{maker.name}</Link> / <span className="font-bold">{sculpt.name}</span>
       </h2>
