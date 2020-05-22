@@ -16,7 +16,10 @@ const Maker = (props) => {
     <Layout>
       <SEO title={seoTitle} img={sculpt.previewImg} />
       <h2 className="text-3xl my-6">
-        <Link to={makerUrl} className="text-blue-600">{maker.name}</Link> / <span className="font-bold">{sculpt.name}</span>
+        <Link to={makerUrl} className="text-blue-600">
+          {maker.name}
+        </Link>{' '}
+        / <span className="font-bold">{sculpt.name}</span>
       </h2>
       <ul className="flex flex-wrap flex-col md:flex-row w-full md:-mx-2">
         {sculpt.colorways.map((c) => (

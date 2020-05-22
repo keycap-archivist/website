@@ -26,7 +26,12 @@ const Header = ({ siteTitle }) => (
             </a>
           </li>
           <li>
-            <a href="https://discord.gg/nXrShaa" target="_blank" rel="noopener noreferrer" className="text-white text-xl">
+            <a
+              href="https://discord.gg/nXrShaa"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white text-xl"
+            >
               <FontAwesomeIcon icon={['fab', 'discord']} />
             </a>
           </li>

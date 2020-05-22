@@ -15,8 +15,14 @@ const Maker = (props) => {
     <Layout>
       <SEO title={seoTitle} img={colorway.img} />
       <h2 className="text-3xl my-6">
-        <Link to={makerUrl} className="text-blue-600">{makerName}</Link> / <Link to={sculptUrl} className="text-blue-600">{sculptName}</Link> /{' '}
-        <span className="font-bold">{colorway.name}</span>
+        <Link to={makerUrl} className="text-blue-600">
+          {makerName}
+        </Link>{' '}
+        /{' '}
+        <Link to={sculptUrl} className="text-blue-600">
+          {sculptName}
+        </Link>{' '}
+        / <span className="font-bold">{colorway.name}</span>
       </h2>
       <div className="flex">
         <div className="flex flex-col md:w-2/5 bg-white p-2">
