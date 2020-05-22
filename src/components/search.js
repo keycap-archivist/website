@@ -40,8 +40,9 @@ const Search = () => {
     }
     const innerQuery = q.toLowerCase();
     const out = [];
+    let countCw = 0;
     for (const m of store) {
-      if (out.length === MAX_RESULT) {
+      if (countCw === MAX_RESULT) {
         break;
       }
       if (m.context.maker && m.context.maker.name.toLowerCase().indexOf(innerQuery) > -1) {
@@ -64,11 +65,12 @@ const Search = () => {
       if (m.context.sculpt) {
         const f = m.context.sculpt.colorways.find((x) => x.name.toLowerCase().indexOf(innerQuery) > -1);
         if (f) {
+          countCw += 1;
           out.push({
             type: 'colorway',
             id: f.id,
             title: `${m.context.maker.name} ${m.context.sculpt.name} ${f.name}`,
-            url: `${m.path}#${f.id}`,
+            url: `${m.path}/${f.id}`,
           });
         }
       }
@@ -151,7 +153,7 @@ const Search = () => {
         />
       </div>
       {results.length ? (
-        <div className="search__list absolute bg-white shadow rounded border-black p-1">
+        <div className="search__list bg-white shadow rounded border-black p-1">
           <ResultList />
         </div>
       ) : (
