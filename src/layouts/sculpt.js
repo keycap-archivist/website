@@ -15,7 +15,7 @@ const Maker = (props) => {
   return (
     <Layout>
       <SEO title={seoTitle} img={sculpt.previewImg} />
-      <h2 className="text-3xl my-6">
+      <div>
         <Link to="/" className="text-blue-600">
           <FontAwesomeIcon icon={['fas', 'home']} />
         </Link>
@@ -23,18 +23,34 @@ const Maker = (props) => {
         <Link to={makerUrl} className="text-blue-600">
           {maker.name}
         </Link>
-        <span className="text-gray-400"> / </span>
+      </div>
+      <h2 className="text-3xl my-6">
         <span className="font-bold">{sculpt.name}</span>
       </h2>
-      <ul className="flex flex-wrap flex-col md:flex-row w-full md:-mx-2">
+      <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
         {sculpt.colorways.map((c) => (
-          <li key={c.id} id={c.id} className={'flex w-64 mx-auto md:m-0 md:w-1/3 lg:w-1/5 py-2 md:px-2'}>
-            <Link to={`${location.pathname}/${c.id}`} className="flex flex-col max-w-full min-w-full bg-white p-2">
+          <li key={c.id} id={c.id} className="flex h-auto w-1/2 md:w-1/4 lg:w-1/5 py-1 px-1">
+            <Link
+              to={`${location.pathname}/${c.id}`}
+              className="
+                flex
+                flex-col
+                justify-between
+                max-w-full
+                min-w-full
+                bg-white
+                p-2
+                bg-white
+                hover:text-blue-600
+                shadow-xs
+                hover:shadow-md
+                pb-4"
+            >
               <div className="w-full h-full bg-gray-300 thumbnail-wrapper">
                 <img className="h-full w-full object-cover" src={c.img} />
               </div>
-              <div className="font-bold pt-4 pb-2 px-2 text-center">
-                <div className="pr-3">{c.name}</div>
+              <div className="font-bold pt-3 px-2 text-center">
+                <div className="text-sm">{c.name}</div>
               </div>
             </Link>
           </li>

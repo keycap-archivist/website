@@ -33,7 +33,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header siteTitle={data.site.siteMetadata.title} />
-      <div className="container mx-auto px-3">
+      <div className="container mx-auto px-3 pb-8">
         <main>{children}</main>
         {/* <footer>© {new Date().getFullYear()}</footer> */}
       </div>

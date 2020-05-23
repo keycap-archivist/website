@@ -14,7 +14,7 @@ const Maker = (props) => {
   return (
     <Layout>
       <SEO title={seoTitle} img={colorway.img} />
-      <h2 className="text-3xl my-6">
+      <div>
         <Link to="/" className="text-blue-600">
           <FontAwesomeIcon icon={['fas', 'home']} />
         </Link>
@@ -26,7 +26,8 @@ const Maker = (props) => {
         <Link to={sculptUrl} className="text-blue-600">
           {sculptName}
         </Link>
-        <span className="text-gray-400"> / </span>
+      </div>
+      <h2 className="text-3xl my-6">
         <span className="font-bold">{colorway.name}</span>
       </h2>
       <div className="flex">
