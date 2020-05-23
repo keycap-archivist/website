@@ -35,7 +35,7 @@ const Layout = ({ children }) => {
       <Header siteTitle={data.site.siteMetadata.title} />
       <div className="container mx-auto px-3">
         <main>{children}</main>
-        <footer className="py-10 text-xs text-gray-500 text-center">© {new Date().getFullYear()}</footer>
+        {/* <footer>© {new Date().getFullYear()}</footer> */}
       </div>
     </>
   );
