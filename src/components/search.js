@@ -92,13 +92,13 @@ const Search = () => {
     const output = [];
     if (artists.length) {
       output.push(
-        <div className="item-cat-title font-bold bg-blue-700 text-white p-2 rounded rounded-b-none">
-          <span>Artist</span>
+        <div className="item-cat-title">
+          <span className="item-cat-text">Artists</span>
         </div>,
       );
       output.push(
         ...artists.map((page, i) => (
-          <div className="item-search hover:font-bold px-2 py-1" key={i}>
+          <div className="item-search" key={i}>
             <Link to={page.url} className="link">
               <h4>{page.title}</h4>
             </Link>
@@ -108,13 +108,13 @@ const Search = () => {
     }
     if (sculpts.length) {
       output.push(
-        <div className="item-cat-title font-bold bg-blue-700 text-white p-2 rounded rounded-b-none">
-          <span>Sculpt</span>
+        <div className="item-cat-title">
+          <span className="item-cat-text">Sculpts</span>
         </div>,
       );
       output.push(
         ...sculpts.map((page, i) => (
-          <div className="item-search hover:font-bold px-2 py-1" key={i}>
+          <div className="item-search" key={i}>
             <Link to={page.url} className="link">
               <h4>{page.title}</h4>
             </Link>
@@ -124,13 +124,13 @@ const Search = () => {
     }
     if (cws.length) {
       output.push(
-        <div className="item-cat-title font-bold bg-blue-700 text-white p-2 rounded rounded-b-none">
-          <span>Colorways</span>
+        <div className="item-cat-title">
+          <span className="item-cat-text">Colorways</span>
         </div>,
       );
       output.push(
         ...cws.map((page, i) => (
-          <div className="item-search hover:font-bold px-2 py-1" key={i}>
+          <div className="item-search" key={i}>
             <Link to={page.url} className="link">
               <h4>{page.title}</h4>
             </Link>
@@ -143,22 +143,22 @@ const Search = () => {
 
   return (
     <>
-      <div className="relative mr-6">
+      <div className="w-full mr-6">
         <input
-          className="search__input bg-purple-white shadow rounded border-0 p-2"
+          className="search__input bg-purple-white shadow rounded border-0 p-2 w-full"
           type="search"
           onChange={handleChange}
           placeholder={'Search'}
           value={query}
         />
+        {results.length ? (
+          <div className="search__list">
+            <ResultList />
+          </div>
+        ) : (
+          ''
+        )}
       </div>
-      {results.length ? (
-        <div className="search__list bg-white shadow rounded border-black p-1">
-          <ResultList />
-        </div>
-      ) : (
-        ''
-      )}
     </>
   );
 };

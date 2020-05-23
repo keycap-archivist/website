@@ -7,12 +7,12 @@ import Search from './search';
 const Header = ({ siteTitle }) => (
   <header className="bg-blue-700 mb-3">
     <div className="container flex flex-col md:flex-row items-center justify-between mx-auto px-3 py-5">
-      <h1 className="m-0 mb-3 md:mb-0">
+      <h1 className="m-0 mb-5 md:mb-0">
         <Link to="/" className="text-xl font-bold text-white">
           {siteTitle}
         </Link>
       </h1>
-      <div className="flex flex-row justify-between items-center">
+      <div className="flex flex-row justify-between items-center relative w-full relative md:w-3/5 lg:w-2/5 ">
         <Search />
         <ul className="flex flex-row items-center list-none space-x-3">
           <li>
