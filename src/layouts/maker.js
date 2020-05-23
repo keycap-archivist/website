@@ -18,7 +18,7 @@ const Maker = (props) => {
         </Link>
       </div>
       <h2 className="text-3xl my-6">
-        <span className="font-bold">{maker.id}</span>
+        <span className="font-bold">{maker.name}</span>
       </h2>
       <h3 className="text-xl">Sculpts</h3>
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
