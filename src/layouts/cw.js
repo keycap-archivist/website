@@ -25,7 +25,7 @@ const Maker = (props) => {
         / <span className="font-bold">{colorway.name}</span>
       </h2>
       <div className="flex">
-        <div className="flex flex-col md:w-2/5 bg-white p-2">
+        <div className="flex flex-col md:w-2/5 bg-white p-2 ml-auto mr-auto">
           <div className="w-full h-full bg-gray-300">
             <img className="h-full w-full object-cover" src={colorway.img} />
           </div>
