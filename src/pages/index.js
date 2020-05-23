@@ -47,12 +47,9 @@ const IndexPage = () => {
       <SEO title="Home" />
       <ul className="flex flex-wrap flex-col md:flex-row w-full md:m-0 md:-mx-1">
         {data.allSitePage.nodes.map((element) => (
-          <li key={element.id} className="flex md:w-1/3 lg:w-1/4 py-1 md:px-2">
-            <Link
-              to={element.path}
-              className="block w-full py-4 font-semibold text-lg text-center border border-l-4 bg-white"
-            >
-              <div className="w-full h-full bg-gray-300 thumbnail-wrapper">
+          <li key={element.id} className="flex md:w-1/4 lg:w-1/5 py-2 md:px-2">
+            <Link to={element.path} className="block w-full py-4 font-semibold text-lg text-center border bg-white">
+              <div className="w-full h-full bg-gray-300 logo-wrapper">
                 <Img fluid={getImg(element.context.maker.id)} className="h-full w-full object-cover" alt="" />
               </div>
               <div className="font-bold pt-4 pb-2 px-2 text-center">
