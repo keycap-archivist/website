@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -11,7 +12,13 @@ const Maker = (props) => {
   return (
     <Layout>
       <SEO title={maker.name} />
-      <h2 className="text-4xl my-6">{maker.name}</h2>
+      <h2 className="text-3xl my-6">
+        <Link to="/" className="text-blue-600">
+          <FontAwesomeIcon icon={['fas', 'home']} />
+        </Link>
+        <span className="text-gray-400"> / </span>
+        <span className="font-bold">{maker.name}</span>
+      </h2>
       <h3 className="text-xl">Sculpts</h3>
       <ul className="flex flex-wrap flex-col md:flex-row w-full md:-mx-2">
         {maker.sculpts.map((s) => (

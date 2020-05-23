@@ -15,14 +15,19 @@ const Maker = (props) => {
     <Layout>
       <SEO title={seoTitle} img={colorway.img} />
       <h2 className="text-3xl my-6">
+        <Link to="/" className="text-blue-600">
+          <FontAwesomeIcon icon={['fas', 'home']} />
+        </Link>
+        <span className="text-gray-400"> / </span>
         <Link to={makerUrl} className="text-blue-600">
           {makerName}
-        </Link>{' '}
-        /{' '}
+        </Link>
+        <span className="text-gray-400"> / </span>
         <Link to={sculptUrl} className="text-blue-600">
           {sculptName}
-        </Link>{' '}
-        / <span className="font-bold">{colorway.name}</span>
+        </Link>
+        <span className="text-gray-400"> / </span>
+        <span className="font-bold">{colorway.name}</span>
       </h2>
       <div className="flex">
         <div className="flex flex-col md:w-2/5 bg-white p-2 ml-auto mr-auto">
