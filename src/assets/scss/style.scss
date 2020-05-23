@@ -21,3 +21,14 @@ li.highlight {
     max-height: 219px;
   }
 }
+
+.logo-wrapper {
+  width: 100%;
+  height: auto;
+}
+
+.logo-wrapper > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
