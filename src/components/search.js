@@ -19,6 +19,7 @@ const Search = () => {
                 name
                 id
               }
+              id
               name
             }
             maker {
@@ -42,13 +43,9 @@ const Search = () => {
     const out = [];
     let countCw = 0;
     for (const m of store) {
-      if (countCw === MAX_RESULT) {
-        break;
-      }
       if (m.context.maker && m.context.maker.name.toLowerCase().indexOf(innerQuery) > -1) {
         if (!out.find((x) => x.type === 'artist' && x.id === m.context.maker.id)) {
           out.push({ type: 'artist', id: m.context.maker.id, title: `${m.context.maker.name}`, url: m.path });
-          continue;
         }
       }
       if (m.context.sculpt && m.context.sculpt.name.toLowerCase().indexOf(innerQuery) > -1) {
@@ -59,10 +56,9 @@ const Search = () => {
             title: `${m.context.maker.name} ${m.context.sculpt.name}`,
             url: `${m.path}`,
           });
-          continue;
         }
       }
-      if (m.context.sculpt) {
+      if (m.context.sculpt && countCw !== MAX_RESULT) {
         const f = m.context.sculpt.colorways.find((x) => x.name.toLowerCase().indexOf(innerQuery) > -1);
         if (f) {
           countCw += 1;
@@ -92,13 +88,13 @@ const Search = () => {
     const output = [];
     if (artists.length) {
       output.push(
-        <div className="item-cat-title">
+        <div className="item-cat-title" key={'maker-title'}>
           <span className="item-cat-text">Artists</span>
         </div>,
       );
       output.push(
         ...artists.map((page, i) => (
-          <div className="item-search" key={i}>
+          <div className="item-search" key={`maker-${i}`}>
             <Link to={page.url} className="link">
               <h4>{page.title}</h4>
             </Link>
@@ -108,13 +104,13 @@ const Search = () => {
     }
     if (sculpts.length) {
       output.push(
-        <div className="item-cat-title">
+        <div className="item-cat-title" key={'sculpt-title'}>
           <span className="item-cat-text">Sculpts</span>
         </div>,
       );
       output.push(
         ...sculpts.map((page, i) => (
-          <div className="item-search" key={i}>
+          <div className="item-search" key={`sculpt-${i}`}>
             <Link to={page.url} className="link">
               <h4>{page.title}</h4>
             </Link>
@@ -124,13 +120,13 @@ const Search = () => {
     }
     if (cws.length) {
       output.push(
-        <div className="item-cat-title">
+        <div className="item-cat-title" key={'cw-title'}>
           <span className="item-cat-text">Colorways</span>
         </div>,
       );
       output.push(
         ...cws.map((page, i) => (
-          <div className="item-search" key={i}>
+          <div className="item-search" key={`cw-${i}`}>
             <Link to={page.url} className="link">
               <h4>{page.title}</h4>
             </Link>
