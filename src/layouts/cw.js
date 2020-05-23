@@ -33,7 +33,7 @@ const Maker = (props) => {
           <span className="font-bold leading-none">{colorway.name}</span>
         </h2>
         <div className="flex-shrink-0 mt-1">
-          <CopyToClipboard text={window.location.href}>
+          <CopyToClipboard text={location.href}>
             <button className="block bg-blue-500 hover:bg-blue-700 text-white font-bold text-sm py-2 px-3 rounded">
               Copy link
             </button>
