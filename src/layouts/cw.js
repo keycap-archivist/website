@@ -8,7 +8,7 @@ import Layout from '../components/layout';
 import SEO from '../components/seo';
 
 const Maker = (props) => {
-  const { pageContext } = props;
+  const { pageContext, location } = props;
   const { makerUrl, makerName, sculptUrl, sculptName, colorway } = pageContext;
   const seoTitle = `${makerName} - ${sculptName} - ${colorway.name}`;
 
