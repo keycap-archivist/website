@@ -15,7 +15,7 @@ const Maker = (props) => {
   return (
     <Layout>
       <SEO title={seoTitle} img={sculpt.previewImg} />
-      <div>
+      <div className="pt-4">
         <Link to="/" className="text-blue-600">
           <FontAwesomeIcon icon={['fas', 'home']} />
         </Link>

@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-// import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 
@@ -11,10 +11,11 @@ const Maker = (props) => {
   const { pageContext } = props;
   const { makerUrl, makerName, sculptUrl, sculptName, colorway } = pageContext;
   const seoTitle = `${makerName} - ${sculptName} - ${colorway.name}`;
+
   return (
     <Layout>
       <SEO title={seoTitle} img={colorway.img} />
-      <div>
+      <div className="pt-4">
         <Link to="/" className="text-blue-600">
           <FontAwesomeIcon icon={['fas', 'home']} />
         </Link>
@@ -27,19 +28,22 @@ const Maker = (props) => {
           {sculptName}
         </Link>
       </div>
-      <h2 className="text-3xl my-6">
-        <span className="font-bold">{colorway.name}</span>
-      </h2>
+      <div className="flex flex-col sm:flex-row justify-between my-6">
+        <h2 className="text-3xl mb-2 sm:mb-0">
+          <span className="font-bold leading-none">{colorway.name}</span>
+        </h2>
+        <div className="flex-shrink-0 mt-1">
+          <CopyToClipboard text={window.location.href}>
+            <button className="block bg-blue-500 hover:bg-blue-700 text-white font-bold text-sm py-2 px-3 rounded">
+              Copy link
+            </button>
+          </CopyToClipboard>
+        </div>
+      </div>
       <div className="flex">
-        <div className="flex flex-col md:w-2/5 bg-white p-2 ml-auto mr-auto">
+        <div className="flex flex-col md:w-2/5 bg-white p-2">
           <div className="w-full h-full bg-gray-300">
             <img className="h-full w-full object-cover" src={colorway.img} />
-          </div>
-          <div className="flex flex-row justify-between content-center font-bold pt-4 pb-2 px-2">
-            <div className="pr-3">{colorway.name}</div>
-            <span className="cursor-pointer text-sm text-blue-500 hover:text-blue-800">
-              <FontAwesomeIcon icon={['fas', 'link']} />
-            </span>
           </div>
         </div>
       </div>
