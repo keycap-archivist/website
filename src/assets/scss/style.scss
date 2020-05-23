@@ -19,10 +19,7 @@
 }
 
 .search__list {
-  position: absolute;
-  top: 102px;
-
-  @media (min-width: 768px) {
-    top: 60px;
-  }
+  max-height: 75vh;
+  width: 100%;
+  top: calc(100% + 0.5rem);
 }

@@ -6,3 +6,43 @@ body {
     @apply bg-gray-200;
     @apply text-gray-900;
 }
+
+.search__list {
+    @apply inset-x-0;
+    @apply absolute;
+    @apply overflow-y-scroll;
+    @apply bg-white;
+    @apply shadow;
+    @apply rounded;
+    @apply bg-gray-800;
+    @apply text-white p-4;
+}
+
+.search__list .item-cat-title {
+    @apply pt-2 pb-1 mb-1;
+    @apply border-b-2;
+    @apply border-gray-500;
+}
+
+.search__list .item-cat-title:first-child {
+    @apply pt-0;
+}
+
+.search__list .item-cat-text {
+    @apply uppercase;
+    @apply text-xs;
+    @apply font-bold;
+    @apply text-gray-500;
+}
+
+.search__list .item-search {
+    @apply py-1;
+}
+
+.search__list .link {
+    @apply text-sm;
+}
+
+.search__list .link:hover {
+    @apply text-blue-500;
+}
