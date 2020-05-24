@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'gatsby';
+import { useStaticQuery, graphql, Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Layout from '../components/layout';
@@ -9,9 +9,33 @@ const Maker = (props) => {
   const { pageContext } = props;
   const { maker } = pageContext;
 
+  const logos = useStaticQuery(graphql`
+    query SeoLogo {
+      allFile(filter: { relativePath: { glob: "logos/*" } }) {
+        nodes {
+          id
+          childImageSharp {
+            fixed {
+              src
+              originalName
+            }
+          }
+        }
+      }
+    }
+  `).allFile.nodes;
+
+  const getLogoMaker = (id) => {
+    const f = logos.find((x) => x.childImageSharp.fixed.originalName.startsWith(id));
+    if (f) {
+      return f.childImageSharp.fixed.src;
+    }
+    return '/android-chrome-512x512.png';
+  };
+
   return (
     <Layout>
-      <SEO title={maker.name} />
+      <SEO title={maker.name} img={getLogoMaker(maker.id)} />
       <div className="pt-4">
         <Link to="/" className="text-blue-600">
           <FontAwesomeIcon icon={['fas', 'home']} />
@@ -20,7 +44,6 @@ const Maker = (props) => {
       <h2 className="text-3xl my-6">
         <span className="font-bold">{maker.name}</span>
       </h2>
-      <h3 className="text-xl">Sculpts</h3>
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
         {maker.sculpts.map((s) => (
           <li key={s.id} className="flex h-auto w-1/2 md:w-1/4 lg:w-1/5 py-1 px-1">
