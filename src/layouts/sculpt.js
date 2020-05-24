@@ -50,7 +50,7 @@ const Maker = (props) => {
                 <img className="h-full w-full object-cover" src={c.img} />
               </div>
               <div className="font-bold pt-3 px-2 text-center">
-                <div className="text-sm">{c.name}</div>
+                <div className="text-sm">{c.name ? c.name : '(Unknown)'}</div>
               </div>
             </Link>
           </li>
