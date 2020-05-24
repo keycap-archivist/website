@@ -10,7 +10,7 @@ const path = require('path');
 const fs = require('fs');
 const _ = require('lodash');
 
-const slug = (d) => slugify(d, { replacement: '-', remove: /[.:?]/g, lower: true }).toLowerCase();
+const slug = (d) => slugify(d, { replacement: '-', remove: /[.:?()]/g, lower: true }).toLowerCase();
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
@@ -66,7 +66,7 @@ exports.createPages = async ({ graphql, actions }) => {
   let db = JSON.parse(fs.readFileSync('./src/db/catalog.json'));
   // While developing only getting the 2 first makers
   if (process.env.TARGET === 'DEV') {
-    db = [db[0], db[1]];
+    // db = [db[0], db[1]];
   }
   db.forEach((maker) => {
     maker.sculpts.forEach((element) => {
