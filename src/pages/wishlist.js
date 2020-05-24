@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -9,7 +9,7 @@ const baseAPIurl = 'https://app.keycap-archivist.com/api/v1';
 
 const Wishlist = () => {
   const [b64Img, setB64Img] = useState(null);
-  const [wishlist, setStateWishlist] = useState(getWishlist());
+  const [wishlist, setStateWishlist] = useState(undefined);
 
   const imgPlaceholder = () => {
     if (b64Img) {
@@ -45,35 +45,41 @@ const Wishlist = () => {
       >
         Reset DEV
       </button>
-      {wishlist.items.map((x) => (
-        <li key={x.id}>
-          {x.id}
-          <img style={{ maxWidth: '200px' }} src={`${baseAPIurl}/img/${x.id}`} />
-          {x.prio ? (
-            <button
-              onClick={() => setStateWishlist(setPriority(x.id, false))}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-700 rounded"
-            >
-              remove Priority
-            </button>
-          ) : (
-            <button
-              onClick={() => setStateWishlist(setPriority(x.id, true))}
-              className="bg-green-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-700 rounded"
-            >
-              add Priority
-            </button>
-          )}
-          <button
-            onClick={() => setStateWishlist(rmCap(x.id))}
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-700 rounded"
-          >
-            X
-          </button>
-        </li>
-      ))}
+      {wishlist
+        ? wishlist.items.map((x) => (
+            <li key={x.id}>
+              {x.id}
+              <img style={{ maxWidth: '200px' }} src={`${baseAPIurl}/img/${x.id}`} />
+              {x.prio ? (
+                <button
+                  onClick={() => setStateWishlist(setPriority(x.id, false))}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-700 rounded"
+                >
+                  remove Priority
+                </button>
+              ) : (
+                <button
+                  onClick={() => setStateWishlist(setPriority(x.id, true))}
+                  className="bg-green-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-700 rounded"
+                >
+                  add Priority
+                </button>
+              )}
+              <button
+                onClick={() => setStateWishlist(rmCap(x.id))}
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-700 rounded"
+              >
+                X
+              </button>
+            </li>
+        ))
+        : ''}
     </ul>
   );
+
+  useEffect(() => {
+    setStateWishlist(getWishlist());
+  }, []);
 
   return (
     <Layout>
@@ -81,9 +87,8 @@ const Wishlist = () => {
       <h1>Wishlist</h1>
       {imgPlaceholder()}
       <button onClick={genWishlist} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        test
+        Generate
       </button>
-      <p>diz iz da wishlist</p>
       {wishlistPlaceHolder()}
     </Layout>
   );

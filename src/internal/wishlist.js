@@ -33,18 +33,17 @@ function setWishlist(wishlist) {
 }
 
 function getWishlist() {
-  const d = getDefaultWishlist();
   const w = localStorageLoad(CONSTS.wishlist);
   if (w) {
     try {
       return JSON.parse(w);
     } catch (e) {
-      setWishlist(d);
-      return d;
+      console.log('Unable to read the Wishlist object');
     }
   }
+  const d = getDefaultWishlist();
   setWishlist(d);
-  return getDefaultWishlist();
+  return d;
 }
 
 function addCap(id) {
