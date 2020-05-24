@@ -1,5 +1,5 @@
 /* eslint-disable no-return-assign */
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -11,6 +11,11 @@ const Maker = (props) => {
   const { pageContext, location } = props;
   const { makerUrl, makerName, sculptUrl, sculptName, colorway } = pageContext;
   const seoTitle = `${makerName} - ${colorway.name} ${sculptName}`;
+  const [state, setState] = useState({ text: 'Copy link' });
+
+  const updateText = () => {
+    setState({ text: 'Copied!' });
+  };
 
   return (
     <Layout>
@@ -34,9 +39,9 @@ const Maker = (props) => {
             <span className="font-bold leading-none">{colorway.name ? colorway.name : '(Unknown)'}</span>
           </h2>
           <div className="flex-shrink-0 mt-1">
-            <CopyToClipboard text={location.href}>
+            <CopyToClipboard text={location.href} onCopy={updateText}>
               <button className="block bg-blue-500 hover:bg-blue-700 text-white font-bold text-sm py-2 px-3 rounded">
-                Copy link
+                {state.text}
               </button>
             </CopyToClipboard>
           </div>

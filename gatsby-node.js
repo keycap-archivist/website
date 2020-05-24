@@ -10,7 +10,7 @@ const path = require('path');
 const fs = require('fs');
 const _ = require('lodash');
 
-const slug = (d) => slugify(d, { replacement: '-', remove: /[.:?]/g, lower: true }).toLowerCase();
+const slug = (d) => slugify(d, { replacement: '-', remove: /[.:?()'"/]/g, lower: true }).toLowerCase();
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
