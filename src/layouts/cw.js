@@ -10,40 +10,42 @@ import SEO from '../components/seo';
 const Maker = (props) => {
   const { pageContext, location } = props;
   const { makerUrl, makerName, sculptUrl, sculptName, colorway } = pageContext;
-  const seoTitle = `${makerName} - ${sculptName} - ${colorway.name}`;
+  const seoTitle = `${makerName} - ${colorway.name} ${sculptName}`;
 
   return (
     <Layout>
       <SEO title={seoTitle} img={colorway.img} />
-      <div className="pt-4">
-        <Link to="/" className="text-blue-600">
-          <FontAwesomeIcon icon={['fas', 'home']} />
-        </Link>
-        <span className="text-gray-400"> / </span>
-        <Link to={makerUrl} className="text-blue-600">
-          {makerName}
-        </Link>
-        <span className="text-gray-400"> / </span>
-        <Link to={sculptUrl} className="text-blue-600">
-          {sculptName}
-        </Link>
-      </div>
-      <div className="flex flex-col sm:flex-row justify-between my-6">
-        <h2 className="text-3xl mb-2 sm:mb-0">
-          <span className="font-bold leading-none">{colorway.name}</span>
-        </h2>
-        <div className="flex-shrink-0 mt-1">
-          <CopyToClipboard text={location.href}>
-            <button className="block bg-blue-500 hover:bg-blue-700 text-white font-bold text-sm py-2 px-3 rounded">
-              Copy link
-            </button>
-          </CopyToClipboard>
+      <div className="lg:w-2/5 mx-auto">
+        <div className="pt-4">
+          <Link to="/" className="text-blue-600">
+            <FontAwesomeIcon icon={['fas', 'home']} />
+          </Link>
+          <span className="text-gray-400"> / </span>
+          <Link to={makerUrl} className="text-blue-600">
+            {makerName}
+          </Link>
+          <span className="text-gray-400"> / </span>
+          <Link to={sculptUrl} className="text-blue-600">
+            {sculptName}
+          </Link>
         </div>
-      </div>
-      <div className="flex">
-        <div className="flex flex-col md:w-2/5 bg-white p-2">
-          <div className="w-full h-full bg-gray-300">
-            <img className="h-full w-full object-cover" src={colorway.img} />
+        <div className="flex flex-col sm:flex-row justify-between my-6">
+          <h2 className="text-3xl mb-2 mr-2 leading-snug sm:mb-0">
+            <span className="font-bold leading-none">{colorway.name ? colorway.name : '(Unknown)'}</span>
+          </h2>
+          <div className="flex-shrink-0 mt-1">
+            <CopyToClipboard text={location.href}>
+              <button className="block bg-blue-500 hover:bg-blue-700 text-white font-bold text-sm py-2 px-3 rounded">
+                Copy link
+              </button>
+            </CopyToClipboard>
+          </div>
+        </div>
+        <div className="flex bg-white">
+          <div className="flex flex-col p-5 mx-auto">
+            <div className="w-full h-full bg-gray-300">
+              <img className="block h-full w-full object-cover" src={colorway.img} />
+            </div>
           </div>
         </div>
       </div>
