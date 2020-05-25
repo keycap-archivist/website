@@ -67,10 +67,15 @@ function resetWishlist() {
   return d;
 }
 
+function isInWishlist(w, id) {
+  return w && w.items && w.items.findIndex((x) => x.id === id) > -1;
+}
+
 module.exports = {
   getWishlist,
   setWishlist,
   resetWishlist,
   addCap,
   rmCap,
+  isInWishlist,
 };

@@ -1,9 +1,14 @@
 /* eslint-disable no-return-assign */
+<<<<<<< HEAD
 import React, { useState } from 'react';
+=======
+import React, { useState, useEffect } from 'react';
+>>>>>>> feat: add action for wishlist addition / removal
 import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+
+import { getWishlist, isInWishlist, rmCap, addCap } from '../internal/wishlist';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 
@@ -16,6 +21,11 @@ const Maker = (props) => {
   const updateText = () => {
     setState({ text: 'Copied!' });
   };
+
+  const [wishlist, setStateWishlist] = useState(undefined);
+  useEffect(() => {
+    setStateWishlist(getWishlist());
+  }, []);
 
   return (
     <Layout>
@@ -44,6 +54,21 @@ const Maker = (props) => {
                 {state.text}
               </button>
             </CopyToClipboard>
+            {isInWishlist(wishlist, colorway.id) ? (
+            <button
+              onClick={() => setStateWishlist(rmCap(colorway.id))}
+              className="block bg-red-500 hover:bg-red-700 text-white font-bold text-sm py-2 px-3 rounded"
+            >
+              Remove from wishlist
+            </button>
+          ) : (
+            <button
+              onClick={() => setStateWishlist(addCap(colorway.id))}
+              className="block bg-green-500 hover:bg-green-700 text-white font-bold text-sm py-2 px-3 rounded"
+            >
+              Add to wishlist
+            </button>
+          )}
           </div>
         </div>
         <div className="flex bg-white">
