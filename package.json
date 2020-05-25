@@ -50,7 +50,7 @@
     "lint": "npx eslint ./src --ext js",
     "build": "gatsby build",
     "package": "cross-env TARGET=PROD gatsby build --prefix-paths && cp CNAME public/CNAME",
-    "develop": "cross-env TARGET=DEV gatsby develop",
+    "develop": "cross-env TARGET=DEV gatsby develop --host=0.0.0.0",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",

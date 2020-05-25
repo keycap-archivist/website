@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { ReactSortable } from 'react-sortablejs';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import Layout from '../components/layout';
-import SEO from '../components/seo';
 
+import SEO from '../components/seo';
+import Layout from '../components/layout';
 import { getWishlist, setWishlist, rmCap, resetWishlist } from '../internal/wishlist';
 
 const baseAPIurl = 'https://app.keycap-archivist.com/api/v1';
@@ -14,7 +15,14 @@ const Wishlist = () => {
 
   const imgPlaceholder = () => {
     if (b64Img) {
-      return <img style={{ maxWidth: '500px' }} src={`data:image/jpeg;base64,${b64Img}`} />;
+      return (
+        <>
+          <img style={{ maxWidth: '500px' }} src={`data:image/jpeg;base64,${b64Img}`} />
+          <a href={`data:image/jpeg;base64,${b64Img}`} download="wishlist.jpg">
+            download Wishlist
+          </a>
+        </>
+      );
     }
     return '';
   };
@@ -64,12 +72,8 @@ const Wishlist = () => {
         {wishlist
           ? wishlist.items.map((x) => (
               <li key={x.id}>
-                {x.id}
-                <img
-                  className="cursor-pointer handle"
-                  style={{ maxWidth: '200px' }}
-                  src={`${baseAPIurl}/img/${x.id}`}
-                />
+                <FontAwesomeIcon className="cursor-move handle" icon="align-justify" />
+                <img style={{ maxWidth: '200px' }} src={`${baseAPIurl}/img/${x.id}`} />
                 {x.prio ? (
                   <button
                     onClick={() => setStateWishlist(setPriority(x.id, false))}
