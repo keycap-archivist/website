@@ -60,13 +60,6 @@ function rmCap(id) {
   return w;
 }
 
-// Only for dev
-function resetWishlist() {
-  const d = getDefaultWishlist();
-  setWishlist(d);
-  return d;
-}
-
 function isInWishlist(w, id) {
   return w && w.items && w.items.findIndex((x) => x.id === id) > -1;
 }
