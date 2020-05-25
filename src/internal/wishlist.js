@@ -16,7 +16,16 @@ function localStorageSet(key, value) {
 }
 
 const defaultWishlist = {
-  settings: {},
+  settings: {
+    titleText: '',
+    extraText: '',
+    bg: 'Black',
+    titleColor: 'Red',
+    titlePolice: 'RedRock',
+    textColor: 'White',
+    extraTextColor: 'White',
+    capsPerLine: 3,
+  },
   items: [
     { id: '702c4f18', prio: false },
     { id: 'f733ff0b', prio: false },

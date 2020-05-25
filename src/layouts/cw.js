@@ -51,20 +51,20 @@ const Maker = (props) => {
               </button>
             </CopyToClipboard>
             {isInWishlist(wishlist, colorway.id) ? (
-            <button
-              onClick={() => setStateWishlist(rmCap(colorway.id))}
-              className="block bg-red-500 hover:bg-red-700 text-white font-bold text-sm py-2 px-3 rounded"
-            >
-              Remove from wishlist
-            </button>
-          ) : (
-            <button
-              onClick={() => setStateWishlist(addCap(colorway.id))}
-              className="block bg-green-500 hover:bg-green-700 text-white font-bold text-sm py-2 px-3 rounded"
-            >
-              Add to wishlist
-            </button>
-          )}
+              <button
+                onClick={() => setStateWishlist(rmCap(colorway.id))}
+                className="block bg-red-500 hover:bg-red-700 text-white font-bold text-sm py-2 px-3 rounded"
+              >
+                Remove from wishlist
+              </button>
+            ) : (
+              <button
+                onClick={() => setStateWishlist(addCap(colorway.id))}
+                className="block bg-green-500 hover:bg-green-700 text-white font-bold text-sm py-2 px-3 rounded"
+              >
+                Add to wishlist
+              </button>
+            )}
           </div>
         </div>
         <div className="flex bg-white">
