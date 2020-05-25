@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ReactSortable } from 'react-sortablejs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
@@ -12,7 +12,12 @@ const baseAPIurl = 'https://app.keycap-archivist.com/api/v1';
 
 const Wishlist = () => {
   const [b64Img, setB64Img] = useState(null);
-  const [wishlist, setStateWishlist] = useState(getWishlist());
+  const [wishlist, setStateWishlist] = useState({ settings: {}, items: [] });
+
+  // Required for SSR
+  useEffect(() => {
+    setStateWishlist(getWishlist());
+  }, []);
 
   const imgPlaceholder = () => {
     if (b64Img) {
