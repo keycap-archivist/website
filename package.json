@@ -30,6 +30,7 @@
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.12.0",
     "react-helmet-async": "^1.0.6",
+    "react-sortablejs": "^2.0.11",
     "slugify": "^1.4.0",
     "tailwindcss": "^1.4.6"
   },

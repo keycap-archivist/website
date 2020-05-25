@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ReactSortable } from 'react-sortablejs';
 import axios from 'axios';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -38,43 +39,63 @@ const Wishlist = () => {
   };
 
   const wishlistPlaceHolder = () => (
-    <ul>
+    <>
       <button
         className="bg-green-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-700 rounded"
         onClick={() => setStateWishlist(resetWishlist())}
       >
         Reset DEV
       </button>
-      {wishlist
-        ? wishlist.items.map((x) => (
-            <li key={x.id}>
-              {x.id}
-              <img style={{ maxWidth: '200px' }} src={`${baseAPIurl}/img/${x.id}`} />
-              {x.prio ? (
+      <ReactSortable
+        handle=".handle"
+        tag="ul"
+        list={wishlist ? wishlist.items : []}
+        setList={(e) => {
+          // Update the state of the component only
+          const w = { ...wishlist };
+          w.items = e;
+          setStateWishlist(w);
+        }}
+        onEnd={() => {
+          // write the wishlist in the localstorage onEnd only
+          setWishlist(wishlist);
+        }}
+      >
+        {wishlist
+          ? wishlist.items.map((x) => (
+              <li key={x.id}>
+                {x.id}
+                <img
+                  className="cursor-pointer handle"
+                  style={{ maxWidth: '200px' }}
+                  src={`${baseAPIurl}/img/${x.id}`}
+                />
+                {x.prio ? (
+                  <button
+                    onClick={() => setStateWishlist(setPriority(x.id, false))}
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-700 rounded"
+                  >
+                    remove Priority
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setStateWishlist(setPriority(x.id, true))}
+                    className="bg-green-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-700 rounded"
+                  >
+                    add Priority
+                  </button>
+                )}
                 <button
-                  onClick={() => setStateWishlist(setPriority(x.id, false))}
+                  onClick={() => setStateWishlist(rmCap(x.id))}
                   className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-700 rounded"
                 >
-                  remove Priority
+                  X
                 </button>
-              ) : (
-                <button
-                  onClick={() => setStateWishlist(setPriority(x.id, true))}
-                  className="bg-green-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-700 rounded"
-                >
-                  add Priority
-                </button>
-              )}
-              <button
-                onClick={() => setStateWishlist(rmCap(x.id))}
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-700 rounded"
-              >
-                X
-              </button>
-            </li>
-        ))
-        : ''}
-    </ul>
+              </li>
+            ))
+          : ''}
+      </ReactSortable>
+    </>
   );
 
   useEffect(() => {
