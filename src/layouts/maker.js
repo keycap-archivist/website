@@ -64,7 +64,14 @@ const Maker = (props) => {
                 pb-4"
             >
               <div className="w-full h-full thumbnail-wrapper">
-                <img src={s.previewImg} className="h-full w-full object-cover" />
+                <img
+                  loading="lazy"
+                  src={s.previewImg}
+                  className="h-full
+                    w-full
+                    object-cover"
+                  alt={`${maker.name} - ${s.name}`}
+                />
               </div>
               <div className="font-bold pt-3 px-2 text-center">
                 <div className="text-sm">{s.name}</div>

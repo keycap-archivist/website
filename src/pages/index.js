@@ -61,7 +61,13 @@ const IndexPage = () => {
                 hover:shadow-md"
             >
               <div className="w-full bg-white border-b-2 border-gray-300">
-                <Img fluid={getImg(element.context.maker.id)} className="block" alt="" width="500" height="500" />
+                <Img
+                  fluid={getImg(element.context.maker.id)}
+                  className="block"
+                  alt={element.context.maker.name}
+                  width="500"
+                  height="500"
+                />
               </div>
               <div className="font-bold pt-3 px-2 text-center">
                 <div className="text-sm">{element.context.maker.name}</div>
