@@ -49,7 +49,7 @@ const Maker = (props) => {
         <div className="flex bg-white">
           <div className="flex flex-col p-5 mx-auto">
             <div className="w-full h-full bg-gray-300">
-              <img className="block h-full w-full object-cover" src={colorway.img} />
+              <img loading="lazy" className="block h-full w-full object-cover" alt={seoTitle} src={colorway.img} />
             </div>
           </div>
         </div>

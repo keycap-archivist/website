@@ -3,7 +3,6 @@ import React from 'react';
 import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-// import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 
@@ -47,7 +46,12 @@ const Maker = (props) => {
                 pb-4"
             >
               <div className="w-full h-full bg-gray-300 thumbnail-wrapper">
-                <img className="h-full w-full object-cover" src={c.img} />
+                <img
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                  src={c.img}
+                  alt={`${maker.name} - ${sculpt.name} - ${c.name}`}
+                />
               </div>
               <div className="font-bold pt-3 px-2 text-center">
                 <div className="text-sm">{c.name ? c.name : '(Unknown)'}</div>
