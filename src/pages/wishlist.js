@@ -48,12 +48,6 @@ const Wishlist = () => {
 
   const wishlistPlaceHolder = () => (
     <>
-      <button
-        className="bg-green-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-700 rounded"
-        onClick={() => setStateWishlist(resetWishlist())}
-      >
-        Reset DEV
-      </button>
       <ReactSortable
         handle=".handle"
         tag="ul"
