@@ -67,7 +67,6 @@ function isInWishlist(w, id) {
 module.exports = {
   getWishlist,
   setWishlist,
-  resetWishlist,
   addCap,
   rmCap,
   isInWishlist,
