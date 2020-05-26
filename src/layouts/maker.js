@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
+import ThumbnailImage from '../components/thumbnail-image';
 
 const Maker = (props) => {
   const { pageContext } = props;
@@ -64,7 +65,7 @@ const Maker = (props) => {
                 pb-4"
             >
               <div className="w-full h-full thumbnail-wrapper">
-                <img
+                <ThumbnailImage
                   loading="lazy"
                   src={s.previewImg}
                   className="h-full

@@ -5,12 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
+import ThumbnailImage from '../components/thumbnail-image';
 
 const Maker = (props) => {
   const { pageContext, location } = props;
   const { maker, makerUrl, sculpt } = pageContext;
 
   const seoTitle = `${maker.name} - ${sculpt.name}`;
+
   return (
     <Layout>
       <SEO title={seoTitle} img={sculpt.previewImg} />
@@ -46,7 +48,7 @@ const Maker = (props) => {
                 pb-4"
             >
               <div className="w-full h-full bg-gray-300 thumbnail-wrapper">
-                <img
+                <ThumbnailImage
                   loading="lazy"
                   className="h-full w-full object-cover"
                   src={c.img}
