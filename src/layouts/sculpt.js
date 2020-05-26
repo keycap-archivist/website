@@ -11,6 +11,15 @@ const Maker = (props) => {
   const { maker, makerUrl, sculpt } = pageContext;
 
   const seoTitle = `${maker.name} - ${sculpt.name}`;
+
+  // Consider handling SRCset
+  const previewImg = (src) => {
+    if (src.indexOf('googleusercontent') > -1) {
+      return `${src}=s219`;
+    }
+    return src;
+  };
+
   return (
     <Layout>
       <SEO title={seoTitle} img={sculpt.previewImg} />
@@ -49,7 +58,7 @@ const Maker = (props) => {
                 <img
                   loading="lazy"
                   className="h-full w-full object-cover"
-                  src={c.img}
+                  src={previewImg(c.img)}
                   alt={`${maker.name} - ${sculpt.name} - ${c.name}`}
                 />
               </div>

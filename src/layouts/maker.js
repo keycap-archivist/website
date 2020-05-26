@@ -33,6 +33,14 @@ const Maker = (props) => {
     return '/android-chrome-512x512.png';
   };
 
+  // Consider handling SRCset
+  const previewImg = (src) => {
+    if (src.indexOf('googleusercontent') > -1) {
+      return `${src}=s219`;
+    }
+    return src;
+  };
+
   return (
     <Layout>
       <SEO title={maker.name} img={getLogoMaker(maker.id)} />
@@ -66,7 +74,7 @@ const Maker = (props) => {
               <div className="w-full h-full thumbnail-wrapper">
                 <img
                   loading="lazy"
-                  src={s.previewImg}
+                  src={previewImg(s.previewImg)}
                   className="h-full
                     w-full
                     object-cover"
