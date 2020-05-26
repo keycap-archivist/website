@@ -6,6 +6,7 @@ import { Link, graphql, useStaticQuery } from 'gatsby';
 const MAX_RESULT = 20;
 
 const Search = () => {
+  const [showResult, setShowResult] = useState(false);
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
 
@@ -74,11 +75,17 @@ const Search = () => {
     return out;
   };
 
+  // Might need to move to an async handler
   const handleChange = (event) => {
     const currentQuery = event.target.value;
     setQuery(event.target.value);
     const r = getSearchResults(currentQuery);
     setResults(r);
+    if (r.length) {
+      setShowResult(true);
+    } else {
+      setShowResult(false);
+    }
   };
 
   const ResultList = () => {
@@ -137,6 +144,16 @@ const Search = () => {
     return output;
   };
 
+  const onFocus = () => {
+    if (results.length) {
+      setShowResult(true);
+    }
+  };
+
+  const onBlur = () => {
+    setShowResult(false);
+  };
+
   return (
     <>
       <div className="w-full mr-6">
@@ -146,8 +163,10 @@ const Search = () => {
           onChange={handleChange}
           placeholder={'Search'}
           value={query}
+          onFocus={onFocus}
+          onBlur={onBlur}
         />
-        {results.length ? (
+        {showResult ? (
           <div className="search__list">
             <ResultList />
           </div>
