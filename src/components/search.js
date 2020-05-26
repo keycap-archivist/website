@@ -9,6 +9,7 @@ const Search = () => {
   const [showResult, setShowResult] = useState(false);
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
+  const [searchTimeout, setSearchTimeout] = useState(undefined);
 
   const store = useStaticQuery(graphql`
     query localSearch {
@@ -75,10 +76,7 @@ const Search = () => {
     return out;
   };
 
-  // Might need to move to an async handler
-  const handleChange = (event) => {
-    const currentQuery = event.target.value;
-    setQuery(event.target.value);
+  const searchForResults = (currentQuery) => {
     const r = getSearchResults(currentQuery);
     setResults(r);
     if (r.length) {
@@ -86,6 +84,14 @@ const Search = () => {
     } else {
       setShowResult(false);
     }
+  };
+
+  const handleChange = (event) => {
+    const currentQuery = event.target.value;
+    setQuery(event.target.value);
+
+    clearTimeout(searchTimeout);
+    setSearchTimeout(setTimeout(searchForResults, 400, currentQuery));
   };
 
   const ResultList = () => {
