@@ -5,20 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
+import ThumbnailImage from '../components/thumbnail-image';
 
 const Maker = (props) => {
   const { pageContext, location } = props;
   const { maker, makerUrl, sculpt } = pageContext;
 
   const seoTitle = `${maker.name} - ${sculpt.name}`;
-
-  // Consider handling SRCset
-  const previewImg = (src) => {
-    if (src.indexOf('googleusercontent') > -1) {
-      return `${src}=s219`;
-    }
-    return src;
-  };
 
   return (
     <Layout>
@@ -55,10 +48,10 @@ const Maker = (props) => {
                 pb-4"
             >
               <div className="w-full h-full bg-gray-300 thumbnail-wrapper">
-                <img
+                <ThumbnailImage
                   loading="lazy"
                   className="h-full w-full object-cover"
-                  src={previewImg(c.img)}
+                  src={c.img}
                   alt={`${maker.name} - ${sculpt.name} - ${c.name}`}
                 />
               </div>
