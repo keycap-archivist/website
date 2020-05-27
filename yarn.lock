@@ -6025,16 +6025,6 @@ gatsby-page-utils@^0.2.1:
     lodash "^4.17.15"
     micromatch "^3.1.10"
 
-gatsby-plugin-manifest@^2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-manifest/-/gatsby-plugin-manifest-2.4.2.tgz#0a9605a778a8e30ce047b9b3701031b9bde61d6b"
-  integrity sha512-G6MB1/Me4waG/z3Aj1GEqXCfY/yftyMLKp8g83uGvuBDtgLGN5unVgYqdmKAyBFQTvczsUghZ7jBrApHeaTn4w==
-  dependencies:
-    "@babel/runtime" "^7.9.6"
-    gatsby-core-utils "^1.2.1"
-    semver "^5.7.1"
-    sharp "^0.25.1"
-
 gatsby-plugin-next-seo@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-next-seo/-/gatsby-plugin-next-seo-1.5.1.tgz#161532b6af4e548b1e6ee3fe01a8ea1fd62ee55c"
@@ -11286,6 +11276,11 @@ querystringify@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.1.1.tgz#60e5a5fd64a7f8bfa4d2ab2ed6fdf4c85bad154e"
   integrity sha512-w7fLxIRCRT7U8Qu53jQnJyPkYZIaR4n5151KMfcJlO/A9397Wxb1amJvROTK6TOnp7PfoAmg/qXiNHI+08jRfA==
+
+quick-score@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/quick-score/-/quick-score-0.0.8.tgz#9b07057ae1ab72f939dad4aea1c17098b0f2db5f"
+  integrity sha512-nCWx9FPiVvNeO8aUkrikrVL/v0XIGQSMQMBLLTXa/d64Wb/w8v8odSiuQAMPez20HdOngWPB8LcB8SfnIoE8bA==
 
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5:
   version "2.1.0"
