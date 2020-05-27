@@ -2,6 +2,7 @@
 /* eslint-disable no-continue */
 import React, { useState } from 'react';
 import { Link, graphql, useStaticQuery } from 'gatsby';
+import { quickScore } from 'quick-score';
 
 const MAX_RESULT = 20;
 
@@ -41,16 +42,26 @@ const Search = () => {
     if (q.length < 2) {
       return [];
     }
-    const innerQuery = q.toLowerCase();
+    const innerQuery = q.toLowerCase().trim();
     const out = [];
-    let countCw = 0;
+    const innerRegex = new RegExp(innerQuery, 'ig');
+    const cwResults = [];
     for (const m of store) {
-      if (m.context.maker && m.context.maker.name.toLowerCase().indexOf(innerQuery) > -1) {
+      // maker
+      innerRegex.lastIndex = 0;
+      if (m.context.maker && !m.context.sculpt && innerRegex.test(m.context.maker.name)) {
         if (!out.find((x) => x.type === 'artist' && x.id === m.context.maker.id)) {
           out.push({ type: 'artist', id: m.context.maker.id, title: `${m.context.maker.name}`, url: m.path });
         }
       }
-      if (m.context.sculpt && m.context.sculpt.name.toLowerCase().indexOf(innerQuery) > -1) {
+
+      if (!m.context.sculpt) {
+        continue;
+      }
+
+      // Sculpt
+      innerRegex.lastIndex = 0;
+      if (m.context.sculpt && innerRegex.test(`${m.context.maker.name} ${m.context.sculpt.name}`)) {
         if (!out.find((x) => x.type === 'sculpt' && x.id === m.context.sculpt.id)) {
           out.push({
             type: 'sculpt',
@@ -60,19 +71,30 @@ const Search = () => {
           });
         }
       }
-      if (m.context.sculpt && countCw !== MAX_RESULT) {
-        const f = m.context.sculpt.colorways.find((x) => x.name.toLowerCase().indexOf(innerQuery) > -1);
-        if (f) {
-          countCw += 1;
-          out.push({
+
+      /**
+       * Colorways are using quickscore to get the best matching
+       */
+      cwResults.push(
+        ...m.context.sculpt.colorways.map((x) => {
+          const title = `${m.context.maker.name} ${m.context.sculpt.name} ${x.name}`.toLowerCase();
+          return {
             type: 'colorway',
-            id: f.id,
-            title: `${m.context.maker.name} ${m.context.sculpt.name} ${f.name}`,
-            url: `${m.path}/${f.id}`,
-          });
-        }
-      }
+            id: x.id,
+            title,
+            score: quickScore(title, innerQuery),
+            url: `${m.path}/${x.id}`,
+          };
+        }),
+      );
     }
+
+    out.push(
+      ...cwResults
+        .filter((x) => x.score !== 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, MAX_RESULT),
+    );
     return out;
   };
 
