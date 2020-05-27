@@ -89,9 +89,12 @@ const Search = () => {
   const handleChange = (event) => {
     const currentQuery = event.target.value;
     setQuery(event.target.value);
-
-    clearTimeout(searchTimeout);
-    setSearchTimeout(setTimeout(searchForResults, 400, currentQuery));
+    if (!currentQuery) {
+      searchForResults(currentQuery);
+    } else {
+      clearTimeout(searchTimeout);
+      setSearchTimeout(setTimeout(searchForResults, 400, currentQuery));
+    }
   };
 
   const ResultList = () => {
@@ -156,31 +159,24 @@ const Search = () => {
     }
   };
 
-  const onBlur = () => {
-    setShowResult(false);
-  };
-
   return (
-    <>
-      <div className="w-full mr-6">
-        <input
-          className="search__input bg-purple-white shadow rounded border-0 p-2 w-full"
-          type="search"
-          onChange={handleChange}
-          placeholder={'Search'}
-          value={query}
-          onFocus={onFocus}
-          onBlur={onBlur}
-        />
-        {showResult ? (
-          <div className="search__list">
-            <ResultList />
-          </div>
-        ) : (
-          ''
-        )}
-      </div>
-    </>
+    <div className="w-full mr-6">
+      <input
+        className="search__input bg-purple-white shadow rounded border-0 p-2 w-full"
+        type="search"
+        onChange={handleChange}
+        placeholder={'Search'}
+        value={query}
+        onFocus={onFocus}
+      />
+      {showResult ? (
+        <div className="search__list">
+          <ResultList />
+        </div>
+      ) : (
+        ''
+      )}
+    </div>
   );
 };
 
