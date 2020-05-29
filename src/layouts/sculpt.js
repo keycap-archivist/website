@@ -53,12 +53,22 @@ const Maker = (props) => {
                 hover:shadow-md
                 pb-4"
             >
-              <div className="w-full h-full bg-gray-300 thumbnail-wrapper">
+              <div
+                className="
+                w-full
+                h-full
+                bg-gray-300
+                thumbnail-wrapper
+                relative
+                overflow-hidden"
+              >
                 <img className="h-full w-full object-cover" src={c.img} />
               </div>
-              <div className="font-bold pt-3 px-2 text-center">
-                <div className="text-sm">{c.name ? c.name : '(Unknown)'}</div>
-                {isInWishlist(wishlist, c.id) ? 'IN' : '!IN'}
+              <div className="font-bold flex flex-row pt-3 px-2 relative">
+                {isInWishlist(wishlist, c.id) && (
+                  <FontAwesomeIcon className="absolute star-icon text-yellow-500" icon={['fas', 'star']} />
+                )}
+                <div className="text-sm text-center w-full px-5">{c.name ? c.name : '(Unknown)'}</div>
               </div>
             </Link>
           </li>
