@@ -3,8 +3,11 @@
 import React, { useState } from 'react';
 import { Link, graphql, useStaticQuery } from 'gatsby';
 import { quickScore } from 'quick-score';
+import { uniqBy } from 'lodash';
 
-const MAX_RESULT = 20;
+const MAX_CW_RESULT = 20;
+const MAX_SCULPT_RESULT = 10;
+const MAX_MAKER_RESULT = 5;
 
 const Search = () => {
   const [showResult, setShowResult] = useState(false);
@@ -14,7 +17,7 @@ const Search = () => {
 
   const store = useStaticQuery(graphql`
     query localSearch {
-      allSitePage(filter: { context: { type: { in: ["maker", "sculpt"] } } }) {
+      allSitePage(filter: { context: { type: { in: ["sculpt"] } } }) {
         nodes {
           context {
             sculpt {
@@ -44,57 +47,63 @@ const Search = () => {
     }
     const innerQuery = q.toLowerCase().trim();
     const out = [];
-    const innerRegex = new RegExp(innerQuery, 'ig');
     const cwResults = [];
     for (const m of store) {
-      // maker
-      innerRegex.lastIndex = 0;
-      if (m.context.maker && !m.context.sculpt && innerRegex.test(m.context.maker.name)) {
-        if (!out.find((x) => x.type === 'artist' && x.id === m.context.maker.id)) {
-          out.push({ type: 'artist', id: m.context.maker.id, title: `${m.context.maker.name}`, url: m.path });
-        }
-      }
-
-      if (!m.context.sculpt) {
-        continue;
-      }
-
-      // Sculpt
-      innerRegex.lastIndex = 0;
-      if (m.context.sculpt && innerRegex.test(`${m.context.maker.name} ${m.context.sculpt.name}`)) {
-        if (!out.find((x) => x.type === 'sculpt' && x.id === m.context.sculpt.id)) {
-          out.push({
-            type: 'sculpt',
-            id: m.context.sculpt.id,
-            title: `${m.context.maker.name} ${m.context.sculpt.name}`,
-            url: `${m.path}`,
-          });
-        }
-      }
-
-      /**
-       * Colorways are using quickscore to get the best matching
-       */
       cwResults.push(
         ...m.context.sculpt.colorways.map((x) => {
-          const title = `${m.context.maker.name} ${m.context.sculpt.name} ${x.name}`.toLowerCase();
+          const titleTest = `${m.context.maker.name} ${m.context.sculpt.name} ${x.name}`.toLowerCase();
+          const titleDisplay = `${m.context.maker.name} ${m.context.sculpt.name} ${x.name}`;
           return {
             type: 'colorway',
+            sculpt: m.context.sculpt,
+            maker: m.context.maker,
             id: x.id,
-            title,
-            score: quickScore(title, innerQuery),
+            title: titleDisplay,
+            score: quickScore(titleTest, innerQuery),
+            sculptUrl: `${m.path}`,
             url: `${m.path}/${x.id}`,
           };
         }),
       );
     }
 
-    out.push(
-      ...cwResults
-        .filter((x) => x.score !== 0)
-        .sort((a, b) => b.score - a.score)
-        .slice(0, MAX_RESULT),
+    const preResult = cwResults
+      .filter((x) => x.score !== 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, MAX_CW_RESULT);
+    out.push(...preResult);
+
+    const sculpts = uniqBy(
+      [
+        ...preResult.map((x) => ({
+          url: x.sculptUrl,
+          type: 'sculpt',
+          title: `${x.maker.name} ${x.sculpt.name}`,
+          id: x.sculpt.id,
+          sculpt: x.sculpt,
+        })),
+      ],
+      (x) => x.id,
     );
+    out.push(...sculpts.slice(0, MAX_SCULPT_RESULT));
+
+    const artists = uniqBy(
+      [
+        ...preResult.map((x) => {
+          const arrUrl = x.sculptUrl.split('/');
+          return {
+            url: `${arrUrl.slice(0, arrUrl.length - 1).join('/')}`,
+            type: 'artist',
+            title: x.maker.name,
+            id: x.maker.id,
+            sculpt: x.sculpt,
+          };
+        }),
+      ],
+      (x) => x.id,
+    );
+    out.push(...artists.slice(0, MAX_MAKER_RESULT));
+
     return out;
   };
 
