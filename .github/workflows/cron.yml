@@ -34,5 +34,4 @@ jobs:
           git add src/db/catalog.json
           git commit -m "Update catalog" || true
           git push -f || true
-          cd ..
           node scripts/discord-update.js
