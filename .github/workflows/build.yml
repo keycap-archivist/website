@@ -36,6 +36,8 @@ jobs:
       - name: Package website
         run: yarn package
       - name: push Website
+        env:
+          DISCORD_HOOK: ${{ secrets.DISCORD_HOOK }}
         run: |
           rm -rf gh-pages/*
           cp -r public/* gh-pages/
