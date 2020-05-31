@@ -44,4 +44,5 @@ jobs:
           git add .
           git commit -m "update-website" || true
           git push -f || true
+          cd ..
           node scripts/discord-update.js
