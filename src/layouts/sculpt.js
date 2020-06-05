@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { sortBy } from 'lodash';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -29,7 +30,7 @@ const Maker = (props) => {
         <span className="font-bold">{sculpt.name}</span>
       </h2>
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
-        {sculpt.colorways.map((c) => (
+        {sortBy(sculpt.colorways, (x) => x.name).map((c) => (
           <li key={c.id} id={c.id} className="flex h-auto w-1/2 md:w-1/4 lg:w-1/5 py-1 px-1">
             <Link
               to={`${location.pathname}/${c.id}`}
