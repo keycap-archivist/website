@@ -1,6 +1,7 @@
 import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { sortBy } from 'lodash';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -46,7 +47,7 @@ const Maker = (props) => {
         <span className="font-bold">{maker.name}</span>
       </h2>
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
-        {maker.sculpts.map((s) => (
+        {sortBy(maker.sculpts, (x) => x.name).map((s) => (
           <li key={s.id} className="flex h-auto w-1/2 md:w-1/4 lg:w-1/5 py-1 px-1">
             <Link
               to={s.link}
