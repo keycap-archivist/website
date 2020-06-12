@@ -21,7 +21,7 @@ const Header = ({ siteTitle }) => (
             Wishlist
           </Link>
         </div>
-        <div className="mr-6">
+        <div className="mr-6 mb-2 md:mb-0">
           <Search />
         </div>
         <ul className="flex flex-row items-center list-none space-x-3">
