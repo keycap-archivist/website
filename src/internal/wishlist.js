@@ -26,11 +26,7 @@ const defaultWishlist = {
     extraTextColor: 'White',
     capsPerLine: 3,
   },
-  items: [
-    { id: '702c4f18', prio: false },
-    { id: 'f733ff0b', prio: false },
-    { id: '486a0062', prio: true },
-  ],
+  items: [],
 };
 
 function getDefaultWishlist() {
