@@ -13,7 +13,7 @@ const baseAPIurl = 'https://app.keycap-archivist.com/api/v1';
 const Wishlist = () => {
   const [b64Img, setB64Img] = useState(null);
   const [errorLoading, setErrorLoading] = useState(false);
-  const [wishlistLoading, setWishlistLoading] = useState(true);
+  const [wishlistLoading, setWishlistLoading] = useState(false);
   const [wishlist, setStateWishlist] = useState({ settings: {}, items: [] });
 
   // Required for SSR
