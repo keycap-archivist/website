@@ -2,16 +2,22 @@
 /* eslint-disable no-continue */
 import React, { useState } from 'react';
 import { Link, graphql, useStaticQuery } from 'gatsby';
+import { quickScore } from 'quick-score';
+import { uniqBy } from 'lodash';
 
-const MAX_RESULT = 20;
+const MAX_CW_RESULT = 20;
+const MAX_SCULPT_RESULT = 10;
+const MAX_MAKER_RESULT = 5;
 
 const Search = () => {
+  const [showResult, setShowResult] = useState(false);
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
+  const [searchTimeout, setSearchTimeout] = useState(undefined);
 
   const store = useStaticQuery(graphql`
     query localSearch {
-      allSitePage(filter: { context: { type: { in: ["maker", "sculpt"] } } }) {
+      allSitePage(filter: { context: { type: { in: ["sculpt"] } } }) {
         nodes {
           context {
             sculpt {
@@ -39,46 +45,87 @@ const Search = () => {
     if (q.length < 2) {
       return [];
     }
-    const innerQuery = q.toLowerCase();
+    const innerQuery = q.toLowerCase().trim();
     const out = [];
-    let countCw = 0;
+    const cwResults = [];
     for (const m of store) {
-      if (m.context.maker && m.context.maker.name.toLowerCase().indexOf(innerQuery) > -1) {
-        if (!out.find((x) => x.type === 'artist' && x.id === m.context.maker.id)) {
-          out.push({ type: 'artist', id: m.context.maker.id, title: `${m.context.maker.name}`, url: m.path });
-        }
-      }
-      if (m.context.sculpt && m.context.sculpt.name.toLowerCase().indexOf(innerQuery) > -1) {
-        if (!out.find((x) => x.type === 'sculpt' && x.id === m.context.sculpt.id)) {
-          out.push({
-            type: 'sculpt',
-            id: m.context.sculpt.id,
-            title: `${m.context.maker.name} ${m.context.sculpt.name}`,
-            url: `${m.path}`,
-          });
-        }
-      }
-      if (m.context.sculpt && countCw !== MAX_RESULT) {
-        const f = m.context.sculpt.colorways.find((x) => x.name.toLowerCase().indexOf(innerQuery) > -1);
-        if (f) {
-          countCw += 1;
-          out.push({
+      cwResults.push(
+        ...m.context.sculpt.colorways.map((x) => {
+          const titleTest = `${m.context.maker.name} ${m.context.sculpt.name} ${x.name}`.toLowerCase();
+          const titleDisplay = `${m.context.maker.name} ${m.context.sculpt.name} ${x.name}`;
+          return {
             type: 'colorway',
-            id: f.id,
-            title: `${m.context.maker.name} ${m.context.sculpt.name} ${f.name}`,
-            url: `${m.path}/${f.id}`,
-          });
-        }
-      }
+            sculpt: m.context.sculpt,
+            maker: m.context.maker,
+            id: x.id,
+            title: titleDisplay,
+            score: quickScore(titleTest, innerQuery),
+            sculptUrl: `${m.path}`,
+            url: `${m.path}/${x.id}`,
+          };
+        }),
+      );
     }
+
+    const preResult = cwResults
+      .filter((x) => x.score !== 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, MAX_CW_RESULT);
+    out.push(...preResult);
+
+    const sculpts = uniqBy(
+      [
+        ...preResult.map((x) => ({
+          url: x.sculptUrl,
+          type: 'sculpt',
+          title: `${x.maker.name} ${x.sculpt.name}`,
+          id: x.sculpt.id,
+          sculpt: x.sculpt,
+        })),
+      ],
+      (x) => x.id,
+    );
+    out.push(...sculpts.slice(0, MAX_SCULPT_RESULT));
+
+    const artists = uniqBy(
+      [
+        ...preResult.map((x) => {
+          const arrUrl = x.sculptUrl.split('/');
+          return {
+            url: `${arrUrl.slice(0, arrUrl.length - 1).join('/')}`,
+            type: 'artist',
+            title: x.maker.name,
+            id: x.maker.id,
+            sculpt: x.sculpt,
+          };
+        }),
+      ],
+      (x) => x.id,
+    );
+    out.push(...artists.slice(0, MAX_MAKER_RESULT));
+
     return out;
+  };
+
+  const searchForResults = (currentQuery) => {
+    const r = getSearchResults(currentQuery);
+    setResults(r);
+    if (r.length) {
+      setShowResult(true);
+    } else {
+      setShowResult(false);
+    }
   };
 
   const handleChange = (event) => {
     const currentQuery = event.target.value;
     setQuery(event.target.value);
-    const r = getSearchResults(currentQuery);
-    setResults(r);
+    if (!currentQuery) {
+      searchForResults(currentQuery);
+    } else {
+      clearTimeout(searchTimeout);
+      setSearchTimeout(setTimeout(searchForResults, 400, currentQuery));
+    }
   };
 
   const ResultList = () => {
@@ -137,25 +184,30 @@ const Search = () => {
     return output;
   };
 
+  const onFocus = () => {
+    if (results.length) {
+      setShowResult(true);
+    }
+  };
+
   return (
-    <>
-      <div className="w-full mr-6">
-        <input
-          className="search__input bg-purple-white shadow rounded border-0 p-2 w-full"
-          type="search"
-          onChange={handleChange}
-          placeholder={'Search'}
-          value={query}
-        />
-        {results.length ? (
-          <div className="search__list">
-            <ResultList />
-          </div>
-        ) : (
-          ''
-        )}
-      </div>
-    </>
+    <div className="w-full mr-6">
+      <input
+        className="search__input bg-purple-white shadow rounded border-0 p-2 w-full"
+        type="search"
+        onChange={handleChange}
+        placeholder={'Search'}
+        value={query}
+        onFocus={onFocus}
+      />
+      {showResult ? (
+        <div className="search__list">
+          <ResultList />
+        </div>
+      ) : (
+        ''
+      )}
+    </div>
   );
 };
 

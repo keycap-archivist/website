@@ -25,6 +25,8 @@ jobs:
       - name: install
         run: yarn
       - name: Update database
+        env:
+          DISCORD_HOOK: ${{ secrets.DISCORD_HOOK }}
         run: |
           yarn update-db
           git config --global user.name 'Keycap Archivist Bot'

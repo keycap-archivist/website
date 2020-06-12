@@ -11287,6 +11287,11 @@ querystringify@^2.1.1:
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.1.1.tgz#60e5a5fd64a7f8bfa4d2ab2ed6fdf4c85bad154e"
   integrity sha512-w7fLxIRCRT7U8Qu53jQnJyPkYZIaR4n5151KMfcJlO/A9397Wxb1amJvROTK6TOnp7PfoAmg/qXiNHI+08jRfA==
 
+quick-score@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/quick-score/-/quick-score-0.0.8.tgz#9b07057ae1ab72f939dad4aea1c17098b0f2db5f"
+  integrity sha512-nCWx9FPiVvNeO8aUkrikrVL/v0XIGQSMQMBLLTXa/d64Wb/w8v8odSiuQAMPez20HdOngWPB8LcB8SfnIoE8bA==
+
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"

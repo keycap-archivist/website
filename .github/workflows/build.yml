@@ -36,6 +36,8 @@ jobs:
       - name: Package website
         run: yarn package
       - name: push Website
+        env:
+          DISCORD_HOOK: ${{ secrets.DISCORD_HOOK }}
         run: |
           rm -rf gh-pages/*
           cp -r public/* gh-pages/
@@ -44,3 +46,5 @@ jobs:
           git add .
           git commit -m "update-website" || true
           git push -f || true
+          cd ..
+          node scripts/discord-update.js

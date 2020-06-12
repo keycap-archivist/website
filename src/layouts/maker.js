@@ -1,9 +1,11 @@
 import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { sortBy } from 'lodash';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
+import ThumbnailImage from '../components/thumbnail-image';
 
 const Maker = (props) => {
   const { pageContext } = props;
@@ -45,7 +47,7 @@ const Maker = (props) => {
         <span className="font-bold">{maker.name}</span>
       </h2>
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
-        {maker.sculpts.map((s) => (
+        {sortBy(maker.sculpts, (x) => x.name).map((s) => (
           <li key={s.id} className="flex h-auto w-1/2 md:w-1/4 lg:w-1/5 py-1 px-1">
             <Link
               to={s.link}
@@ -64,7 +66,14 @@ const Maker = (props) => {
                 pb-4"
             >
               <div className="w-full h-full thumbnail-wrapper">
-                <img src={s.previewImg} className="h-full w-full object-cover" />
+                <ThumbnailImage
+                  loading="lazy"
+                  src={s.previewImg}
+                  className="h-full
+                    w-full
+                    object-cover"
+                  alt={`${maker.name} - ${s.name}`}
+                />
               </div>
               <div className="font-bold pt-3 px-2 text-center">
                 <div className="text-sm">{s.name}</div>
