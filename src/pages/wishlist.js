@@ -12,6 +12,8 @@ const baseAPIurl = 'https://app.keycap-archivist.com/api/v1';
 
 const Wishlist = () => {
   const [b64Img, setB64Img] = useState(null);
+  const [errorLoading, setErrorLoading] = useState(false);
+  const [wishlistLoading, setWishlistLoading] = useState(true);
   const [wishlist, setStateWishlist] = useState({ settings: {}, items: [] });
 
   // Required for SSR
@@ -19,21 +21,21 @@ const Wishlist = () => {
     setStateWishlist(getWishlist());
   }, []);
 
-  const imgPlaceholder = () => {
-    if (b64Img) {
-      return (
-        <>
-          <img style={{ maxWidth: '500px' }} src={`data:image/jpeg;base64,${b64Img}`} />
-          <a href={`data:image/jpeg;base64,${b64Img}`} download="wishlist.jpg">
-            download Wishlist
-          </a>
-        </>
-      );
-    }
-    return '';
-  };
+  // TODO: add wonderfull animation
+  const loadingPlaceholder = () => (wishlistLoading ? <div className="text-center">Currently loading</div> : '');
+
+  // TODO: add sad face :(
+  const errorPlaceholder = () => (errorLoading ? <div className="text-center">Something terrible happpened</div> : '');
+
+  // prettier and eslint are dunmb on this somehow
+  // eslint-disable-next-line no-confusing-arrow
+  const imgPlaceholder = () =>
+    b64Img ? <img src={`data:image/jpeg;base64,${b64Img}`} className="mx-auto max-w-full" /> : '';
 
   const genWishlist = async () => {
+    setErrorLoading(false);
+    setWishlistLoading(true);
+
     const outWishlist = { ...wishlist.settings };
     outWishlist.capsPerLine = parseInt(outWishlist.capsPerLine, 10);
     outWishlist.ids = wishlist.items.map((x) => x.id);
@@ -42,7 +44,12 @@ const Wishlist = () => {
       .post(`${baseAPIurl}`, outWishlist, {
         responseType: 'arraybuffer',
       })
-      .then((response) => Buffer.from(response.data, 'binary').toString('base64'));
+      .then((response) => Buffer.from(response.data, 'binary').toString('base64'))
+      .catch((e) => {
+        console.log(e);
+        setErrorLoading(true);
+      });
+    setWishlistLoading(false);
     setB64Img(b64);
   };
 
@@ -218,6 +225,7 @@ const Wishlist = () => {
       <ReactSortable
         handle=".handle"
         tag="ul"
+        className="mt-6"
         list={wishlist ? wishlist.items : []}
         setList={(e) => {
           // Update the state of the component only
@@ -231,27 +239,32 @@ const Wishlist = () => {
         }}
       >
         {wishlist.items.map((x) => (
-          <li key={x.id}>
-            <FontAwesomeIcon className="cursor-move handle" icon="align-justify" />
-            <img style={{ maxWidth: '200px' }} src={`${baseAPIurl}/img/${x.id}`} />
+          <li key={x.id} className="mt-2">
+            <FontAwesomeIcon className="cursor-move handle inline-block text-3xl mr-6" icon="align-justify" />
+            <img
+              style={{ maxWidth: '150px' }}
+              src={`${baseAPIurl}/img/${x.id}`}
+              className="inline-block rounded-lg max-h-full mr-6"
+            />
+            <span></span>
             {x.prio ? (
               <button
                 onClick={() => setPriority(x.id, false)}
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-700 rounded"
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-700 rounded inline-block mr-6"
               >
                 remove Priority
               </button>
             ) : (
               <button
                 onClick={() => setPriority(x.id, true)}
-                className="bg-green-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-700 rounded"
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 border border-green-700 rounded inline-block mr-6"
               >
                 add Priority
               </button>
             )}
             <button
               onClick={() => setStateWishlist(rmCap(x.id))}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-700 rounded"
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-700 rounded inline-block mr-6"
             >
               X
             </button>
@@ -264,12 +277,35 @@ const Wishlist = () => {
   return (
     <Layout>
       <SEO title="Wishlist" img={'/android-chrome-512x512.png'} />
-      <h1>Wishlist</h1>
+      <h1 className="text-3xl font-bold">Wishlist</h1>
+      {errorPlaceholder()}
+      {loadingPlaceholder()}
       {imgPlaceholder()}
       {wishlistSettings()}
-      <button onClick={genWishlist} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Generate
-      </button>
+
+      <div className="flex flex-wrap">
+        <div className="w-full md:w-1/4 mr-2">
+          <button
+            onClick={genWishlist}
+            className="w-full  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"
+          >
+            Generate
+          </button>
+        </div>
+        <div className="w-full md:w-1/4 mr-2">
+          {b64Img ? (
+            <a
+              href={`data:image/jpeg;base64,${b64Img}`}
+              download="wishlist.jpg"
+              className="block w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded text-center"
+            >
+              download Wishlist
+            </a>
+          ) : (
+            ''
+          )}
+        </div>
+      </div>
       {wishlistPlaceHolder()}
     </Layout>
   );
