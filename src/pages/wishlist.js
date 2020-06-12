@@ -250,21 +250,49 @@ const Wishlist = () => {
             {x.prio ? (
               <button
                 onClick={() => setPriority(x.id, false)}
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-700 rounded inline-block mr-6"
+                className="bg-red-500
+                  hover:bg-red-700
+                  text-white
+                  font-bold
+                  py-1
+                  px-2
+                  border
+                  border-red-700
+                  rounded
+                  inline-block
+                  mr-6"
               >
                 remove Priority
               </button>
             ) : (
               <button
                 onClick={() => setPriority(x.id, true)}
-                className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 border border-green-700 rounded inline-block mr-6"
+                className="bg-green-500
+                 hover:bg-green-700
+                 text-white
+                 font-bold
+                 py-1 px-2
+                 border
+                 border-green-700
+                 rounded
+                 inline-block mr-6"
               >
                 add Priority
               </button>
             )}
             <button
               onClick={() => setStateWishlist(rmCap(x.id))}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-700 rounded inline-block mr-6"
+              className="bg-red-500
+              hover:bg-red-700
+              text-white
+              font-bold
+              py-1
+              px-2
+              border
+              border-red-700
+              rounded
+              inline-block
+              mr-6"
             >
               X
             </button>
@@ -297,7 +325,9 @@ const Wishlist = () => {
             <a
               href={`data:image/jpeg;base64,${b64Img}`}
               download="wishlist.jpg"
-              className="block w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded text-center"
+              className="block w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4
+              rounded
+              text-center"
             >
               download Wishlist
             </a>
