@@ -1,9 +1,10 @@
 /* eslint-disable no-return-assign */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { sortBy } from 'lodash';
 
+import { getWishlist, isInWishlist } from '../internal/wishlist';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import ThumbnailImage from '../components/thumbnail-image';
@@ -13,6 +14,11 @@ const Maker = (props) => {
   const { maker, makerUrl, sculpt } = pageContext;
 
   const seoTitle = `${maker.name} - ${sculpt.name}`;
+
+  const [wishlist, setStateWishlist] = useState(undefined);
+  useEffect(() => {
+    setStateWishlist(getWishlist());
+  }, []);
 
   return (
     <Layout>
@@ -56,8 +62,11 @@ const Maker = (props) => {
                   alt={`${maker.name} - ${sculpt.name} - ${c.name}`}
                 />
               </div>
-              <div className="font-bold pt-3 px-2 text-center">
-                <div className="text-sm">{c.name ? c.name : '(Unknown)'}</div>
+              <div className="font-bold flex flex-row pt-3 px-2 relative">
+                {isInWishlist(wishlist, c.id) && (
+                  <FontAwesomeIcon className="absolute star-icon text-yellow-500" icon={['fas', 'star']} />
+                )}
+                <div className="text-sm text-center w-full px-5">{c.name ? c.name : '(Unknown)'}</div>
               </div>
             </Link>
           </li>

@@ -46,3 +46,7 @@ body {
 .search__list .link:hover {
     @apply text-blue-500;
 }
+
+.star-icon {
+    top: 14px;
+}

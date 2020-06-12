@@ -6,14 +6,24 @@ import Search from './search';
 
 const Header = ({ siteTitle }) => (
   <header className="bg-blue-700 mb-3">
-    <div className="container flex flex-col md:flex-row items-center justify-between mx-auto px-3 py-5">
-      <h1 className="m-0 mb-5 md:mb-0">
+    <nav className="container flex flex-col md:flex-row items-center justify-between mx-auto px-3 py-5">
+      <h1 className="flex items-center flex-shrink-0 text-white mr-6">
         <Link to="/" className="text-xl font-bold text-white">
           {siteTitle}
         </Link>
       </h1>
-      <div className="flex flex-row justify-between items-center relative w-full relative md:w-3/5 lg:w-2/5 ">
-        <Search />
+      <div className="w-full flex-grow block md:flex items-center md:w-auto">
+        <div className="flex-grow mb-4 md:mb-0 pb-3">
+          <Link to="/" className="block mt-4 inline-block lg:mt-0 text-white hover:text-teal-200 mr-4">
+            Catalog
+          </Link>
+          <Link to="/wishlist" className="block mt-4 inline-block mt-0 text-white hover:text-teal-200 mr-4">
+            Wishlist
+          </Link>
+        </div>
+        <div className="mr-6 mb-2 md:mb-0">
+          <Search />
+        </div>
         <ul className="flex flex-row items-center list-none space-x-3">
           <li>
             <a
@@ -37,7 +47,7 @@ const Header = ({ siteTitle }) => (
           </li>
         </ul>
       </div>
-    </div>
+    </nav>
   </header>
 );
 
