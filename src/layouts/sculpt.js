@@ -3,9 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { sortBy } from 'lodash';
-import { getWishlist, isInWishlist } from '../internal/wishlist';
-import { sortBy } from 'lodash';
 
+import { getWishlist, isInWishlist } from '../internal/wishlist';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import ThumbnailImage from '../components/thumbnail-image';
