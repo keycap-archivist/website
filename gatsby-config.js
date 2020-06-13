@@ -1,4 +1,12 @@
 const plugins = [
+  {
+    resolve: 'gatsby-plugin-google-analytics',
+    options: {
+      trackingId: 'UA-169271859-1',
+      head: false,
+      anonymize: true,
+    },
+  },
   'gatsby-plugin-next-seo',
   'gatsby-plugin-sitemap',
   'gatsby-plugin-postcss',
