@@ -129,6 +129,7 @@ const Search = () => {
   };
 
   const ResultList = () => {
+    // TODO: add beeautifull scrollbar
     const artists = results.filter((x) => x.type === 'artist');
     const sculpts = results.filter((x) => x.type === 'sculpt');
     const cws = results.filter((x) => x.type === 'colorway');

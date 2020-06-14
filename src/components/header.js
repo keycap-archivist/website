@@ -13,7 +13,7 @@ const Header = ({ siteTitle }) => (
         </Link>
       </h1>
       <div className="w-full flex-grow block md:flex items-center md:w-auto">
-        <div className="flex-grow mb-4 md:mb-0 pb-3">
+        <div className="flex-grow mb-4 md:mb-0 pb-3 text-center md:text-left">
           <Link to="/" className="block mt-4 inline-block lg:mt-0 text-white hover:text-teal-200 mr-4">
             Catalog
           </Link>
@@ -24,7 +24,7 @@ const Header = ({ siteTitle }) => (
         <div className="mr-6 mb-2 md:mb-0">
           <Search />
         </div>
-        <ul className="flex flex-row items-center list-none space-x-3">
+        <ul className="flex flex-row items-center list-none space-x-3 justify-center md:justify-start">
           <li>
             <a
               href="https://github.com/keycap-archivist"
