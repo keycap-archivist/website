@@ -55,12 +55,12 @@ jobs:
           cd ..
           cd bin-repo
           git config --global user.name 'Keycap Archivist Bot'
-          git branch -D master
           git checkout --orphan temp
           rm -rf ./*
           cp -r ../public/* ./
           git add .
           git commit -m "update-website" || true
+          git branch -D master
           git branch -m master
           git push -f origin master || true
           cd ..
