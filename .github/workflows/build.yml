@@ -18,6 +18,11 @@ jobs:
           path: gh-pages
           ref: gh-pages
           token: ${{ secrets.BOT_PAT }}
+      - uses: actions/checkout@v2
+        with:
+          repository: keycap-archivist/website-bin
+          path: bin-repo
+          token: ${{ secrets.BOT_PAT }}
       - id: nodeversion
         run: echo ::set-output name=NODE::$(cat .nvmrc)
       - name: restore Cache
@@ -41,10 +46,22 @@ jobs:
         run: |
           rm -rf gh-pages/*
           cp -r public/* gh-pages/
+          cp -r public/* bin-repo/
           cd gh-pages
           git config --global user.name 'Keycap Archivist Bot'
           git add .
           git commit -m "update-website" || true
           git push -f || true
+          cd ..
+          cd bin-repo
+          git config --global user.name 'Keycap Archivist Bot'
+          git branch -D master
+          git checkout --orphan temp
+          rm -rf ./*
+          cp -r ../public/* ./
+          git add .
+          git commit -m "update-website" || true
+          git branch -m master
+          git push -f origin master || true
           cd ..
           node scripts/discord-update.js
