@@ -15,11 +15,6 @@ jobs:
           token: ${{ secrets.BOT_PAT }}
       - uses: actions/checkout@v2
         with:
-          path: gh-pages
-          ref: gh-pages
-          token: ${{ secrets.BOT_PAT }}
-      - uses: actions/checkout@v2
-        with:
           repository: keycap-archivist/website-bin
           path: bin-repo
           token: ${{ secrets.BOT_PAT }}
@@ -44,15 +39,6 @@ jobs:
         env:
           DISCORD_HOOK: ${{ secrets.DISCORD_HOOK }}
         run: |
-          rm -rf gh-pages/*
-          cp -r public/* gh-pages/
-          cp -r public/* bin-repo/
-          cd gh-pages
-          git config --global user.name 'Keycap Archivist Bot'
-          git add .
-          git commit -m "update-website" || true
-          git push -f || true
-          cd ..
           cd bin-repo
           git config --global user.name 'Keycap Archivist Bot'
           git checkout --orphan temp
