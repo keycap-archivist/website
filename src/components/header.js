@@ -6,25 +6,44 @@ import Search from './search';
 
 const Header = ({ siteTitle }) => (
   <header className="bg-blue-700 mb-3">
+    <div className="py-1 text-center bg-gray-800 text-white text-xs px-6">
+      We’re actively in development and still in beta. Follow along on{' '}
+      <a href="https://github.com/keycap-archivist" target="_blank" rel="noopener noreferrer" className="font-bold">
+        GitHub
+      </a>{' '}
+      or join our{' '}
+      <a href="https://discord.gg/nXrShaa" target="_blank" rel="noopener noreferrer" className="font-bold">
+        Discord
+      </a>
+      .
+    </div>
     <nav className="container flex flex-col md:flex-row items-center justify-between mx-auto px-3 py-5">
-      <h1 className="flex items-center flex-shrink-0 text-white mr-6">
+      <h1 className="flex items-center flex-shrink-0 mb-2 md:mb-0 text-white">
         <Link to="/" className="text-xl font-bold text-white">
           {siteTitle}
         </Link>
       </h1>
-      <div className="w-full flex-grow block md:flex items-center md:w-auto">
-        <div className="flex-grow mb-4 md:mb-0 pb-3 text-center md:text-left">
-          <Link to="/" className="block mt-4 inline-block lg:mt-0 text-white hover:text-teal-200 mr-4">
+      <div className="w-full flex flex-row flex-wrap md:flex-no-wrap items-center justify-center md:justify-end">
+        <div className="flex flex-row flex-no-wrap items-stretch mr-3 md:mr-6">
+          <Link to="/" className="text-white hover:text-teal-200 mr-3 md:mr-6">
             Catalog
           </Link>
-          <Link to="/wishlist" className="block mt-4 inline-block mt-0 text-white hover:text-teal-200 mr-4">
+          <Link to="/wishlist" className="text-white hover:text-teal-200">
             Wishlist
           </Link>
         </div>
-        <div className="mr-6 mb-2 md:mb-0">
-          <Search />
-        </div>
-        <ul className="flex flex-row items-center list-none space-x-3 justify-center md:justify-start">
+        <ul
+          className="
+          flex
+          flex-row
+          items-center
+          list-none
+          space-x-3
+          md:space-x-6
+          justify-center
+          md:justify-start
+          md:mr-6"
+        >
           <li>
             <a
               href="https://github.com/keycap-archivist"
@@ -46,6 +65,9 @@ const Header = ({ siteTitle }) => (
             </a>
           </li>
         </ul>
+        <div className="w-full md:w-1/3 mt-4 md:mt-0">
+          <Search />
+        </div>
       </div>
     </nav>
   </header>
