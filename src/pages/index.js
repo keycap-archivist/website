@@ -44,7 +44,7 @@ const IndexPage = () => {
 
   return (
     <Layout>
-      <SEO title="Keycap Archivist" img={'/android-chrome-512x512.png'} />
+      <SEO title="" img={'/android-chrome-512x512.png'} />
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
         {data.allSitePage.nodes.map((element) => (
           <li key={element.id} className="flex h-auto w-1/2 md:w-1/4 lg:w-1/5 py-1 px-1">
