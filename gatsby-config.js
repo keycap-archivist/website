@@ -49,7 +49,7 @@ module.exports = {
   pathPrefix: '/',
   siteMetadata: {
     title: 'Keycap Archivist',
-    description: '',
+    description: 'The community driven artisan mechanical keyboard keycap catalog',
     author: '@keycap-archivist',
     siteUrl: 'https://keycap-archivist.com/',
   },
