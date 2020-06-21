@@ -28,8 +28,11 @@ const Header = ({ siteTitle }) => (
           <Link to="/" className="text-white hover:text-teal-200 mr-3 md:mr-6">
             Catalog
           </Link>
-          <Link to="/wishlist" className="text-white hover:text-teal-200">
+          <Link to="/wishlist" className="text-white hover:text-teal-200 mr-3 md:mr-6">
             Wishlist
+          </Link>
+          <Link to="/about" className="text-white hover:text-teal-200">
+            About
           </Link>
         </div>
         <ul
@@ -49,7 +52,7 @@ const Header = ({ siteTitle }) => (
               href="https://github.com/keycap-archivist"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white text-xl"
+              className="text-white text-xl hover:text-teal-200"
             >
               <FontAwesomeIcon icon={['fab', 'github']} />
             </a>
@@ -59,7 +62,7 @@ const Header = ({ siteTitle }) => (
               href="https://discord.gg/nXrShaa"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white text-xl"
+              className="text-white text-xl hover:text-teal-200"
             >
               <FontAwesomeIcon icon={['fab', 'discord']} />
             </a>
