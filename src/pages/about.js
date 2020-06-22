@@ -32,7 +32,7 @@ const About = () => (
         </a>{' '}
         are dowloaded as HTML and parsed to extract the data as the format is the same on every catalog. By then those
         data are exposed throught an open source repository. Once Data is available, couple of things can be made upon
-        it; that's how Keycap Archivist was born. If you want to contribute just visit the{' '}
+        it; that&lsquo;s how Keycap Archivist was born. If you want to contribute just visit the{' '}
         <a
           target="_blank"
           rel="noopener noreferrer"
@@ -55,13 +55,13 @@ const About = () => (
         </a>
       </h2>
       <p className="text-justify">
-        Database generator is a Javascript based project. Each maker got it's <i>importer</i> module, because even if
-        the format is mostly the same there can be some slight differences to handle. All keycap ids are made using a
+        Database generator is a Javascript based project. Each maker got it&lsquo;s <i>importer</i> module, because even
+        if the format is mostly the same there can be some slight differences to handle. All keycap ids are made using a
         CRC32 calculation based on the image url of the keycap.
       </p>
       <p className="text-justify">
-        Once the data is collected, it's formated using this json schema and exposed as separated JSON/CSV files per
-        maker and one exposing the whole catalog in each format. You can check the compiled database files{' '}
+        Once the data is collected, it&lsquo;s formated using this json schema and exposed as separated JSON/CSV files
+        per maker and one exposing the whole catalog in each format. You can check the compiled database files{' '}
         <a
           href="https://github.com/keycap-archivist/database/tree/master/db"
           target="_blank"
@@ -70,7 +70,7 @@ const About = () => (
         >
           here
         </a>
-        . The database is generated every 6 hours and if there is a changed it's pushed to the repository.
+        . The database is generated every 6 hours and if there is a changed it&lsquo;s pushed to the repository.
       </p>
       <h2 className="text-2xl font-bold">
         App{' '}
@@ -90,8 +90,8 @@ const About = () => (
           here
         </Link>
         . There is also couple of other features that will be described in the Open Api description (soon LMAO). This is
-        the only "costly" feature of the project because it needs a server to run and thankfully a community member let
-        us squat its Docker runtime.
+        the only &quot;costly&quot; feature of the project because it needs a server to run and thankfully a community
+        member let us squat its Docker runtime.
       </p>
       <h2 className="text-2xl font-bold">
         Website{' '}
@@ -105,7 +105,7 @@ const About = () => (
         </a>
       </h2>
       <p className="text-justify">
-        The website you're browsing right now is made using{' '}
+        The website you&lsquo;re browsing right now is made using{' '}
         <a
           href="https://github.com/gatsbyjs/gatsby"
           target="_blank"
@@ -115,12 +115,18 @@ const About = () => (
           Gatsby
         </a>{' '}
         and consuming the database generated like explained before. The website repository polls the database revision
-        every 6 hour and check if there is a different revision. If so it's regenerated and pushed on Github Pages.
+        every 6 hour and check if there is a different revision. If so it&lsquo;s regenerated and pushed on Github
+        Pages.
       </p>
       <p className="text-justify mt-6">
         Thanks for taking the time to read this section, if you want to contribute feel free to raise issues on github
         or come discuss with us on{' '}
-        <a href="https://discord.gg/nXrShaa" target="_blank" rel="noopener noreferrer" className="font-bold hover:text-blue-700">
+        <a
+          href="https://discord.gg/nXrShaa"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-bold hover:text-blue-700"
+        >
           discord
         </a>
         !
