@@ -25,7 +25,7 @@ function SEO({ description, title, img }) {
   const compiledTitle = title ? `${title} | ${site.siteMetadata.title}` : site.siteMetadata.title;
 
   const currentUrl = site.siteMetadata.siteUrl;
-  const compiledImg = img.startsWith('/') ? `${currentUrl}${img}` : img;
+  const compiledImg = img && img.startsWith('/') ? `${currentUrl}${img}` : img;
   return (
     <GatsbySeo
       title={compiledTitle}
