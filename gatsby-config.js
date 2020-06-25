@@ -9,6 +9,20 @@ const plugins = [
   },
   'gatsby-plugin-next-seo',
   'gatsby-plugin-sitemap',
+  {
+    resolve: 'gatsby-plugin-robots-txt',
+    options: {
+      host: 'https://keycap-archivist.com/',
+      sitemap: 'https://keycap-archivist.com/sitemap.xml',
+      policy: [{ userAgent: '*', allow: '/' }],
+    },
+  },
+  {
+    resolve: 'gatsby-plugin-canonical-urls',
+    options: {
+      siteUrl: 'https://keycap-archivist.com/',
+    },
+  },
   'gatsby-plugin-postcss',
   'gatsby-plugin-sass',
   {

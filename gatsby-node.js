@@ -63,11 +63,7 @@ exports.createPages = async ({ graphql, actions }) => {
   /**
    * Artisan catalog
    */
-  let db = JSON.parse(fs.readFileSync('./src/db/catalog.json'));
-  // While developing only getting the 2 first makers
-  if (process.env.TARGET === 'DEV') {
-    db = [db[0], db[1]];
-  }
+  const db = JSON.parse(fs.readFileSync('./src/db/catalog.json'));
   db.forEach((maker) => {
     maker.sculpts.forEach((element) => {
       element.link = `maker/${slug(maker.name)}/${slug(element.name)}`;
