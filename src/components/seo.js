@@ -14,6 +14,7 @@ function SEO({ description, title, img }) {
             title
             description
             author
+            siteUrl
           }
         }
       }
@@ -23,6 +24,8 @@ function SEO({ description, title, img }) {
   const metaDescription = description || site.siteMetadata.description;
   const compiledTitle = title ? `${title} | ${site.siteMetadata.title}` : site.siteMetadata.title;
 
+  const currentUrl = site.siteMetadata.siteUrl;
+  const compiledImg = img.startsWith('/') ? `${currentUrl}${img}` : img;
   return (
     <GatsbySeo
       title={compiledTitle}
@@ -31,7 +34,7 @@ function SEO({ description, title, img }) {
         lang: 'en_US',
         title: compiledTitle,
         description: metaDescription,
-        images: [{ url: `${location.href}${img}` }],
+        images: [{ url: compiledImg }],
         site_name: 'Keycap Archivist',
         type: 'website',
         url: location.href,
