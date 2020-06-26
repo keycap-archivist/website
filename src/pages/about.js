@@ -56,9 +56,9 @@ const About = () => (
         </a>
       </h2>
       <p className="my-5">
-        Database generator is a Javascript based project. Each maker got it&lsquo;s <i>importer</i> module, because even
-        if the format is mostly the same there can be some slight differences to handle. All keycap ids are made using a
-        CRC32 calculation based on the image url of the keycap.
+        Database generator is a Javascript based project. Each maker got it&lsquo;s importer and parser module, because
+        even if the format is mostly the same there can be some slight differences to handle. All keycap ids are made
+        using a CRC32 calculation based on the image url of the keycap.
       </p>
       <p className="my-5">
         Once the data is collected, it&lsquo;s formated using this json schema and exposed as separated JSON/CSV files
@@ -71,7 +71,7 @@ const About = () => (
         >
           here
         </a>
-        . The database is generated every 6 hours and if there is a changed it&lsquo;s pushed to the repository.
+        . The database is generated every 6 hours and if there is a change it&lsquo;s pushed to the repository.
       </p>
       <h2 className="text-2xl font-bold">
         App{' '}
