@@ -8,7 +8,35 @@ const plugins = [
     },
   },
   'gatsby-plugin-next-seo',
-  'gatsby-plugin-sitemap',
+  {
+    resolve: 'gatsby-plugin-sitemap',
+    options: {
+      output: '/sitemap.xml',
+      query: `
+      {
+        allSitePage {
+          nodes {
+            path
+          }
+        }
+    }`,
+      resolveSiteUrl: () => 'https://keycap-archivist.com/',
+      serialize: ({ allSitePage }) =>
+        // Forced to due this because of Github pages default behaviour
+        // otherwise the server returns a 301 HTTP code.
+        allSitePage.nodes.map((node) => {
+          let url = node.path;
+          if (!node.path.endsWith('/')) {
+            url += '/';
+          }
+          return {
+            url: `https://keycap-archivist.com${url}`,
+            changefreq: 'daily',
+            priority: 0.7,
+          };
+        }),
+    },
+  },
   {
     resolve: 'gatsby-plugin-robots-txt',
     options: {
