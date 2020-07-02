@@ -31,6 +31,9 @@ const Header = ({ siteTitle }) => (
           <Link to="/wishlist" className="text-white hover:text-teal-200 mr-3 md:mr-6">
             Wishlist
           </Link>
+          <Link to="/blog" className="text-white hover:text-teal-200 mr-3 md:mr-6">
+            Blog
+          </Link>
           <Link to="/about" className="text-white hover:text-teal-200">
             About
           </Link>
