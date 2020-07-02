@@ -1,8 +1,6 @@
 name: Poll for database update
 
 on:
-  schedule:
-    - cron: '0 */6 * * *' # Every 6 hours
   repository_dispatch:
     types:
       - poll-db
