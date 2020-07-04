@@ -42,8 +42,8 @@ const About = () => {
             keycap.info
           </a>{' '}
           are dowloaded as HTML and parsed to extract the data as the format is the same on every catalog. Then those
-          data are exposed through an open source repository. Once data is available, we build upon it; that&lsquo;s how{' '}
-          <strong>Keycap Archivist</strong> was born. If you want to contribute just visit the{' '}
+          data are exposed through an open source repository. Once data is available, we build upon it; that&lsquo;s how
+          <strong> Keycap Archivist</strong> was born. If you want to contribute just visit the{' '}
           <a
             target="_blank"
             rel="noopener noreferrer"
