@@ -8,6 +8,7 @@ const plugins = [
     },
   },
   'gatsby-plugin-next-seo',
+  'gatsby-env-variables',
   {
     resolve: 'gatsby-plugin-sitemap',
     options: {

@@ -10,6 +10,8 @@ const path = require('path');
 const fs = require('fs');
 const _ = require('lodash');
 
+const db = JSON.parse(fs.readFileSync('./src/db/catalog.json'));
+
 const slug = (d) => slugify(d, { replacement: '-', remove: /[,.:?()'"/]/g, lower: true }).toLowerCase();
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
@@ -63,7 +65,6 @@ exports.createPages = async ({ graphql, actions }) => {
   /**
    * Artisan catalog
    */
-  const db = JSON.parse(fs.readFileSync('./src/db/catalog.json'));
   db.forEach((maker) => {
     maker.sculpts.forEach((element) => {
       element.link = `maker/${slug(maker.name)}/${slug(element.name)}`;
