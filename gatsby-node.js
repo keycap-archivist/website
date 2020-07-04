@@ -121,3 +121,10 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 };
+
+exports.onCreateWebpackConfig = async ({ actions, plugins }) => {
+  const revision = fs.readFileSync(path.join(__dirname, 'catalog-revision.txt'), 'utf-8');
+  actions.setWebpackConfig({
+    plugins: [plugins.define({ DBREV: JSON.stringify(revision) })],
+  });
+};

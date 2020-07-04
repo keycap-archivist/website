@@ -6072,11 +6072,6 @@ gatsby-core-utils@^1.2.2:
     configstore "^5.0.1"
     node-object-hash "^2.0.0"
 
-gatsby-env-variables@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/gatsby-env-variables/-/gatsby-env-variables-2.0.0.tgz#7ce2a0de6fe21fbfaf1a70afae9c7176178c01e9"
-  integrity sha512-j9VsPrhIk45Plg2lb8bjq8+mFyFl7tB+H187PTMhZpKNa+o+RRAKyZqDTT9trRBW/nDivnW0/fSGyFSsY4Iy+g==
-
 gatsby-graphiql-explorer@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/gatsby-graphiql-explorer/-/gatsby-graphiql-explorer-0.4.1.tgz#f83093b8ea24e65f91383e33d5d8bdc149a5bc0d"

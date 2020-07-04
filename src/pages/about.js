@@ -1,7 +1,7 @@
+/* global DBREV */
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useStaticQuery, graphql } from 'gatsby';
-import { DBREV } from 'gatsby-env-variables';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
