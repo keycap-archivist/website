@@ -51,3 +51,7 @@ body {
 .star-icon {
   top: 14px;
 }
+
+blockquote{
+  @apply p-4
+}
