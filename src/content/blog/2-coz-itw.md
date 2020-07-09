@@ -1,6 +1,6 @@
 ---
 title: Coz Caps Interview
-date: '2020-06-17'
+date: '2020-07-09'
 description: 'CozCaps give us a little interview about his journey in the artisan keycap making'
 ---
 

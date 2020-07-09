@@ -10,14 +10,17 @@ const About = ({ data }) => {
   return (
     <Layout>
       <SEO title="Blog" />
-      <div className="w-full m-auto lg:w-8/12 py-10">
+      <div className="w-full m-auto lg:w-8/12 py-10 space-y-6">
         <h1 className="text-3xl font-bold">Blog</h1>
         {posts.map((post) => (
           <div key={post.node.id}>
-            <h2>
+            <h2 className="text-2xl font-bold">
               <Link to={`/${post.node.fields.slug}`}>{post.node.frontmatter.title}</Link>
             </h2>
             <p>{post.node.excerpt}</p>
+            <Link className="font-bold float-right" to={`/${post.node.fields.slug}`}>
+              More...
+            </Link>
           </div>
         ))}
       </div>
