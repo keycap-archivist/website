@@ -67,8 +67,8 @@ const Wishlist = () => {
   };
 
   const wishlistSettings = () => (
-    <div>
-      <div className="mb-4">
+    <>
+      <div className="my-4">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="wishlistname">
           Wishlist Title
         </label>
@@ -217,7 +217,7 @@ const Wishlist = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 
   const wishlistPlaceHolder = () => (
@@ -306,37 +306,39 @@ const Wishlist = () => {
     <Layout>
       <SEO title="Wishlist" img={'/android-chrome-512x512.png'} />
       <h1 className="text-3xl font-bold">Wishlist</h1>
-      {errorPlaceholder()}
-      {loadingPlaceholder()}
-      {imgPlaceholder()}
-      {wishlistSettings()}
+      <div className="m-auto lg:w-8/12 md:w-full">
+        {errorPlaceholder()}
+        {loadingPlaceholder()}
+        {imgPlaceholder()}
+        {wishlistSettings()}
 
-      <div className="flex flex-wrap">
-        <div className="w-full md:w-1/4 mr-2">
-          <button
-            onClick={genWishlist}
-            className="w-full  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"
-          >
-            Generate
-          </button>
-        </div>
-        <div className="w-full md:w-1/4 mr-2">
-          {b64Img ? (
-            <a
-              href={`data:image/jpeg;base64,${b64Img}`}
-              download="wishlist.jpg"
-              className="block w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4
+        <div className="flex flex-wrap">
+          <div className="w-full md:w-1/4 mr-2">
+            <button
+              onClick={genWishlist}
+              className="w-full  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"
+            >
+              Generate
+            </button>
+          </div>
+          <div className="w-full md:w-1/4 mr-2">
+            {b64Img ? (
+              <a
+                href={`data:image/jpeg;base64,${b64Img}`}
+                download="wishlist.jpg"
+                className="block w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4
               rounded
               text-center"
-            >
-              download Wishlist
-            </a>
-          ) : (
-            ''
-          )}
+              >
+                download Wishlist
+              </a>
+            ) : (
+              ''
+            )}
+          </div>
         </div>
+        {wishlistPlaceHolder()}
       </div>
-      {wishlistPlaceHolder()}
     </Layout>
   );
 };
