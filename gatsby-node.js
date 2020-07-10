@@ -44,8 +44,15 @@ exports.createPages = async ({ graphql, actions }) => {
       allMarkdownRemark {
         edges {
           node {
+            excerpt(pruneLength: 250)
+            html
+            id
             fields {
               slug
+            }
+            frontmatter {
+              date
+              title
             }
           }
         }
@@ -57,6 +64,9 @@ exports.createPages = async ({ graphql, actions }) => {
       path: node.fields.slug,
       component: blogTpl,
       context: {
+        content: node.html,
+        title: node.frontmatter.title,
+        date: node.frontmatter.date,
         slug: node.fields.slug,
       },
     });

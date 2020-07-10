@@ -94,6 +94,7 @@ module.exports = {
     description: 'The community driven artisan mechanical keyboard keycap catalog',
     author: '@keycap-archivist',
     siteUrl: 'https://keycap-archivist.com/',
+    generationDate: new Date(),
   },
   plugins,
 };
