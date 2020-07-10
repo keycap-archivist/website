@@ -6,17 +6,6 @@ import Search from './search';
 
 const Header = ({ siteTitle }) => (
   <header className="bg-blue-700 mb-3">
-    <div className="py-1 text-center bg-gray-800 text-white text-xs px-6">
-      We’re actively in development and still in beta. Follow along on{' '}
-      <a href="https://github.com/keycap-archivist" target="_blank" rel="noopener noreferrer" className="font-bold">
-        GitHub
-      </a>{' '}
-      or join our{' '}
-      <a href="https://discord.gg/nXrShaa" target="_blank" rel="noopener noreferrer" className="font-bold">
-        Discord
-      </a>
-      .
-    </div>
     <nav className="container flex flex-col md:flex-row items-center justify-between mx-auto px-3 py-5">
       <h1 className="flex items-center flex-shrink-0 mb-2 md:mb-0 text-white">
         <Link to="/" className="text-xl font-bold text-white">
