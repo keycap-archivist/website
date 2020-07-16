@@ -66,6 +66,9 @@ const Maker = (props) => {
                 {isInWishlist(wishlist, c.id) && (
                   <FontAwesomeIcon className="absolute star-icon text-yellow-500" icon={['fas', 'star']} />
                 )}
+                {!isInWishlist(wishlist, c.id) && (
+                  <FontAwesomeIcon className="absolute star-icon text-gray-500" icon={['fas', 'star']} />
+                )}
                 <div className="text-sm text-center w-full px-5">{c.name ? c.name : '(Unknown)'}</div>
               </div>
             </Link>
