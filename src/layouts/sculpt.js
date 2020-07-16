@@ -4,7 +4,7 @@ import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { sortBy } from 'lodash';
 
-import { getWishlist, isInWishlist } from '../internal/wishlist';
+import { getWishlist, isInWishlist, rmCap, addCap } from '../internal/wishlist';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import ThumbnailImage from '../components/thumbnail-image';
@@ -64,10 +64,20 @@ const Maker = (props) => {
               </div>
               <div className="font-bold flex flex-row pt-3 px-2 relative">
                 {isInWishlist(wishlist, c.id) && (
-                  <FontAwesomeIcon className="absolute star-icon text-yellow-500" icon={['fas', 'star']} />
+                  <FontAwesomeIcon
+                    id="favStar"
+                    className="absolute star-icon text-yellow-500"
+                    icon={['fas', 'star']}
+                    onClick={() => setStateWishlist(rmCap(c.id))}
+                  />
                 )}
                 {!isInWishlist(wishlist, c.id) && (
-                  <FontAwesomeIcon className="absolute star-icon text-gray-500" icon={['fas', 'star']} />
+                  <FontAwesomeIcon
+                    id="favStar"
+                    className="absolute star-icon text-gray-500"
+                    icon={['fas', 'star']}
+                    onClick={() => setStateWishlist(addCap(c.id))}
+                  />
                 )}
                 <div className="text-sm text-center w-full px-5">{c.name ? c.name : '(Unknown)'}</div>
               </div>
