@@ -38,8 +38,8 @@ const Maker = (props) => {
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
         {sortBy(sculpt.colorways, (x) => x.name).map((c) => (
           <li key={c.id} id={c.id} className="flex h-auto w-1/2 md:w-1/4 lg:w-1/5 py-1 px-1">
-            <Link
-              to={`${location.pathname}/${c.id}`}
+            <div
+              // to={`${location.pathname}/${c.id}`}
               className="
                 flex
                 flex-col
@@ -54,14 +54,14 @@ const Maker = (props) => {
                 hover:shadow-md
                 pb-4"
             >
-              <div className="w-full h-full bg-gray-300 thumbnail-wrapper">
+              <Link to={`${location.pathname}/${c.id}`} className="w-full h-full bg-gray-300 thumbnail-wrapper">
                 <ThumbnailImage
                   loading="lazy"
                   className="h-full w-full object-cover"
                   src={c.img}
                   alt={`${maker.name} - ${sculpt.name} - ${c.name}`}
                 />
-              </div>
+              </Link>
               <div className="font-bold flex flex-row pt-3 px-2 relative">
                 {isInWishlist(wishlist, c.id) ? (
                   <FontAwesomeIcon
@@ -78,12 +78,11 @@ const Maker = (props) => {
                     onClick={() => setStateWishlist(addCap(c.id))}
                   />
                 )}
-                {/* {!isInWishlist(wishlist, c.id) && (
-                  
-                )} */}
-                <div className="text-sm text-center w-full px-5">{c.name ? c.name : '(Unknown)'}</div>
+                <Link to={`${location.pathname}/${c.id}`} className="text-sm text-center w-full px-5">
+                  {c.name ? c.name : '(Unknown)'}
+                </Link>
               </div>
-            </Link>
+            </div>
           </li>
         ))}
       </ul>
