@@ -63,22 +63,24 @@ const Maker = (props) => {
                 />
               </div>
               <div className="font-bold flex flex-row pt-3 px-2 relative">
-                {isInWishlist(wishlist, c.id) && (
+                {isInWishlist(wishlist, c.id) ? (
                   <FontAwesomeIcon
                     id="favStar"
-                    className="absolute star-icon text-yellow-500"
+                    className="m-1 absolute star-icon text-yellow-500"
                     icon={['fas', 'star']}
                     onClick={() => setStateWishlist(rmCap(c.id))}
                   />
-                )}
-                {!isInWishlist(wishlist, c.id) && (
+                ) : (
                   <FontAwesomeIcon
                     id="favStar"
-                    className="absolute star-icon text-gray-500"
+                    className="m-1 absolute star-icon text-gray-500"
                     icon={['fas', 'star']}
                     onClick={() => setStateWishlist(addCap(c.id))}
                   />
                 )}
+                {/* {!isInWishlist(wishlist, c.id) && (
+                  
+                )} */}
                 <div className="text-sm text-center w-full px-5">{c.name ? c.name : '(Unknown)'}</div>
               </div>
             </Link>
