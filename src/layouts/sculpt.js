@@ -39,7 +39,6 @@ const Maker = (props) => {
         {sortBy(sculpt.colorways, (x) => x.name).map((c) => (
           <li key={c.id} id={c.id} className="flex h-auto w-1/2 md:w-1/4 lg:w-1/5 py-1 px-1">
             <div
-              // to={`${location.pathname}/${c.id}`}
               className="
                 flex
                 flex-col
@@ -66,14 +65,14 @@ const Maker = (props) => {
                 {isInWishlist(wishlist, c.id) ? (
                   <FontAwesomeIcon
                     id="favStar"
-                    className="m-1 absolute star-icon text-yellow-500"
+                    className="m-1 absolute star-icon text-yellow-500 cursor-pointer"
                     icon={['fas', 'star']}
                     onClick={() => setStateWishlist(rmCap(c.id))}
                   />
                 ) : (
                   <FontAwesomeIcon
                     id="favStar"
-                    className="m-1 absolute star-icon text-gray-500"
+                    className="m-1 absolute star-icon text-gray-500 cursor-pointer"
                     icon={['fas', 'star']}
                     onClick={() => setStateWishlist(addCap(c.id))}
                   />
