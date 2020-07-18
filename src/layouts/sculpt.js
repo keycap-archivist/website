@@ -4,7 +4,7 @@ import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { sortBy } from 'lodash';
 
-import { getWishlist, isInWishlist } from '../internal/wishlist';
+import { getWishlist, isInWishlist, rmCap, addCap } from '../internal/wishlist';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import ThumbnailImage from '../components/thumbnail-image';
@@ -38,8 +38,7 @@ const Maker = (props) => {
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
         {sortBy(sculpt.colorways, (x) => x.name).map((c) => (
           <li key={c.id} id={c.id} className="flex h-auto w-1/2 md:w-1/4 lg:w-1/5 py-1 px-1">
-            <Link
-              to={`${location.pathname}/${c.id}`}
+            <div
               className="
                 flex
                 flex-col
@@ -54,21 +53,35 @@ const Maker = (props) => {
                 hover:shadow-md
                 pb-4"
             >
-              <div className="w-full h-full bg-gray-300 thumbnail-wrapper">
+              <Link to={`${location.pathname}/${c.id}`} className="w-full h-full bg-gray-300 thumbnail-wrapper">
                 <ThumbnailImage
                   loading="lazy"
                   className="h-full w-full object-cover"
                   src={c.img}
                   alt={`${maker.name} - ${sculpt.name} - ${c.name}`}
                 />
-              </div>
+              </Link>
               <div className="font-bold flex flex-row pt-3 px-2 relative">
-                {isInWishlist(wishlist, c.id) && (
-                  <FontAwesomeIcon className="absolute star-icon text-yellow-500" icon={['fas', 'star']} />
+                {isInWishlist(wishlist, c.id) ? (
+                  <FontAwesomeIcon
+                    id="favStar"
+                    className="m-1 absolute star-icon text-yellow-500 cursor-pointer"
+                    icon={['fas', 'star']}
+                    onClick={() => setStateWishlist(rmCap(c.id))}
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    id="favStar"
+                    className="m-1 absolute star-icon text-gray-500 cursor-pointer"
+                    icon={['fas', 'star']}
+                    onClick={() => setStateWishlist(addCap(c.id))}
+                  />
                 )}
-                <div className="text-sm text-center w-full px-5">{c.name ? c.name : '(Unknown)'}</div>
+                <Link to={`${location.pathname}/${c.id}`} className="text-sm text-center w-full px-5">
+                  {c.name ? c.name : '(Unknown)'}
+                </Link>
               </div>
-            </Link>
+            </div>
           </li>
         ))}
       </ul>
