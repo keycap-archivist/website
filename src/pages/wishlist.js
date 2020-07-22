@@ -30,7 +30,7 @@ const Wishlist = () => {
   // prettier and eslint are dunmb on this somehow
   // eslint-disable-next-line no-confusing-arrow
   const imgPlaceholder = () =>
-    b64Img ? <img src={`data:image/jpeg;base64,${b64Img}`} className="mx-auto max-w-full" /> : '';
+    b64Img ? <img src={`data:image/png;base64,${b64Img}`} className="mx-auto max-w-full" /> : '';
 
   const genWishlist = async () => {
     setErrorLoading(false);
@@ -324,7 +324,7 @@ const Wishlist = () => {
           <div className="w-full md:w-1/4 mr-2">
             {b64Img ? (
               <a
-                href={`data:image/jpeg;base64,${b64Img}`}
+                href={`data:image/png;base64,${b64Img}`}
                 download="wishlist.jpg"
                 className="block w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4
               rounded
