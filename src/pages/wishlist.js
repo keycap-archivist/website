@@ -325,7 +325,7 @@ const Wishlist = () => {
             {b64Img ? (
               <a
                 href={`data:image/png;base64,${b64Img}`}
-                download="wishlist.jpg"
+                download="wishlist.png"
                 className="block w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4
               rounded
               text-center"
