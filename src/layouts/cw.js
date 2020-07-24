@@ -25,6 +25,20 @@ const Maker = (props) => {
     setStateWishlist(getWishlist());
   }, []);
 
+  const [suggestionName, setSuggestionName] = useState('');
+
+  const submitName = (clwId, clwName) => {
+    fetch('https://app.keycap-archivist.com/api/v2/submitName', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: clwId, name: clwName }),
+    }).catch((error) => {
+      console.error('Error:', error);
+    });
+  };
+
   return (
     <Layout>
       <SEO title={seoTitle} img={colorway.img} />
@@ -166,9 +180,10 @@ const Maker = (props) => {
                 </div>
                 <div className="relative p-6 flex content-around">
                   <input
-                    className="search__input bg-purple-white shadow rounded border-0 p-2 w-full"
+                    className="suggest__input bg-purple-white shadow rounded border-0 p-2 w-full"
                     type="search"
                     placeholder="Name"
+                    onChange={(event) => setSuggestionName(event.target.value)}
                   ></input>
                   <button
                     className="
@@ -182,7 +197,10 @@ const Maker = (props) => {
                     py-2 px-3
                     text-xs
                     rounded"
-                    onClick={() => setShowModal(false)}
+                    onClick={() => {
+                      submitName(colorway.id, suggestionName);
+                      setShowModal(false);
+                    }}
                   >
                     Submit
                   </button>
