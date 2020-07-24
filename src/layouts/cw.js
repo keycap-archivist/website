@@ -150,12 +150,11 @@ const Maker = (props) => {
             z-50
             outline-none
             focus:outline-none"
-            // onClick={() => setShowModal(false)}
           >
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
-                  <h3 className="text-3xl font-semibold">Suggest Colorway Name</h3>
+                  <h3 className="text-2xl font-semibold">Suggest Colorway Name</h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}
@@ -165,13 +164,15 @@ const Maker = (props) => {
                     </span>
                   </button>
                 </div>
-                <div className="relative p-6 flex-auto">
-                  {/* <p className="my-4 text-gray-600 text-lg leading-relaxed">
-                    We will work on updating this info as soon as possible
-                  </p> */}
-                  <input></input>
+                <div className="relative p-6 flex content-around">
+                  <input
+                    className="search__input bg-purple-white shadow rounded border-0 p-2 w-full"
+                    type="search"
+                    placeholder="Name"
+                  ></input>
                   <button
                     className="
+                    mx-2
                     block
                     w-20
                     bg-green-500
@@ -181,6 +182,7 @@ const Maker = (props) => {
                     py-2 px-3
                     text-xs
                     rounded"
+                    onClick={() => setShowModal(false)}
                   >
                     Submit
                   </button>
