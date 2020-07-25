@@ -239,12 +239,12 @@ const Wishlist = () => {
         }}
       >
         {wishlist.items.map((x) => (
-          <li key={x.id} className="mt-2">
+          <li key={x.id} className="mt-2" style={{ minHeight: '150px' }}>
             <FontAwesomeIcon className="cursor-move handle inline-block text-3xl mr-6" icon="align-justify" />
             <img
               style={{ maxWidth: '150px' }}
               src={`${baseAPIurl}/img/${x.id}`}
-              className="inline-block rounded-lg max-h-full mr-6"
+              className="cursor-move handle inline-block rounded-lg max-h-full mr-6"
             />
             <span></span>
             {x.prio ? (
