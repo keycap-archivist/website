@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Search from './search';
 
 const Header = ({ siteTitle }) => (
-  <header className="bg-blue-700 mb-3">
+  <header className="bg-blue_ka mb-3">
     <nav className="container flex flex-col md:flex-row items-center justify-between mx-auto px-3 py-5">
       <h1 className="flex items-center flex-shrink-0 mb-2 md:mb-0 text-white">
         <Link to="/" className="text-xl font-bold text-white">
