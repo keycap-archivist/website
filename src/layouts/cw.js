@@ -16,7 +16,9 @@ const Maker = (props) => {
   const [state, setState] = useState({ text: 'Copy link' });
 
   const [showModal, setShowModal] = useState(false);
-  // const [showAlert, setShowAlert] = useState(true);
+
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
 
   const updateText = () => {
     setState({ text: 'Copied!' });
@@ -38,14 +40,20 @@ const Maker = (props) => {
       body: JSON.stringify({ id: clwId, name: clwName }),
     }).catch((error) => {
       console.error('Error:', error);
+      setShowErrorAlert(true);
     });
 
-    // setShowAlert(true);
+    setShowSuccessAlert(true);
   };
 
   return (
     <Layout>
-      <Alert color="green" alertMessage="Suggestion Successfully Submited"></Alert>
+      {showSuccessAlert && (
+        <Alert color="green" alertMessage="Suggestion Successfully Submited" setAlert={setShowSuccessAlert}></Alert>
+      )}
+      {showErrorAlert && (
+        <Alert color="red" alertMessage="Suggestion Submission Failed" setAlert={setShowErrorAlert}></Alert>
+      )}
       <SEO title={seoTitle} img={colorway.img} />
       <div className="lg:w-3/5 mx-auto">
         <div className="pt-4">
