@@ -7,6 +7,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { getWishlist, isInWishlist, rmCap, addCap } from '../internal/wishlist';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
+import Alert from '../components/alert';
 
 const Maker = (props) => {
   const { pageContext, location } = props;
@@ -15,6 +16,7 @@ const Maker = (props) => {
   const [state, setState] = useState({ text: 'Copy link' });
 
   const [showModal, setShowModal] = useState(false);
+  // const [showAlert, setShowAlert] = useState(true);
 
   const updateText = () => {
     setState({ text: 'Copied!' });
@@ -37,10 +39,13 @@ const Maker = (props) => {
     }).catch((error) => {
       console.error('Error:', error);
     });
+
+    // setShowAlert(true);
   };
 
   return (
     <Layout>
+      <Alert color="green" alertMessage="Suggestion Successfully Submited"></Alert>
       <SEO title={seoTitle} img={colorway.img} />
       <div className="lg:w-3/5 mx-auto">
         <div className="pt-4">
@@ -154,6 +159,9 @@ const Maker = (props) => {
         <>
           <div
             className="
+            modal
+            opacity-100
+            ease-out
             justify-center
             items-center
             flex
@@ -168,6 +176,10 @@ const Maker = (props) => {
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
               <div
                 className="
+                opacity-0
+                transition-opacity
+                opacity-100
+                ease-out
                 border-0
                 rounded-lg
                 shadow-lg
