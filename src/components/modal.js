@@ -84,10 +84,9 @@ const Modal = (props) => (
           <div className="relative p-6 flex content-around">
             <input
               className="suggest__input bg-purple-white shadow rounded border-0 p-2 w-full"
-              type="search"
-              placeholder="Name"
+              placeholder={props.placeholder}
               onChange={(event) => {
-                props.setSuggestionName(event.target.value);
+                props.setInputValue(event.target.value);
               }}
             ></input>
             <button
@@ -103,7 +102,7 @@ const Modal = (props) => (
                     text-xs
                     rounded"
               onClick={() => {
-                props.submitName(props.colorwayId, props.suggestionName);
+                props.onSubmit(props.inputValue);
                 props.setModal(false);
               }}
             >

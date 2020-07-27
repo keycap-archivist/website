@@ -32,13 +32,13 @@ const Maker = (props) => {
 
   const [suggestionName, setSuggestionName] = useState('');
 
-  const submitName = (clwId, clwName) => {
+  const submitName = (clwName) => {
     fetch('https://app.keycap-archivist.com/api/v2/submitName', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ id: clwId, name: clwName }),
+      body: JSON.stringify({ id: colorway.id, name: clwName }),
     }).catch((error) => {
       console.error('Error:', error);
       setShowErrorAlert(true);
@@ -50,11 +50,9 @@ const Maker = (props) => {
   return (
     <Layout>
       {showSuccessAlert && (
-        <Alert color="green" alertMessage="Suggestion Successfully Submited" setAlert={setShowSuccessAlert}></Alert>
+        <Alert color="green" alertMessage="Suggestion Successfully Submited" setAlert={setShowSuccessAlert} />
       )}
-      {showErrorAlert && (
-        <Alert color="red" alertMessage="Suggestion Submission Failed" setAlert={setShowErrorAlert}></Alert>
-      )}
+      {showErrorAlert && <Alert color="red" alertMessage="Suggestion Submission Failed" setAlert={setShowErrorAlert} />}
       <SEO title={seoTitle} img={colorway.img} />
       <div className="lg:w-3/5 mx-auto">
         <div className="pt-4">
@@ -167,11 +165,12 @@ const Maker = (props) => {
       {showModal && (
         <Modal
           modalHeader="Suggest Colorway Name"
+          placeholder="Suggestion Name"
           setModal={setShowModal}
-          setSuggestionName={setSuggestionName}
-          submitName={submitName}
+          setInputValue={setSuggestionName}
+          onSubmit={submitName}
           colorwayId={colorway.id}
-          suggestionName={suggestionName}
+          inputValue={suggestionName}
         ></Modal>
       )}
     </Layout>
