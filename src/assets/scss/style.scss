@@ -47,3 +47,31 @@ blockquote p {
   display: inline;
   font-style: italic;
 }
+
+@keyframes modalFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  animation-name: modalFade;
+  animation-duration: 0.3s;
+}
+
+@keyframes modalBackgroundFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.25;
+  }
+}
+
+.modal-background {
+  animation-name: modalBackgroundFade;
+  animation-duration: 0.3s;
+}
