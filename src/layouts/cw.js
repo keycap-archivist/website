@@ -8,7 +8,11 @@ import { getWishlist, isInWishlist, rmCap, addCap } from '../internal/wishlist';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import Alert from '../components/alert';
+<<<<<<< HEAD
 import Modal from '../components/modal';
+=======
+import SubmitNameModal from '../components/modals/submit-name';
+>>>>>>> 76c0ed851b7aaa91171936a148519cfbb060d206
 
 const Maker = (props) => {
   const { pageContext, location } = props;
@@ -163,15 +167,14 @@ const Maker = (props) => {
         </div>
       </div>
       {showModal && (
-        <Modal
+        <SubmitNameModal
           modalHeader="Suggest Colorway Name"
           placeholder="Suggestion Name"
+          clwId={colorway.id}
           setModal={setShowModal}
-          setInputValue={setSuggestionName}
-          onSubmit={submitName}
-          colorwayId={colorway.id}
-          inputValue={suggestionName}
-        ></Modal>
+          setErrorAlert={setShowErrorAlert}
+          setSuccessAlert={setShowSuccessAlert}
+        />
       )}
     </Layout>
   );

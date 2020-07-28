@@ -81,6 +81,7 @@ const Modal = (props) => (
               </span>
             </button>
           </div>
+<<<<<<< HEAD
           <div className="relative p-6 flex content-around">
             <input
               className="suggest__input bg-purple-white shadow rounded border-0 p-2 w-full"
@@ -113,6 +114,13 @@ const Modal = (props) => (
       </div>
     </div>
     <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+=======
+          <div>{props.children}</div>
+        </div>
+      </div>
+    </div>
+    <div className="modal-background opacity-25 fixed inset-0 z-40 bg-black"></div>
+>>>>>>> 76c0ed851b7aaa91171936a148519cfbb060d206
   </>
 );
 
