@@ -81,46 +81,11 @@ const Modal = (props) => (
               </span>
             </button>
           </div>
-<<<<<<< HEAD
-          <div className="relative p-6 flex content-around">
-            <input
-              className="suggest__input bg-purple-white shadow rounded border-0 p-2 w-full"
-              placeholder={props.placeholder}
-              onChange={(event) => {
-                props.setInputValue(event.target.value);
-              }}
-            ></input>
-            <button
-              className="
-                    mx-2
-                    block
-                    w-20
-                    bg-green-500
-                    hover:bg-green-700
-                    text-white
-                    font-bold
-                    py-2 px-3
-                    text-xs
-                    rounded"
-              onClick={() => {
-                props.onSubmit(props.inputValue);
-                props.setModal(false);
-              }}
-            >
-              Submit
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-=======
           <div>{props.children}</div>
         </div>
       </div>
     </div>
     <div className="modal-background opacity-25 fixed inset-0 z-40 bg-black"></div>
->>>>>>> 76c0ed851b7aaa91171936a148519cfbb060d206
   </>
 );
 

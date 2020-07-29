@@ -8,11 +8,7 @@ import { getWishlist, isInWishlist, rmCap, addCap } from '../internal/wishlist';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import Alert from '../components/alert';
-<<<<<<< HEAD
-import Modal from '../components/modal';
-=======
 import SubmitNameModal from '../components/modals/submit-name';
->>>>>>> 76c0ed851b7aaa91171936a148519cfbb060d206
 
 const Maker = (props) => {
   const { pageContext, location } = props;
