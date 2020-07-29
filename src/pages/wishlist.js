@@ -30,7 +30,7 @@ const Wishlist = () => {
   // prettier and eslint are dunmb on this somehow
   // eslint-disable-next-line no-confusing-arrow
   const imgPlaceholder = () =>
-    b64Img ? <img src={`data:image/png;base64,${b64Img}`} className="mx-auto max-w-full" /> : '';
+    b64Img && !wishlistLoading ? <img src={`data:image/png;base64,${b64Img}`} className="mx-auto max-w-full" /> : '';
 
   const genWishlist = async () => {
     setErrorLoading(false);
@@ -93,7 +93,7 @@ const Wishlist = () => {
           mb-2"
           htmlFor="extraText"
         >
-          Extra text
+          Extra Text
         </label>
         <input
           className="shadow appearance-none border
@@ -111,7 +111,7 @@ const Wishlist = () => {
         <div className="flex flex-wrap mt-2">
           <div className="w-1/2 pr-2">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="capsPerLine">
-              Number keycap per line
+              Number of Keycap Per Line
             </label>
             <input
               id="capsPerLine"
@@ -262,7 +262,7 @@ const Wishlist = () => {
                   inline-block
                   mr-6"
               >
-                remove Priority
+                Remove Priority
               </button>
             ) : (
               <button
@@ -277,7 +277,7 @@ const Wishlist = () => {
                  rounded
                  inline-block mr-6"
               >
-                add Priority
+                Add Priority
               </button>
             )}
             <button
@@ -314,15 +314,17 @@ const Wishlist = () => {
 
         <div className="flex flex-wrap">
           <div className="w-full md:w-1/4 mr-2">
-            <button
-              onClick={genWishlist}
-              className="w-full  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"
-            >
-              Generate
-            </button>
+            {!wishlistLoading && (
+              <button
+                onClick={genWishlist}
+                className="w-full  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"
+              >
+                Generate
+              </button>
+            )}
           </div>
           <div className="w-full md:w-1/4 mr-2">
-            {b64Img ? (
+            {b64Img && !wishlistLoading ? (
               <a
                 href={`data:image/png;base64,${b64Img}`}
                 download="wishlist.png"
@@ -330,7 +332,7 @@ const Wishlist = () => {
               rounded
               text-center"
               >
-                download Wishlist
+                Download Wishlist
               </a>
             ) : (
               ''
