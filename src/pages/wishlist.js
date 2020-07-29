@@ -111,7 +111,7 @@ const Wishlist = () => {
         <div className="flex flex-wrap mt-2">
           <div className="w-1/2 pr-2">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="capsPerLine">
-              Number of Keycap Per Line
+              Number of Keycaps Per Line
             </label>
             <input
               id="capsPerLine"
@@ -314,26 +314,38 @@ const Wishlist = () => {
 
         <div className="flex flex-wrap">
           <div className="w-full md:w-1/4 mr-2">
-            {!wishlistLoading && (
-              <button
-                onClick={genWishlist}
-                className="w-full  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"
-              >
-                Generate
-              </button>
-            )}
+            <button
+              onClick={genWishlist}
+              className={`w-full  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 ${
+                wishlistLoading && 'cursor-not-allowed opacity-50'
+              }`}
+              disabled={wishlistLoading}
+            >
+              Generate
+            </button>
           </div>
           <div className="w-full md:w-1/4 mr-2">
-            {b64Img && !wishlistLoading ? (
-              <a
+            {b64Img ? (
+              <button
                 href={`data:image/png;base64,${b64Img}`}
                 download="wishlist.png"
-                className="block w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4
-              rounded
-              text-center"
+                className={`
+                  block
+                  w-full
+                  bg-green-500
+                  hover:bg-green-700
+                  text-white
+                  font-bold
+                  py-2
+                  px-4
+                  rounded
+                  text-center
+                  ${wishlistLoading && 'cursor-not-allowed opacity-50'}
+                `}
+                disabled={wishlistLoading}
               >
                 Download Wishlist
-              </a>
+              </button>
             ) : (
               ''
             )}
