@@ -8,6 +8,7 @@ import { getWishlist, isInWishlist, rmCap, addCap } from '../internal/wishlist';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import ThumbnailImage from '../components/thumbnail-image';
+import SubmitNewCwModal from '../components/modals/submit-new-cw';
 
 const Maker = (props) => {
   const { pageContext, location } = props;
@@ -20,6 +21,9 @@ const Maker = (props) => {
     setStateWishlist(getWishlist());
   }, []);
   const cwList = selfOrder === true ? sculpt.colorways : sortBy(sculpt.colorways, (x) => x.name);
+
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <Layout>
       <SEO title={seoTitle} img={sculpt.previewImg} />
@@ -32,8 +36,26 @@ const Maker = (props) => {
           {maker.name}
         </Link>
       </div>
-      <h2 className="text-3xl my-6">
+      <h2 className="flex text-3xl my-6 justify-between">
         <span className="font-bold">{sculpt.name}</span>
+
+        <button
+          className="
+            inline-block
+            block
+            w-35
+            bg-teal-500
+            hover:bg-teal-700
+            text-white
+            font-bold
+            py-1
+            px-2
+            text-xs
+            rounded"
+          onClick={() => setShowModal(true)}
+        >
+          Submit a Colorway
+        </button>
       </h2>
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
         {cwList.map((c) => (
@@ -85,6 +107,7 @@ const Maker = (props) => {
           </li>
         ))}
       </ul>
+      {showModal && <SubmitNewCwModal setModal={setShowModal} />}
     </Layout>
   );
 };
