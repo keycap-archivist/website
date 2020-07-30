@@ -30,23 +30,6 @@ const Maker = (props) => {
     setStateWishlist(getWishlist());
   }, []);
 
-  const [suggestionName, setSuggestionName] = useState('');
-
-  const submitName = (clwName) => {
-    fetch('https://app.keycap-archivist.com/api/v2/submitName', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id: colorway.id, name: clwName }),
-    }).catch((error) => {
-      console.error('Error:', error);
-      setShowErrorAlert(true);
-    });
-
-    setShowSuccessAlert(true);
-  };
-
   return (
     <Layout>
       {showSuccessAlert && (
