@@ -107,7 +107,7 @@ const Maker = (props) => {
           </li>
         ))}
       </ul>
-      {showModal && <SubmitNewCwModal setModal={setShowModal} />}
+      {showModal && <SubmitNewCwModal setModal={setShowModal} maker={maker} sculpt={sculpt} />}
     </Layout>
   );
 };
