@@ -9,6 +9,7 @@ import Layout from '../components/layout';
 import SEO from '../components/seo';
 import ThumbnailImage from '../components/thumbnail-image';
 import SubmitNewCwModal from '../components/modals/submit-new-cw';
+import Alert from '../components/alert';
 
 const Maker = (props) => {
   const { pageContext, location } = props;
@@ -24,8 +25,15 @@ const Maker = (props) => {
 
   const [showModal, setShowModal] = useState(false);
 
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+
   return (
     <Layout>
+      {showSuccessAlert && (
+        <Alert color="green" alertMessage="Colorway Successfully Submited" setAlert={setShowSuccessAlert} />
+      )}
+      {showErrorAlert && <Alert color="red" alertMessage="Colorway Submission Failed" setAlert={setShowErrorAlert} />}
       <SEO title={seoTitle} img={sculpt.previewImg} />
       <div className="pt-4">
         <Link to="/" className="text-blue-600">
@@ -107,7 +115,15 @@ const Maker = (props) => {
           </li>
         ))}
       </ul>
-      {showModal && <SubmitNewCwModal setModal={setShowModal} maker={maker} sculpt={sculpt} />}
+      {showModal && (
+        <SubmitNewCwModal
+          setModal={setShowModal}
+          maker={maker.name}
+          sculpt={sculpt.name}
+          setErrorAlert={setShowErrorAlert}
+          setSuccessAlert={setShowSuccessAlert}
+        />
+      )}
     </Layout>
   );
 };

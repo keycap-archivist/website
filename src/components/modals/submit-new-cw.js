@@ -24,15 +24,15 @@ const SubmitNewCwModal = (props) => {
     formData.append('sculpt', sculpt);
     formData.append('colorway', cw);
 
-    fetch('https://app.keycap-archivist.com/api/v2/submit', {
+    fetch('https://app.keycap-archivist.com/api/v2/submission', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
       body: formData,
     }).catch((error) => {
       console.error('Error:', error);
+      props.setErrorAlert(true);
     });
+
+    props.setSuccessAlert(true);
   };
 
   return (
