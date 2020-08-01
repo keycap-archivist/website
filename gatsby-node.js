@@ -79,7 +79,12 @@ exports.createPages = async ({ graphql, actions }) => {
     maker.sculpts.forEach((element) => {
       element.link = `maker/${slug(maker.name)}/${slug(element.name)}`;
       const rng = Math.floor(Math.random() * element.colorways.length);
-      element.previewImg = element.colorways[rng].img;
+      const f = element.colorways.find((x) => x.isCover === true);
+      if (f) {
+        element.previewImg = f.img;
+      } else {
+        element.previewImg = element.colorways[rng].img;
+      }
     });
     const makerLightObj = _.cloneDeep(maker);
     makerLightObj.sculpts.forEach((s) => {
@@ -91,6 +96,7 @@ exports.createPages = async ({ graphql, actions }) => {
       component: makerTpl,
       context: {
         maker: makerLightObj,
+        selfOrder: maker.selfOrder,
         type: 'maker',
         slug: makerUrl,
       },
@@ -107,6 +113,7 @@ exports.createPages = async ({ graphql, actions }) => {
         component: sculptTpl,
         context: {
           makerUrl,
+          selfOrder: maker.selfOrder,
           type: 'sculpt',
           sculpt,
           maker: outMaker,

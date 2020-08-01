@@ -9,7 +9,7 @@ import ThumbnailImage from '../components/thumbnail-image';
 
 const Maker = (props) => {
   const { pageContext } = props;
-  const { maker } = pageContext;
+  const { maker, selfOrder } = pageContext;
 
   const logos = useStaticQuery(graphql`
     query SeoLogo {
@@ -34,7 +34,7 @@ const Maker = (props) => {
     }
     return '/android-chrome-512x512.png';
   };
-
+  const sculptList = selfOrder === true ? maker.sculpts : sortBy(maker.sculpts, (x) => x.name);
   return (
     <Layout>
       <SEO title={maker.name} img={getLogoMaker(maker.id)} />
@@ -47,7 +47,7 @@ const Maker = (props) => {
         <span className="font-bold">{maker.name}</span>
       </h2>
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
-        {sortBy(maker.sculpts, (x) => x.name).map((s) => (
+        {sculptList.map((s) => (
           <li key={s.id} className="flex h-auto w-1/2 md:w-1/4 lg:w-1/5 py-1 px-1">
             <Link
               to={s.link}
