@@ -11,7 +11,7 @@ import ThumbnailImage from '../components/thumbnail-image';
 
 const Maker = (props) => {
   const { pageContext, location } = props;
-  const { maker, makerUrl, sculpt } = pageContext;
+  const { maker, makerUrl, sculpt, selfOrder } = pageContext;
 
   const seoTitle = `${maker.name} - ${sculpt.name}`;
 
@@ -19,7 +19,7 @@ const Maker = (props) => {
   useEffect(() => {
     setStateWishlist(getWishlist());
   }, []);
-
+  const cwList = selfOrder === true ? sculpt.colorways : sortBy(sculpt.colorways, (x) => x.name);
   return (
     <Layout>
       <SEO title={seoTitle} img={sculpt.previewImg} />
@@ -36,7 +36,7 @@ const Maker = (props) => {
         <span className="font-bold">{sculpt.name}</span>
       </h2>
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
-        {sortBy(sculpt.colorways, (x) => x.name).map((c) => (
+        {cwList.map((c) => (
           <li key={c.id} id={c.id} className="flex h-auto w-1/2 md:w-1/4 lg:w-1/5 py-1 px-1">
             <div
               className="
