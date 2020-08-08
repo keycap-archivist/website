@@ -44,8 +44,8 @@ const Maker = (props) => {
           {maker.name}
         </Link>
       </div>
-      <h2 className="flex text-3xl my-6 justify-between">
-        <span className="font-bold">{sculpt.name}</span>
+      <div className="flex text-3xl my-6 justify-between">
+        <h2 className="font-bold">{sculpt.name}</h2>
 
         <button
           className="
@@ -64,7 +64,7 @@ const Maker = (props) => {
         >
           Submit a Colorway
         </button>
-      </h2>
+      </div>
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
         {cwList.map((c) => (
           <li key={c.id} id={c.id} className="flex h-auto w-1/2 md:w-1/4 lg:w-1/5 py-1 px-1">
