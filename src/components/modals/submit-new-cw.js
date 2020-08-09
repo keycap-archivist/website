@@ -27,12 +27,14 @@ const SubmitNewCwModal = (props) => {
     fetch('https://app.keycap-archivist.com/api/v2/submission', {
       method: 'POST',
       body: formData,
-    }).catch((error) => {
-      console.error('Error:', error);
-      props.setErrorAlert(true);
-    });
-
-    props.setSuccessAlert(true);
+    })
+      .then(() => {
+        props.setSuccessAlert(true);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        props.setErrorAlert(true);
+      });
   };
 
   return (
