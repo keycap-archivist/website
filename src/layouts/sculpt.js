@@ -8,6 +8,8 @@ import { getWishlist, isInWishlist, rmCap, addCap } from '../internal/wishlist';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import ThumbnailImage from '../components/thumbnail-image';
+import SubmitNewCwModal from '../components/modals/submit-new-cw';
+import Alert from '../components/alert';
 
 const Maker = (props) => {
   const { pageContext, location } = props;
@@ -20,8 +22,18 @@ const Maker = (props) => {
     setStateWishlist(getWishlist());
   }, []);
   const cwList = selfOrder === true ? sculpt.colorways : sortBy(sculpt.colorways, (x) => x.name);
+
+  const [showModal, setShowModal] = useState(false);
+
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+
   return (
     <Layout>
+      {showSuccessAlert && (
+        <Alert color="green" alertMessage="Colorway Successfully Submitted" setAlert={setShowSuccessAlert} />
+      )}
+      {showErrorAlert && <Alert color="red" alertMessage="Colorway Submission Failed" setAlert={setShowErrorAlert} />}
       <SEO title={seoTitle} img={sculpt.previewImg} />
       <div className="pt-4">
         <Link to="/" className="text-blue-600">
@@ -32,9 +44,27 @@ const Maker = (props) => {
           {maker.name}
         </Link>
       </div>
-      <h2 className="text-3xl my-6">
-        <span className="font-bold">{sculpt.name}</span>
-      </h2>
+      <div className="flex text-3xl my-6 justify-between">
+        <h2 className="font-bold">{sculpt.name}</h2>
+
+        <button
+          className="
+            inline-block
+            block
+            w-35
+            bg-teal-500
+            hover:bg-teal-700
+            text-white
+            font-bold
+            py-1
+            px-2
+            text-xs
+            rounded"
+          onClick={() => setShowModal(true)}
+        >
+          Submit a Colorway
+        </button>
+      </div>
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
         {cwList.map((c) => (
           <li key={c.id} id={c.id} className="flex h-auto w-1/2 md:w-1/4 lg:w-1/5 py-1 px-1">
@@ -85,6 +115,15 @@ const Maker = (props) => {
           </li>
         ))}
       </ul>
+      {showModal && (
+        <SubmitNewCwModal
+          setModal={setShowModal}
+          maker={maker.name}
+          sculpt={sculpt.name}
+          setErrorAlert={setShowErrorAlert}
+          setSuccessAlert={setShowSuccessAlert}
+        />
+      )}
     </Layout>
   );
 };
