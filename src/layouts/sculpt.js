@@ -31,7 +31,7 @@ const Maker = (props) => {
   return (
     <Layout>
       {showSuccessAlert && (
-        <Alert color="green" alertMessage="Colorway Successfully Submited" setAlert={setShowSuccessAlert} />
+        <Alert color="green" alertMessage="Colorway Successfully Submitted" setAlert={setShowSuccessAlert} />
       )}
       {showErrorAlert && <Alert color="red" alertMessage="Colorway Submission Failed" setAlert={setShowErrorAlert} />}
       <SEO title={seoTitle} img={sculpt.previewImg} />
