@@ -91,23 +91,26 @@ const Maker = (props) => {
                   alt={`${maker.name} - ${sculpt.name} - ${c.name}`}
                 />
               </Link>
-              <div className="font-bold flex flex-row pt-3 px-2 relative">
+              <div className="font-bold flex justify-between items-center pt-3 px-2 relative">
                 {isInWishlist(wishlist, c.id) ? (
                   <FontAwesomeIcon
                     id="favStar"
-                    className="m-1 absolute star-icon text-yellow-500 cursor-pointer"
+                    className="m-1 items-start align-middle star-icon text-yellow-500 cursor-pointer"
                     icon={['fas', 'star']}
                     onClick={() => setStateWishlist(rmCap(c.id))}
                   />
                 ) : (
                   <FontAwesomeIcon
                     id="favStar"
-                    className="m-1 absolute star-icon text-gray-500 cursor-pointer"
+                    className="m-1 items-start align-middle star-icon text-gray-500 cursor-pointer"
                     icon={['fas', 'star']}
                     onClick={() => setStateWishlist(addCap(c.id))}
                   />
                 )}
-                <Link to={`${location.pathname}/${c.id}`} className="text-sm text-center w-full px-5">
+                <Link
+                  to={`${location.pathname}/${c.id}`}
+                  className="text-sm text-center align-middle items-end w-full mr-5"
+                >
                   {c.name ? c.name : '(Unknown)'}
                 </Link>
               </div>
