@@ -70,6 +70,14 @@ const plugins = [
   'gatsby-transformer-sharp',
   'gatsby-plugin-sharp',
   'gatsby-transformer-remark',
+  {
+    resolve: 'gatsby-plugin-web-font-loader',
+    options: {
+      google: {
+        families: ['Asap:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap'],
+      },
+    },
+  },
 ];
 
 // Purge CSS for prod deployement

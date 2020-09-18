@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Search from './search';
+import Logo from '../assets/img/ka-logo.svg';
 
 const Header = ({ siteTitle }) => (
   <header className="bg-blue_ka mb-3">
     <nav className="container flex flex-col md:flex-row items-center justify-between mx-auto px-3 py-5">
       <h1 className="flex items-center flex-shrink-0 mb-2 md:mb-0 text-white">
-        <Link to="/" className="text-xl font-bold text-white">
+        <Link to="/" className="text-xl font-bold text-white flex flex-row items-center">
+          <img src={Logo} alt={siteTitle} width="40" height="40" className="mr-2" />
           {siteTitle}
         </Link>
       </h1>
