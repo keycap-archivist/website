@@ -88,7 +88,8 @@ const Maker = (props) => {
                 font-bold
                 py-2 px-3
                 text-xs
-                rounded"
+                rounded
+                whitespace-no-wrap"
               >
                 {state.text}
               </button>
