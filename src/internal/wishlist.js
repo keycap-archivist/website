@@ -27,6 +27,7 @@ const defaultWishlist = {
     capsPerLine: 3,
   },
   items: [],
+  tradeItems: [],
 };
 
 function getDefaultWishlist() {
@@ -69,10 +70,31 @@ function isInWishlist(w, id) {
   return w && w.items && w.items.findIndex((x) => x.id === id) > -1;
 }
 
+function addTradeCap(id) {
+  const w = getWishlist();
+  w.tradeItems.push({ id, prio: false });
+  setWishlist(w);
+  return w;
+}
+
+function rmTradeCap(id) {
+  const w = getWishlist();
+  w.tradeItems = w.tradeItems.filter((x) => x.id !== id);
+  setWishlist(w);
+  return w;
+}
+
+function isInTradeList(w, id) {
+  return w && w.tradeItems && w.tradeItems.findIndex((x) => x.id === id) > -1;
+}
+
 module.exports = {
   getWishlist,
   setWishlist,
   addCap,
   rmCap,
   isInWishlist,
+  addTradeCap,
+  rmTradeCap,
+  isInTradeList,
 };

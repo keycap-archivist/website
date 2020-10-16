@@ -6,7 +6,7 @@ import axios from 'axios';
 import SEO from '../components/seo';
 import { cssColors } from '../internal/misc';
 import Layout from '../components/layout';
-import { getWishlist, setWishlist, rmCap } from '../internal/wishlist';
+import { getWishlist, setWishlist, rmCap, rmTradeCap } from '../internal/wishlist';
 
 const baseAPIurl = 'https://app.keycap-archivist.com/api/v1';
 
@@ -14,7 +14,7 @@ const Wishlist = () => {
   const [b64Img, setB64Img] = useState(null);
   const [errorLoading, setErrorLoading] = useState(false);
   const [wishlistLoading, setWishlistLoading] = useState(false);
-  const [wishlist, setStateWishlist] = useState({ settings: {}, items: [] });
+  const [wishlist, setStateWishlist] = useState({ settings: {}, items: [], tradeItems: [] });
 
   // Required for SSR
   useEffect(() => {
@@ -302,6 +302,55 @@ const Wishlist = () => {
     </>
   );
 
+  const tradelistPlaceHolder = () => (
+    <>
+      <ReactSortable
+        handle=".handle"
+        tag="ul"
+        className="mt-6"
+        list={wishlist ? wishlist.tradeItems : []}
+        setList={(e) => {
+          // Update the state of the component only
+          const w = { ...wishlist };
+          w.tradeItems = e;
+          setStateWishlist(w);
+        }}
+        onEnd={() => {
+          // write the wishlist in the localstorage onEnd only
+          setWishlist(wishlist);
+        }}
+      >
+        {wishlist.tradeItems.map((x) => (
+          <li key={x.id} className="mt-2" style={{ minHeight: '150px' }}>
+            <FontAwesomeIcon className="cursor-move handle inline-block text-3xl mr-6" icon="align-justify" />
+            <img
+              style={{ maxWidth: '150px' }}
+              src={`${baseAPIurl}/img/${x.id}`}
+              className="cursor-move handle inline-block rounded-lg max-h-full mr-6"
+            />
+            <span></span>
+            <button
+              onClick={() => setStateWishlist(rmTradeCap(x.id))}
+              className="bg-red-500
+              hover:bg-red-700
+              text-white
+              font-bold
+              py-1
+              px-2
+              border
+              border-red-700
+              rounded
+              inline-block
+              mr-6"
+            >
+              X
+            </button>
+          </li>
+        ))}
+      </ReactSortable>
+    </>
+  );
+
   return (
     <Layout>
       <SEO title="Wishlist" img={'/android-chrome-512x512.png'} />
@@ -351,7 +400,33 @@ const Wishlist = () => {
             )}
           </div>
         </div>
-        {wishlistPlaceHolder()}
+        {wishlist.tradeItems.length ? (
+          <>
+            <div className="my-4">
+              <label
+                className="block text-gray-700 border-gray-100
+                text-sm font-bold
+                mb-2"
+                htmlFor="haveText"
+              >
+                Have
+              </label>
+              {tradelistPlaceHolder()}
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 border-gray-100
+                text-sm font-bold
+                mb-2"
+                htmlFor="wantText"
+              >
+                Want
+              </label>
+              {wishlistPlaceHolder()}
+            </div>
+          </>
+        ) : wishlistPlaceHolder()}
+        
       </div>
     </Layout>
   );

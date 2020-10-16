@@ -4,7 +4,7 @@ import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { sortBy } from 'lodash';
 
-import { getWishlist, isInWishlist, rmCap, addCap } from '../internal/wishlist';
+import { getWishlist, isInWishlist, rmCap, addCap, isInTradeList, rmTradeCap, addTradeCap } from '../internal/wishlist';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import ThumbnailImage from '../components/thumbnail-image';
@@ -95,16 +95,31 @@ const Maker = (props) => {
                 {isInWishlist(wishlist, c.id) ? (
                   <FontAwesomeIcon
                     id="favStar"
-                    className="m-1 absolute star-icon text-yellow-500 cursor-pointer"
+                    className="m-1 star-icon text-yellow-500 cursor-pointer"
                     icon={['fas', 'star']}
                     onClick={() => setStateWishlist(rmCap(c.id))}
                   />
                 ) : (
                   <FontAwesomeIcon
                     id="favStar"
-                    className="m-1 absolute star-icon text-gray-500 cursor-pointer"
+                    className="m-1 star-icon text-gray-500 cursor-pointer"
                     icon={['fas', 'star']}
                     onClick={() => setStateWishlist(addCap(c.id))}
+                  />
+                )}
+                {isInTradeList(wishlist, c.id) ? (
+                  <FontAwesomeIcon
+                    id="favTrade"
+                    className="m-1 redo-icon text-yellow-500 cursor-pointer"
+                    icon={['fas', 'redo']}
+                    onClick={() => setStateWishlist(rmTradeCap(c.id))}
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    id="favTrade"
+                    className="m-1 redo-icon text-gray-500 cursor-pointer"
+                    icon={['fas', 'redo']}
+                    onClick={() => setStateWishlist(addTradeCap(c.id))}
                   />
                 )}
                 <Link to={`${location.pathname}/${c.id}`} className="text-sm text-center w-full px-5">
