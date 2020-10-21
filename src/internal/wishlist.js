@@ -1,5 +1,5 @@
 const CONSTS = {
-  wishlist: 'Wishlist',
+  wishlist: 'Wishlist_v2',
 };
 
 function localStorageLoad(key) {
@@ -17,14 +17,37 @@ function localStorageSet(key, value) {
 
 const defaultWishlist = {
   settings: {
-    titleText: '',
-    extraText: '',
-    bg: 'Black',
-    titleColor: 'Red',
-    titlePolice: 'RedRock',
-    textColor: 'White',
-    extraTextColor: 'White',
     capsPerLine: 3,
+    priority: {
+      color: 'Red',
+      font: 'Roboto',
+    },
+    legends: {
+      color: 'Red',
+      font: 'Roboto',
+    },
+    title: {
+      color: 'Red',
+      font: 'Roboto',
+      text: '',
+    },
+    tradeTitle: {
+      color: 'Red',
+      font: 'Roboto',
+      text: '',
+    },
+    extraText: {
+      color: 'Red',
+      font: 'Roboto',
+      text: '',
+    },
+    background: {
+      color: 'Black',
+    },
+    social: {
+      reddit: '',
+      discord: '',
+    },
   },
   items: [],
   tradeItems: [],
