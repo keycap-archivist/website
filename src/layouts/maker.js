@@ -53,7 +53,7 @@ const Maker = (props) => {
                   href={maker.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white text-xl hover:text-blue-600"
+                  className="text-xl hover:text-blue-600"
                 >
                   <FontAwesomeIcon icon={['fas', 'globe']} />
                 </a>
@@ -65,7 +65,7 @@ const Maker = (props) => {
                   href={maker.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white text-xl hover:text-blue-600"
+                  className="text-xl hover:text-blue-600"
                 >
                   <FontAwesomeIcon icon={['fab', 'instagram']} />
                 </a>
