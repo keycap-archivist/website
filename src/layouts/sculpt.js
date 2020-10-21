@@ -104,7 +104,12 @@ const Maker = (props) => {
                     id="favStar"
                     className="m-1 star-icon text-gray-500 cursor-pointer"
                     icon={['fas', 'star']}
-                    onClick={() => setStateWishlist(addCap(c.id))}
+                    onClick={() => {
+                      if (isInTradeList(wishlist, c.id)) {
+                        rmTradeCap(c.id);
+                      }
+                      setStateWishlist(addCap(c.id));
+                    }}
                   />
                 )}
                 {isInTradeList(wishlist, c.id) ? (
@@ -119,7 +124,12 @@ const Maker = (props) => {
                     id="favTrade"
                     className="m-1 redo-icon text-gray-500 cursor-pointer"
                     icon={['fas', 'redo']}
-                    onClick={() => setStateWishlist(addTradeCap(c.id))}
+                    onClick={() => {
+                      if (isInWishlist(wishlist, c.id)) {
+                        rmCap(c.id);
+                      }
+                      setStateWishlist(addTradeCap(c.id));
+                    }}
                   />
                 )}
                 <Link to={`${location.pathname}/${c.id}`} className="text-sm text-center w-full px-5">
