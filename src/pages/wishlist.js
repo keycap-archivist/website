@@ -6,19 +6,36 @@ import axios from 'axios';
 import SEO from '../components/seo';
 import { cssColors } from '../internal/misc';
 import Layout from '../components/layout';
-import { getWishlist, setWishlist, rmCap } from '../internal/wishlist';
+import { getWishlist, setWishlist, rmCap, rmTradeCap } from '../internal/wishlist';
 
-const baseAPIurl = 'https://app.keycap-archivist.com/api/v1';
+const baseAPIurl = 'https://app.keycap-archivist.com/api/v2';
 
 const Wishlist = () => {
   const [b64Img, setB64Img] = useState(null);
   const [errorLoading, setErrorLoading] = useState(false);
   const [wishlistLoading, setWishlistLoading] = useState(false);
-  const [wishlist, setStateWishlist] = useState({ settings: {}, items: [] });
+  const [wishlist, setStateWishlist] = useState({
+    settings: {
+      capsPerLine: 3,
+      priority: {},
+      legends: {},
+      title: {},
+      tradeTitle: {},
+      extraText: {},
+      background: {},
+      social: {},
+    },
+    items: [],
+    tradeItems: [],
+  });
+
+  const [fonts, setAvailableFonts] = useState(['Roboto', 'RedRock']);
 
   // Required for SSR
   useEffect(() => {
     setStateWishlist(getWishlist());
+
+    axios.get(`${baseAPIurl}/wishlist-settings`).then(({ data }) => setAvailableFonts(data.fonts));
   }, []);
 
   // TODO: add wonderfull animation
@@ -36,12 +53,20 @@ const Wishlist = () => {
     setErrorLoading(false);
     setWishlistLoading(true);
 
-    const outWishlist = { ...wishlist.settings };
+    const outWishlist = { settings: wishlist.settings };
     outWishlist.capsPerLine = parseInt(outWishlist.capsPerLine, 10);
-    outWishlist.ids = wishlist.items.map((x) => x.id);
-    outWishlist.priorities = wishlist.items.filter((x) => x.prio).map((x) => x.id);
+    outWishlist.tradeCaps = wishlist.tradeItems.map((i) => ({
+      id: i.id,
+      legendColor: wishlist.settings.tradeTitle.color,
+    }));
+    outWishlist.caps = wishlist.items.map((i) => ({
+      id: i.id,
+      isPriority: i.prio,
+      legendColor: wishlist.settings.title.color,
+    }));
+
     const b64 = await axios
-      .post(`${baseAPIurl}`, outWishlist, {
+      .post(`${baseAPIurl}/wishlist`, outWishlist, {
         responseType: 'arraybuffer',
       })
       .then((response) => Buffer.from(response.data, 'binary').toString('base64'))
@@ -60,84 +85,70 @@ const Wishlist = () => {
     setStateWishlist({ ...wishlist });
   };
 
-  const setSettingWishlist = (property, e) => {
-    wishlist.settings[property] = e.target.value;
+  const setSettingWishlist = (property, key, e) => {
+    if (property === 'capsPerLine') {
+      wishlist.settings.capsPerLine = e.target.value;
+    } else {
+      wishlist.settings[property][key] = e.target.value;
+    }
     setWishlist(wishlist);
     setStateWishlist({ ...wishlist });
   };
 
   const wishlistSettings = () => (
     <>
-      <div className="my-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="wishlistname">
-          Wishlist Title
-        </label>
-        <input
-          className="shadow
-          appearance-none border
-          border-gray-100 rounded
-          w-full py-2 px-3 text-gray-700
-          leading-tight focus:outline-none
-          focus:shadow-outline"
-          id="wishlistname"
-          type="text"
-          value={wishlist.settings.titleText}
-          onChange={(e) => setSettingWishlist('titleText', e)}
-          placeholder="Wishlist"
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 border-gray-100
-          text-sm font-bold
-          mb-2"
-          htmlFor="extraText"
-        >
-          Extra Text
-        </label>
-        <input
-          className="shadow appearance-none border
-          rounded border-gray-100
-          w-full py-2 px-3 text-gray-700 leading-tight
-          focus:outline-none focus:shadow-outline"
-          id="extraText"
-          type="text"
-          value={wishlist.settings.extraText}
-          onChange={(e) => setSettingWishlist('extraText', e)}
-          placeholder="Contact me u/foobar"
-        />
-      </div>
       <div className="mb-4">
         <div className="flex flex-wrap mt-2">
-          <div className="w-1/2 pr-2">
+          <div className="w-1/3 pr-2">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="capsPerLine">
-              Number of Keycaps Per Line
+              No. Keycaps Per Line
             </label>
             <input
               id="capsPerLine"
               value={wishlist.settings.capsPerLine}
-              onChange={(e) => setSettingWishlist('capsPerLine', e)}
+              onChange={(e) => setSettingWishlist('capsPerLine', '', e)}
               className="shadow appearance-none border border-gray-100 rounded
               w-full py-2 px-3 text-gray-700 leading-tight
               focus:outline-none focus:shadow-outline"
               type="number"
             />
           </div>
-          <div className="w-1/2 pr-2">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="textColor">
-              Title Police
+          <div className="w-1/3 pr-2">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priorityColor">
+              Priority Color
             </label>
             <select
-              id="titlePolice"
+              id="priorityColor"
               className="shadow appearance-none
               border border-gray-100 rounded w-full
                py-2 px-3 text-gray-700 leading-tight
                focus:outline-none focus:shadow-outline"
               type="select"
-              value={wishlist.settings.titlePolice}
-              onChange={(e) => setSettingWishlist('titlePolice', e)}
+              value={wishlist.settings.priority.color}
+              onChange={(e) => setSettingWishlist('priority', 'color', e)}
             >
-              {['RedRock', 'Roboto'].map((x) => (
+              {cssColors.map((x) => (
+                <option key={x} value={x}>
+                  {x}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="w-1/3 pr-2">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priorityFont">
+              Priority Font
+            </label>
+            <select
+              id="priorityFont"
+              className="shadow appearance-none
+              border border-gray-100 rounded w-full
+               py-2 px-3 text-gray-700 leading-tight
+               focus:outline-none focus:shadow-outline"
+              type="select"
+              value={wishlist.settings.priority.font}
+              onChange={(e) => setSettingWishlist('priority', 'font', e)}
+            >
+              {fonts.map((x) => (
                 <option key={x} value={x}>
                   {x}
                 </option>
@@ -149,6 +160,155 @@ const Wishlist = () => {
       <div className="mb-4">
         <div className="flex flex-wrap mt-2">
           <div className="w-1/3 pr-2">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="legendsFont">
+              Legends Font
+            </label>
+            <select
+              id="legendsFont"
+              className="shadow appearance-none
+              border border-gray-100 rounded w-full
+               py-2 px-3 text-gray-700 leading-tight
+               focus:outline-none focus:shadow-outline"
+              type="select"
+              value={wishlist.settings.legends.font}
+              onChange={(e) => setSettingWishlist('legends', 'font', e)}
+            >
+              {fonts.map((x) => (
+                <option key={x} value={x}>
+                  {x}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="w-1/3 pr-2">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="legendsColor">
+              Legends Color
+            </label>
+            <select
+              id="legendsColor"
+              className="shadow appearance-none
+              border border-gray-100 rounded w-full
+               py-2 px-3 text-gray-700 leading-tight
+               focus:outline-none focus:shadow-outline"
+              type="select"
+              value={wishlist.settings.legends.color}
+              onChange={(e) => setSettingWishlist('legends', 'color', e)}
+            >
+              {cssColors.map((x) => (
+                <option key={x} value={x}>
+                  {x}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="w-1/3 pr-2">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="backgroundColor">
+              Background Color
+            </label>
+            <select
+              id="backgroundColor"
+              className="shadow appearance-none
+              border border-gray-100 rounded w-full
+               py-2 px-3 text-gray-700 leading-tight
+               focus:outline-none focus:shadow-outline"
+              type="select"
+              value={wishlist.settings.background.color}
+              onChange={(e) => setSettingWishlist('background', 'color', e)}
+            >
+              {cssColors.map((x) => (
+                <option key={x} value={x}>
+                  {x}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+      {wishlist.tradeItems.length ? (
+        <div className="mb-4">
+          <div className="flex flex-wrap mt-2">
+            <div className="w-1/3 pr-2">
+              <label className="block text-gray-700 border-gray-100 text-sm font-bold mb-2" htmlFor="tradeTitleText">
+                Trade Text
+              </label>
+              <input
+                className="shadow appearance-none border
+              rounded border-gray-100
+              w-full py-2 px-3 text-gray-700 leading-tight
+              focus:outline-none focus:shadow-outline"
+                id="tradeTitleText"
+                type="text"
+                value={wishlist.settings.tradeTitle.text}
+                onChange={(e) => setSettingWishlist('tradeTitle', 'text', e)}
+                placeholder="Have"
+              />
+            </div>
+            <div className="w-1/3 pr-2">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="tradeTitleColor">
+                Trade Title Color
+              </label>
+              <select
+                id="tradeTitleColor"
+                className="shadow appearance-none border border-gray-100
+                rounded w-full py-2 px-3 text-gray-700 leading-tight
+                focus:outline-none focus:shadow-outline"
+                type="select"
+                value={wishlist.settings.tradeTitle.color}
+                onChange={(e) => setSettingWishlist('tradeTitle', 'color', e)}
+              >
+                {cssColors.map((x) => (
+                  <option key={x} value={x}>
+                    {x}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="w-1/3 pr-2">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="tradeTitleFont">
+                Trade Title Font
+              </label>
+              <select
+                id="tradeTitleFont"
+                className="shadow appearance-none border
+                border-gray-100
+                rounded w-full py-2 px-3 text-gray-700
+                leading-tight
+                focus:outline-none focus:shadow-outline"
+                type="select"
+                value={wishlist.settings.tradeTitle.font}
+                onChange={(e) => setSettingWishlist('tradeTitle', 'font', e)}
+              >
+                {fonts.map((x) => (
+                  <option key={x} value={x}>
+                    {x}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+      ) : (
+        ''
+      )}
+
+      <div className="mb-4">
+        <div className="flex flex-wrap mt-2">
+          <div className="w-1/3 pr-2">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="titleText">
+              Title
+            </label>
+            <input
+              className="shadow appearance-none border border-gray-100
+              rounded w-full py-2 px-3 text-gray-700 leading-tight
+              focus:outline-none focus:shadow-outline"
+              id="titleText"
+              type="text"
+              value={wishlist.settings.title.text}
+              onChange={(e) => setSettingWishlist('title', 'text', e)}
+              placeholder={wishlist.tradeItems.length ? 'Want' : 'Wishlist'}
+            />
+          </div>
+          <div className="w-1/3 pr-2">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="titleColor">
               Title Color
             </label>
@@ -158,8 +318,8 @@ const Wishlist = () => {
               rounded w-full py-2 px-3 text-gray-700 leading-tight
               focus:outline-none focus:shadow-outline"
               type="select"
-              value={wishlist.settings.titleColor}
-              onChange={(e) => setSettingWishlist('titleColor', e)}
+              value={wishlist.settings.title.color}
+              onChange={(e) => setSettingWishlist('title', 'color', e)}
             >
               {cssColors.map((x) => (
                 <option key={x} value={x}>
@@ -169,44 +329,60 @@ const Wishlist = () => {
             </select>
           </div>
           <div className="w-1/3 pr-2">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="textColor">
-              Text Color
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="titleFont">
+              Title Font
             </label>
             <select
-              id="textColor"
-              className="shadow
-              appearance-none
-              border
-              border-gray-100
-              rounded w-full py-2
-              px-3 text-gray-700 leading-tight
-              focus:outline-none
-              focus:shadow-outline"
-              type="select"
-              value={wishlist.settings.textColor}
-              onChange={(e) => setSettingWishlist('textColor', e)}
-            >
-              {cssColors.map((x) => (
-                <option key={x} value={x}>
-                  {x}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="w-1/3 pr-2">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="bgColor">
-              Background Color
-            </label>
-            <select
-              id="bgColor"
+              id="titleFont"
               className="shadow appearance-none border
               border-gray-100
               rounded w-full py-2 px-3 text-gray-700
               leading-tight
               focus:outline-none focus:shadow-outline"
               type="select"
-              value={wishlist.settings.bg}
-              onChange={(e) => setSettingWishlist('bg', e)}
+              value={wishlist.settings.title.font}
+              onChange={(e) => setSettingWishlist('title', 'font', e)}
+            >
+              {fonts.map((x) => (
+                <option key={x} value={x}>
+                  {x}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <div className="flex flex-wrap mt-2">
+          <div className="w-1/3 pr-2">
+            <label className="block text-gray-700 border-gray-100 text-sm font-bold mb-2" htmlFor="extraText">
+              Extra Text
+            </label>
+            <input
+              className="shadow appearance-none border
+              rounded border-gray-100
+              w-full py-2 px-3 text-gray-700 leading-tight
+              focus:outline-none focus:shadow-outline"
+              id="extraText"
+              type="text"
+              value={wishlist.settings.extraText.text}
+              onChange={(e) => setSettingWishlist('extraText', 'text', e)}
+              placeholder="Willing to topup if needed"
+            />
+          </div>
+          <div className="w-1/3 pr-2">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="extraColor">
+              Extra Color
+            </label>
+            <select
+              id="extraColor"
+              className="shadow appearance-none border border-gray-100
+                rounded w-full py-2 px-3 text-gray-700 leading-tight
+                focus:outline-none focus:shadow-outline"
+              type="select"
+              value={wishlist.settings.extraText.color}
+              onChange={(e) => setSettingWishlist('extraText', 'color', e)}
             >
               {cssColors.map((x) => (
                 <option key={x} value={x}>
@@ -214,6 +390,64 @@ const Wishlist = () => {
                 </option>
               ))}
             </select>
+          </div>
+          <div className="w-1/3 pr-2">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="extraFont">
+              Extra Font
+            </label>
+            <select
+              id="extraFont"
+              className="shadow appearance-none border
+                border-gray-100
+                rounded w-full py-2 px-3 text-gray-700
+                leading-tight
+                focus:outline-none focus:shadow-outline"
+              type="select"
+              value={wishlist.settings.extraText.font}
+              onChange={(e) => setSettingWishlist('extraText', 'font', e)}
+            >
+              {fonts.map((x) => (
+                <option key={x} value={x}>
+                  {x}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+      <div className="mb-4">
+        <div className="flex flex-wrap mt-2">
+          <div className="w-1/2 pr-2">
+            <label className="block text-gray-700 border-gray-100 text-sm font-bold mb-2" htmlFor="socialReddit">
+              Reddit
+            </label>
+            <input
+              className="shadow appearance-none border
+              rounded border-gray-100
+              w-full py-2 px-3 text-gray-700 leading-tight
+              focus:outline-none focus:shadow-outline"
+              id="socialReddit"
+              type="text"
+              value={wishlist.settings.social.reddit}
+              onChange={(e) => setSettingWishlist('social', 'reddit', e)}
+              placeholder="r/username"
+            />
+          </div>
+          <div className="w-1/2 pr-2">
+            <label className="block text-gray-700 border-gray-100 text-sm font-bold mb-2" htmlFor="socialDiscord">
+              Discord
+            </label>
+            <input
+              className="shadow appearance-none border
+              rounded border-gray-100
+              w-full py-2 px-3 text-gray-700 leading-tight
+              focus:outline-none focus:shadow-outline"
+              id="socialDiscord"
+              type="text"
+              value={wishlist.settings.social.discord}
+              onChange={(e) => setSettingWishlist('social', 'discord', e)}
+              placeholder="Discord#1234"
+            />
           </div>
         </div>
       </div>
@@ -262,26 +496,87 @@ const Wishlist = () => {
                   inline-block
                   mr-6"
               >
-                Remove Priority
+                <FontAwesomeIcon
+                  id="removePriority"
+                  className="m-1 arrow-down-icon cursor-pointer"
+                  icon={['fas', 'sort-numeric-down']}
+                />
               </button>
             ) : (
               <button
                 onClick={() => setPriority(x.id, true)}
                 className="bg-green-500
-                 hover:bg-green-700
-                 text-white
-                 font-bold
-                 py-1 px-2
-                 border
-                 border-green-700
-                 rounded
-                 inline-block mr-6"
+                  hover:bg-green-700
+                  text-white
+                  font-bold
+                  py-1 px-2
+                  border
+                  border-green-700
+                  rounded
+                  inline-block mr-6"
               >
-                Add Priority
+                <FontAwesomeIcon
+                  id="addPriority"
+                  className="m-1 arrow-up-icon cursor-pointer"
+                  icon={['fas', 'sort-numeric-up']}
+                />
               </button>
             )}
             <button
               onClick={() => setStateWishlist(rmCap(x.id))}
+              className="bg-red-500
+                hover:bg-red-700
+                text-white
+                font-bold
+                py-1
+                px-2
+                border
+                border-red-700
+                rounded
+                inline-block
+                mr-6"
+            >
+              <FontAwesomeIcon
+                id="removeWishlist"
+                className="m-1 trash-alt-icon cursor-pointer"
+                icon={['fas', 'trash-alt']}
+              />
+            </button>
+          </li>
+        ))}
+      </ReactSortable>
+    </>
+  );
+
+  const tradelistPlaceHolder = () => (
+    <>
+      <ReactSortable
+        handle=".handle"
+        tag="ul"
+        className="mt-6"
+        list={wishlist ? wishlist.tradeItems : []}
+        setList={(e) => {
+          // Update the state of the component only
+          const w = { ...wishlist };
+          w.tradeItems = e;
+          setStateWishlist(w);
+        }}
+        onEnd={() => {
+          // write the wishlist in the localstorage onEnd only
+          setWishlist(wishlist);
+        }}
+      >
+        {wishlist.tradeItems.map((x) => (
+          <li key={x.id} className="mt-2" style={{ minHeight: '150px' }}>
+            <FontAwesomeIcon className="cursor-move handle inline-block text-3xl mr-6" icon="align-justify" />
+            <img
+              style={{ maxWidth: '150px' }}
+              src={`${baseAPIurl}/img/${x.id}`}
+              className="cursor-move handle inline-block rounded-lg max-h-full mr-6"
+            />
+            <span></span>
+            <button
+              onClick={() => setStateWishlist(rmTradeCap(x.id))}
               className="bg-red-500
               hover:bg-red-700
               text-white
@@ -294,7 +589,11 @@ const Wishlist = () => {
               inline-block
               mr-6"
             >
-              X
+              <FontAwesomeIcon
+                id="removeTradeList"
+                className="m-1 trash-alt-icon cursor-pointer"
+                icon={['fas', 'trash-alt']}
+              />
             </button>
           </li>
         ))}
@@ -306,7 +605,7 @@ const Wishlist = () => {
     <Layout>
       <SEO title="Wishlist" img={'/android-chrome-512x512.png'} />
       <h1 className="text-3xl font-bold">Wishlist</h1>
-      <div className="m-auto lg:w-8/12 md:w-full">
+      <div className="m-auto lg:w-9/12 md:w-full">
         {errorPlaceholder()}
         {loadingPlaceholder()}
         {imgPlaceholder()}
@@ -351,7 +650,36 @@ const Wishlist = () => {
             )}
           </div>
         </div>
-        {wishlistPlaceHolder()}
+        {wishlist.tradeItems.length ? (
+          <div className="mb-4">
+            <div className="flex flex-wrap mt-2">
+              <div className="w-1/2 pr-2">
+                <label
+                  className="block text-gray-700 border-gray-100
+                text-sm font-bold
+                mb-2"
+                  htmlFor="haveText"
+                >
+                  {wishlist.settings.tradeTitle.text || 'Have'}
+                </label>
+                {tradelistPlaceHolder()}
+              </div>
+              <div className="w-1/2 pr-2">
+                <label
+                  className="block text-gray-700 border-gray-100
+                text-sm font-bold
+                mb-2"
+                  htmlFor="wantText"
+                >
+                  {wishlist.settings.title.text || 'Want'}
+                </label>
+                {wishlistPlaceHolder()}
+              </div>
+            </div>
+          </div>
+        ) : (
+          wishlistPlaceHolder()
+        )}
       </div>
     </Layout>
   );

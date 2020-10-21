@@ -19,7 +19,7 @@ const About = () => {
   return (
     <Layout>
       <SEO title="About" />
-      <div className="w-full m-auto lg:w-8/12 py-10">
+      <div className="w-full m-auto lg:w-9/12 py-10">
         <h1 className="text-3xl font-bold">About</h1>
         <p className="my-5">
           <strong>Keycap Archivist</strong> is a community driven project from artisan keycap enthusiasts made for other
