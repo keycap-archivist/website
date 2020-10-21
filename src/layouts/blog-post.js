@@ -9,7 +9,7 @@ const Maker = (data) => {
   return (
     <Layout>
       <SEO title={data.pageContext.title} description={data.pageContext.description} />
-      <div className="w-full m-auto lg:w-8/12 py-10">
+      <div className="w-full m-auto lg:w-9/12 py-10">
         <h1 className="text-4xl font-bold mb-5">{data.pageContext.title}</h1>
         <div className="space-y-6">{content}</div>
       </div>

@@ -101,7 +101,7 @@ const Wishlist = () => {
         <div className="flex flex-wrap mt-2">
           <div className="w-1/3 pr-2">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="capsPerLine">
-              Number of Keycaps Per Line
+              No. Keycaps Per Line
             </label>
             <input
               id="capsPerLine"
@@ -496,39 +496,51 @@ const Wishlist = () => {
                   inline-block
                   mr-6"
               >
-                Remove Priority
+                <FontAwesomeIcon
+                  id="removePriority"
+                  className="m-1 arrow-down-icon cursor-pointer"
+                  icon={['fas', 'sort-numeric-down']}
+                />
               </button>
             ) : (
               <button
                 onClick={() => setPriority(x.id, true)}
                 className="bg-green-500
-                 hover:bg-green-700
-                 text-white
-                 font-bold
-                 py-1 px-2
-                 border
-                 border-green-700
-                 rounded
-                 inline-block mr-6"
+                  hover:bg-green-700
+                  text-white
+                  font-bold
+                  py-1 px-2
+                  border
+                  border-green-700
+                  rounded
+                  inline-block mr-6"
               >
-                Add Priority
+                <FontAwesomeIcon
+                  id="addPriority"
+                  className="m-1 arrow-up-icon cursor-pointer"
+                  icon={['fas', 'sort-numeric-up']}
+                />
               </button>
             )}
             <button
               onClick={() => setStateWishlist(rmCap(x.id))}
               className="bg-red-500
-              hover:bg-red-700
-              text-white
-              font-bold
-              py-1
-              px-2
-              border
-              border-red-700
-              rounded
-              inline-block
-              mr-6"
+                hover:bg-red-700
+                text-white
+                font-bold
+                py-1
+                px-2
+                border
+                border-red-700
+                rounded
+                inline-block
+                mr-6"
             >
-              X
+              <FontAwesomeIcon
+                id="removeWishlist"
+                className="m-1 trash-alt-icon cursor-pointer"
+                icon={['fas', 'trash-alt']}
+              />
             </button>
           </li>
         ))}
@@ -577,7 +589,11 @@ const Wishlist = () => {
               inline-block
               mr-6"
             >
-              X
+              <FontAwesomeIcon
+                id="removeTradeList"
+                className="m-1 trash-alt-icon cursor-pointer"
+                icon={['fas', 'trash-alt']}
+              />
             </button>
           </li>
         ))}
@@ -589,7 +605,7 @@ const Wishlist = () => {
     <Layout>
       <SEO title="Wishlist" img={'/android-chrome-512x512.png'} />
       <h1 className="text-3xl font-bold">Wishlist</h1>
-      <div className="m-auto lg:w-8/12 md:w-full">
+      <div className="m-auto lg:w-9/12 md:w-full">
         {errorPlaceholder()}
         {loadingPlaceholder()}
         {imgPlaceholder()}
@@ -635,30 +651,32 @@ const Wishlist = () => {
           </div>
         </div>
         {wishlist.tradeItems.length ? (
-          <>
-            <div className="my-4">
-              <label
-                className="block text-gray-700 border-gray-100
+          <div className="mb-4">
+            <div className="flex flex-wrap mt-2">
+              <div className="w-1/2 pr-2">
+                <label
+                  className="block text-gray-700 border-gray-100
                 text-sm font-bold
                 mb-2"
-                htmlFor="haveText"
-              >
-                Have
-              </label>
-              {tradelistPlaceHolder()}
-            </div>
-            <div className="mb-4">
-              <label
-                className="block text-gray-700 border-gray-100
+                  htmlFor="haveText"
+                >
+                  {wishlist.settings.tradeTitle.text || 'Have'}
+                </label>
+                {tradelistPlaceHolder()}
+              </div>
+              <div className="w-1/2 pr-2">
+                <label
+                  className="block text-gray-700 border-gray-100
                 text-sm font-bold
                 mb-2"
-                htmlFor="wantText"
-              >
-                Want
-              </label>
-              {wishlistPlaceHolder()}
+                  htmlFor="wantText"
+                >
+                  {wishlist.settings.title.text || 'Want'}
+                </label>
+                {wishlistPlaceHolder()}
+              </div>
             </div>
-          </>
+          </div>
         ) : (
           wishlistPlaceHolder()
         )}
