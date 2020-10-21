@@ -1,5 +1,6 @@
 const CONSTS = {
-  wishlist: 'Wishlist_v2',
+  wishlist: 'Wishlist',
+  wishlistV2: 'Wishlist_v2',
 };
 
 function localStorageLoad(key) {
@@ -12,6 +13,11 @@ function localStorageLoad(key) {
 function localStorageSet(key, value) {
   if (localStorage) {
     localStorage.setItem(key, value);
+  }
+}
+function localStorageDel(key) {
+  if (localStorage) {
+    localStorage.removeItem(key);
   }
 }
 
@@ -58,16 +64,37 @@ function getDefaultWishlist() {
 }
 
 function setWishlist(wishlist) {
-  localStorageSet(CONSTS.wishlist, JSON.stringify(wishlist));
+  localStorageSet(CONSTS.wishlistV2, JSON.stringify(wishlist));
+}
+
+function migratev1(w) {
+  const newWish = getDefaultWishlist();
+  w.items.forEach((c) => {
+    newWish.items.push(c);
+  });
+  return newWish;
 }
 
 function getWishlist() {
+  // Temporary migration step
   const w = localStorageLoad(CONSTS.wishlist);
   if (w) {
     try {
-      return JSON.parse(w);
+      const v1Wish = JSON.parse(w);
+      const newWish = migratev1(v1Wish);
+      localStorageDel(CONSTS.wishlist);
+      setWishlist(newWish);
+      return newWish;
     } catch (e) {
       console.log('Unable to read the Wishlist object');
+    }
+  }
+  const w2 = localStorageLoad(CONSTS.wishlistV2);
+  if (w2) {
+    try {
+      return JSON.parse(w2);
+    } catch (e) {
+      console.log('Unable to read the Wishlist v2 object');
     }
   }
   const d = getDefaultWishlist();
