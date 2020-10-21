@@ -43,9 +43,37 @@ const Maker = (props) => {
           <FontAwesomeIcon icon={['fas', 'home']} />
         </Link>
       </div>
-      <h2 className="text-3xl my-6">
-        <span className="font-bold">{maker.name}</span>
-      </h2>
+      <div className="text-3xl my-6">
+        <h2 className="font-bold">{maker.name}</h2>
+        {(maker.website || maker.instagram) && (
+          <ul className="flex flex-wrap flex-row list-none -ml-1">
+            {maker.website && (
+              <li className="flex h-auto px-1">
+                <a
+                  href={maker.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white text-xl hover:text-blue-600"
+                >
+                  <FontAwesomeIcon icon={['fas', 'globe']} />
+                </a>
+              </li>
+            )}
+            {maker.instagram && (
+              <li className="flex h-auto px-1">
+                <a
+                  href={maker.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white text-xl hover:text-blue-600"
+                >
+                  <FontAwesomeIcon icon={['fab', 'instagram']} />
+                </a>
+              </li>
+            )}
+          </ul>
+        )}
+      </div>
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
         {sculptList.map((s) => (
           <li key={s.id} className="flex h-auto w-1/2 md:w-1/4 lg:w-1/5 py-1 px-1">
