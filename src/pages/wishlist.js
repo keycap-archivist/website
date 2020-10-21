@@ -29,9 +29,13 @@ const Wishlist = () => {
     tradeItems: [],
   });
 
+  const [fonts, setAvailableFonts] = useState(['Roboto', 'RedRock']);
+
   // Required for SSR
   useEffect(() => {
     setStateWishlist(getWishlist());
+
+    axios.get(`${baseAPIurl}/wishlist-settings`).then(({ data }) => setAvailableFonts(data.fonts));
   }, []);
 
   // TODO: add wonderfull animation
@@ -144,7 +148,7 @@ const Wishlist = () => {
               value={wishlist.settings.priority.font}
               onChange={(e) => setSettingWishlist('priority', 'font', e)}
             >
-              {['RedRock', 'Roboto'].map((x) => (
+              {fonts.map((x) => (
                 <option key={x} value={x}>
                   {x}
                 </option>
@@ -169,7 +173,7 @@ const Wishlist = () => {
               value={wishlist.settings.legends.font}
               onChange={(e) => setSettingWishlist('legends', 'font', e)}
             >
-              {['RedRock', 'Roboto'].map((x) => (
+              {fonts.map((x) => (
                 <option key={x} value={x}>
                   {x}
                 </option>
@@ -274,7 +278,7 @@ const Wishlist = () => {
                 value={wishlist.settings.tradeTitle.font}
                 onChange={(e) => setSettingWishlist('tradeTitle', 'font', e)}
               >
-                {['RedRock', 'Roboto'].map((x) => (
+                {fonts.map((x) => (
                   <option key={x} value={x}>
                     {x}
                   </option>
@@ -339,7 +343,7 @@ const Wishlist = () => {
               value={wishlist.settings.title.font}
               onChange={(e) => setSettingWishlist('title', 'font', e)}
             >
-              {['RedRock', 'Roboto'].map((x) => (
+              {fonts.map((x) => (
                 <option key={x} value={x}>
                   {x}
                 </option>
@@ -402,7 +406,7 @@ const Wishlist = () => {
               value={wishlist.settings.extraText.font}
               onChange={(e) => setSettingWishlist('extraText', 'font', e)}
             >
-              {['RedRock', 'Roboto'].map((x) => (
+              {fonts.map((x) => (
                 <option key={x} value={x}>
                   {x}
                 </option>
