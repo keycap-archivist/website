@@ -8,7 +8,7 @@ import { cssColors } from '../internal/misc';
 import Layout from '../components/layout';
 import { getWishlist, setWishlist, rmCap, rmTradeCap } from '../internal/wishlist';
 
-const baseAPIurl = 'https://app.keycap-archivist.com/api/v2/wishlist';
+const baseAPIurl = 'https://app.keycap-archivist.com/api/v2';
 
 const Wishlist = () => {
   const [b64Img, setB64Img] = useState(null);
@@ -62,7 +62,7 @@ const Wishlist = () => {
     }));
 
     const b64 = await axios
-      .post(`${baseAPIurl}`, outWishlist, {
+      .post(`${baseAPIurl}/wishlist`, outWishlist, {
         responseType: 'arraybuffer',
       })
       .then((response) => Buffer.from(response.data, 'binary').toString('base64'))
