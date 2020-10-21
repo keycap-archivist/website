@@ -430,7 +430,7 @@ const Wishlist = () => {
               type="text"
               value={wishlist.settings.social.reddit}
               onChange={(e) => setSettingWishlist('social', 'reddit', e)}
-              placeholder="r/username"
+              placeholder="u/username"
             />
           </div>
           <div className="w-1/2 pr-2">
