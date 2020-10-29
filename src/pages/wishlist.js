@@ -366,6 +366,7 @@ const Wishlist = () => {
               focus:outline-none focus:shadow-outline"
               id="extraText"
               type="text"
+              maxLength="50"
               value={wishlist.settings.extraText.text}
               onChange={(e) => setSettingWishlist('extraText', 'text', e)}
               placeholder="Willing to topup if needed"
