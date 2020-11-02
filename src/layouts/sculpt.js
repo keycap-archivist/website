@@ -27,7 +27,6 @@ const Maker = (props) => {
 
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
-
   return (
     <Layout>
       {showSuccessAlert && (
@@ -65,6 +64,16 @@ const Maker = (props) => {
           Submit a Colorway
         </button>
       </div>
+      {sculpt.releaseDate ? (
+        <div>
+          <FontAwesomeIcon icon={['fa', 'calendar']} />
+          <span className="font-bold mx-2">Release date:</span>
+          {sculpt.releaseDate}
+        </div>
+      ) : (
+        ''
+      )}
+
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
         {cwList.map((c) => (
           <li key={c.id} id={c.id} className="flex h-auto w-1/2 md:w-1/4 lg:w-1/5 py-1 px-1">

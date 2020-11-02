@@ -138,6 +138,15 @@ const Maker = (props) => {
             )}
           </div>
         </div>
+        {colorway.releaseDate ? (
+          <div>
+            <FontAwesomeIcon icon={['fa', 'calendar']} />
+            <span className="font-bold mx-2">Release date:</span>
+            {colorway.releaseDate}
+          </div>
+        ) : (
+          ''
+        )}
         <div className="flex bg-white">
           <div className="flex flex-col p-5 mx-auto">
             <div className="w-full h-full bg-gray-300">
