@@ -18,6 +18,11 @@
   }
 }
 
+.colorway-wrapper {
+  min-width: #{'max(25vw, 160px)'};
+  max-width: 100vw;
+}
+
 .search__list {
   max-height: 75vh;
   z-index: 1;
