@@ -626,7 +626,7 @@ const Wishlist = () => {
           </div>
           <div className="w-full md:w-1/4 mr-2">
             {b64Img ? (
-              <button
+              <a
                 href={`data:image/png;base64,${b64Img}`}
                 download="wishlist.png"
                 className={`
@@ -645,7 +645,7 @@ const Wishlist = () => {
                 disabled={wishlistLoading}
               >
                 Download Wishlist
-              </button>
+              </a>
             ) : (
               ''
             )}
