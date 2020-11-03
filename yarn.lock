@@ -6136,6 +6136,11 @@ gatsby-plugin-next-seo@^1.5.1:
     schema-dts "0.5.2"
     type-fest "^0.13.1"
 
+gatsby-plugin-no-sourcemaps@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-no-sourcemaps/-/gatsby-plugin-no-sourcemaps-2.2.1.tgz#731128cee829a3eca7b22bc8feb28bdc6f45cefa"
+  integrity sha512-Sn8YY0f0JHe+1/W9MomXc4i1SLdLWuAC6sWCEYnkYRzWeizv9ALr/x0ieJbjkbNZVh8GJsqN+DloWiQddUVSrw==
+
 gatsby-plugin-offline@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-offline/-/gatsby-plugin-offline-3.2.1.tgz#67d04c9915e9852544fbc935c4751b578cae88bf"

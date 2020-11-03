@@ -82,6 +82,7 @@ const plugins = [
 
 // Purge CSS for prod deployement
 if (process.env.TARGET === 'PROD') {
+  plugins.push('gatsby-plugin-no-sourcemaps');
   plugins.push({
     resolve: 'gatsby-plugin-purgecss',
     options: {

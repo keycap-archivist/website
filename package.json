@@ -48,6 +48,7 @@
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.19.0",
+    "gatsby-plugin-no-sourcemaps": "^2.2.1",
     "prettier": "2.0.5"
   },
   "license": "MIT",
