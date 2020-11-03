@@ -43,36 +43,39 @@ const Maker = (props) => {
           {maker.name}
         </Link>
       </div>
-      <div className="flex text-3xl my-6 justify-between">
-        <h2 className="font-bold">{sculpt.name}</h2>
-
-        <button
-          className="
-            inline-block
-            block
-            w-35
-            bg-teal-500
-            hover:bg-teal-700
-            text-white
-            font-bold
-            py-1
-            px-2
-            text-xs
-            rounded"
-          onClick={() => setShowModal(true)}
-        >
-          Submit a Colorway
-        </button>
-      </div>
-      {sculpt.releaseDate ? (
-        <div>
-          <FontAwesomeIcon icon={['fa', 'calendar']} />
-          <span className="font-bold mx-2">Release date:</span>
-          {sculpt.releaseDate}
+      <div className="flex flex-col sm:flex-row justify-between my-6">
+        <div className="mb-2 pr-3 leading-snug sm:mb-0">
+          <h2 className="text-3xl font-bold leading-none">{sculpt.name}</h2>
+          {sculpt.releaseDate ? (
+            <div className="mt-2">
+              <FontAwesomeIcon icon={['fa', 'calendar']} />
+              <span className="font-bold mx-2">Release date:</span>
+              {sculpt.releaseDate}
+            </div>
+          ) : (
+            ''
+          )}
         </div>
-      ) : (
-        ''
-      )}
+        <div className="flex flex-row flex-no-wrap flex-shrink-0 mt-1 items-start">
+          <button
+            className="
+              inline-block
+              block
+              w-35
+              bg-teal-500
+              hover:bg-teal-700
+              text-white
+              font-bold
+              py-1
+              px-2
+              text-xs
+              rounded"
+            onClick={() => setShowModal(true)}
+          >
+            Submit a Colorway
+          </button>
+        </div>
+      </div>
 
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
         {cwList.map((c) => (

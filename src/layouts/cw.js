@@ -52,9 +52,18 @@ const Maker = (props) => {
           </Link>
         </div>
         <div className="flex flex-col sm:flex-row justify-between my-6">
-          <h2 className="text-3xl mb-2 pr-3 leading-snug sm:mb-0">
-            <span className="font-bold leading-none">{colorway.name ? colorway.name : '(Unknown)'}</span>
-          </h2>
+          <div className="mb-2 pr-3 leading-snug sm:mb-0">
+            <h2 className="text-3xl font-bold leading-none">{colorway.name ? colorway.name : '(Unknown)'}</h2>
+            {colorway.releaseDate ? (
+              <div className="mt-2">
+                <FontAwesomeIcon icon={['fa', 'calendar']} />
+                <span className="font-bold mx-2">Release date:</span>
+                {colorway.releaseDate}
+              </div>
+            ) : (
+              ''
+            )}
+          </div>
           <div className="flex flex-row flex-no-wrap flex-shrink-0 mt-1 items-start">
             {!colorway.name && (
               <button
@@ -138,18 +147,9 @@ const Maker = (props) => {
             )}
           </div>
         </div>
-        {colorway.releaseDate ? (
-          <div>
-            <FontAwesomeIcon icon={['fa', 'calendar']} />
-            <span className="font-bold mx-2">Release date:</span>
-            {colorway.releaseDate}
-          </div>
-        ) : (
-          ''
-        )}
-        <div className="flex bg-white">
+        <div className="flex bg-white border">
           <div className="flex flex-col p-5 mx-auto">
-            <div className="w-full h-full bg-gray-300">
+            <div className="w-full h-full">
               <img loading="lazy" className="block h-full w-full object-cover" alt={seoTitle} src={colorway.img} />
             </div>
           </div>
