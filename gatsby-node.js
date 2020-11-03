@@ -12,7 +12,7 @@ const _ = require('lodash');
 
 const db = JSON.parse(fs.readFileSync('./src/db/catalog.json'));
 
-const slug = (d) => slugify(d, { replacement: '-', remove: /[,.:?()'"/]/g, lower: true }).toLowerCase();
+const slug = (d) => slugify(d, { replacement: '-', remove: /[#,.:?()'"/]/g, lower: true }).toLowerCase();
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
