@@ -45,7 +45,7 @@ const Maker = (props) => {
       </div>
       <div className="text-3xl my-6">
         <h2 className="font-bold">{maker.name}</h2>
-        {(maker.website || maker.instagram || maker.discord) && (
+        {(maker.website || maker.instagram || maker.discord_id) && (
           <ul className="flex flex-wrap flex-row list-none -ml-1">
             {maker.website && (
               <li className="flex h-auto px-1">
@@ -71,10 +71,10 @@ const Maker = (props) => {
                 </a>
               </li>
             )}
-            {maker.discord && (
+            {maker.discord_id && (
               <li className="flex h-auto px-1">
                 <a
-                  href={maker.discord}
+                  href={`https://discord.com/invite/${maker.discord_id}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xl hover:text-blue-600"
