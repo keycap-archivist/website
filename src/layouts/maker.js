@@ -40,7 +40,7 @@ const Maker = (props) => {
       <SEO title={maker.name} img={getLogoMaker(maker.id)} />
       <div className="pt-4">
         <Link to="/" className="text-blue-600">
-          <span style="font-size:16px">
+          <span style={{ 'font-size': '16px' }}>
             <FontAwesomeIcon icon={['fas', 'home']} />
           </span>
         </Link>
