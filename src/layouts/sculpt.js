@@ -36,9 +36,7 @@ const Maker = (props) => {
       <SEO title={seoTitle} img={sculpt.previewImg} />
       <div className="pt-4">
         <Link to="/" className="text-blue-600">
-          <span style={{ 'font-size': '16px' }}>
-            <FontAwesomeIcon icon={['fas', 'home']} />
-          </span>
+          <FontAwesomeIcon icon={['fas', 'home']} />
         </Link>
         <span className="text-gray-400"> / </span>
         <Link to={makerUrl} className="text-blue-600">

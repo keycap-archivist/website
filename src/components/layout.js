@@ -2,17 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 import { Helmet } from 'react-helmet-async';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { library, config } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 
+import '@fortawesome/fontawesome-svg-core/styles.css';
 import Header from './header';
 import '../assets/css/base.css';
 import '../assets/scss/style.scss';
 
 library.add(fab);
 library.add(fas);
-
+config.autoAddCss = false;
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
