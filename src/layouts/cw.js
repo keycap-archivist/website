@@ -4,7 +4,7 @@ import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { getWishlist, isInWishlist, rmCap, addCap } from '../internal/wishlist';
+import { getWishlist, isInWishlist, rmCap, addCap, isInTradeList, rmTradeCap, addTradeCap } from '../internal/wishlist';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import Alert from '../components/alert';
@@ -143,6 +143,48 @@ const Maker = (props) => {
               >
                 <FontAwesomeIcon className="mr-1" icon={['fas', 'star']} />
                 <span>Add to wishlist</span>
+              </button>
+            )}
+            {isInTradeList(wishlist, colorway.id) ? (
+              <button
+                onClick={() => setStateWishlist(rmTradeCap(colorway.id))}
+                className="
+                  block
+                  w-48
+                  inline-flex
+                  items-center
+                  justify-center
+                  bg-red-500
+                  hover:bg-red-700
+                  text-white
+                  font-bold
+                  ml-2
+                  py-2
+                  px-3
+                  text-xs
+                  rounded"
+              >
+                <FontAwesomeIcon className="mr-1" icon={['fas', 'redo']} />
+                <span>Remove from trade list</span>
+              </button>
+            ) : (
+              <button
+                onClick={() => setStateWishlist(addTradeCap(colorway.id))}
+                className="
+                  block
+                  w-48
+                  bg-green-500
+                  hover:bg-green-700
+                  text-white
+                  font-bold
+                  ml-2
+                  py-2
+                  px-3
+                  text-xs
+                  rounded"
+              >
+                <FontAwesomeIcon className="mr-1" icon={['fas', 'redo']} />
+                <span>Add to trade list</span>
               </button>
             )}
           </div>
