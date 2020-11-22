@@ -617,13 +617,19 @@ const Wishlist = () => {
             <button
               onClick={genWishlist}
               className={`w-full  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 ${
-                wishlistLoading && 'cursor-not-allowed opacity-50'
+                // eslint-disable-next-line prettier/prettier
+                (wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length))
+                // eslint-disable-next-line prettier/prettier
+                && 'cursor-not-allowed opacity-50'
               }`}
-              disabled={wishlistLoading}
+              disabled={wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length)}
             >
               Generate
             </button>
           </div>
+          {!wishlist.items.length && !wishlist.tradeItems.length && (
+            <b className={'text-lg mt-2'}>Add caps to your wishlist or tradelist to generate a wishlist</b>
+          )}
           <div className="w-full md:w-1/4 mr-2">
             {b64Img ? (
               <a
