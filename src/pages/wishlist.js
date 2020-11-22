@@ -627,6 +627,9 @@ const Wishlist = () => {
               Generate
             </button>
           </div>
+          {!wishlist.items.length && !wishlist.tradeItems.length && (
+            <b className={'text-lg mt-2'}>Add caps to your wishlist or tradelist to generate a wishlist</b>
+          )}
           <div className="w-full md:w-1/4 mr-2">
             {b64Img ? (
               <a
