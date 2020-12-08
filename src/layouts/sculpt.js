@@ -27,12 +27,16 @@ const Maker = (props) => {
 
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [showExceedAlert, setShowExceedAlert] = useState(false);
   return (
     <Layout>
       {showSuccessAlert && (
         <Alert color="green" alertMessage="Colorway Successfully Submitted" setAlert={setShowSuccessAlert} />
       )}
       {showErrorAlert && <Alert color="red" alertMessage="Colorway Submission Failed" setAlert={setShowErrorAlert} />}
+      {showExceedAlert && (
+        <Alert color="red" alertMessage="Wishlist or trade list items exceeded" setAlert={setShowExceedAlert} />
+      )}
       <SEO title={seoTitle} img={sculpt.previewImg} />
       <div className="pt-4">
         <Link to="/" className="text-blue-600">
@@ -120,7 +124,11 @@ const Maker = (props) => {
                       if (isInTradeList(wishlist, c.id)) {
                         rmTradeCap(c.id);
                       }
-                      setStateWishlist(addCap(c.id));
+                      if (wishlist.items.length > 50) {
+                        setShowExceedAlert(true);
+                      } else {
+                        setStateWishlist(addCap(c.id));
+                      }
                     }}
                   />
                 )}
@@ -140,7 +148,11 @@ const Maker = (props) => {
                       if (isInWishlist(wishlist, c.id)) {
                         rmCap(c.id);
                       }
-                      setStateWishlist(addTradeCap(c.id));
+                      if (wishlist.tradeItems.length > 10) {
+                        setShowExceedAlert(true);
+                      } else {
+                        setStateWishlist(addTradeCap(c.id));
+                      }
                     }}
                   />
                 )}

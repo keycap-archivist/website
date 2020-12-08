@@ -20,6 +20,7 @@ const Maker = (props) => {
 
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [showExceedAlert, setShowExceedAlert] = useState(false);
 
   const updateText = () => {
     setState({ text: 'Copied!' });
@@ -36,6 +37,9 @@ const Maker = (props) => {
         <Alert color="green" alertMessage="Suggestion Successfully Submited" setAlert={setShowSuccessAlert} />
       )}
       {showErrorAlert && <Alert color="red" alertMessage="Suggestion Submission Failed" setAlert={setShowErrorAlert} />}
+      {showExceedAlert && (
+        <Alert color="red" alertMessage="Wishlist or trade list items exceeded" setAlert={setShowExceedAlert} />
+      )}
       <SEO title={seoTitle} img={colorway.img} />
       <div className="lg:w-3/5 mx-auto">
         <div className="pt-4">
@@ -127,7 +131,16 @@ const Maker = (props) => {
               </button>
             ) : (
               <button
-                onClick={() => setStateWishlist(addCap(colorway.id))}
+                onClick={() => {
+                  if (isInTradeList(wishlist, colorway.id)) {
+                    rmTradeCap(colorway.id);
+                  }
+                  if (wishlist.items.length > 50) {
+                    setShowExceedAlert(true);
+                  } else {
+                    setStateWishlist(addCap(colorway.id));
+                  }
+                }}
                 className="
                   block
                   w-48
@@ -169,7 +182,16 @@ const Maker = (props) => {
               </button>
             ) : (
               <button
-                onClick={() => setStateWishlist(addTradeCap(colorway.id))}
+                onClick={() => {
+                  if (isInWishlist(wishlist, colorway.id)) {
+                    rmCap(colorway.id);
+                  }
+                  if (wishlist.tradeItems.length > 10) {
+                    setShowExceedAlert(true);
+                  } else {
+                    setStateWishlist(addTradeCap(colorway.id));
+                  }
+                }}
                 className="
                   block
                   w-48
