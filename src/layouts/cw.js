@@ -30,7 +30,7 @@ const Maker = (props) => {
   useEffect(() => {
     setStateWishlist(getWishlist());
   }, []);
-
+  const cwImg = `https://cdn.keycap-archivist.com/keycaps/${colorway.id}.jpg`;
   return (
     <Layout>
       {showSuccessAlert && (
@@ -40,7 +40,7 @@ const Maker = (props) => {
       {showExceedAlert && (
         <Alert color="red" alertMessage="Wishlist or trade list items exceeded" setAlert={setShowExceedAlert} />
       )}
-      <SEO title={seoTitle} img={colorway.img} />
+      <SEO title={seoTitle} img={cwImg} />
       <div className="lg:w-3/5 mx-auto">
         <div className="pt-4">
           <Link to="/" className="text-blue-600">
@@ -214,7 +214,7 @@ const Maker = (props) => {
         <div className="flex bg-white border">
           <div className="flex flex-col p-5 mx-auto">
             <div className="colorway-wrapper">
-              <img loading="lazy" className="block h-full w-full object-cover" alt={seoTitle} src={colorway.img} />
+              <img loading="lazy" className="block h-full w-full object-cover" alt={seoTitle} src={cwImg} />
             </div>
           </div>
         </div>

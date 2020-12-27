@@ -103,7 +103,7 @@ const Maker = (props) => {
                 <ThumbnailImage
                   loading="lazy"
                   className="h-full w-full object-cover"
-                  src={c.img}
+                  src={`https://cdn.keycap-archivist.com/keycaps/${c.id}.jpg`}
                   alt={`${maker.name} - ${sculpt.name} - ${c.name}`}
                 />
               </Link>
