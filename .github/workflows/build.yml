@@ -51,11 +51,11 @@ jobs:
           git push -f origin master || true
           cd ..
           node scripts/discord-update.js
-      - name: Wait 2 minutes
-        run: sleep 2m
-      - name: Purge cloudflare cache
-        uses: nathanvaughn/actions-cloudflare-purge@master
-        if: success()
-        env:
-          CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}
-          CLOUDFLARE_AUTH_KEY: ${{ secrets.CLOUDFLARE_AUTH_KEY }}
+      # - name: Wait 2 minutes
+      #   run: sleep 2m
+      # - name: Purge cloudflare cache
+      #   uses: nathanvaughn/actions-cloudflare-purge@master
+      #   if: success()
+      #   env:
+      #     CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}
+      #     CLOUDFLARE_AUTH_KEY: ${{ secrets.CLOUDFLARE_AUTH_KEY }}
