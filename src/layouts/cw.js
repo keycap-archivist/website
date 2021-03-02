@@ -30,7 +30,7 @@ const Maker = (props) => {
   useEffect(() => {
     setStateWishlist(getWishlist());
   }, []);
-  const cwImg = `https://cdn.keycap-archivist.com/keycaps/${colorway.id}.jpg`;
+  const cwImg = `https://cdn.keycap-archivist.com/keycaps/resized/${colorway.id}.jpg`;
   return (
     <Layout>
       {showSuccessAlert && (
