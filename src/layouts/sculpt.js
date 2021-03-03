@@ -61,8 +61,9 @@ const Maker = (props) => {
           )}
         </div>
         <div className="flex flex-row flex-no-wrap flex-shrink-0 mt-1 items-start">
-          <button
-            className="
+          {maker.name !== 'Alpha Keycaps' && (
+            <button
+              className="
               inline-block
               block
               w-35
@@ -74,10 +75,11 @@ const Maker = (props) => {
               px-2
               text-xs
               rounded"
-            onClick={() => setShowModal(true)}
-          >
-            Submit a Colorway
-          </button>
+              onClick={() => setShowModal(true)}
+            >
+              Submit a Colorway
+            </button>
+          )}
         </div>
       </div>
 
