@@ -113,6 +113,7 @@ exports.createPages = async ({ graphql, actions }) => {
         component: sculptTpl,
         context: {
           makerUrl,
+          denySubmission: maker.denySubmission,
           selfOrder: maker.selfOrder,
           type: 'sculpt',
           sculpt,

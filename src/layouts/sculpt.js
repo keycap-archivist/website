@@ -61,7 +61,7 @@ const Maker = (props) => {
           )}
         </div>
         <div className="flex flex-row flex-no-wrap flex-shrink-0 mt-1 items-start">
-          {maker.name !== 'Alpha Keycaps' && (
+          {maker.denySubmission !== true && (
             <button
               className="
               inline-block
