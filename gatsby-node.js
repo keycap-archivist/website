@@ -81,9 +81,9 @@ exports.createPages = async ({ graphql, actions }) => {
       const rng = Math.floor(Math.random() * element.colorways.length);
       const f = element.colorways.find((x) => x.isCover === true);
       if (f) {
-        element.previewImg = `https://cdn.keycap-archivist.com/keycaps/${f.id}.jpg`;
+        element.previewImg = `https://cdn.keycap-archivist.com/keycaps/250/${f.id}.jpg`;
       } else {
-        element.previewImg = `https://cdn.keycap-archivist.com/keycaps/${element.colorways[rng].id}.jpg`;
+        element.previewImg = `https://cdn.keycap-archivist.com/keycaps/250/${element.colorways[rng].id}.jpg`;
       }
     });
     const makerLightObj = _.cloneDeep(maker);
