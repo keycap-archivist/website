@@ -77,7 +77,7 @@ exports.createPages = async ({ graphql, actions }) => {
    */
   db.forEach((maker) => {
     maker.sculpts.forEach((element) => {
-      element.link = `maker/${slug(maker.name)}/${slug(element.name)}`;
+      element.link = `/maker/${slug(maker.name)}/${slug(element.name)}`;
       const rng = Math.floor(Math.random() * element.colorways.length);
       const f = element.colorways.find((x) => x.isCover === true);
       if (f) {
@@ -90,7 +90,7 @@ exports.createPages = async ({ graphql, actions }) => {
     makerLightObj.sculpts.forEach((s) => {
       delete s.colorways;
     });
-    const makerUrl = `maker/${slug(maker.name)}`;
+    const makerUrl = `/maker/${slug(maker.name)}`;
     createPage({
       path: makerUrl,
       component: makerTpl,
