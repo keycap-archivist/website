@@ -35,7 +35,7 @@ const Wishlist = () => {
   useEffect(() => {
     setStateWishlist(getWishlist());
 
-    axios.get(`${baseAPIurl}/wishlist-settings`).then(({ data }) => setAvailableFonts(data.fonts));
+    axios.get(`${baseAPIurl}/wishlist-settings`, { timeout: 20000 }).then(({ data }) => setAvailableFonts(data.fonts));
   }, []);
 
   // TODO: add wonderfull animation

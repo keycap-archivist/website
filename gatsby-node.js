@@ -9,6 +9,7 @@ const slugify = require('slugify');
 const path = require('path');
 const fs = require('fs');
 const _ = require('lodash');
+const webpack = require('webpack');
 
 const db = JSON.parse(fs.readFileSync('./src/db/catalog.json'));
 
@@ -143,6 +144,12 @@ exports.createPages = async ({ graphql, actions }) => {
 exports.onCreateWebpackConfig = async ({ actions, plugins }) => {
   const revision = fs.readFileSync(path.join(__dirname, 'catalog-revision.txt'), 'utf-8');
   actions.setWebpackConfig({
-    plugins: [plugins.define({ DBREV: JSON.stringify(revision) })],
+    plugins: [
+      plugins.define({ DBREV: JSON.stringify(revision) }),
+      new webpack.ProvidePlugin({
+        Buffer: ['buffer', 'Buffer'],
+        process: 'process',
+      }),
+    ],
   });
 };
