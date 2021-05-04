@@ -16,6 +16,12 @@ const Header = ({ siteTitle }) => (
       </h1>
       <div className="w-full flex flex-row flex-wrap md:flex-no-wrap items-center justify-center md:justify-end">
         <div className="flex flex-row flex-no-wrap items-stretch mr-3 md:mr-6">
+          <Link to="/wishlist" className="text-white hover:text-teal-200 mr-3 md:mr-6">
+            Wishlist
+          </Link>
+          <Link to="/blog" className="text-white hover:text-teal-200 mr-3 md:mr-6">
+            Blog
+          </Link>
           <a
             href="https://ko-fi.com/keycaparchivist"
             target="_blank"
@@ -24,15 +30,6 @@ const Header = ({ siteTitle }) => (
           >
             Donate
           </a>
-          <Link to="/" className="text-white hover:text-teal-200 mr-3 md:mr-6">
-            Catalog
-          </Link>
-          <Link to="/wishlist" className="text-white hover:text-teal-200 mr-3 md:mr-6">
-            Wishlist
-          </Link>
-          <Link to="/blog" className="text-white hover:text-teal-200 mr-3 md:mr-6">
-            Blog
-          </Link>
           <Link to="/about" className="text-white hover:text-teal-200">
             About
           </Link>
