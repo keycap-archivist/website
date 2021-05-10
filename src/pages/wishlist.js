@@ -478,7 +478,7 @@ const Wishlist = () => {
             <FontAwesomeIcon className="cursor-move handle inline-block text-3xl mr-6" icon="align-justify" />
             <img
               style={{ maxWidth: '150px' }}
-              src={`${baseAPIurl}/img/${x.id}`}
+              src={`https://cdn.keycap-archivist.com/keycaps/250/${x.id}.jpg`}
               className="cursor-move handle inline-block rounded-lg max-h-full mr-6"
             />
             <span></span>
@@ -572,7 +572,7 @@ const Wishlist = () => {
             <FontAwesomeIcon className="cursor-move handle inline-block text-3xl mr-6" icon="align-justify" />
             <img
               style={{ maxWidth: '150px' }}
-              src={`${baseAPIurl}/img/${x.id}`}
+              src={`https://cdn.keycap-archivist.com/keycaps/250/${x.id}.jpg`}
               className="cursor-move handle inline-block rounded-lg max-h-full mr-6"
             />
             <span></span>
