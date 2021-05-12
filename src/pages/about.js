@@ -3,7 +3,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useStaticQuery, graphql } from 'gatsby';
 
-import Layout from '../components/layout';
+import Layout from '../layouts/base';
 import SEO from '../components/seo';
 
 const About = () => {

@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import SEO from '../components/seo';
 import { cssColors } from '../internal/misc';
-import Layout from '../components/layout';
+import Layout from '../layouts/base';
 import { getWishlist, setWishlist, rmCap, rmTradeCap } from '../internal/wishlist';
 
 const baseAPIurl = 'https://app.keycap-archivist.com/api/v2';

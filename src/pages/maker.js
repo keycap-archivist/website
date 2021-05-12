@@ -3,7 +3,7 @@ import { useStaticQuery, graphql, Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { sortBy } from 'lodash';
 
-import Layout from '../components/layout';
+import Layout from '../layouts/base';
 import SEO from '../components/seo';
 import ThumbnailImage from '../components/thumbnail-image';
 
