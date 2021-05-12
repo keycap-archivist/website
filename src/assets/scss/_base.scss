@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-gray-200;
+  @apply text-gray-900;
+  font-family: Asap, sans-serif;
+}
+
+html.dark body {
+  @apply text-gray-200;
+  @apply bg-gray-800;
+}
+
+.star-icon {
+  top: 14px;
+}
+
+blockquote {
+  @apply p-4;
+}

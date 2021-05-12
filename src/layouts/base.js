@@ -7,7 +7,6 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import '../assets/scss/base.scss';
 import '../assets/scss/style.scss';
 
 import Header from '../components/header';
