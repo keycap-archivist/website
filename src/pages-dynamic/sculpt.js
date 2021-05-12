@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { sortBy } from 'lodash';
 
 import { getWishlist, isInWishlist, rmCap, addCap, isInTradeList, rmTradeCap, addTradeCap } from '../internal/wishlist';
-import Layout from '../components/layout';
+import Layout from '../layouts/base';
 import SEO from '../components/seo';
 import ThumbnailImage from '../components/thumbnail-image';
 import SubmitNewCwModal from '../components/modals/submit-new-cw';

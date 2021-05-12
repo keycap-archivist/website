@@ -1,6 +1,6 @@
 import React from 'react';
 import { Parser } from 'html-to-react';
-import Layout from '../components/layout';
+import Layout from '../layouts/base';
 import SEO from '../components/seo';
 
 const Maker = (data) => {

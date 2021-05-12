@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { getWishlist, isInWishlist, rmCap, addCap, isInTradeList, rmTradeCap, addTradeCap } from '../internal/wishlist';
-import Layout from '../components/layout';
+import Layout from '../layouts/base';
 import SEO from '../components/seo';
 import Alert from '../components/alert';
 import SubmitNameModal from '../components/modals/submit-name';
