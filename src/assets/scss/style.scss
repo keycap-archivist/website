@@ -80,3 +80,8 @@ blockquote p {
   animation-name: modalBackgroundFade;
   animation-duration: 0.3s;
 }
+
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #48bb78;
+}

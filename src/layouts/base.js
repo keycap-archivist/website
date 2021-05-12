@@ -7,11 +7,10 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import Header from '../components/header';
-import '../assets/css/base.css';
+import '../assets/scss/base.scss';
 import '../assets/scss/style.scss';
 
-import { getConfig } from '../internal/config';
+import Header from '../components/header';
 
 library.add(fab);
 library.add(fas);
@@ -26,8 +25,7 @@ const Layout = ({ children }) => {
       }
     }
   `);
-  const { darkMode } = getConfig();
-  const themeClass = darkMode ? 'dark' : 'light';
+
   return (
     <>
       <Helmet htmlAttributes={{ lang: 'en' }}>
@@ -47,8 +45,8 @@ const Layout = ({ children }) => {
         <meta name="theme-color" content="#181e35" />
         <link rel="manifest" href="/site.webmanifest" />
       </Helmet>
-      <Header siteTitle={data.site.siteMetadata.title} darkMode={darkMode} />
-      <div className={`container mx-auto px-3 pb-8 ${themeClass}`}>
+      <Header siteTitle={data.site.siteMetadata.title} />
+      <div className="container mx-auto px-3 pb-8">
         <main>{children}</main>
       </div>
     </>

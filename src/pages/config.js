@@ -24,19 +24,28 @@ const Config = () => {
         <h1 className="text-3xl font-bold">Config</h1>
         <div className="space-y-6">
           <div className="w-1/3 pr-2">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="darkMode">
-              dark Mode
+            <label htmlFor="darkMode" className="flex items-center cursor-pointer">
+              <div className="relative">
+                <input
+                  name="darkMode"
+                  id="darkMode"
+                  type="checkbox"
+                  className="sr-only"
+                  checked={config.darkMode === true}
+                  onChange={(e) => {
+                    setComponentConfig('darkMode', e.target.checked);
+                    if (e.target.checked) {
+                      document.documentElement.classList.add('dark');
+                    } else {
+                      document.documentElement.classList.remove('dark');
+                    }
+                  }}
+                />
+                <div className="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                <div className="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+              </div>
+              <div className="ml-3 text-gray-700 font-medium">Dark mode</div>
             </label>
-            <input
-              type="checkbox"
-              name="darkMode"
-              id="darkMode"
-              className="form-switch-checkbox"
-              checked={config.darkMode === true}
-              onChange={(e) => {
-                setComponentConfig('darkMode', e.target.checked);
-              }}
-            />
           </div>
         </div>
       </div>

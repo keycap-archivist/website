@@ -8,6 +8,11 @@ body {
   font-family: Asap, sans-serif;
 }
 
+html.dark body {
+  @apply text-gray-200;
+  @apply bg-gray-800;
+}
+
 .search__list {
   @apply absolute;
   @apply overflow-y-scroll;
