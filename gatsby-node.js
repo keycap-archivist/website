@@ -33,10 +33,10 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
-  const makerTpl = require.resolve('./src/layouts/maker.js');
-  const cwTpl = require.resolve('./src/layouts/cw.js');
-  const sculptTpl = require.resolve('./src/layouts/sculpt.js');
-  const blogTpl = path.resolve('./src/layouts/blog-post.js');
+  const makerTpl = require.resolve('./src/pages-dynamic/maker.js');
+  const cwTpl = require.resolve('./src/pages-dynamic/colorway.js');
+  const sculptTpl = require.resolve('./src/pages-dynamic/sculpt.js');
+  const blogTpl = path.resolve('./src/pages-dynamic/blog-post.js');
   /**
    * Blog
    */
