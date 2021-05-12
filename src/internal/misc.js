@@ -149,6 +149,24 @@ const CSS_COLOR_NAMES = [
   'Yellow',
   'YellowGreen',
 ];
-module.exports = {
-  cssColors: CSS_COLOR_NAMES,
-};
+
+export { CSS_COLOR_NAMES as cssColors };
+
+export function localStorageLoad(key) {
+  if (localStorage) {
+    return localStorage.getItem(key);
+  }
+  return null;
+}
+
+export function localStorageSet(key, value) {
+  if (localStorage) {
+    localStorage.setItem(key, value);
+  }
+}
+
+export function localStorageDel(key) {
+  if (localStorage) {
+    localStorage.removeItem(key);
+  }
+}

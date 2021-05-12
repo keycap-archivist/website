@@ -1,25 +1,9 @@
+import { localStorageDel, localStorageLoad, localStorageSet } from './misc';
+
 const CONSTS = {
   wishlist: 'Wishlist',
   wishlistV2: 'Wishlist_v2',
 };
-
-function localStorageLoad(key) {
-  if (localStorage) {
-    return localStorage.getItem(key);
-  }
-  return null;
-}
-
-function localStorageSet(key, value) {
-  if (localStorage) {
-    localStorage.setItem(key, value);
-  }
-}
-function localStorageDel(key) {
-  if (localStorage) {
-    localStorage.removeItem(key);
-  }
-}
 
 const defaultWishlist = {
   settings: {
@@ -59,11 +43,11 @@ const defaultWishlist = {
   tradeItems: [],
 };
 
-function getDefaultWishlist() {
+export function getDefaultWishlist() {
   return { ...defaultWishlist };
 }
 
-function setWishlist(wishlist) {
+export function setWishlist(wishlist) {
   localStorageSet(CONSTS.wishlistV2, JSON.stringify(wishlist));
 }
 
@@ -75,7 +59,7 @@ function migratev1(w) {
   return newWish;
 }
 
-function getWishlist() {
+export function getWishlist() {
   // Temporary migration step
   const w = localStorageLoad(CONSTS.wishlist);
   if (w) {
@@ -102,49 +86,38 @@ function getWishlist() {
   return d;
 }
 
-function addCap(id) {
+export function addCap(id) {
   const w = getWishlist();
   w.items.push({ id, prio: false });
   setWishlist(w);
   return w;
 }
 
-function rmCap(id) {
+export function rmCap(id) {
   const w = getWishlist();
   w.items = w.items.filter((x) => x.id !== id);
   setWishlist(w);
   return w;
 }
 
-function isInWishlist(w, id) {
+export function isInWishlist(w, id) {
   return w && w.items && w.items.findIndex((x) => x.id === id) > -1;
 }
 
-function addTradeCap(id) {
+export function addTradeCap(id) {
   const w = getWishlist();
   w.tradeItems.push({ id, prio: false });
   setWishlist(w);
   return w;
 }
 
-function rmTradeCap(id) {
+export function rmTradeCap(id) {
   const w = getWishlist();
   w.tradeItems = w.tradeItems.filter((x) => x.id !== id);
   setWishlist(w);
   return w;
 }
 
-function isInTradeList(w, id) {
+export function isInTradeList(w, id) {
   return w && w.tradeItems && w.tradeItems.findIndex((x) => x.id === id) > -1;
 }
-
-module.exports = {
-  getWishlist,
-  setWishlist,
-  addCap,
-  rmCap,
-  isInWishlist,
-  addTradeCap,
-  rmTradeCap,
-  isInTradeList,
-};

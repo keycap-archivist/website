@@ -11,6 +11,8 @@ import Header from '../components/header';
 import '../assets/css/base.css';
 import '../assets/scss/style.scss';
 
+import { getConfig } from '../internal/config';
+
 library.add(fab);
 library.add(fas);
 config.autoAddCss = false;
@@ -24,7 +26,8 @@ const Layout = ({ children }) => {
       }
     }
   `);
-
+  const { darkMode } = getConfig();
+  const themeClass = darkMode ? 'dark' : 'light';
   return (
     <>
       <Helmet htmlAttributes={{ lang: 'en' }}>
@@ -44,8 +47,8 @@ const Layout = ({ children }) => {
         <meta name="theme-color" content="#181e35" />
         <link rel="manifest" href="/site.webmanifest" />
       </Helmet>
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <div className="container mx-auto px-3 pb-8">
+      <Header siteTitle={data.site.siteMetadata.title} darkMode={darkMode} />
+      <div className={`container mx-auto px-3 pb-8 ${themeClass}`}>
         <main>{children}</main>
       </div>
     </>
