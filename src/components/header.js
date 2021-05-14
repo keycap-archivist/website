@@ -33,6 +33,9 @@ const Header = ({ siteTitle, darkMode }) => {
             >
               Donate
             </a>
+            <Link to="/config" className="text-white hover:text-teal-200 mr-3 md:mr-6">
+              Config
+            </Link>
             <Link to="/about" className="text-white hover:text-teal-200">
               About
             </Link>

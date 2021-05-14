@@ -44,7 +44,7 @@ const Config = () => {
                 <div className="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
                 <div className="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
               </div>
-              <div className="ml-3 text-gray-700 font-medium">Dark mode</div>
+              <div className="ml-3 font-medium">Dark mode</div>
             </label>
           </div>
         </div>
