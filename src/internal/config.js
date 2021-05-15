@@ -9,7 +9,7 @@ const CONSTS = {
 };
 
 const defaultConfig = {
-  darkMode: !!window.matchMedia('(prefers-color-scheme: dark)').matches,
+  darkMode: window && !!window.matchMedia('(prefers-color-scheme: dark)').matches,
   displayMode: CONSTS.displayMode.tiles,
 };
 
