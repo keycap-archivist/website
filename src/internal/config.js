@@ -1,5 +1,7 @@
 import { localStorageLoad, localStorageSet } from './misc';
 
+const isBrowser = typeof window !== 'undefined';
+
 const CONSTS = {
   config: 'config',
   displayMode: {
@@ -9,7 +11,7 @@ const CONSTS = {
 };
 
 const defaultConfig = {
-  darkMode: window && !!window.matchMedia('(prefers-color-scheme: dark)').matches,
+  darkMode: isBrowser && !!window.matchMedia('(prefers-color-scheme: dark)').matches,
   displayMode: CONSTS.displayMode.tiles,
 };
 

@@ -152,21 +152,23 @@ const CSS_COLOR_NAMES = [
 
 export { CSS_COLOR_NAMES as cssColors };
 
+const isBrowser = typeof localStorage !== 'undefined';
+
 export function localStorageLoad(key) {
-  if (localStorage) {
+  if (isBrowser) {
     return localStorage.getItem(key);
   }
   return null;
 }
 
 export function localStorageSet(key, value) {
-  if (localStorage) {
+  if (isBrowser) {
     localStorage.setItem(key, value);
   }
 }
 
 export function localStorageDel(key) {
-  if (localStorage) {
+  if (isBrowser) {
     localStorage.removeItem(key);
   }
 }
