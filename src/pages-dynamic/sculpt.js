@@ -85,22 +85,8 @@ const Maker = (props) => {
 
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
         {cwList.map((c) => (
-          <li key={c.id} id={c.id} className="flex h-auto w-1/2 md:w-1/4 lg:w-1/5 py-1 px-1">
-            <div
-              className="
-                flex
-                flex-col
-                justify-between
-                max-w-full
-                min-w-full
-                bg-white
-                p-2
-                bg-white
-                hover:text-blue-600
-                shadow-xs
-                hover:shadow-md
-                pb-4"
-            >
+          <li key={c.id} id={c.id} className="tile_item">
+            <div className="tile_sculpt">
               <Link to={`${location.pathname}/${c.id}`} className="w-full h-full bg-gray-300 thumbnail-wrapper">
                 <ThumbnailImage
                   loading="lazy"

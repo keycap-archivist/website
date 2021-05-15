@@ -95,23 +95,8 @@ const Maker = (props) => {
       </div>
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
         {sculptList.map((s) => (
-          <li key={s.id} className="flex h-auto w-1/2 md:w-1/4 lg:w-1/5 py-1 px-1">
-            <Link
-              to={s.link}
-              className="
-                flex
-                flex-col
-                justify-between
-                max-w-full
-                min-w-full
-                bg-white
-                p-2
-                bg-white
-                hover:text-blue-600
-                shadow-xs
-                hover:shadow-md
-                pb-4"
-            >
+          <li key={s.id} className="tile_item">
+            <Link to={s.link} className="tile_block">
               <div className="w-full h-full thumbnail-wrapper">
                 <ThumbnailImage
                   loading="lazy"
@@ -123,7 +108,7 @@ const Maker = (props) => {
                 />
               </div>
               <div className="font-bold pt-3 px-2 text-center">
-                <div className="text-sm">{s.name}</div>
+                <div className="title">{s.name}</div>
               </div>
             </Link>
           </li>

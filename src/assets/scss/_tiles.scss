@@ -51,6 +51,20 @@ li.tile_item {
   @apply lg:w-1/5;
   @apply py-1;
   @apply px-1;
+  div.tile_sculpt {
+    @apply flex;
+    @apply flex-col;
+    @apply justify-between;
+    @apply max-w-full;
+    @apply min-w-full;
+    @apply bg-white;
+    @apply p-2;
+    @apply bg-white;
+    @apply hover:text-blue-600;
+    // @apply shadow-xs;
+    // @apply hover:shadow-md;
+    @apply pb-4;
+  }
   a.tile_block {
     @apply flex;
     @apply flex-col;
@@ -72,9 +86,15 @@ li.tile_item {
 
 html.dark {
   li.tile_item {
-    a.tile_block {
-      @apply text-gray-200;
+    div.tile_sculpt {
       @apply bg-gray-700;
+      @apply text-gray-200;
+      @apply hover:text-blue-600;
+    }
+    a.tile_block {
+      @apply bg-gray-700;
+      @apply text-gray-200;
+      @apply hover:text-blue-600;
     }
   }
 }
