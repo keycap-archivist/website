@@ -20,7 +20,12 @@ export function getDefaultConfig() {
 export function getConfig() {
   const c = localStorageLoad(CONSTS.config);
   if (c) {
-    return JSON.parse(c);
+    try {
+      return JSON.parse(c);
+    } catch (e) {
+      console.error('Unable to read Config', e);
+      console.log(c);
+    }
   }
   return getDefaultConfig();
 }
