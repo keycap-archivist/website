@@ -6,6 +6,7 @@ li.maker_tile_item {
   @apply lg:w-1/5;
   @apply py-1;
   @apply px-1;
+
   a.tile_block {
     @apply block;
     @apply w-full;
@@ -16,30 +17,19 @@ li.maker_tile_item {
     // @apply shadow-xs;
     // @apply hover:shadow-md;
   }
+
   div.img_holder {
     @apply w-full;
     @apply bg-white;
     @apply border-b-2;
     @apply border-gray-300;
   }
+
   div.text_header {
     @apply font-bold;
     @apply pt-3;
     @apply px-2;
     @apply text-center;
-  }
-}
-
-html.dark {
-  li.maker_tile_item {
-    a.tile_block {
-      @apply text-gray-200;
-      @apply bg-gray-700;
-      @apply border-gray-600;
-    }
-    div.img_holder {
-      @apply border-gray-600;
-    }
   }
 }
 
@@ -51,6 +41,7 @@ li.tile_item {
   @apply lg:w-1/5;
   @apply py-1;
   @apply px-1;
+
   div.tile_sculpt {
     @apply flex;
     @apply flex-col;
@@ -65,6 +56,7 @@ li.tile_item {
     // @apply hover:shadow-md;
     @apply pb-4;
   }
+
   a.tile_block {
     @apply flex;
     @apply flex-col;
@@ -79,18 +71,32 @@ li.tile_item {
     // @apply hover:shadow-md;
     @apply pb-4;
   }
+
   div.title {
     @apply text-sm;
   }
 }
 
 html.dark {
+  li.maker_tile_item {
+    a.tile_block {
+      @apply text-gray-200;
+      @apply bg-gray-700;
+      @apply border-gray-600;
+    }
+
+    div.img_holder {
+      @apply border-gray-600;
+    }
+  }
+
   li.tile_item {
     div.tile_sculpt {
       @apply bg-gray-700;
       @apply text-gray-200;
       @apply hover:text-blue-600;
     }
+
     a.tile_block {
       @apply bg-gray-700;
       @apply text-gray-200;

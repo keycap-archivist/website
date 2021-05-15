@@ -53,13 +53,16 @@
     "eslint-plugin-prettier": "3.4.0",
     "eslint-plugin-react": "7.23.2",
     "gatsby-plugin-no-sourcemaps": "3.5.0",
-    "prettier": "2.3.0"
+    "prettier": "2.3.0",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0",
+    "stylelint-scss": "^3.19.0"
   },
   "license": "MIT",
   "scripts": {
     "check-db": "node scripts/check-db-rev.js",
     "update-db": "node scripts/update-db.js",
-    "lint": "npx eslint ./src --ext js",
+    "lint": "npx eslint ./src --ext js && npx stylelint 'src/**/*.scss' ",
     "build": "gatsby build",
     "package": "cross-env TARGET=PROD gatsby build --prefix-paths && cp CNAME public/CNAME && rm -rf public/*.js.map",
     "develop": "cross-env TARGET=DEV gatsby develop --host=0.0.0.0",

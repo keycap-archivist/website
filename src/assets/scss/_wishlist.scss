@@ -5,6 +5,7 @@ label.wishlist_form {
   @apply font-bold;
   @apply mb-2;
 }
+
 html.dark {
   label.wishlist_form {
     @apply text-gray-200;
