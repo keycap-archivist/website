@@ -1,0 +1,13 @@
+label.wishlist_form {
+  @apply block;
+  @apply text-gray-700;
+  @apply text-sm;
+  @apply font-bold;
+  @apply mb-2;
+}
+
+html.dark {
+  label.wishlist_form {
+    @apply text-gray-200;
+  }
+}

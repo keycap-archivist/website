@@ -100,7 +100,7 @@ const Wishlist = () => {
       <div className="mb-4">
         <div className="flex flex-wrap mt-2">
           <div className="w-1/3 pr-2">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="capsPerLine">
+            <label className="wishlist_form" htmlFor="capsPerLine">
               No. Keycaps Per Line
             </label>
             <input
@@ -114,7 +114,7 @@ const Wishlist = () => {
             />
           </div>
           <div className="w-1/3 pr-2">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priorityColor">
+            <label className="wishlist_form" htmlFor="priorityColor">
               Priority Color
             </label>
             <select
@@ -135,7 +135,7 @@ const Wishlist = () => {
             </select>
           </div>
           <div className="w-1/3 pr-2">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priorityFont">
+            <label className="wishlist_form" htmlFor="priorityFont">
               Priority Font
             </label>
             <select
@@ -160,7 +160,7 @@ const Wishlist = () => {
       <div className="mb-4">
         <div className="flex flex-wrap mt-2">
           <div className="w-1/3 pr-2">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="legendsFont">
+            <label className="wishlist_form" htmlFor="legendsFont">
               Legends Font
             </label>
             <select
@@ -181,7 +181,7 @@ const Wishlist = () => {
             </select>
           </div>
           <div className="w-1/3 pr-2">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="legendsColor">
+            <label className="wishlist_form" htmlFor="legendsColor">
               Legends Color
             </label>
             <select
@@ -202,7 +202,7 @@ const Wishlist = () => {
             </select>
           </div>
           <div className="w-1/3 pr-2">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="backgroundColor">
+            <label className="wishlist_form" htmlFor="backgroundColor">
               Background Color
             </label>
             <select
@@ -244,7 +244,7 @@ const Wishlist = () => {
               />
             </div>
             <div className="w-1/3 pr-2">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="tradeTitleColor">
+              <label className="wishlist_form" htmlFor="tradeTitleColor">
                 Trade Title Color
               </label>
               <select
@@ -264,7 +264,7 @@ const Wishlist = () => {
               </select>
             </div>
             <div className="w-1/3 pr-2">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="tradeTitleFont">
+              <label className="wishlist_form" htmlFor="tradeTitleFont">
                 Trade Title Font
               </label>
               <select
@@ -294,7 +294,7 @@ const Wishlist = () => {
       <div className="mb-4">
         <div className="flex flex-wrap mt-2">
           <div className="w-1/3 pr-2">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="titleText">
+            <label className="wishlist_form" htmlFor="titleText">
               Title
             </label>
             <input
@@ -309,7 +309,7 @@ const Wishlist = () => {
             />
           </div>
           <div className="w-1/3 pr-2">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="titleColor">
+            <label className="wishlist_form" htmlFor="titleColor">
               Title Color
             </label>
             <select
@@ -329,7 +329,7 @@ const Wishlist = () => {
             </select>
           </div>
           <div className="w-1/3 pr-2">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="titleFont">
+            <label className="wishlist_form" htmlFor="titleFont">
               Title Font
             </label>
             <select
@@ -356,7 +356,7 @@ const Wishlist = () => {
       <div className="mb-4">
         <div className="flex flex-wrap mt-2">
           <div className="w-1/3 pr-2">
-            <label className="block text-gray-700 border-gray-100 text-sm font-bold mb-2" htmlFor="extraText">
+            <label className="wishlist_form" htmlFor="extraText">
               Extra Text
             </label>
             <input
@@ -373,7 +373,7 @@ const Wishlist = () => {
             />
           </div>
           <div className="w-1/3 pr-2">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="extraColor">
+            <label className="wishlist_form" htmlFor="extraColor">
               Extra Color
             </label>
             <select
@@ -393,7 +393,7 @@ const Wishlist = () => {
             </select>
           </div>
           <div className="w-1/3 pr-2">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="extraFont">
+            <label className="wishlist_form" htmlFor="extraFont">
               Extra Font
             </label>
             <select
@@ -419,7 +419,7 @@ const Wishlist = () => {
       <div className="mb-4">
         <div className="flex flex-wrap mt-2">
           <div className="w-1/2 pr-2">
-            <label className="block text-gray-700 border-gray-100 text-sm font-bold mb-2" htmlFor="socialReddit">
+            <label className="wishlist_font" htmlFor="socialReddit">
               Reddit
             </label>
             <input
@@ -435,7 +435,7 @@ const Wishlist = () => {
             />
           </div>
           <div className="w-1/2 pr-2">
-            <label className="block text-gray-700 border-gray-100 text-sm font-bold mb-2" htmlFor="socialDiscord">
+            <label className="wishlist_font" htmlFor="socialDiscord">
               Discord
             </label>
             <input

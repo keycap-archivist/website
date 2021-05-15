@@ -1,3 +1,8 @@
+@import 'base';
+@import 'tiles';
+@import 'search';
+@import 'wishlist';
+
 .thumbnail-wrapper {
   min-height: 160px;
   max-height: 160px;
@@ -39,7 +44,7 @@ blockquote {
   quotes: '\201C''\201D''\2018''\2019';
 }
 
-blockquote:before {
+blockquote::before {
   color: #ccc;
   content: open-quote;
   font-size: 4em;
@@ -57,6 +62,7 @@ blockquote p {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -71,6 +77,7 @@ blockquote p {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 0.25;
   }
@@ -79,4 +86,9 @@ blockquote p {
 .modal-background {
   animation-name: modalBackgroundFade;
   animation-duration: 0.3s;
+}
+
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #48bb78;
 }
