@@ -10,9 +10,13 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import '../assets/scss/style.scss';
 
 import Header from '../components/header';
+import { initConfig } from '../internal/config';
 
 library.add(fab);
 library.add(fas);
+
+initConfig();
+
 config.autoAddCss = false;
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`

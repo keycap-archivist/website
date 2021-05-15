@@ -33,3 +33,9 @@ export function getConfig() {
 export function setConfig(config) {
   localStorageSet(CONSTS.config, JSON.stringify(config));
 }
+
+export function initConfig() {
+  if (!localStorageLoad(CONSTS.config)) {
+    setConfig(getDefaultConfig());
+  }
+}
