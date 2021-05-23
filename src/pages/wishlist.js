@@ -8,7 +8,7 @@ import { cssColors } from '../internal/misc';
 import Layout from '../layouts/base';
 import { getWishlist, setWishlist, rmCap, rmTradeCap } from '../internal/wishlist';
 
-const baseAPIurl = 'https://app.keycap-archivist.com/api/v2';
+const baseAPIurl = 'https://api.keycap-archivist.com/wishlist';
 
 const Wishlist = () => {
   const [b64Img, setB64Img] = useState(null);
@@ -29,13 +29,13 @@ const Wishlist = () => {
     tradeItems: [],
   });
 
-  const [fonts, setAvailableFonts] = useState(['Roboto', 'RedRock']);
+  const [fonts] = useState(['BebasNeue', 'PermanentMarker', 'Roboto', 'RedRock']);
 
   // Required for SSR
   useEffect(() => {
     setStateWishlist(getWishlist());
 
-    axios.get(`${baseAPIurl}/wishlist-settings`, { timeout: 20000 }).then(({ data }) => setAvailableFonts(data.fonts));
+    // axios.get(`${baseAPIurl}/settings`, { timeout: 20000 }).then(({ data }) => setAvailableFonts(data.fonts));
   }, []);
 
   // TODO: add wonderfull animation
@@ -65,17 +65,16 @@ const Wishlist = () => {
       legendColor: wishlist.settings.title.color,
     }));
 
-    const b64 = await axios
-      .post(`${baseAPIurl}/wishlist`, outWishlist, {
-        responseType: 'arraybuffer',
-      })
-      .then((response) => Buffer.from(response.data, 'binary').toString('base64'))
+    const r = await axios
+      .post(`${baseAPIurl}/generate`, outWishlist)
+      .then((d) => d.data)
       .catch((e) => {
         console.log(e);
         setErrorLoading(true);
       });
+    console.log(r);
     setWishlistLoading(false);
-    setB64Img(b64);
+    setB64Img(r.Body);
   };
 
   const setPriority = (id, priority) => {
