@@ -1,14 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import Layout from '../layouts/base';
 import SEO from '../components/seo';
 import { getConfig, setConfig, getDefaultConfig } from '../internal/config';
 
+axios.defaults.withCredentials = true;
+
+const baseAPI = 'http://api.keycap-archivist.com';
+
 const Config = () => {
   const [config, setStateConfig] = useState(getDefaultConfig());
-
+  const [connected, setStateConnected] = useState(false);
   useEffect(() => {
     setStateConfig(getConfig());
+    axios
+      .get(`${baseAPI}/auth/current-session`, { timeout: 20000 })
+      .then(({ data }) => {
+        console.log(data);
+        setStateConnected(true);
+      })
+      .catch(() => {
+        setStateConnected(false);
+      });
   }, []);
 
   const setComponentConfig = (property, value) => {
@@ -46,6 +60,17 @@ const Config = () => {
               </div>
               <div className="ml-3 font-medium">Dark mode</div>
             </label>
+            <br />
+            <a href={`${baseAPI}/auth/discord`} className="px-4 py-2 bg-blue-600 text-white rounded ">
+              Discord login{' '}
+            </a>
+            <br />
+            <br />
+            {connected ? (
+              <label className="px-4 py-2 bg-green-600 text-white rounded ">connected</label>
+            ) : (
+              <label className="px-4 py-2 bg-red-600 text-white rounded ">not connected</label>
+            )}
           </div>
         </div>
       </div>
