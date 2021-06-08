@@ -7,7 +7,7 @@ import { getConfig, setConfig, getDefaultConfig } from '../internal/config';
 
 axios.defaults.withCredentials = true;
 
-const baseAPI = 'http://api.keycap-archivist.com';
+const baseAPI = 'https://api.keycap-archivist.com';
 
 const Config = () => {
   const [config, setStateConfig] = useState(getDefaultConfig());
