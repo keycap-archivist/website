@@ -1,4 +1,6 @@
-import { localStorageDel, localStorageLoad, localStorageSet } from './misc';
+import { localStorageLoad, localStorageSet } from './misc';
+import { getConfig, setConfig } from './config';
+import { getCollections, getCurrentSession, setCollection, updateCollection } from './collection';
 
 const CONSTS = {
   wishlist: 'Wishlist',
@@ -49,30 +51,16 @@ export function getDefaultWishlist() {
 
 export function setWishlist(wishlist) {
   localStorageSet(CONSTS.wishlistV2, JSON.stringify(wishlist));
-}
-
-function migratev1(w) {
-  const newWish = getDefaultWishlist();
-  w.items.forEach((c) => {
-    newWish.items.push(c);
-  });
-  return newWish;
+  const cfg = getConfig();
+  if (cfg.authorized) {
+    updateCollection(cfg.wishlist_id, {
+      name: CONSTS.wishlistV2,
+      wishlist,
+    });
+  }
 }
 
 export function getWishlist() {
-  // Temporary migration step
-  const w = localStorageLoad(CONSTS.wishlist);
-  if (w) {
-    try {
-      const v1Wish = JSON.parse(w);
-      const newWish = migratev1(v1Wish);
-      localStorageDel(CONSTS.wishlist);
-      setWishlist(newWish);
-      return newWish;
-    } catch (e) {
-      console.log('Unable to read the Wishlist object');
-    }
-  }
   const w2 = localStorageLoad(CONSTS.wishlistV2);
   if (w2) {
     try {
@@ -120,4 +108,34 @@ export function rmTradeCap(id) {
 
 export function isInTradeList(w, id) {
   return w && w.tradeItems && w.tradeItems.findIndex((x) => x.id === id) > -1;
+}
+
+export async function initSyncWishlist() {
+  const cfg = getConfig();
+  if (cfg.authorized) {
+    await getCurrentSession();
+    const collections = await getCollections();
+    if (collections.length) {
+      cfg.wishlist_id = collections[0].id;
+
+      localStorageSet(CONSTS.wishlistV2, JSON.stringify(collections[0].content));
+    } else {
+      const w2 = localStorageLoad(CONSTS.wishlistV2);
+      if (w2) {
+        try {
+          const wishlist = JSON.parse(w2);
+          const id = await setCollection({
+            name: CONSTS.wishlistV2,
+            wishlist,
+          });
+
+          cfg.wishlist_id = id;
+        } catch (e) {
+          console.log('Unable to read the Wishlist v2 object', e);
+        }
+      }
+    }
+
+    setConfig(cfg);
+  }
 }

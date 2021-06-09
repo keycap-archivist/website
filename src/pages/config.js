@@ -18,6 +18,9 @@ const Config = () => {
       .get(`${baseAPI}/auth/current-session`, { timeout: 20000 })
       .then(({ data }) => {
         console.log(data);
+        config.authorized = true;
+        setStateConfig(config);
+        setConfig(config);
         setStateConnected(true);
       })
       .catch(() => {
