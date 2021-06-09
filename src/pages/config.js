@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Layout from '../layouts/base';
 import SEO from '../components/seo';
-import { getConfig, setConfig, getDefaultConfig } from '../internal/config';
+import { getConfig, setConfig } from '../internal/config';
+import { uploadSync, downloadSync } from '../internal/wishlist';
 
 axios.defaults.withCredentials = true;
 
 const baseAPI = 'https://api.keycap-archivist.com';
 
 const Config = () => {
-  const [config, setStateConfig] = useState(getDefaultConfig());
+  const [config, setStateConfig] = useState(getConfig());
   const [connected, setStateConnected] = useState(false);
   useEffect(() => {
     setStateConfig(getConfig());
@@ -18,6 +20,9 @@ const Config = () => {
       .get(`${baseAPI}/auth/current-session`, { timeout: 20000 })
       .then(({ data }) => {
         console.log(data);
+        config.authorized = true;
+        setStateConfig(config);
+        setConfig(config);
         setStateConnected(true);
       })
       .catch(() => {
@@ -62,14 +67,25 @@ const Config = () => {
             </label>
             <br />
             <a href={`${baseAPI}/auth/discord`} className="px-4 py-2 bg-blue-600 text-white rounded ">
-              Discord login{' '}
+              <FontAwesomeIcon icon={['fa', 'discord']} />
+              Login with Discord{' '}
             </a>
             <br />
             <br />
             {connected ? (
-              <label className="px-4 py-2 bg-green-600 text-white rounded ">connected</label>
+              <div>
+                <label className="px-4 py-2 bg-green-600 text-white rounded ">Connected</label>
+                <br />
+                <br />
+                <button onClick={() => uploadSync()} className="px-4 py-2 bg-blue-600 text-white rounded ">
+                  <FontAwesomeIcon icon={['fa', 'upload']} /> Upload Sync
+                </button>{' '}
+                <button onClick={() => downloadSync()} className="px-4 py-2 bg-blue-600 text-white rounded ">
+                  <FontAwesomeIcon icon={['fa', 'download']} /> Download Sync
+                </button>
+              </div>
             ) : (
-              <label className="px-4 py-2 bg-red-600 text-white rounded ">not connected</label>
+              <label className="px-4 py-2 bg-red-600 text-white rounded ">Not connected</label>
             )}
           </div>
         </div>
