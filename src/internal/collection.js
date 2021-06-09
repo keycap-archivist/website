@@ -5,7 +5,7 @@ axios.defaults.withCredentials = true;
 const baseAPI = 'https://api.keycap-archivist.com';
 
 export function updateCollection(id, data) {
-  console.log('syncing...', data.name);
+  console.log('updating...', data.name);
 
   return axios
     .post(`${baseAPI}/ws/${id}`, data)
