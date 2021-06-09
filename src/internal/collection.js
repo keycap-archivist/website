@@ -5,7 +5,7 @@ axios.defaults.withCredentials = true;
 const baseAPI = 'https://api.keycap-archivist.com';
 
 export function updateCollection(id, data) {
-  console.log('updating...', data.name);
+  console.debug('[WS] Updating', data);
 
   return axios
     .post(`${baseAPI}/ws/${id}`, data)
@@ -16,7 +16,7 @@ export function updateCollection(id, data) {
 }
 
 export function setCollection(data) {
-  console.log('syncing...', data.name);
+  console.debug('[WS] Creating', data.name, data);
 
   return axios
     .post(`${baseAPI}/ws`, data)
@@ -27,6 +27,7 @@ export function setCollection(data) {
 }
 
 export function getCollections() {
+  console.debug('[WS] Downloading All wishlist');
   return axios
     .get(`${baseAPI}/ws`)
     .then(({ data }) => data)
@@ -34,7 +35,7 @@ export function getCollections() {
 }
 
 export function getCollectionById(id) {
-  console.log('getting collection', id);
+  console.debug('[WS] Downloading', id);
 
   return axios
     .get(`${baseAPI}/ws/${id}`)
@@ -45,5 +46,6 @@ export function getCollectionById(id) {
 }
 
 export async function getCurrentSession() {
+  console.debug('Get current session');
   await axios.get(`${baseAPI}/auth/current-session`, { timeout: 20000 });
 }

@@ -65,27 +65,48 @@ const Config = () => {
               </div>
               <div className="ml-3 font-medium">Dark mode</div>
             </label>
+            <label htmlFor="autoCloud" className="flex items-center cursor-pointer">
+              <div className="relative">
+                <input
+                  name="autoCloud"
+                  id="autoCloud"
+                  type="checkbox"
+                  className="sr-only"
+                  checked={config.cloudAutoSync === true}
+                  onChange={(e) => {
+                    setComponentConfig('cloudAutoSync', e.target.checked);
+                  }}
+                />
+                <div className="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                <div className="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+              </div>
+              <div className="ml-3 font-medium">Auto Cloud Sync</div>
+            </label>
             <br />
-            <a href={`${baseAPI}/auth/discord`} className="px-4 py-2 bg-blue-600 text-white rounded ">
-              <FontAwesomeIcon icon={['fa', 'discord']} />
-              Login with Discord{' '}
-            </a>
+
             <br />
             <br />
             {connected ? (
               <div>
-                <label className="px-4 py-2 bg-green-600 text-white rounded ">Connected</label>
+                <label className="px-4 py-2 bg-green-600 text-white rounded ">Connected To Api</label>
                 <br />
                 <br />
                 <button onClick={() => uploadSync()} className="px-4 py-2 bg-blue-600 text-white rounded ">
-                  <FontAwesomeIcon icon={['fa', 'upload']} /> Upload Sync
-                </button>{' '}
+                  <FontAwesomeIcon icon={['fa', 'upload']} /> Upload Wishlist to Cloud
+                </button>
+                <br />
                 <button onClick={() => downloadSync()} className="px-4 py-2 bg-blue-600 text-white rounded ">
-                  <FontAwesomeIcon icon={['fa', 'download']} /> Download Sync
+                  <FontAwesomeIcon icon={['fa', 'download']} /> Download Wishlist from Cloud
                 </button>
               </div>
             ) : (
-              <label className="px-4 py-2 bg-red-600 text-white rounded ">Not connected</label>
+              <div>
+                <a href={`${baseAPI}/auth/discord`} className="px-4 py-2 bg-blue-600 text-white rounded ">
+                  <FontAwesomeIcon icon={['fab', 'discord']} /> Login with Discord{' '}
+                </a>
+                <br />
+                <label className="px-4 py-2 bg-red-600 text-white rounded ">Not connected</label>
+              </div>
             )}
           </div>
         </div>

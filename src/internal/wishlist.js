@@ -52,7 +52,7 @@ export function getDefaultWishlist() {
 export function setWishlist(wishlist) {
   localStorageSet(CONSTS.wishlistV2, JSON.stringify(wishlist));
   const cfg = getConfig();
-  if (cfg.authorized) {
+  if (cfg.authorized && cfg.cloudAutoSync) {
     updateCollection(cfg.wishlist_id, {
       name: CONSTS.wishlistV2,
       wishlist,
@@ -134,7 +134,7 @@ export async function downloadSync() {
   const collections = await getCollections();
   if (collections.length) {
     cfg.wishlist_id = collections[0].id;
-
+    console.log(collections);
     localStorageSet(CONSTS.wishlistV2, JSON.stringify(collections[0].content));
     setConfig(cfg);
   }
