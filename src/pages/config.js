@@ -91,11 +91,11 @@ const Config = () => {
                 <label className="px-4 py-2 bg-green-600 text-white rounded ">Connected To Api</label>
                 <br />
                 <br />
-                <button onClick={() => uploadSync()} className="px-4 py-2 bg-blue-600 text-white rounded ">
+                <button onClick={() => uploadSync(config)} className="px-4 py-2 bg-blue-600 text-white rounded ">
                   <FontAwesomeIcon icon={['fa', 'upload']} /> Upload Wishlist to Cloud
                 </button>
                 <br />
-                <button onClick={() => downloadSync()} className="px-4 py-2 bg-blue-600 text-white rounded ">
+                <button onClick={() => downloadSync(config)} className="px-4 py-2 bg-blue-600 text-white rounded ">
                   <FontAwesomeIcon icon={['fa', 'download']} /> Download Wishlist from Cloud
                 </button>
               </div>

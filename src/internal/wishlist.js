@@ -53,10 +53,8 @@ export function setWishlist(wishlist) {
   localStorageSet(CONSTS.wishlistV2, JSON.stringify(wishlist));
   const cfg = getConfig();
   if (cfg.authorized && cfg.cloudAutoSync) {
-    updateCollection(cfg.wishlist_id, {
-      name: CONSTS.wishlistV2,
-      wishlist,
-    });
+    // eslint-disable-next-line no-use-before-define
+    uploadSync(cfg);
   }
 }
 
@@ -110,9 +108,8 @@ export function isInTradeList(w, id) {
   return w && w.tradeItems && w.tradeItems.findIndex((x) => x.id === id) > -1;
 }
 
-export async function uploadSync() {
+export async function uploadSync(cfg) {
   const wishlist = getWishlist();
-  const cfg = getConfig();
   if (cfg.wishlist_id) {
     updateCollection(cfg.wishlist_id, {
       name: CONSTS.wishlistV2,
@@ -124,18 +121,19 @@ export async function uploadSync() {
       wishlist,
     });
 
-    cfg.wishlist_id = id;
-    setConfig(cfg);
+    const config = { ...cfg, wishlist_id: id };
+
+    setConfig(config);
   }
 }
 
-export async function downloadSync() {
-  const cfg = getConfig();
+export async function downloadSync(cfg) {
   const collections = await getCollections();
   if (collections.length) {
-    cfg.wishlist_id = collections[0].id;
+    const config = { ...cfg, wishlist_id: collections[0].id };
+
     console.log(collections);
     localStorageSet(CONSTS.wishlistV2, JSON.stringify(collections[0].content));
-    setConfig(cfg);
+    setConfig(config);
   }
 }
