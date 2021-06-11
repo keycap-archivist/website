@@ -28,14 +28,12 @@ const Wishlist = () => {
     items: [],
     tradeItems: [],
   });
-
   const [fonts] = useState(['BebasNeue', 'PermanentMarker', 'Roboto', 'RedRock']);
 
   // Required for SSR
   useEffect(() => {
     setStateWishlist(getWishlist());
 
-    // axios.get(`${baseAPIurl}/settings`, { timeout: 20000 }).then(({ data }) => setAvailableFonts(data.fonts));
   }, []);
 
   // TODO: add wonderfull animation
@@ -44,7 +42,7 @@ const Wishlist = () => {
   // TODO: add sad face :(
   const errorPlaceholder = () => (errorLoading ? <div className="text-center">Something terrible happpened</div> : '');
 
-  // prettier and eslint are dunmb on this somehow
+  // prettier and eslint are dumb on this somehow
   // eslint-disable-next-line no-confusing-arrow
   const imgPlaceholder = () =>
     b64Img && !wishlistLoading ? <img src={`data:image/png;base64,${b64Img}`} className="mx-auto max-w-full" /> : '';
@@ -617,9 +615,9 @@ const Wishlist = () => {
               onClick={genWishlist}
               className={`w-full  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 ${
                 // eslint-disable-next-line prettier/prettier
-                (wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length))
+                (wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length)) &&
                 // eslint-disable-next-line prettier/prettier
-                && 'cursor-not-allowed opacity-50'
+                'cursor-not-allowed opacity-50'
               }`}
               disabled={wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length)}
             >
