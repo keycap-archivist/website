@@ -81,7 +81,7 @@ const Config = () => {
               </label>
             </h2>
             <div className="space-y-6 pt-4">
-              {connected ? (
+              {!connected ? (
                 <React.Fragment>
                   <figure>
                     <img className="inline-block rounded-full w-16" src={avatar} />
@@ -104,17 +104,17 @@ const Config = () => {
                       <div className="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
                     </div>
                   </label>
-                  <button onClick={() => uploadSync()} className="px-4 py-2 bg-blue-600 text-white rounded ">
+                  <button onClick={() => uploadSync(config)} className="px-4 py-2 bg-blue-600 text-white rounded ">
                     <FontAwesomeIcon icon={['fa', 'upload']} /> Upload Wishlist to Cloud
                   </button>
                   <br />
-                  <button onClick={() => downloadSync()} className="px-4 py-2 bg-blue-600 text-white rounded ">
+                  <button onClick={() => downloadSync(config)} className="px-4 py-2 bg-blue-600 text-white rounded ">
                     <FontAwesomeIcon icon={['fa', 'download']} /> Download Wishlist from Cloud
                   </button>
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  <a href={`${baseAPI}/auth/discord`} className="px-4 py-2 bg-blue-600 text-white rounded ">
+                  <a href={`${baseAPI}/auth/discord`} className="px-4 py-2 bg-discord text-white rounded ">
                     <FontAwesomeIcon icon={['fab', 'discord']} /> Login with Discord{' '}
                   </a>
                 </React.Fragment>

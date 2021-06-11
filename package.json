@@ -43,7 +43,7 @@
     "react-sortablejs": "6.0.0",
     "slugify": "1.5.3",
     "sortablejs": "1.13.0",
-    "tailwindcss": "2.1.2"
+    "tailwindcss": "2.1.4"
   },
   "devDependencies": {
     "eslint": "7.26.0",
