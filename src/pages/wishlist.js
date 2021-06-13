@@ -28,14 +28,11 @@ const Wishlist = () => {
     items: [],
     tradeItems: [],
   });
-
   const [fonts] = useState(['BebasNeue', 'PermanentMarker', 'Roboto', 'RedRock']);
 
   // Required for SSR
   useEffect(() => {
     setStateWishlist(getWishlist());
-
-    // axios.get(`${baseAPIurl}/settings`, { timeout: 20000 }).then(({ data }) => setAvailableFonts(data.fonts));
   }, []);
 
   // TODO: add wonderfull animation
@@ -44,10 +41,9 @@ const Wishlist = () => {
   // TODO: add sad face :(
   const errorPlaceholder = () => (errorLoading ? <div className="text-center">Something terrible happpened</div> : '');
 
-  // prettier and eslint are dunmb on this somehow
+  // prettier and eslint are dumb on this somehow
   // eslint-disable-next-line no-confusing-arrow
-  const imgPlaceholder = () =>
-    b64Img && !wishlistLoading ? <img src={`data:image/png;base64,${b64Img}`} className="mx-auto max-w-full" /> : '';
+  const imgPlaceholder = () => (b64Img && !wishlistLoading ? <img src={`data:image/png;base64,${b64Img}`} className="mx-auto max-w-full" /> : '');
 
   const genWishlist = async () => {
     setErrorLoading(false);
@@ -496,11 +492,7 @@ const Wishlist = () => {
                   inline-block
                   mr-6"
               >
-                <FontAwesomeIcon
-                  id="removePriority"
-                  className="m-1 arrow-down-icon cursor-pointer"
-                  icon={['fas', 'sort-numeric-down']}
-                />
+                <FontAwesomeIcon id="removePriority" className="m-1 arrow-down-icon cursor-pointer" icon={['fas', 'sort-numeric-down']} />
               </button>
             ) : (
               <button
@@ -515,11 +507,7 @@ const Wishlist = () => {
                   rounded
                   inline-block mr-6"
               >
-                <FontAwesomeIcon
-                  id="addPriority"
-                  className="m-1 arrow-up-icon cursor-pointer"
-                  icon={['fas', 'sort-numeric-up']}
-                />
+                <FontAwesomeIcon id="addPriority" className="m-1 arrow-up-icon cursor-pointer" icon={['fas', 'sort-numeric-up']} />
               </button>
             )}
             <button
@@ -536,11 +524,7 @@ const Wishlist = () => {
                 inline-block
                 mr-6"
             >
-              <FontAwesomeIcon
-                id="removeWishlist"
-                className="m-1 trash-alt-icon cursor-pointer"
-                icon={['fas', 'trash-alt']}
-              />
+              <FontAwesomeIcon id="removeWishlist" className="m-1 trash-alt-icon cursor-pointer" icon={['fas', 'trash-alt']} />
             </button>
           </li>
         ))}
@@ -589,11 +573,7 @@ const Wishlist = () => {
               inline-block
               mr-6"
             >
-              <FontAwesomeIcon
-                id="removeTradeList"
-                className="m-1 trash-alt-icon cursor-pointer"
-                icon={['fas', 'trash-alt']}
-              />
+              <FontAwesomeIcon id="removeTradeList" className="m-1 trash-alt-icon cursor-pointer" icon={['fas', 'trash-alt']} />
             </button>
           </li>
         ))}

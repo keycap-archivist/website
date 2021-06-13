@@ -19,7 +19,7 @@
     }
   },
   "rules": {
-    "max-len": ["error", { "code": 120 }],
+    "max-len": ["error", { "code": 160 }],
     "implicit-arrow-linebreak": "off",
     "react/prop-types": "off",
     "prettier/prettier": "error",

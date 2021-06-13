@@ -4,6 +4,7 @@ module.exports = {
     extend: {
       colors: {
         blue_ka: '#181e35',
+        discord: '#7289da',
       },
     },
   },

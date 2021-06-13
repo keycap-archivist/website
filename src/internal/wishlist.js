@@ -1,4 +1,6 @@
-import { localStorageDel, localStorageLoad, localStorageSet } from './misc';
+import { localStorageLoad, localStorageSet } from './misc';
+import { getConfig, setConfig } from './config';
+import { getCollections, setCollection, updateCollection } from './collection';
 
 const CONSTS = {
   wishlist: 'Wishlist',
@@ -49,30 +51,14 @@ export function getDefaultWishlist() {
 
 export function setWishlist(wishlist) {
   localStorageSet(CONSTS.wishlistV2, JSON.stringify(wishlist));
-}
-
-function migratev1(w) {
-  const newWish = getDefaultWishlist();
-  w.items.forEach((c) => {
-    newWish.items.push(c);
-  });
-  return newWish;
+  const cfg = getConfig();
+  if (cfg.authorized && cfg.cloudAutoSync) {
+    // eslint-disable-next-line no-use-before-define
+    uploadSync(cfg);
+  }
 }
 
 export function getWishlist() {
-  // Temporary migration step
-  const w = localStorageLoad(CONSTS.wishlist);
-  if (w) {
-    try {
-      const v1Wish = JSON.parse(w);
-      const newWish = migratev1(v1Wish);
-      localStorageDel(CONSTS.wishlist);
-      setWishlist(newWish);
-      return newWish;
-    } catch (e) {
-      console.log('Unable to read the Wishlist object');
-    }
-  }
   const w2 = localStorageLoad(CONSTS.wishlistV2);
   if (w2) {
     try {
@@ -120,4 +106,34 @@ export function rmTradeCap(id) {
 
 export function isInTradeList(w, id) {
   return w && w.tradeItems && w.tradeItems.findIndex((x) => x.id === id) > -1;
+}
+
+export async function uploadSync(cfg) {
+  const wishlist = getWishlist();
+  if (cfg.wishlist_id) {
+    updateCollection(cfg.wishlist_id, {
+      name: CONSTS.wishlistV2,
+      wishlist,
+    });
+  } else {
+    const id = await setCollection({
+      name: CONSTS.wishlistV2,
+      wishlist,
+    });
+
+    const config = { ...cfg, wishlist_id: id };
+
+    setConfig(config);
+  }
+}
+
+export async function downloadSync(cfg) {
+  const collections = await getCollections();
+  if (collections.length) {
+    const config = { ...cfg, wishlist_id: collections[0].id };
+
+    console.log(collections);
+    localStorageSet(CONSTS.wishlistV2, JSON.stringify(collections[0].content));
+    setConfig(config);
+  }
 }

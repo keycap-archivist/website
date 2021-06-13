@@ -25,12 +25,7 @@ const Header = ({ siteTitle, darkMode }) => {
             <Link to="/blog" className="text-white hover:text-teal-200 mr-3 md:mr-6">
               Blog
             </Link>
-            <a
-              href="https://ko-fi.com/keycaparchivist"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white hover:text-teal-200 mr-3 md:mr-6"
-            >
+            <a href="https://ko-fi.com/keycaparchivist" target="_blank" rel="noopener noreferrer" className="text-white hover:text-teal-200 mr-3 md:mr-6">
               Donate
             </a>
             <Link to="/config" className="text-white hover:text-teal-200 mr-3 md:mr-6">
@@ -53,22 +48,12 @@ const Header = ({ siteTitle, darkMode }) => {
           md:mr-6"
           >
             <li>
-              <a
-                href="https://github.com/keycap-archivist"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white text-xl hover:text-teal-200"
-              >
+              <a href="https://github.com/keycap-archivist" target="_blank" rel="noopener noreferrer" className="text-white text-xl hover:text-teal-200">
                 <FontAwesomeIcon icon={['fab', 'github']} />
               </a>
             </li>
             <li>
-              <a
-                href="https://discord.gg/nXrShaa"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white text-xl hover:text-teal-200"
-              >
+              <a href="https://discord.gg/nXrShaa" target="_blank" rel="noopener noreferrer" className="text-white text-xl hover:text-teal-200">
                 <FontAwesomeIcon icon={['fab', 'discord']} />
               </a>
             </li>

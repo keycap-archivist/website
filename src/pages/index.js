@@ -50,13 +50,7 @@ const IndexPage = () => {
           <li key={element.id} className="maker_tile_item">
             <Link to={element.path} className="tile_block">
               <div className="img_holder">
-                <Img
-                  fluid={getImg(element.context.maker.id)}
-                  className="block"
-                  alt={element.context.maker.name}
-                  width="500"
-                  height="500"
-                />
+                <Img fluid={getImg(element.context.maker.id)} className="block" alt={element.context.maker.name} width="500" height="500" />
               </div>
               <div className="text_header">
                 <div className="text-sm">{element.context.maker.name}</div>
