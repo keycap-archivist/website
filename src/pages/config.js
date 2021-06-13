@@ -14,6 +14,7 @@ const baseAPI = 'https://api.keycap-archivist.com';
 const Config = () => {
   const [config, setStateConfig] = useState(getConfig());
   const [connected, setStateConnected] = useState(false);
+  const [initiated, setStateInitiated] = useState(false);
   const [avatar, setStateAvatar] = useState(null);
   const [name, setStateName] = useState(null);
 
@@ -29,11 +30,13 @@ const Config = () => {
         setStateConnected(true);
         setStateAvatar(data.avatar);
         setStateName(data.name);
+        setStateInitiated(true);
       })
       .catch(() => {
         setStateConnected(false);
         setStateAvatar(null);
         setStateName(null);
+        setStateInitiated(true);
       });
   }, []);
 
@@ -73,15 +76,20 @@ const Config = () => {
               </div>
             </label>
           </div>
-          <div className="w-1/3 pr-2">
+          <div className="pr-2">
             <h2 className="text-xl font-bold">
               Cloud sync{' '}
               <label title={connected ? 'Connected' : 'Not Connected'}>
                 <FontAwesomeIcon icon={['fa', 'globe']} className={connected ? 'text-green-600' : 'text-green-600'} />
               </label>
             </h2>
+            <p className="text-xs italic">
+              Cloud Synchronization feature is currently in Beta. If you encounter any issue please share your problem on github or on discord.
+            </p>
             <div className="space-y-6 pt-4">
-              {!connected ? (
+              {!initiated ? (
+                <p className="text-sm italic">Currently loading</p>
+              ) : connected ? (
                 <React.Fragment>
                   <figure>
                     <img className="inline-block rounded-full w-16" src={avatar} />
@@ -104,13 +112,15 @@ const Config = () => {
                       <div className="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
                     </div>
                   </label>
+                  <p className="text-xs italic">This feature will allow you to save every change you make to your wishlist in the Cloud storage.</p>
                   <button onClick={() => uploadSync(config)} className="px-4 py-2 bg-blue-600 text-white rounded ">
                     <FontAwesomeIcon icon={['fa', 'upload']} /> Upload Wishlist to Cloud
                   </button>
-                  <br />
+                  <p className="text-xs italic">Manually upload your wishlist to the cloud storage</p>
                   <button onClick={() => downloadSync(config)} className="px-4 py-2 bg-blue-600 text-white rounded ">
                     <FontAwesomeIcon icon={['fa', 'download']} /> Download Wishlist from Cloud
                   </button>
+                  <p className="text-xs italic">Manually Download your wishlist from the cloud storage</p>
                 </React.Fragment>
               ) : (
                 <React.Fragment>
