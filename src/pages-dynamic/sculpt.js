@@ -30,13 +30,9 @@ const Maker = (props) => {
   const [showExceedAlert, setShowExceedAlert] = useState(false);
   return (
     <Layout>
-      {showSuccessAlert && (
-        <Alert color="green" alertMessage="Colorway Successfully Submitted" setAlert={setShowSuccessAlert} />
-      )}
+      {showSuccessAlert && <Alert color="green" alertMessage="Colorway Successfully Submitted" setAlert={setShowSuccessAlert} />}
       {showErrorAlert && <Alert color="red" alertMessage="Colorway Submission Failed" setAlert={setShowErrorAlert} />}
-      {showExceedAlert && (
-        <Alert color="red" alertMessage="Wishlist or trade list items exceeded" setAlert={setShowExceedAlert} />
-      )}
+      {showExceedAlert && <Alert color="red" alertMessage="Wishlist or trade list items exceeded" setAlert={setShowExceedAlert} />}
       <SEO title={seoTitle} img={sculpt.previewImg} />
       <div className="pt-4">
         <Link to="/" className="text-blue-600">

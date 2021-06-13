@@ -33,13 +33,9 @@ const Maker = (props) => {
   const cwImg = `https://cdn.keycap-archivist.com/keycaps/720/${colorway.id}.jpg`;
   return (
     <Layout>
-      {showSuccessAlert && (
-        <Alert color="green" alertMessage="Suggestion Successfully Submited" setAlert={setShowSuccessAlert} />
-      )}
+      {showSuccessAlert && <Alert color="green" alertMessage="Suggestion Successfully Submited" setAlert={setShowSuccessAlert} />}
       {showErrorAlert && <Alert color="red" alertMessage="Suggestion Submission Failed" setAlert={setShowErrorAlert} />}
-      {showExceedAlert && (
-        <Alert color="red" alertMessage="Wishlist or trade list items exceeded" setAlert={setShowExceedAlert} />
-      )}
+      {showExceedAlert && <Alert color="red" alertMessage="Wishlist or trade list items exceeded" setAlert={setShowExceedAlert} />}
       <SEO title={seoTitle} img={cwImg} />
       <div className="lg:w-3/5 mx-auto">
         <div className="pt-4">

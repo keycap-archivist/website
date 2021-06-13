@@ -33,7 +33,6 @@ const Wishlist = () => {
   // Required for SSR
   useEffect(() => {
     setStateWishlist(getWishlist());
-
   }, []);
 
   // TODO: add wonderfull animation
@@ -44,8 +43,7 @@ const Wishlist = () => {
 
   // prettier and eslint are dumb on this somehow
   // eslint-disable-next-line no-confusing-arrow
-  const imgPlaceholder = () =>
-    b64Img && !wishlistLoading ? <img src={`data:image/png;base64,${b64Img}`} className="mx-auto max-w-full" /> : '';
+  const imgPlaceholder = () => (b64Img && !wishlistLoading ? <img src={`data:image/png;base64,${b64Img}`} className="mx-auto max-w-full" /> : '');
 
   const genWishlist = async () => {
     setErrorLoading(false);
@@ -494,11 +492,7 @@ const Wishlist = () => {
                   inline-block
                   mr-6"
               >
-                <FontAwesomeIcon
-                  id="removePriority"
-                  className="m-1 arrow-down-icon cursor-pointer"
-                  icon={['fas', 'sort-numeric-down']}
-                />
+                <FontAwesomeIcon id="removePriority" className="m-1 arrow-down-icon cursor-pointer" icon={['fas', 'sort-numeric-down']} />
               </button>
             ) : (
               <button
@@ -513,11 +507,7 @@ const Wishlist = () => {
                   rounded
                   inline-block mr-6"
               >
-                <FontAwesomeIcon
-                  id="addPriority"
-                  className="m-1 arrow-up-icon cursor-pointer"
-                  icon={['fas', 'sort-numeric-up']}
-                />
+                <FontAwesomeIcon id="addPriority" className="m-1 arrow-up-icon cursor-pointer" icon={['fas', 'sort-numeric-up']} />
               </button>
             )}
             <button
@@ -534,11 +524,7 @@ const Wishlist = () => {
                 inline-block
                 mr-6"
             >
-              <FontAwesomeIcon
-                id="removeWishlist"
-                className="m-1 trash-alt-icon cursor-pointer"
-                icon={['fas', 'trash-alt']}
-              />
+              <FontAwesomeIcon id="removeWishlist" className="m-1 trash-alt-icon cursor-pointer" icon={['fas', 'trash-alt']} />
             </button>
           </li>
         ))}
@@ -587,11 +573,7 @@ const Wishlist = () => {
               inline-block
               mr-6"
             >
-              <FontAwesomeIcon
-                id="removeTradeList"
-                className="m-1 trash-alt-icon cursor-pointer"
-                icon={['fas', 'trash-alt']}
-              />
+              <FontAwesomeIcon id="removeTradeList" className="m-1 trash-alt-icon cursor-pointer" icon={['fas', 'trash-alt']} />
             </button>
           </li>
         ))}
@@ -615,9 +597,9 @@ const Wishlist = () => {
               onClick={genWishlist}
               className={`w-full  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 ${
                 // eslint-disable-next-line prettier/prettier
-                (wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length)) &&
+                (wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length))
                 // eslint-disable-next-line prettier/prettier
-                'cursor-not-allowed opacity-50'
+                && 'cursor-not-allowed opacity-50'
               }`}
               disabled={wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length)}
             >
