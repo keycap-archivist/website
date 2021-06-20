@@ -21,3 +21,16 @@ html.dark body {
 blockquote {
   @apply p-4;
 }
+
+.colorway-wrapper {
+  @apply flex;
+  @apply bg-white;
+  @apply border;
+}
+
+html.dark {
+  .colorway-wrapper {
+    @apply bg-gray-700;
+    @apply border-gray-600;
+  }
+}
