@@ -19,6 +19,9 @@ const Header = ({ siteTitle, darkMode }) => {
         </h1>
         <div className="w-full flex flex-row flex-wrap md:flex-no-wrap items-center justify-center md:justify-end">
           <div className="flex flex-row flex-no-wrap items-stretch mr-3 md:mr-6">
+            <Link to="/collection" className="text-white hover:text-teal-200 mr-3 md:mr-6">
+              Collection
+            </Link>
             <Link to="/wishlist" className="text-white hover:text-teal-200 mr-3 md:mr-6">
               Wishlist
             </Link>

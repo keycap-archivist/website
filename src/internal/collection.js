@@ -56,6 +56,18 @@ export function getCollectionById(id) {
     });
 }
 
+export function delCollection(id) {
+  console.debug('[WS] Deleting', id);
+
+  return axInstance
+    .delete(`${baseAPI}/ws/${id}`)
+    .then(({ data }) => data)
+    .catch((err) => {
+      checkResponse(err);
+      console.log(err.message);
+    });
+}
+
 export async function getCurrentSession() {
   console.debug('Get current session');
   await axInstance.get(`${baseAPI}/auth/current-session`, { timeout: 20000 });
