@@ -47,7 +47,7 @@ const CollectionPage = (props) => {
                 />
 
                 <div className="font-bold flex flex-row pt-3 px-2 relative justify-between">
-                  {/* <span>{c.name ? c.name : '(Unknown)'}</span> */}
+                  <span>{c.legend ? c.legend : '(Unknown)'}</span>
 
                   <FontAwesomeIcon
                     id="favTrash"

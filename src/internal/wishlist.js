@@ -72,9 +72,9 @@ export function getWishlist() {
   return d;
 }
 
-export function addCap(id) {
+export function addCap({ id, name }) {
   const w = getWishlist();
-  w.items.push({ id, prio: false });
+  w.items.push({ id, legend: name, prio: false });
   setWishlist(w);
   return w;
 }
@@ -90,9 +90,9 @@ export function isInWishlist(w, id) {
   return w && w.items && w.items.findIndex((x) => x.id === id) > -1;
 }
 
-export function addTradeCap(id) {
+export function addTradeCap({ id, name }) {
   const w = getWishlist();
-  w.tradeItems.push({ id, prio: false });
+  w.tradeItems.push({ id, legend: name, prio: false });
   setWishlist(w);
   return w;
 }

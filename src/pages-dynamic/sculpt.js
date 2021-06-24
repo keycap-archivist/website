@@ -111,7 +111,7 @@ const Maker = (props) => {
                       if (wishlist.items.length > 50) {
                         setShowExceedAlert(true);
                       } else {
-                        setStateWishlist(addCap(c.id));
+                        setStateWishlist(addCap(c));
                       }
                     }}
                   />
@@ -140,7 +140,7 @@ const Maker = (props) => {
                       if (wishlist.tradeItems.length > 10) {
                         setShowExceedAlert(true);
                       } else {
-                        setStateWishlist(addTradeCap(c.id));
+                        setStateWishlist(addTradeCap(c));
                       }
                     }}
                   />
