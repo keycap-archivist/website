@@ -6,12 +6,14 @@ const AddCollectionModal = (props) => {
   const [collectionName, setCollectionName] = useState('');
 
   const submitCollection = (name) => {
-    setCollection({ name, wishlist: {} }).catch((error) => {
-      console.error('Error:', error);
-      props.setErrorAlert(true);
-    });
-
-    props.setSuccessAlert(true);
+    setCollection({ name, wishlist: {} })
+      .then(() => {
+        props.setSuccessAlert(true);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        props.setErrorAlert(true);
+      });
   };
 
   return (
@@ -23,19 +25,9 @@ const AddCollectionModal = (props) => {
           onChange={(event) => {
             setCollectionName(event.target.value);
           }}
-        ></input>
+        />
         <button
-          className="
-                      mx-2
-                      block
-                      w-20
-                      bg-green-500
-                      hover:bg-green-700
-                      text-white
-                      font-bold
-                      py-2 px-3
-                      text-xs
-                      rounded"
+          className="mx-2 block w-20 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-3 text-xs rounded"
           onClick={() => {
             submitCollection(collectionName);
             props.setModal(false);

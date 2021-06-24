@@ -38,18 +38,7 @@ const Header = ({ siteTitle, darkMode }) => {
               About
             </Link>
           </div>
-          <ul
-            className="
-          flex
-          flex-row
-          items-center
-          list-none
-          space-x-3
-          md:space-x-6
-          justify-center
-          md:justify-start
-          md:mr-6"
-          >
+          <ul className="flex flex-row items-center list-none space-x-3 md:space-x-6 justify-center md:justify-start md:mr-6">
             <li>
               <a href="https://github.com/keycap-archivist" target="_blank" rel="noopener noreferrer" className="text-white text-xl hover:text-teal-200">
                 <FontAwesomeIcon icon={['fab', 'github']} />

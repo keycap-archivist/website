@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { sample } from 'lodash';
 import Layout from '../layouts/base';
 import SEO from '../components/seo';
 import Alert from '../components/alert';
 import { getCollections, delCollection } from '../internal/collection';
 import AddCollectionModal from '../components/modals/add-collection';
+import ThumbnailImage from '../components/thumbnail-image';
 
 const CollectionPage = () => {
   const [collections, setCollections] = useState([]);
@@ -13,17 +15,25 @@ const CollectionPage = () => {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
 
-  useEffect(() => {
+  const fetchCollections = () => {
     getCollections().then((data) => {
-      const list = data.map((c) => ({
-        name: c.name,
-        id: c.id,
-        items: c.content.items,
-      }));
+      const list = data.map((c) => {
+        const cap = sample(c.content.items);
+        return {
+          name: c.name,
+          id: c.id,
+          items: c.content.items,
+          previewImg: cap && `https://cdn.keycap-archivist.com/keycaps/250/${cap.id}.jpg`,
+        };
+      });
 
       setCollections(list);
     });
-  }, []);
+  };
+
+  useEffect(() => {
+    fetchCollections();
+  }, [showSuccessAlert]);
 
   return (
     <Layout>
@@ -50,25 +60,26 @@ const CollectionPage = () => {
         )}
       </div>
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
-        {collections.map((element) => (
-          <li key={element.id} className="maker_tile_item">
-            <Link to={element.id} className="tile_block">
-              {/* <div className="img_holder">
-                <Img fluid={getImg(element.context.maker.id)} className="block" alt={element.context.maker.name} width="500" height="500" />
-              </div> */}
-              <div className="text_header">
-                <div className="text-sm">{element.name}</div>
-
+        {collections.map((c) => (
+          <li key={c.id} id={c.id} className="tile_item">
+            <div className="tile_sculpt">
+              <Link to={`/${c.id}`} className="w-full h-full bg-gray-300 thumbnail-wrapper">
+                <ThumbnailImage loading="lazy" className="h-full w-full object-cover" src={c.previewImg} alt={c.name} />
+              </Link>
+              <div className="font-bold flex flex-row pt-3 px-2 relative">
+                <Link to={`/${c.id}`} className="text-sm text-center w-full px-5">
+                  {c.name ? c.name : '(Unknown)'}
+                </Link>
                 <FontAwesomeIcon
-                  id="favStar"
-                  className="m-1 trash-alt-icon text-red-500 cursor-pointer"
-                  icon={['fas', 'trash-alt']}
+                  id="favTrash"
+                  className="m-1 trash-icon text-red-500 cursor-pointer"
+                  icon={['fas', 'trash']}
                   onClick={() => {
-                    delCollection(element.id);
+                    delCollection(c.id);
                   }}
                 />
               </div>
-            </Link>
+            </div>
           </li>
         ))}
       </ul>
