@@ -116,6 +116,11 @@ const Maker = (props) => {
                     }}
                   />
                 )}
+
+                <Link to={`${location.pathname}/${c.id}`} className="text-sm text-center w-full px-5">
+                  {c.name ? c.name : '(Unknown)'}
+                </Link>
+
                 {isInTradeList(wishlist, c.id) ? (
                   <FontAwesomeIcon
                     id="favTrade"
@@ -140,9 +145,6 @@ const Maker = (props) => {
                     }}
                   />
                 )}
-                <Link to={`${location.pathname}/${c.id}`} className="text-sm text-center w-full px-5">
-                  {c.name ? c.name : '(Unknown)'}
-                </Link>
               </div>
             </div>
           </li>
