@@ -18,6 +18,7 @@ const CollectionPage = (props) => {
   useEffect(() => {
     getCollectionById(props.collectionId).then((data) => {
       setCollection(data);
+      setReload(false);
     });
   }, [reload]);
 
