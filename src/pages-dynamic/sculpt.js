@@ -5,10 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { sortBy } from 'lodash';
 
 import { getWishlist, isInWishlist, rmCap, addCap, isInTradeList, rmTradeCap, addTradeCap } from '../internal/wishlist';
+import { getConfig } from '../internal/config';
+import { getCollections } from '../internal/collection';
 import Layout from '../layouts/base';
 import SEO from '../components/seo';
 import ThumbnailImage from '../components/thumbnail-image';
 import SubmitNewCwModal from '../components/modals/submit-new-cw';
+import AddToCollectionModal from '../components/modals/add-to-collection';
 import Alert from '../components/alert';
 
 const Maker = (props) => {
@@ -16,18 +19,26 @@ const Maker = (props) => {
   const { maker, makerUrl, sculpt, selfOrder } = pageContext;
 
   const seoTitle = `${maker.name} - ${sculpt.name}`;
+  const cfg = getConfig();
 
   const [wishlist, setStateWishlist] = useState(undefined);
-  useEffect(() => {
+  const [collections, setCollections] = useState([]);
+  const [addingCap, setAddingCap] = useState({});
+
+  useEffect(async () => {
     setStateWishlist(getWishlist());
+    setCollections(await getCollections());
   }, []);
+
   const cwList = selfOrder === true ? sculpt.colorways : sortBy(sculpt.colorways, (x) => x.name);
 
   const [showModal, setShowModal] = useState(false);
+  const [showCollectionModel, setShowCollectionModel] = useState(false);
 
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [showExceedAlert, setShowExceedAlert] = useState(false);
+
   return (
     <Layout>
       {showSuccessAlert && <Alert color="green" alertMessage="Colorway Successfully Submitted" setAlert={setShowSuccessAlert} />}
@@ -91,61 +102,78 @@ const Maker = (props) => {
                   alt={`${maker.name} - ${sculpt.name} - ${c.name}`}
                 />
               </Link>
-              <div className="font-bold flex flex-row pt-3 px-2 relative">
-                {isInWishlist(wishlist, c.id) ? (
-                  <FontAwesomeIcon
-                    id="favStar"
-                    className="m-1 star-icon text-yellow-500 cursor-pointer"
-                    icon={['fas', 'star']}
-                    onClick={() => setStateWishlist(rmCap(c.id))}
-                  />
-                ) : (
-                  <FontAwesomeIcon
-                    id="favStar"
-                    className="m-1 star-icon text-gray-500 cursor-pointer"
-                    icon={['fas', 'star']}
-                    onClick={() => {
-                      if (isInTradeList(wishlist, c.id)) {
-                        rmTradeCap(c.id);
-                      }
-                      if (wishlist.items.length > 50) {
-                        setShowExceedAlert(true);
-                      } else {
-                        setStateWishlist(addCap(c));
-                      }
-                    }}
-                  />
-                )}
-
-                <Link to={`${location.pathname}/${c.id}`} className="text-sm text-center w-full px-5">
-                  {c.name ? c.name : '(Unknown)'}
-                </Link>
-
-                {isInTradeList(wishlist, c.id) ? (
+              {cfg.authorized ? (
+                <div className="font-bold flex flex-row pt-3 px-2 relative">
+                  <Link to={`${location.pathname}/${c.id}`} className="text-sm text-center w-full px-5">
+                    {c.name ? c.name : '(Unknown)'}
+                  </Link>
                   <FontAwesomeIcon
                     id="favTrade"
-                    className="m-1 redo-icon text-yellow-500 cursor-pointer"
-                    icon={['fas', 'redo']}
-                    onClick={() => setStateWishlist(rmTradeCap(c.id))}
-                  />
-                ) : (
-                  <FontAwesomeIcon
-                    id="favTrade"
-                    className="m-1 redo-icon text-gray-500 cursor-pointer"
-                    icon={['fas', 'redo']}
+                    className="m-1 folder-plus-icon text-500 cursor-pointer"
+                    icon={['fas', 'folder-plus']}
                     onClick={() => {
-                      if (isInWishlist(wishlist, c.id)) {
-                        rmCap(c.id);
-                      }
-                      if (wishlist.tradeItems.length > 10) {
-                        setShowExceedAlert(true);
-                      } else {
-                        setStateWishlist(addTradeCap(c));
-                      }
+                      setShowCollectionModel(true);
+                      setAddingCap(c);
                     }}
                   />
-                )}
-              </div>
+                </div>
+              ) : (
+                <div className="font-bold flex flex-row pt-3 px-2 relative">
+                  {isInWishlist(wishlist, c.id) ? (
+                    <FontAwesomeIcon
+                      id="favStar"
+                      className="m-1 star-icon text-yellow-500 cursor-pointer"
+                      icon={['fas', 'star']}
+                      onClick={() => setStateWishlist(rmCap(c.id))}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      id="favStar"
+                      className="m-1 star-icon text-gray-500 cursor-pointer"
+                      icon={['fas', 'star']}
+                      onClick={() => {
+                        if (isInTradeList(wishlist, c.id)) {
+                          rmTradeCap(c.id);
+                        }
+                        if (wishlist.items.length > 50) {
+                          setShowExceedAlert(true);
+                        } else {
+                          setStateWishlist(addCap(c));
+                        }
+                      }}
+                    />
+                  )}
+
+                  <Link to={`${location.pathname}/${c.id}`} className="text-sm text-center w-full px-5">
+                    {c.name ? c.name : '(Unknown)'}
+                  </Link>
+
+                  {isInTradeList(wishlist, c.id) ? (
+                    <FontAwesomeIcon
+                      id="favTrade"
+                      className="m-1 redo-icon text-yellow-500 cursor-pointer"
+                      icon={['fas', 'redo']}
+                      onClick={() => setStateWishlist(rmTradeCap(c.id))}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      id="favTrade"
+                      className="m-1 redo-icon text-gray-500 cursor-pointer"
+                      icon={['fas', 'redo']}
+                      onClick={() => {
+                        if (isInWishlist(wishlist, c.id)) {
+                          rmCap(c.id);
+                        }
+                        if (wishlist.tradeItems.length > 10) {
+                          setShowExceedAlert(true);
+                        } else {
+                          setStateWishlist(addTradeCap(c));
+                        }
+                      }}
+                    />
+                  )}
+                </div>
+              )}
             </div>
           </li>
         ))}
@@ -155,6 +183,16 @@ const Maker = (props) => {
           setModal={setShowModal}
           maker={maker.name}
           sculpt={sculpt.name}
+          setErrorAlert={setShowErrorAlert}
+          setSuccessAlert={setShowSuccessAlert}
+        />
+      )}
+      {showCollectionModel && (
+        <AddToCollectionModal
+          modalHeader="Add colorway to collection"
+          setModal={setShowCollectionModel}
+          collections={collections}
+          cap={addingCap}
           setErrorAlert={setShowErrorAlert}
           setSuccessAlert={setShowSuccessAlert}
         />
