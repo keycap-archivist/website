@@ -7,6 +7,8 @@ import SEO from '../components/seo';
 import { cssColors } from '../internal/misc';
 import Layout from '../layouts/base';
 import { getWishlist, setWishlist, rmCap, rmTradeCap } from '../internal/wishlist';
+import { getConfig } from '../internal/config';
+import { getCollections } from '../internal/collection';
 
 const baseAPIurl = 'https://api.keycap-archivist.com/wishlist';
 
@@ -28,11 +30,38 @@ const Wishlist = () => {
     items: [],
     tradeItems: [],
   });
+  const [tradelist, setStateTradeList] = useState({
+    settings: {
+      capsPerLine: 3,
+      priority: {},
+      legends: {},
+      title: {},
+      tradeTitle: {},
+      extraText: {},
+      background: {},
+      social: {},
+    },
+    items: [],
+    tradeItems: [],
+  });
   const [fonts] = useState(['BebasNeue', 'PermanentMarker', 'Roboto', 'RedRock']);
 
+  const [collections, setCollections] = useState([]);
+  const [wtt, setWTT] = useState(false);
+
   // Required for SSR
-  useEffect(() => {
-    setStateWishlist(getWishlist());
+  useEffect(async () => {
+    const cfg = getConfig();
+    if (cfg.authorized) {
+      const list = await getCollections();
+      setCollections(list);
+      setStateWishlist(list[0].content);
+      setStateTradeList(list[0].content);
+    } else {
+      const ws = getWishlist();
+      setStateWishlist(ws);
+      setStateTradeList({ ...ws, items: ws.tradeItems, tradeItems: [] });
+    }
   }, []);
 
   // TODO: add wonderfull animation
@@ -51,7 +80,7 @@ const Wishlist = () => {
 
     const outWishlist = { settings: wishlist.settings };
     outWishlist.capsPerLine = parseInt(outWishlist.capsPerLine, 10);
-    outWishlist.tradeCaps = wishlist.tradeItems.map((i) => ({
+    outWishlist.tradeCaps = (wtt ? tradelist.items : []).map((i) => ({
       id: i.id,
       legendColor: wishlist.settings.tradeTitle.color,
     }));
@@ -219,10 +248,32 @@ const Wishlist = () => {
           </div>
         </div>
       </div>
-      {wishlist.tradeItems.length ? (
+      <div className="mb-4">
+        <div className="flex flex-wrap mt-2">
+          <label className="block text-gray-700 border-gray-100 text-sm font-bold mb-2" htmlFor="wantToTrade">
+            <span>Want to trade</span>
+            <div className="relative">
+              <input
+                name="wantToTrade"
+                id="wantToTrade"
+                type="checkbox"
+                className="sr-only"
+                checked={wtt === true}
+                onChange={() => {
+                  setWTT(!wtt);
+                }}
+              />{' '}
+              <div className="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+              <div className="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      {wtt ? (
         <div className="mb-4">
           <div className="flex flex-wrap mt-2">
-            <div className="w-1/3 pr-2">
+            <div className="w-1/4 pr-2">
               <label className="block text-gray-700 border-gray-100 text-sm font-bold mb-2" htmlFor="tradeTitleText">
                 Trade Text
               </label>
@@ -238,7 +289,28 @@ const Wishlist = () => {
                 placeholder="Have"
               />
             </div>
-            <div className="w-1/3 pr-2">
+            <div className="w-1/4 pr-2">
+              <label className="block text-gray-700 border-gray-100 text-sm font-bold mb-2" htmlFor="tradeTitleText">
+                Trade Collection
+              </label>
+              <select
+                className="shadow appearance-none
+                border border-gray-100 rounded w-full
+                 py-2 px-3 text-gray-700 leading-tight
+                 focus:outline-none focus:shadow-outline"
+                onChange={(e) => {
+                  const collection = collections.find((c) => c.id === e.target.value);
+                  setStateTradeList(collection.content);
+                }}
+              >
+                {collections.map((collection) => (
+                  <option value={collection.id} key={collection.id}>
+                    {collection.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="w-1/4 pr-2">
               <label className="wishlist_form" htmlFor="tradeTitleColor">
                 Trade Title Color
               </label>
@@ -258,7 +330,7 @@ const Wishlist = () => {
                 ))}
               </select>
             </div>
-            <div className="w-1/3 pr-2">
+            <div className="w-1/4 pr-2">
               <label className="wishlist_form" htmlFor="tradeTitleFont">
                 Trade Title Font
               </label>
@@ -288,7 +360,7 @@ const Wishlist = () => {
 
       <div className="mb-4">
         <div className="flex flex-wrap mt-2">
-          <div className="w-1/3 pr-2">
+          <div className="w-1/4 pr-2">
             <label className="wishlist_form" htmlFor="titleText">
               Title
             </label>
@@ -300,10 +372,31 @@ const Wishlist = () => {
               type="text"
               value={wishlist.settings.title.text}
               onChange={(e) => setSettingWishlist('title', 'text', e)}
-              placeholder={wishlist.tradeItems.length ? 'Want' : 'Wishlist'}
+              placeholder={wtt ? 'Want' : 'Wishlist'}
             />
           </div>
-          <div className="w-1/3 pr-2">
+          <div className="w-1/4 pr-2">
+            <label className="block text-gray-700 border-gray-100 text-sm font-bold mb-2" htmlFor="tradeTitleText">
+              Wish Collection
+            </label>
+            <select
+              className="shadow appearance-none
+                border border-gray-100 rounded w-full
+                 py-2 px-3 text-gray-700 leading-tight
+                 focus:outline-none focus:shadow-outline"
+              onChange={(e) => {
+                const collection = collections.find((c) => c.id === e.target.value);
+                setStateWishlist(collection.content);
+              }}
+            >
+              {collections.map((collection) => (
+                <option value={collection.id} key={collection.id}>
+                  {collection.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="w-1/4 pr-2">
             <label className="wishlist_form" htmlFor="titleColor">
               Title Color
             </label>
@@ -323,7 +416,7 @@ const Wishlist = () => {
               ))}
             </select>
           </div>
-          <div className="w-1/3 pr-2">
+          <div className="w-1/4 pr-2">
             <label className="wishlist_form" htmlFor="titleFont">
               Title Font
             </label>
@@ -538,19 +631,19 @@ const Wishlist = () => {
         handle=".handle"
         tag="ul"
         className="mt-6"
-        list={wishlist ? wishlist.tradeItems : []}
+        list={tradelist ? tradelist.items : []}
         setList={(e) => {
           // Update the state of the component only
-          const w = { ...wishlist };
-          w.tradeItems = e;
-          setStateWishlist(w);
+          const w = { ...tradelist };
+          w.items = e;
+          setStateTradeList(w);
         }}
         onEnd={() => {
-          // write the wishlist in the localstorage onEnd only
-          setWishlist(wishlist);
+          // write the tradelist in the localstorage onEnd only
+          setWishlist(tradelist);
         }}
       >
-        {wishlist.tradeItems.map((x) => (
+        {tradelist.items.map((x) => (
           <li key={x.id} className="mt-2" style={{ minHeight: '150px' }}>
             <FontAwesomeIcon className="cursor-move handle inline-block text-3xl mr-6" icon="align-justify" />
             <img
@@ -560,7 +653,7 @@ const Wishlist = () => {
             />
             <span></span>
             <button
-              onClick={() => setStateWishlist(rmTradeCap(x.id))}
+              onClick={() => setStateTradeList(rmTradeCap(x.id))}
               className="bg-red-500
               hover:bg-red-700
               text-white
@@ -597,18 +690,16 @@ const Wishlist = () => {
               onClick={genWishlist}
               className={`w-full  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 ${
                 // eslint-disable-next-line prettier/prettier
-                (wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length))
+                (wishlistLoading || (!wishlist.items.length && !tradelist.items.length))
                 // eslint-disable-next-line prettier/prettier
                 && 'cursor-not-allowed opacity-50'
               }`}
-              disabled={wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length)}
+              disabled={wishlistLoading || (!wishlist.items.length && !tradelist.items.length)}
             >
               Generate
             </button>
           </div>
-          {!wishlist.items.length && !wishlist.tradeItems.length && (
-            <b className={'text-lg mt-2'}>Add caps to your wishlist or tradelist to generate a wishlist</b>
-          )}
+          {!wishlist.items.length && !tradelist.items.length && <b className={'text-lg mt-2'}>Add caps to your wishlist or tradelist to generate a wishlist</b>}
           <div className="w-full md:w-1/4 mr-2">
             {b64Img ? (
               <a
@@ -636,7 +727,7 @@ const Wishlist = () => {
             )}
           </div>
         </div>
-        {wishlist.tradeItems.length ? (
+        {wtt ? (
           <div className="mb-4">
             <div className="flex flex-wrap mt-2">
               <div className="w-1/2 pr-2">
@@ -646,7 +737,7 @@ const Wishlist = () => {
                 mb-2"
                   htmlFor="haveText"
                 >
-                  {wishlist.settings.tradeTitle.text || 'Have'}
+                  {tradelist.settings.tradeTitle.text || 'Have'}
                 </label>
                 {tradelistPlaceHolder()}
               </div>
