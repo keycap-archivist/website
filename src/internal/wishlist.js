@@ -5,6 +5,9 @@ import { getCollections, setCollection, updateCollection } from './collection';
 const CONSTS = {
   wishlist: 'Wishlist',
   wishlistV2: 'Wishlist_v2',
+  wish: 'KA_Wish',
+  trade: 'KA_Trade',
+  settings: 'KA_Settings',
 };
 
 const defaultWishlist = {
@@ -135,5 +138,19 @@ export async function downloadSync(cfg) {
     console.log(collections);
     localStorageSet(CONSTS.wishlistV2, JSON.stringify(collections[0].content));
     setConfig(config);
+  }
+}
+
+export function initMigrateWishlist() {
+  let ws = localStorageLoad(CONSTS.wishlistV2);
+  if (ws) {
+    try {
+      ws = JSON.parse(ws);
+      localStorageSet(CONSTS.wish, JSON.stringify({ items: ws.items }));
+      localStorageSet(CONSTS.trade, JSON.stringify({ items: ws.tradeItems }));
+      localStorageSet(CONSTS.settings, JSON.stringify(ws.settings));
+    } catch (e) {
+      console.log('Unable to read the Wishlist v2 object');
+    }
   }
 }

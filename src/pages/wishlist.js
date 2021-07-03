@@ -59,8 +59,21 @@ const Wishlist = () => {
       setStateTradeList(list[0].content);
     } else {
       const ws = getWishlist();
+      const tradeWs = { ...ws, items: ws.tradeItems, tradeItems: [] };
+      setCollections([
+        {
+          content: ws,
+          name: 'Wishlist',
+          id: 'Wishlist',
+        },
+        {
+          content: tradeWs,
+          name: 'Tradelist',
+          id: 'Tradelist',
+        },
+      ]);
       setStateWishlist(ws);
-      setStateTradeList({ ...ws, items: ws.tradeItems, tradeItems: [] });
+      setStateTradeList(ws);
     }
   }, []);
 
@@ -250,7 +263,7 @@ const Wishlist = () => {
       </div>
       <div className="mb-4">
         <div className="flex flex-wrap mt-2">
-          <label className="block text-gray-700 border-gray-100 text-sm font-bold mb-2" htmlFor="wantToTrade">
+          <label className="wishlist_form" htmlFor="wantToTrade">
             <span>Want to trade</span>
             <div className="relative">
               <input
@@ -274,7 +287,7 @@ const Wishlist = () => {
         <div className="mb-4">
           <div className="flex flex-wrap mt-2">
             <div className="w-1/4 pr-2">
-              <label className="block text-gray-700 border-gray-100 text-sm font-bold mb-2" htmlFor="tradeTitleText">
+              <label className="wishlist_form" htmlFor="tradeTitleText">
                 Trade Text
               </label>
               <input
@@ -290,7 +303,7 @@ const Wishlist = () => {
               />
             </div>
             <div className="w-1/4 pr-2">
-              <label className="block text-gray-700 border-gray-100 text-sm font-bold mb-2" htmlFor="tradeTitleText">
+              <label className="wishlist_form" htmlFor="tradeTitleText">
                 Trade Collection
               </label>
               <select
@@ -298,6 +311,7 @@ const Wishlist = () => {
                 border border-gray-100 rounded w-full
                  py-2 px-3 text-gray-700 leading-tight
                  focus:outline-none focus:shadow-outline"
+                type="select"
                 onChange={(e) => {
                   const collection = collections.find((c) => c.id === e.target.value);
                   setStateTradeList(collection.content);
@@ -376,7 +390,7 @@ const Wishlist = () => {
             />
           </div>
           <div className="w-1/4 pr-2">
-            <label className="block text-gray-700 border-gray-100 text-sm font-bold mb-2" htmlFor="tradeTitleText">
+            <label className="wishlist_form" htmlFor="tradeTitleText">
               Wish Collection
             </label>
             <select
@@ -384,6 +398,7 @@ const Wishlist = () => {
                 border border-gray-100 rounded w-full
                  py-2 px-3 text-gray-700 leading-tight
                  focus:outline-none focus:shadow-outline"
+              type="select"
               onChange={(e) => {
                 const collection = collections.find((c) => c.id === e.target.value);
                 setStateWishlist(collection.content);
@@ -731,23 +746,13 @@ const Wishlist = () => {
           <div className="mb-4">
             <div className="flex flex-wrap mt-2">
               <div className="w-1/2 pr-2">
-                <label
-                  className="block text-gray-700 border-gray-100
-                text-sm font-bold
-                mb-2"
-                  htmlFor="haveText"
-                >
+                <label className="wishlist_form" htmlFor="haveText">
                   {tradelist.settings.tradeTitle.text || 'Have'}
                 </label>
                 {tradelistPlaceHolder()}
               </div>
               <div className="w-1/2 pr-2">
-                <label
-                  className="block text-gray-700 border-gray-100
-                text-sm font-bold
-                mb-2"
-                  htmlFor="wantText"
-                >
+                <label className="wishlist_form" htmlFor="wantText">
                   {wishlist.settings.title.text || 'Want'}
                 </label>
                 {wishlistPlaceHolder()}
