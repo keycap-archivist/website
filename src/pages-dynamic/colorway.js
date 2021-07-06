@@ -4,11 +4,14 @@ import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { getWishlist, isInWishlist, rmCap, addCap, isInTradeList, rmTradeCap, addTradeCap } from '../internal/wishlist';
+import { getLocalCollections } from '../internal/wishlist';
+import { getCollections } from '../internal/collection';
 import Layout from '../layouts/base';
 import SEO from '../components/seo';
 import Alert from '../components/alert';
 import SubmitNameModal from '../components/modals/submit-name';
+import AddToCollectionModal from '../components/modals/add-to-collection';
+import { getConfig } from '../internal/config';
 
 const Maker = (props) => {
   const { pageContext, location } = props;
@@ -17,6 +20,7 @@ const Maker = (props) => {
   const [state, setState] = useState({ text: 'Copy link' });
 
   const [showModal, setShowModal] = useState(false);
+  const [showCollectionModel, setShowCollectionModel] = useState(false);
 
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
@@ -26,9 +30,14 @@ const Maker = (props) => {
     setState({ text: 'Copied!' });
   };
 
-  const [wishlist, setStateWishlist] = useState(undefined);
-  useEffect(() => {
-    setStateWishlist(getWishlist());
+  const cfg = getConfig();
+  const [collections, setCollections] = useState([]);
+  const [addingCap, setAddingCap] = useState({});
+
+  useEffect(async () => {
+    const list = cfg.authorized ? await getCollections() : getLocalCollections();
+
+    setCollections(list);
   }, []);
   const cwImg = `https://cdn.keycap-archivist.com/keycaps/720/${colorway.id}.jpg`;
   return (
@@ -103,108 +112,30 @@ const Maker = (props) => {
                 {state.text}
               </button>
             </CopyToClipboard>
-            {isInWishlist(wishlist, colorway.id) ? (
-              <button
-                onClick={() => setStateWishlist(rmCap(colorway.id))}
-                className="
-                  block
-                  w-48
-                  inline-flex
-                  items-center
-                  justify-center
-                  bg-red-500
-                  hover:bg-red-700
-                  text-white
-                  font-bold
-                  ml-2
-                  py-2
-                  px-3
-                  text-xs
-                  rounded"
-              >
-                <FontAwesomeIcon className="mr-1" icon={['fas', 'star']} />
-                <span>Remove from wishlist</span>
-              </button>
-            ) : (
-              <button
-                onClick={() => {
-                  if (isInTradeList(wishlist, colorway.id)) {
-                    rmTradeCap(colorway.id);
-                  }
-                  if (wishlist.items.length > 50) {
-                    setShowExceedAlert(true);
-                  } else {
-                    setStateWishlist(addCap(colorway.id));
-                  }
-                }}
-                className="
-                  block
-                  w-48
-                  bg-green-500
-                  hover:bg-green-700
-                  text-white
-                  font-bold
-                  ml-2
-                  py-2
-                  px-3
-                  text-xs
-                  rounded"
-              >
-                <FontAwesomeIcon className="mr-1" icon={['fas', 'star']} />
-                <span>Add to wishlist</span>
-              </button>
-            )}
-            {isInTradeList(wishlist, colorway.id) ? (
-              <button
-                onClick={() => setStateWishlist(rmTradeCap(colorway.id))}
-                className="
-                  block
-                  w-48
-                  inline-flex
-                  items-center
-                  justify-center
-                  bg-red-500
-                  hover:bg-red-700
-                  text-white
-                  font-bold
-                  ml-2
-                  py-2
-                  px-3
-                  text-xs
-                  rounded"
-              >
-                <FontAwesomeIcon className="mr-1" icon={['fas', 'redo']} />
-                <span>Remove from trade list</span>
-              </button>
-            ) : (
-              <button
-                onClick={() => {
-                  if (isInWishlist(wishlist, colorway.id)) {
-                    rmCap(colorway.id);
-                  }
-                  if (wishlist.tradeItems.length > 10) {
-                    setShowExceedAlert(true);
-                  } else {
-                    setStateWishlist(addTradeCap(colorway.id));
-                  }
-                }}
-                className="
-                  block
-                  w-48
-                  bg-green-500
-                  hover:bg-green-700
-                  text-white
-                  font-bold
-                  ml-2
-                  py-2
-                  px-3
-                  text-xs
-                  rounded"
-              >
-                <FontAwesomeIcon className="mr-1" icon={['fas', 'redo']} />
-                <span>Add to trade list</span>
-              </button>
-            )}
+
+            <button
+              className="
+              modal-open
+              mx-2
+              block
+              w-35
+              bg-blue-500
+              hover:bg-blue-700
+              text-white
+              font-bold
+              ml-2
+              py-2
+              px-3
+              text-xs
+              rounded"
+              onClick={() => {
+                setShowCollectionModel(true);
+                setAddingCap(colorway);
+              }}
+            >
+              Add to Collection
+              <FontAwesomeIcon id="favTrade" className="m-1 folder-plus-icon text-500 cursor-pointer" icon={['fas', 'folder-plus']} />
+            </button>
           </div>
         </div>
         <div className="colorway-wrapper">
@@ -221,6 +152,17 @@ const Maker = (props) => {
           placeholder="Suggestion Name"
           clwId={colorway.id}
           setModal={setShowModal}
+          setErrorAlert={setShowErrorAlert}
+          setSuccessAlert={setShowSuccessAlert}
+        />
+      )}
+      {showCollectionModel && (
+        <AddToCollectionModal
+          modalHeader="Add colorway to collection"
+          setModal={setShowCollectionModel}
+          collections={collections}
+          cap={addingCap}
+          authorized={cfg.authorized}
           setErrorAlert={setShowErrorAlert}
           setSuccessAlert={setShowSuccessAlert}
         />

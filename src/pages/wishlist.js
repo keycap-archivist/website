@@ -6,9 +6,9 @@ import axios from 'axios';
 import SEO from '../components/seo';
 import { cssColors } from '../internal/misc';
 import Layout from '../layouts/base';
-import { getWishlist, setWishlist, rmCap, rmTradeCap } from '../internal/wishlist';
+import { getLocalCollections, setWishlist, defaultSettings } from '../internal/wishlist';
 import { getConfig } from '../internal/config';
-import { getCollections } from '../internal/collection';
+import { getCollections, updateCollection } from '../internal/collection';
 
 const baseAPIurl = 'https://api.keycap-archivist.com/wishlist';
 
@@ -16,65 +16,28 @@ const Wishlist = () => {
   const [b64Img, setB64Img] = useState(null);
   const [errorLoading, setErrorLoading] = useState(false);
   const [wishlistLoading, setWishlistLoading] = useState(false);
+  const [settings, setSettings] = useState(defaultSettings);
   const [wishlist, setStateWishlist] = useState({
-    settings: {
-      capsPerLine: 3,
-      priority: {},
-      legends: {},
-      title: {},
-      tradeTitle: {},
-      extraText: {},
-      background: {},
-      social: {},
-    },
     items: [],
-    tradeItems: [],
   });
   const [tradelist, setStateTradeList] = useState({
-    settings: {
-      capsPerLine: 3,
-      priority: {},
-      legends: {},
-      title: {},
-      tradeTitle: {},
-      extraText: {},
-      background: {},
-      social: {},
-    },
     items: [],
-    tradeItems: [],
   });
+  const [wishlistId, setWishlistId] = useState(null);
+  const [tradelistId, setTradelistId] = useState(null);
   const [fonts] = useState(['BebasNeue', 'PermanentMarker', 'Roboto', 'RedRock']);
 
   const [collections, setCollections] = useState([]);
   const [wtt, setWTT] = useState(false);
 
+  const cfg = getConfig();
   // Required for SSR
   useEffect(async () => {
-    const cfg = getConfig();
-    if (cfg.authorized) {
-      const list = await getCollections();
-      setCollections(list);
-      setStateWishlist(list[0].content);
-      setStateTradeList(list[0].content);
-    } else {
-      const ws = getWishlist();
-      const tradeWs = { ...ws, items: ws.tradeItems, tradeItems: [] };
-      setCollections([
-        {
-          content: ws,
-          name: 'Wishlist',
-          id: 'Wishlist',
-        },
-        {
-          content: tradeWs,
-          name: 'Tradelist',
-          id: 'Tradelist',
-        },
-      ]);
-      setStateWishlist(ws);
-      setStateTradeList(ws);
-    }
+    const list = cfg.authorized ? await getCollections() : getLocalCollections();
+
+    setCollections(list);
+    setStateWishlist(list[0].content);
+    setStateTradeList(list[0].content);
   }, []);
 
   // TODO: add wonderfull animation
@@ -118,18 +81,18 @@ const Wishlist = () => {
   const setPriority = (id, priority) => {
     const idx = wishlist.items.findIndex((x) => x.id === id);
     wishlist.items[idx].prio = priority;
-    setWishlist(wishlist);
+    setWishlist(wishlist, wishlistId);
     setStateWishlist({ ...wishlist });
   };
 
   const setSettingWishlist = (property, key, e) => {
     if (property === 'capsPerLine') {
-      wishlist.settings.capsPerLine = e.target.value;
+      settings.capsPerLine = e.target.value;
     } else {
-      wishlist.settings[property][key] = e.target.value;
+      settings[property][key] = e.target.value;
     }
-    setWishlist(wishlist);
-    setStateWishlist({ ...wishlist });
+
+    setSettings(settings);
   };
 
   const wishlistSettings = () => (
@@ -142,7 +105,7 @@ const Wishlist = () => {
             </label>
             <input
               id="capsPerLine"
-              value={wishlist.settings.capsPerLine}
+              value={settings.capsPerLine}
               onChange={(e) => setSettingWishlist('capsPerLine', '', e)}
               className="shadow appearance-none border border-gray-100 rounded
               w-full py-2 px-3 text-gray-700 leading-tight
@@ -161,7 +124,7 @@ const Wishlist = () => {
                py-2 px-3 text-gray-700 leading-tight
                focus:outline-none focus:shadow-outline"
               type="select"
-              value={wishlist.settings.priority.color}
+              value={settings.priority.color}
               onChange={(e) => setSettingWishlist('priority', 'color', e)}
             >
               {cssColors.map((x) => (
@@ -182,7 +145,7 @@ const Wishlist = () => {
                py-2 px-3 text-gray-700 leading-tight
                focus:outline-none focus:shadow-outline"
               type="select"
-              value={wishlist.settings.priority.font}
+              value={settings.priority.font}
               onChange={(e) => setSettingWishlist('priority', 'font', e)}
             >
               {fonts.map((x) => (
@@ -207,7 +170,7 @@ const Wishlist = () => {
                py-2 px-3 text-gray-700 leading-tight
                focus:outline-none focus:shadow-outline"
               type="select"
-              value={wishlist.settings.legends.font}
+              value={settings.legends.font}
               onChange={(e) => setSettingWishlist('legends', 'font', e)}
             >
               {fonts.map((x) => (
@@ -228,7 +191,7 @@ const Wishlist = () => {
                py-2 px-3 text-gray-700 leading-tight
                focus:outline-none focus:shadow-outline"
               type="select"
-              value={wishlist.settings.legends.color}
+              value={settings.legends.color}
               onChange={(e) => setSettingWishlist('legends', 'color', e)}
             >
               {cssColors.map((x) => (
@@ -249,7 +212,7 @@ const Wishlist = () => {
                py-2 px-3 text-gray-700 leading-tight
                focus:outline-none focus:shadow-outline"
               type="select"
-              value={wishlist.settings.background.color}
+              value={settings.background.color}
               onChange={(e) => setSettingWishlist('background', 'color', e)}
             >
               {cssColors.map((x) => (
@@ -297,7 +260,7 @@ const Wishlist = () => {
               focus:outline-none focus:shadow-outline"
                 id="tradeTitleText"
                 type="text"
-                value={wishlist.settings.tradeTitle.text}
+                value={settings.tradeTitle.text}
                 onChange={(e) => setSettingWishlist('tradeTitle', 'text', e)}
                 placeholder="Have"
               />
@@ -315,6 +278,7 @@ const Wishlist = () => {
                 onChange={(e) => {
                   const collection = collections.find((c) => c.id === e.target.value);
                   setStateTradeList(collection.content);
+                  setTradelistId(collection.id);
                 }}
               >
                 {collections.map((collection) => (
@@ -334,7 +298,7 @@ const Wishlist = () => {
                 rounded w-full py-2 px-3 text-gray-700 leading-tight
                 focus:outline-none focus:shadow-outline"
                 type="select"
-                value={wishlist.settings.tradeTitle.color}
+                value={settings.tradeTitle.color}
                 onChange={(e) => setSettingWishlist('tradeTitle', 'color', e)}
               >
                 {cssColors.map((x) => (
@@ -356,7 +320,7 @@ const Wishlist = () => {
                 leading-tight
                 focus:outline-none focus:shadow-outline"
                 type="select"
-                value={wishlist.settings.tradeTitle.font}
+                value={settings.tradeTitle.font}
                 onChange={(e) => setSettingWishlist('tradeTitle', 'font', e)}
               >
                 {fonts.map((x) => (
@@ -384,7 +348,7 @@ const Wishlist = () => {
               focus:outline-none focus:shadow-outline"
               id="titleText"
               type="text"
-              value={wishlist.settings.title.text}
+              value={settings.title.text}
               onChange={(e) => setSettingWishlist('title', 'text', e)}
               placeholder={wtt ? 'Want' : 'Wishlist'}
             />
@@ -402,6 +366,7 @@ const Wishlist = () => {
               onChange={(e) => {
                 const collection = collections.find((c) => c.id === e.target.value);
                 setStateWishlist(collection.content);
+                setWishlistId(collection.id);
               }}
             >
               {collections.map((collection) => (
@@ -421,7 +386,7 @@ const Wishlist = () => {
               rounded w-full py-2 px-3 text-gray-700 leading-tight
               focus:outline-none focus:shadow-outline"
               type="select"
-              value={wishlist.settings.title.color}
+              value={settings.title.color}
               onChange={(e) => setSettingWishlist('title', 'color', e)}
             >
               {cssColors.map((x) => (
@@ -443,7 +408,7 @@ const Wishlist = () => {
               leading-tight
               focus:outline-none focus:shadow-outline"
               type="select"
-              value={wishlist.settings.title.font}
+              value={settings.title.font}
               onChange={(e) => setSettingWishlist('title', 'font', e)}
             >
               {fonts.map((x) => (
@@ -470,7 +435,7 @@ const Wishlist = () => {
               id="extraText"
               type="text"
               maxLength="50"
-              value={wishlist.settings.extraText.text}
+              value={settings.extraText.text}
               onChange={(e) => setSettingWishlist('extraText', 'text', e)}
               placeholder="Willing to topup if needed"
             />
@@ -485,7 +450,7 @@ const Wishlist = () => {
                 rounded w-full py-2 px-3 text-gray-700 leading-tight
                 focus:outline-none focus:shadow-outline"
               type="select"
-              value={wishlist.settings.extraText.color}
+              value={settings.extraText.color}
               onChange={(e) => setSettingWishlist('extraText', 'color', e)}
             >
               {cssColors.map((x) => (
@@ -507,7 +472,7 @@ const Wishlist = () => {
                 leading-tight
                 focus:outline-none focus:shadow-outline"
               type="select"
-              value={wishlist.settings.extraText.font}
+              value={settings.extraText.font}
               onChange={(e) => setSettingWishlist('extraText', 'font', e)}
             >
               {fonts.map((x) => (
@@ -532,7 +497,7 @@ const Wishlist = () => {
               focus:outline-none focus:shadow-outline"
               id="socialReddit"
               type="text"
-              value={wishlist.settings.social.reddit}
+              value={settings.social.reddit}
               onChange={(e) => setSettingWishlist('social', 'reddit', e)}
               placeholder="u/username"
             />
@@ -548,7 +513,7 @@ const Wishlist = () => {
               focus:outline-none focus:shadow-outline"
               id="socialDiscord"
               type="text"
-              value={wishlist.settings.social.discord}
+              value={settings.social.discord}
               onChange={(e) => setSettingWishlist('social', 'discord', e)}
               placeholder="Discord#1234"
             />
@@ -572,8 +537,14 @@ const Wishlist = () => {
           setStateWishlist(w);
         }}
         onEnd={() => {
-          // write the wishlist in the localstorage onEnd only
-          setWishlist(wishlist);
+          // write the wishlist onEnd only
+          if (cfg.authorized) {
+            updateCollection(wishlistId, {
+              wishlist,
+            });
+          } else {
+            setWishlist(wishlist, wishlistId);
+          }
         }}
       >
         {wishlist.items.map((x) => (
@@ -619,7 +590,10 @@ const Wishlist = () => {
               </button>
             )}
             <button
-              onClick={() => setStateWishlist(rmCap(x.id))}
+              onClick={() => {
+                wishlist.items = wishlist.items.filter((c) => c.id !== x.id);
+                setStateWishlist(wishlist);
+              }}
               className="bg-red-500
                 hover:bg-red-700
                 text-white
@@ -654,8 +628,14 @@ const Wishlist = () => {
           setStateTradeList(w);
         }}
         onEnd={() => {
-          // write the tradelist in the localstorage onEnd only
-          setWishlist(tradelist);
+          // write the tradelist onEnd only
+          if (cfg.authorized) {
+            updateCollection(tradelistId, {
+              wishlist: tradelist,
+            });
+          } else {
+            setWishlist(tradelist, tradelistId);
+          }
         }}
       >
         {tradelist.items.map((x) => (
@@ -668,7 +648,10 @@ const Wishlist = () => {
             />
             <span></span>
             <button
-              onClick={() => setStateTradeList(rmTradeCap(x.id))}
+              onClick={() => {
+                tradelist.items = tradelist.items.filter((c) => c.id !== x.id);
+                setStateTradeList(tradelist);
+              }}
               className="bg-red-500
               hover:bg-red-700
               text-white
@@ -747,13 +730,13 @@ const Wishlist = () => {
             <div className="flex flex-wrap mt-2">
               <div className="w-1/2 pr-2">
                 <label className="wishlist_form" htmlFor="haveText">
-                  {tradelist.settings.tradeTitle.text || 'Have'}
+                  {settings.tradeTitle.text || 'Have'}
                 </label>
                 {tradelistPlaceHolder()}
               </div>
               <div className="w-1/2 pr-2">
                 <label className="wishlist_form" htmlFor="wantText">
-                  {wishlist.settings.title.text || 'Want'}
+                  {settings.title.text || 'Want'}
                 </label>
                 {wishlistPlaceHolder()}
               </div>

@@ -6,7 +6,7 @@ const AddCollectionModal = (props) => {
   const [collectionName, setCollectionName] = useState('');
 
   const submitCollection = (name) => {
-    setCollection({ name, wishlist: {} })
+    setCollection({ name, wishlist: { items: [] } })
       .then(() => {
         props.setSuccessAlert(true);
       })

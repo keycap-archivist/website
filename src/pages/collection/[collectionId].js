@@ -6,6 +6,8 @@ import SEO from '../../components/seo';
 import Alert from '../../components/alert';
 import { getCollectionById, updateCollection } from '../../internal/collection';
 import ThumbnailImage from '../../components/thumbnail-image';
+import { getConfig } from '../../internal/config';
+import { getWishlist } from '../../internal/wishlist';
 
 const CollectionPage = (props) => {
   const defaultCollection = {
@@ -15,11 +17,23 @@ const CollectionPage = (props) => {
   };
   const [collection, setCollection] = useState(defaultCollection);
   const [reload, setReload] = useState(false);
-  useEffect(() => {
-    getCollectionById(props.collectionId).then((data) => {
-      setCollection(data);
-      setReload(false);
-    });
+  const cfg = getConfig();
+
+  useEffect(async () => {
+    let data;
+    if (cfg.authorized) {
+      data = await getCollectionById(props.collectionId);
+    } else {
+      const content = getWishlist(props.collectionId);
+
+      data = {
+        content,
+        id: props.collectionId,
+        name: props.collectionId === 'wish' ? 'Wishlist' : 'Tradelist',
+      };
+    }
+    setCollection(data);
+    setReload(false);
   }, [reload]);
 
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);

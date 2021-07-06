@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { updateCollection } from '../../internal/collection';
+import { setWishlist } from '../../internal/wishlist';
 import Modal from '../modal';
 
 const AddToCollectionModal = (props) => {
@@ -8,19 +9,28 @@ const AddToCollectionModal = (props) => {
   const addCapToCollection = () => {
     const collection = props.collections.find((c) => c.id === selectedCollection);
     const { id, name } = props.cap;
-    collection.content.items.push({ id, legend: name, prio: false });
 
-    updateCollection(selectedCollection, {
-      name: collection.name,
-      wishlist: collection.content,
-    })
-      .then(() => {
-        props.setSuccessAlert(true);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        props.setErrorAlert(true);
-      });
+    const has = collection.content.items.find((i) => i.id === id);
+    if (!has) {
+      collection.content.items.push({ id, legend: name, prio: false });
+      if (props.authorized) {
+        updateCollection(selectedCollection, {
+          name: collection.name,
+          wishlist: collection.content,
+        })
+          .then(() => {
+            props.setSuccessAlert(true);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+            props.setErrorAlert(true);
+          });
+      } else {
+        setWishlist(collection.content, collection.id);
+      }
+    } else {
+      props.setSuccessAlert(true);
+    }
   };
 
   return (

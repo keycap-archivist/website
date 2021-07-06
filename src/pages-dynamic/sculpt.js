@@ -4,7 +4,7 @@ import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { sortBy } from 'lodash';
 
-import { getWishlist, isInWishlist, rmCap, addCap, isInTradeList, rmTradeCap, addTradeCap } from '../internal/wishlist';
+import { getLocalCollections } from '../internal/wishlist';
 import { getConfig } from '../internal/config';
 import { getCollections } from '../internal/collection';
 import Layout from '../layouts/base';
@@ -20,14 +20,13 @@ const Maker = (props) => {
 
   const seoTitle = `${maker.name} - ${sculpt.name}`;
   const cfg = getConfig();
-
-  const [wishlist, setStateWishlist] = useState(undefined);
   const [collections, setCollections] = useState([]);
   const [addingCap, setAddingCap] = useState({});
 
   useEffect(async () => {
-    setStateWishlist(getWishlist());
-    setCollections(await getCollections());
+    const list = cfg.authorized ? await getCollections() : getLocalCollections();
+
+    setCollections(list);
   }, []);
 
   const cwList = selfOrder === true ? sculpt.colorways : sortBy(sculpt.colorways, (x) => x.name);
@@ -102,78 +101,20 @@ const Maker = (props) => {
                   alt={`${maker.name} - ${sculpt.name} - ${c.name}`}
                 />
               </Link>
-              {cfg.authorized ? (
-                <div className="font-bold flex flex-row pt-3 px-2 relative">
-                  <Link to={`${location.pathname}/${c.id}`} className="text-sm text-center w-full px-5">
-                    {c.name ? c.name : '(Unknown)'}
-                  </Link>
-                  <FontAwesomeIcon
-                    id="favTrade"
-                    className="m-1 folder-plus-icon text-500 cursor-pointer"
-                    icon={['fas', 'folder-plus']}
-                    onClick={() => {
-                      setShowCollectionModel(true);
-                      setAddingCap(c);
-                    }}
-                  />
-                </div>
-              ) : (
-                <div className="font-bold flex flex-row pt-3 px-2 relative">
-                  {isInWishlist(wishlist, c.id) ? (
-                    <FontAwesomeIcon
-                      id="favStar"
-                      className="m-1 star-icon text-yellow-500 cursor-pointer"
-                      icon={['fas', 'star']}
-                      onClick={() => setStateWishlist(rmCap(c.id))}
-                    />
-                  ) : (
-                    <FontAwesomeIcon
-                      id="favStar"
-                      className="m-1 star-icon text-gray-500 cursor-pointer"
-                      icon={['fas', 'star']}
-                      onClick={() => {
-                        if (isInTradeList(wishlist, c.id)) {
-                          rmTradeCap(c.id);
-                        }
-                        if (wishlist.items.length > 50) {
-                          setShowExceedAlert(true);
-                        } else {
-                          setStateWishlist(addCap(c));
-                        }
-                      }}
-                    />
-                  )}
-
-                  <Link to={`${location.pathname}/${c.id}`} className="text-sm text-center w-full px-5">
-                    {c.name ? c.name : '(Unknown)'}
-                  </Link>
-
-                  {isInTradeList(wishlist, c.id) ? (
-                    <FontAwesomeIcon
-                      id="favTrade"
-                      className="m-1 redo-icon text-yellow-500 cursor-pointer"
-                      icon={['fas', 'redo']}
-                      onClick={() => setStateWishlist(rmTradeCap(c.id))}
-                    />
-                  ) : (
-                    <FontAwesomeIcon
-                      id="favTrade"
-                      className="m-1 redo-icon text-gray-500 cursor-pointer"
-                      icon={['fas', 'redo']}
-                      onClick={() => {
-                        if (isInWishlist(wishlist, c.id)) {
-                          rmCap(c.id);
-                        }
-                        if (wishlist.tradeItems.length > 10) {
-                          setShowExceedAlert(true);
-                        } else {
-                          setStateWishlist(addTradeCap(c));
-                        }
-                      }}
-                    />
-                  )}
-                </div>
-              )}
+              <div className="font-bold flex flex-row pt-3 px-2 relative">
+                <Link to={`${location.pathname}/${c.id}`} className="text-sm text-center w-full px-5">
+                  {c.name ? c.name : '(Unknown)'}
+                </Link>
+                <FontAwesomeIcon
+                  id="favTrade"
+                  className="m-1 folder-plus-icon text-500 cursor-pointer"
+                  icon={['fas', 'folder-plus']}
+                  onClick={() => {
+                    setShowCollectionModel(true);
+                    setAddingCap(c);
+                  }}
+                />
+              </div>
             </div>
           </li>
         ))}
@@ -193,6 +134,7 @@ const Maker = (props) => {
           setModal={setShowCollectionModel}
           collections={collections}
           cap={addingCap}
+          authorized={cfg.authorized}
           setErrorAlert={setShowErrorAlert}
           setSuccessAlert={setShowSuccessAlert}
         />

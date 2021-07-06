@@ -1,144 +1,94 @@
 import { localStorageLoad, localStorageSet } from './misc';
-import { getConfig, setConfig } from './config';
-import { getCollections, setCollection, updateCollection } from './collection';
 
 const CONSTS = {
-  wishlist: 'Wishlist',
   wishlistV2: 'Wishlist_v2',
   wish: 'KA_Wish',
   trade: 'KA_Trade',
   settings: 'KA_Settings',
 };
 
-const defaultWishlist = {
-  settings: {
-    capsPerLine: 3,
-    priority: {
-      color: 'Red',
-      font: 'Roboto',
-    },
-    legends: {
-      color: 'Red',
-      font: 'Roboto',
-    },
-    title: {
-      color: 'Red',
-      font: 'Roboto',
-      text: '',
-    },
-    tradeTitle: {
-      color: 'Red',
-      font: 'Roboto',
-      text: '',
-    },
-    extraText: {
-      color: 'Red',
-      font: 'Roboto',
-      text: '',
-    },
-    background: {
-      color: 'Black',
-    },
-    social: {
-      reddit: '',
-      discord: '',
-    },
+export const defaultSettings = {
+  capsPerLine: 3,
+  priority: {
+    color: 'Red',
+    font: 'Roboto',
   },
+  legends: {
+    color: 'Red',
+    font: 'Roboto',
+  },
+  title: {
+    color: 'Red',
+    font: 'Roboto',
+    text: '',
+  },
+  tradeTitle: {
+    color: 'Red',
+    font: 'Roboto',
+    text: '',
+  },
+  extraText: {
+    color: 'Red',
+    font: 'Roboto',
+    text: '',
+  },
+  background: {
+    color: 'Black',
+  },
+  social: {
+    reddit: '',
+    discord: '',
+  },
+};
+
+const defaultWishlist = {
   items: [],
-  tradeItems: [],
 };
 
 export function getDefaultWishlist() {
   return { ...defaultWishlist };
 }
 
-export function setWishlist(wishlist) {
-  localStorageSet(CONSTS.wishlistV2, JSON.stringify(wishlist));
-  const cfg = getConfig();
-  if (cfg.authorized && cfg.cloudAutoSync) {
-    // eslint-disable-next-line no-use-before-define
-    uploadSync(cfg);
+export function setWishlist(wishlist, wishlistId) {
+  switch (wishlistId) {
+    case 'wish':
+      localStorageSet(CONSTS.wish, JSON.stringify(wishlist));
+      break;
+    case 'trade':
+      localStorageSet(CONSTS.trade, JSON.stringify(wishlist));
+      break;
+    default:
+      break;
   }
 }
 
-export function getWishlist() {
-  const w2 = localStorageLoad(CONSTS.wishlistV2);
-  if (w2) {
+export function getWishlist(wishlistId) {
+  const ws = localStorageLoad(CONSTS[wishlistId]);
+  if (ws) {
     try {
-      return JSON.parse(w2);
+      return JSON.parse(ws);
     } catch (e) {
       console.log('Unable to read the Wishlist v2 object');
     }
   }
   const d = getDefaultWishlist();
-  setWishlist(d);
+  setWishlist(d, wishlistId);
   return d;
 }
 
-export function addCap({ id, name }) {
-  const w = getWishlist();
-  w.items.push({ id, legend: name, prio: false });
-  setWishlist(w);
-  return w;
-}
-
-export function rmCap(id) {
-  const w = getWishlist();
-  w.items = w.items.filter((x) => x.id !== id);
-  setWishlist(w);
-  return w;
-}
-
-export function isInWishlist(w, id) {
-  return w && w.items && w.items.findIndex((x) => x.id === id) > -1;
-}
-
-export function addTradeCap({ id, name }) {
-  const w = getWishlist();
-  w.tradeItems.push({ id, legend: name, prio: false });
-  setWishlist(w);
-  return w;
-}
-
-export function rmTradeCap(id) {
-  const w = getWishlist();
-  w.tradeItems = w.tradeItems.filter((x) => x.id !== id);
-  setWishlist(w);
-  return w;
-}
-
-export function isInTradeList(w, id) {
-  return w && w.tradeItems && w.tradeItems.findIndex((x) => x.id === id) > -1;
-}
-
-export async function uploadSync(cfg) {
-  const wishlist = getWishlist();
-  if (cfg.wishlist_id) {
-    updateCollection(cfg.wishlist_id, {
-      name: CONSTS.wishlistV2,
-      wishlist,
-    });
-  } else {
-    const id = await setCollection({
-      name: CONSTS.wishlistV2,
-      wishlist,
-    });
-
-    const config = { ...cfg, wishlist_id: id };
-
-    setConfig(config);
-  }
-}
-
-export async function downloadSync(cfg) {
-  const collections = await getCollections();
-  if (collections.length) {
-    const config = { ...cfg, wishlist_id: collections[0].id };
-
-    console.log(collections);
-    localStorageSet(CONSTS.wishlistV2, JSON.stringify(collections[0].content));
-    setConfig(config);
-  }
+export function getLocalCollections() {
+  return [
+    {
+      content: getWishlist('wish'),
+      name: 'Wishlist',
+      id: 'wish',
+    },
+    {
+      content: getWishlist('trade'),
+      name: 'Tradelist',
+      id: 'trade',
+    },
+  ];
 }
 
 export function initMigrateWishlist() {
