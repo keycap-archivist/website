@@ -49,7 +49,19 @@ export function getCollectionById(id) {
 
   return axInstance
     .get(`${baseAPI}/ws/${id}`)
-    .then(({ data }) => data[0])
+    .then(({ data }) => data)
+    .catch((err) => {
+      checkResponse(err);
+      console.log(err.message);
+    });
+}
+
+export function delCollection(id) {
+  console.debug('[WS] Deleting', id);
+
+  return axInstance
+    .delete(`${baseAPI}/ws/${id}`)
+    .then(({ data }) => data)
     .catch((err) => {
       checkResponse(err);
       console.log(err.message);

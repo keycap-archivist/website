@@ -11,11 +11,13 @@ import '../assets/scss/style.scss';
 
 import Header from '../components/header';
 import { initConfig } from '../internal/config';
+import { initMigrateWishlist } from '../internal/wishlist';
 
 library.add(fab);
 library.add(fas);
 
 initConfig();
+initMigrateWishlist();
 
 config.autoAddCss = false;
 const Layout = ({ children }) => {

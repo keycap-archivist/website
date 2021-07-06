@@ -23,7 +23,7 @@ const SubmitNameModal = (props) => {
     <Modal modalHeader={props.modalHeader} setModal={props.setModal}>
       <div className="relative p-6 flex content-around">
         <input
-          className="suggest__input bg-purple-white shadow rounded border-0 p-2 w-full"
+          className="suggest__input text-black bg-purple-white shadow rounded border-0 p-2 w-full"
           placeholder={props.placeholder}
           onChange={(event) => {
             setSuggestionName(event.target.value);

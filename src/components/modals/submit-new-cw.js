@@ -61,7 +61,7 @@ const SubmitNewCwModal = (props) => {
         </button>
         <input type="file" ref={hiddenFileInput} onChange={handleChange} style={{ display: 'none' }} />
         <input
-          className="suggest__input bg-purple-white shadow rounded border-0 p-2 w-full"
+          className="suggest__input text-black bg-purple-white shadow rounded border-0 p-2 w-full"
           placeholder="Colorway Name"
           onChange={(event) => {
             setCwName(event.target.value);

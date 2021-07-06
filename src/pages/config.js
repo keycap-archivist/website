@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Layout from '../layouts/base';
 import SEO from '../components/seo';
 import { getConfig, setConfig } from '../internal/config';
-import { uploadSync, downloadSync } from '../internal/wishlist';
 
 axios.defaults.withCredentials = true;
 
@@ -95,32 +94,6 @@ const Config = () => {
                     <img className="inline-block rounded-full w-16" src={avatar} />
                     <div className="ml-6 inline-block mx-auto">{name}</div>
                   </figure>
-                  <label htmlFor="autoCloud" className="flex items-center cursor-pointer">
-                    <div className="mr-3 font-medium">Auto Cloud Sync</div>
-                    <div className="relative">
-                      <input
-                        name="autoCloud"
-                        id="autoCloud"
-                        type="checkbox"
-                        className="sr-only"
-                        checked={config.cloudAutoSync === true}
-                        onChange={(e) => {
-                          setComponentConfig('cloudAutoSync', e.target.checked);
-                        }}
-                      />
-                      <div className="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
-                      <div className="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
-                    </div>
-                  </label>
-                  <p className="text-xs italic">This feature will allow you to save every change you make to your wishlist in the Cloud storage.</p>
-                  <button onClick={() => uploadSync(config)} className="px-4 py-2 bg-blue-600 text-white rounded ">
-                    <FontAwesomeIcon icon={['fa', 'upload']} /> Upload Wishlist to Cloud
-                  </button>
-                  <p className="text-xs italic">Manually upload your wishlist to the cloud storage</p>
-                  <button onClick={() => downloadSync(config)} className="px-4 py-2 bg-blue-600 text-white rounded ">
-                    <FontAwesomeIcon icon={['fa', 'download']} /> Download Wishlist from Cloud
-                  </button>
-                  <p className="text-xs italic">Manually Download your wishlist from the cloud storage</p>
                 </React.Fragment>
               ) : (
                 <React.Fragment>

@@ -19,6 +19,9 @@ const Header = ({ siteTitle, darkMode }) => {
         </h1>
         <div className="w-full flex flex-row flex-wrap md:flex-no-wrap items-center justify-center md:justify-end">
           <div className="flex flex-row flex-no-wrap items-stretch mr-3 md:mr-6">
+            <Link to="/collection" className="text-white hover:text-teal-200 mr-3 md:mr-6">
+              Collection
+            </Link>
             <Link to="/wishlist" className="text-white hover:text-teal-200 mr-3 md:mr-6">
               Wishlist
             </Link>
@@ -35,18 +38,7 @@ const Header = ({ siteTitle, darkMode }) => {
               About
             </Link>
           </div>
-          <ul
-            className="
-          flex
-          flex-row
-          items-center
-          list-none
-          space-x-3
-          md:space-x-6
-          justify-center
-          md:justify-start
-          md:mr-6"
-          >
+          <ul className="flex flex-row items-center list-none space-x-3 md:space-x-6 justify-center md:justify-start md:mr-6">
             <li>
               <a href="https://github.com/keycap-archivist" target="_blank" rel="noopener noreferrer" className="text-white text-xl hover:text-teal-200">
                 <FontAwesomeIcon icon={['fab', 'github']} />
