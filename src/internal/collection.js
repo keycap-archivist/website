@@ -60,7 +60,7 @@ export function delCollection(id) {
   console.debug('[WS] Deleting', id);
 
   return axInstance
-    .delete(`${baseAPI}/ws/${id}`)
+    .get(`${baseAPI}/ws/delete/${id}`)
     .then(({ data }) => data)
     .catch((err) => {
       checkResponse(err);
