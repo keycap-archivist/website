@@ -5,6 +5,7 @@ import { sample } from 'lodash';
 import Layout from '../layouts/base';
 import SEO from '../components/seo';
 import Alert from '../components/alert';
+import Loading from '../components/loading';
 import { getCollections, delCollection } from '../internal/collection';
 import { getLocalCollections } from '../internal/wishlist';
 import AddCollectionModal from '../components/modals/add-collection';
@@ -12,6 +13,7 @@ import ThumbnailImage from '../components/thumbnail-image';
 import { getConfig } from '../internal/config';
 
 const CollectionPage = () => {
+  const [loading, setLoading] = useState(false);
   const [collections, setCollections] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
@@ -20,6 +22,7 @@ const CollectionPage = () => {
   const cfg = getConfig();
 
   const fetchCollections = async () => {
+    setLoading(true);
     let list = cfg.authorized ? await getCollections() : getLocalCollections();
 
     list = list.map((c) => {
@@ -33,6 +36,7 @@ const CollectionPage = () => {
     });
 
     setCollections(list);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -48,7 +52,8 @@ const CollectionPage = () => {
 
       <h2 className="text-3xl font-bold leading-none">Manage Collection</h2>
       <br />
-      {cfg.authorized && (
+      {loading && <Loading />}
+      {cfg.authorized && !loading && (
         <div className="flex flex-row flex-no-wrap flex-shrink-0 mt-1 items-start">
           <button
             className="modal-open mx-2 block w-35 bg-blue-500 hover:bg-blue-700 text-white font-bold ml-2 py-2 px-3 text-xs rounded"

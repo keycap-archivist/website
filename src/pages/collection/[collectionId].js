@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Layout from '../../layouts/base';
 import SEO from '../../components/seo';
 import Alert from '../../components/alert';
+import Loading from '../../components/loading';
 import { getCollectionById, updateCollection } from '../../internal/collection';
 import ThumbnailImage from '../../components/thumbnail-image';
 import { getConfig } from '../../internal/config';
@@ -15,11 +16,14 @@ const CollectionPage = (props) => {
       items: [],
     },
   };
+
+  const [loading, setLoading] = useState(false);
   const [collection, setCollection] = useState(defaultCollection);
   const [reload, setReload] = useState(false);
   const cfg = getConfig();
 
   useEffect(async () => {
+    setLoading(true);
     let data;
     if (cfg.authorized) {
       data = await getCollectionById(props.collectionId);
@@ -34,6 +38,7 @@ const CollectionPage = (props) => {
     }
     setCollection(data);
     setReload(false);
+    setLoading(false);
   }, [reload]);
 
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
@@ -49,7 +54,9 @@ const CollectionPage = (props) => {
 
       <h2 className="text-3xl font-bold leading-none">{collection.name}</h2>
       <br />
-      {caps.length ? (
+      {loading ? (
+        <Loading />
+      ) : caps.length ? (
         <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
           {caps.map((c) => (
             <li key={c.id} id={c.id} className="tile_item">
