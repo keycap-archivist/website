@@ -1,4 +1,4 @@
-import { localStorageLoad, localStorageSet } from './misc';
+import { localStorageDel, localStorageLoad, localStorageSet } from './misc';
 
 const CONSTS = {
   wishlistV2: 'Wishlist_v2',
@@ -99,6 +99,8 @@ export function initMigrateWishlist() {
       localStorageSet(CONSTS.wish, JSON.stringify({ items: ws.items }));
       localStorageSet(CONSTS.trade, JSON.stringify({ items: ws.tradeItems }));
       localStorageSet(CONSTS.settings, JSON.stringify(ws.settings));
+
+      localStorageDel(CONSTS.wishlistV2);
     } catch (e) {
       console.log('Unable to read the Wishlist v2 object');
     }
