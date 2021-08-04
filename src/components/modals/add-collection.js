@@ -9,6 +9,7 @@ const AddCollectionModal = (props) => {
     setCollection({ name, wishlist: { items: [] } })
       .then(() => {
         props.setSuccessAlert(true);
+        props.setReload(true);
       })
       .catch((error) => {
         console.error('Error:', error);

@@ -14,6 +14,7 @@ import { getConfig } from '../internal/config';
 
 const CollectionPage = () => {
   const [loading, setLoading] = useState(false);
+  const [reload, setReload] = useState(false);
   const [collections, setCollections] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
@@ -36,12 +37,13 @@ const CollectionPage = () => {
     });
 
     setCollections(list);
+    setReload(false);
     setLoading(false);
   };
 
   useEffect(() => {
     fetchCollections();
-  }, [showSuccessAlert]);
+  }, [reload]);
 
   return (
     <Layout>
@@ -68,6 +70,7 @@ const CollectionPage = () => {
               setModal={setShowModal}
               setErrorAlert={setShowErrorAlert}
               setSuccessAlert={setShowSuccessAlert}
+              setReload={setReload}
             />
           )}
         </div>
@@ -90,6 +93,7 @@ const CollectionPage = () => {
                   icon={['fas', 'trash']}
                   onClick={() => {
                     delCollection(c.id);
+                    setReload(true);
                   }}
                 />
               </div>
