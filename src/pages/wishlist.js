@@ -39,7 +39,16 @@ const Wishlist = () => {
   const loadingPlaceholder = () => (wishlistLoading ? <div className="text-center">Currently loading</div> : '');
 
   // TODO: add sad face :(
-  const errorPlaceholder = () => (errorLoading ? <div className="text-center">Something terrible happpened</div> : '');
+  const errorPlaceholder = () => {
+    if (errorLoading) {
+      let content = 'Something terrible happened';
+      if (typeof errorLoading === 'string') {
+        content = errorLoading;
+      }
+      return <div className="text-center">{content}</div>;
+    }
+    return '';
+  };
 
   // prettier and eslint are dumb on this somehow
   // eslint-disable-next-line no-confusing-arrow
@@ -61,6 +70,23 @@ const Wishlist = () => {
       legendColor: wishlist.settings.title.color,
     }));
 
+    // Check wishlist
+    const checkResult = await axios.post(`${baseAPIurl}/check`, outWishlist).then((d) => d.data);
+    if (checkResult.hasError) {
+      let wl;
+      for (const c of checkResult.errors) {
+        if (outWishlist.caps.findIndex((x) => x.id === c)) {
+          wl = rmCap(c);
+        }
+        if (outWishlist.tradeCaps.findIndex((x) => x.id === c)) {
+          wl = rmTradeCap(c);
+        }
+      }
+      setStateWishlist(wl);
+      setErrorLoading('Some keycaps were not found in the database. We cleaned up your wishlist. Please try again');
+      setWishlistLoading(false);
+      return;
+    }
     const r = await axios
       .post(`${baseAPIurl}/generate`, outWishlist)
       .then((d) => d.data)
@@ -68,7 +94,6 @@ const Wishlist = () => {
         console.log(e);
         setErrorLoading(true);
       });
-    console.log(r);
     setWishlistLoading(false);
     setB64Img(r.Body);
   };
