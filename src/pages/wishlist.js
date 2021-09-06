@@ -7,6 +7,7 @@ import SEO from '../components/seo';
 import { cssColors } from '../internal/misc';
 import Layout from '../layouts/base';
 import { getWishlist, setWishlist, rmCap, rmTradeCap } from '../internal/wishlist';
+import BkMaggle from '../assets/img/bkmaggle.png';
 
 const baseAPIurl = 'https://api.keycap-archivist.com/wishlist';
 
@@ -36,7 +37,17 @@ const Wishlist = () => {
   }, []);
 
   // TODO: add wonderfull animation
-  const loadingPlaceholder = () => (wishlistLoading ? <div className="text-center">Currently loading</div> : '');
+  const loadingPlaceholder = () => {
+    if (wishlistLoading) {
+      return (
+        <div className="text-center">
+          <p className="animate-pulse text-lg">Currently loading</p>
+          <img src={BkMaggle} className="mx-auto max-w-half animate-spin-slow animate-pulse" />
+        </div>
+      );
+    }
+    return '';
+  };
 
   // TODO: add sad face :(
   const errorPlaceholder = () => {

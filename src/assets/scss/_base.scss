@@ -34,3 +34,17 @@ html.dark {
     @apply border-gray-600;
   }
 }
+
+.animate-spin-slow {
+  animation: spin 2s linear infinite;
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
