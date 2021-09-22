@@ -13,7 +13,5 @@ yarn develop
 
 ## ToDo
 
-- [ ] Add Configuration page
-- [ ] Add Dark Mode
 - [ ] Better Wishlist UI
 - [ ] Add Multiple Wishlist selection
