@@ -36,7 +36,6 @@ const Wishlist = () => {
     setStateWishlist(getWishlist());
   }, []);
 
-  // TODO: add wonderfull animation
   const loadingPlaceholder = () => {
     if (wishlistLoading) {
       return (
@@ -49,7 +48,6 @@ const Wishlist = () => {
     return '';
   };
 
-  // TODO: add sad face :(
   const errorPlaceholder = () => {
     if (errorLoading) {
       let content = 'Something terrible happened';
@@ -66,6 +64,7 @@ const Wishlist = () => {
   const imgPlaceholder = () => (b64Img && !wishlistLoading ? <img src={`data:image/png;base64,${b64Img}`} className="mx-auto max-w-full" /> : '');
 
   const genWishlist = async () => {
+    setB64Img(null);
     setErrorLoading(false);
     setWishlistLoading(true);
 
@@ -82,7 +81,23 @@ const Wishlist = () => {
     }));
 
     // Check wishlist
-    const checkResult = await axios.post(`${baseAPIurl}/check`, outWishlist).then((d) => d.data);
+    const checkResult = await axios
+      .post(`${baseAPIurl}/check`, outWishlist)
+      .then((d) => d.data)
+      .catch((e) => {
+        console.log(JSON.stringify(e));
+        return {
+          critical: true,
+          log: e,
+          stack: e.stack,
+          data: e.config.data,
+        };
+      });
+    if (checkResult.critical) {
+      setErrorLoading(`A critical error happened:${checkResult.log}\r\n${checkResult.stack}\r\n${checkResult.data}`);
+      setWishlistLoading(false);
+      return;
+    }
     if (checkResult.hasError) {
       let wl;
       for (const c of checkResult.errors) {
@@ -98,15 +113,17 @@ const Wishlist = () => {
       setWishlistLoading(false);
       return;
     }
-    const r = await axios
+    await axios
       .post(`${baseAPIurl}/generate`, outWishlist)
       .then((d) => d.data)
+      .then((r) => {
+        setB64Img(r.Body);
+      })
       .catch((e) => {
         console.log(e);
-        setErrorLoading(true);
+        setErrorLoading(`A critical error happened:${e}\r\n${e.stack}\r\n${e.config.data}`);
       });
     setWishlistLoading(false);
-    setB64Img(r.Body);
   };
 
   const setPriority = (id, priority) => {
@@ -632,10 +649,7 @@ const Wishlist = () => {
             <button
               onClick={genWishlist}
               className={`w-full  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 ${
-                // eslint-disable-next-line prettier/prettier
-                (wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length))
-                // eslint-disable-next-line prettier/prettier
-                && 'cursor-not-allowed opacity-50'
+                (wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length)) && 'cursor-not-allowed opacity-50'
               }`}
               disabled={wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length)}
             >
