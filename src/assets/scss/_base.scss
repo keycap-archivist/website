@@ -28,6 +28,10 @@ blockquote {
   @apply border;
 }
 
+.h-inherit {
+  height: inherit;
+}
+
 html.dark {
   .colorway-wrapper {
     @apply bg-gray-700;

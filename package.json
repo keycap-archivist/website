@@ -43,6 +43,7 @@
     "react-sortablejs": "6.0.0",
     "slugify": "1.5.3",
     "sortablejs": "1.14.0",
+    "svg-react-loader": "0.4.6",
     "tailwindcss": "2.2.9"
   },
   "devDependencies": {

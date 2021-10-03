@@ -6,29 +6,32 @@ import { sortBy } from 'lodash';
 import Layout from '../layouts/base';
 import SEO from '../components/seo';
 import ThumbnailImage from '../components/thumbnail-image';
+// eslint-disable-next-line
+import AClogo from '-!svg-react-loader?name=AClogo!../assets/img/svg/ac-logo.inline.svg';
 
 const Maker = (props) => {
   const { pageContext } = props;
   const { maker, selfOrder } = pageContext;
 
-  const logos = useStaticQuery(graphql`
-    query SeoLogo {
-      allFile(filter: { relativePath: { glob: "logos/*" } }) {
+  const LogoAndBanner = useStaticQuery(graphql`
+    query LogoAndBanner {
+      logos: allFile(filter: { relativePath: { glob: "logos/*" } }) {
         nodes {
           id
           childImageSharp {
-            fixed {
+            fixed(jpegQuality: 10, jpegProgressive: true) {
               src
               originalName
             }
           }
+          relativePath
         }
       }
     }
-  `).allFile.nodes;
+  `);
 
   const getLogoMaker = (id) => {
-    const f = logos.find((x) => x.childImageSharp.fixed.originalName.startsWith(id));
+    const f = LogoAndBanner.logos.nodes.find((x) => x.childImageSharp.fixed.originalName.startsWith(id));
     if (f) {
       return f.childImageSharp.fixed.src;
     }
@@ -47,6 +50,13 @@ const Maker = (props) => {
         <h2 className="font-bold">{maker.name}</h2>
         {(maker.website || maker.instagram || maker.discord) && (
           <ul className="flex flex-wrap flex-row list-none -ml-1">
+            {maker.artisanCollector && (
+              <li className="flex h-auto px-1">
+                <a href={maker.artisanCollector} title="Artisan Collector" target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-600">
+                  <AClogo className="svg-inline--fa fa-w-16 h-inherit" />
+                </a>
+              </li>
+            )}
             {maker.website && (
               <li className="flex h-auto px-1">
                 <a href={maker.website} target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-600">

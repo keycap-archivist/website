@@ -11,6 +11,7 @@ import '../assets/scss/style.scss';
 
 import Header from '../components/header';
 import { initConfig } from '../internal/config';
+import AcBanner from '../components/acBanner';
 
 library.add(fab);
 library.add(fas);
@@ -50,7 +51,10 @@ const Layout = ({ children }) => {
       </Helmet>
       <Header siteTitle={data.site.siteMetadata.title} />
       <div className="container mx-auto px-3 pb-8">
-        <main>{children}</main>
+        <main>
+          <AcBanner />
+          {children}
+        </main>
       </div>
     </>
   );
