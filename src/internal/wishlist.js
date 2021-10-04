@@ -45,6 +45,20 @@ const defaultWishlist = {
   tradeItems: [],
 };
 
+export const WishlistLimit = 50;
+export const TradeListLimit = 10;
+
+export function canAdd(type, wishlist) {
+  switch (type) {
+    case 'wish':
+      return wishlist.items.length < WishlistLimit;
+    case 'trade':
+      return wishlist.tradeItems.length < TradeListLimit;
+    default:
+      throw Error('unknown type');
+  }
+}
+
 export function getDefaultWishlist() {
   return { ...defaultWishlist };
 }
