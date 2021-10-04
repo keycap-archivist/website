@@ -22,9 +22,6 @@ const Header = ({ siteTitle, darkMode }) => {
             <Link to="/wishlist" className="text-white hover:text-teal-200 mr-3 md:mr-6">
               Wishlist
             </Link>
-            <Link to="/blog" className="text-white hover:text-teal-200 mr-3 md:mr-6">
-              Blog
-            </Link>
             <a href="https://ko-fi.com/keycaparchivist" target="_blank" rel="noopener noreferrer" className="text-white hover:text-teal-200 mr-3 md:mr-6">
               Donate
             </a>
