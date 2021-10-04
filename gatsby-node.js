@@ -36,42 +36,6 @@ exports.createPages = async ({ graphql, actions }) => {
   const makerTpl = require.resolve('./src/pages-dynamic/maker.js');
   const cwTpl = require.resolve('./src/pages-dynamic/colorway.js');
   const sculptTpl = require.resolve('./src/pages-dynamic/sculpt.js');
-  const blogTpl = path.resolve('./src/pages-dynamic/blog-post.js');
-  /**
-   * Blog
-   */
-  const result = await graphql(`
-    query {
-      allMarkdownRemark {
-        edges {
-          node {
-            excerpt(pruneLength: 250)
-            html
-            id
-            fields {
-              slug
-            }
-            frontmatter {
-              date
-              title
-            }
-          }
-        }
-      }
-    }
-  `);
-  result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-    createPage({
-      path: node.fields.slug,
-      component: blogTpl,
-      context: {
-        content: node.html,
-        title: node.frontmatter.title,
-        date: node.frontmatter.date,
-        slug: node.fields.slug,
-      },
-    });
-  });
 
   /**
    * Artisan catalog
