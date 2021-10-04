@@ -51,9 +51,9 @@ export const TradeListLimit = 10;
 export function canAdd(type, wishlist) {
   switch (type) {
     case 'wish':
-      return wishlist.items.length < 10;
+      return wishlist.items.length < WishlistLimit;
     case 'trade':
-      return wishlist.tradeItems.length < 10;
+      return wishlist.tradeItems.length < TradeListLimit;
     default:
       throw Error('unknown type');
   }

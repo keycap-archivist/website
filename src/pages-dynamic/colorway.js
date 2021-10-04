@@ -4,7 +4,7 @@ import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { getWishlist, isInWishlist, rmCap, addCap, isInTradeList, rmTradeCap, addTradeCap } from '../internal/wishlist';
+import { getWishlist, isInWishlist, rmCap, addCap, isInTradeList, rmTradeCap, addTradeCap, WishlistLimit, TradeListLimit } from '../internal/wishlist';
 import Layout from '../layouts/base';
 import SEO from '../components/seo';
 import Alert from '../components/alert';
@@ -131,7 +131,7 @@ const Maker = (props) => {
                   if (isInTradeList(wishlist, colorway.id)) {
                     rmTradeCap(colorway.id);
                   }
-                  if (wishlist.items.length > 50) {
+                  if (wishlist.items.length >= WishlistLimit) {
                     setShowExceedAlert(true);
                   } else {
                     setStateWishlist(addCap(colorway.id));
@@ -182,7 +182,7 @@ const Maker = (props) => {
                   if (isInWishlist(wishlist, colorway.id)) {
                     rmCap(colorway.id);
                   }
-                  if (wishlist.tradeItems.length > 10) {
+                  if (wishlist.tradeItems.length >= TradeListLimit) {
                     setShowExceedAlert(true);
                   } else {
                     setStateWishlist(addTradeCap(colorway.id));
