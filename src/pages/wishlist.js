@@ -7,7 +7,8 @@ import SEO from '../components/seo';
 import { cssColors } from '../internal/misc';
 import Layout from '../layouts/base';
 import { getWishlist, setWishlist, rmCap, rmTradeCap } from '../internal/wishlist';
-import BkMaggle from '../assets/img/bkmaggle.png';
+import flip from '../assets/img/flip-machine.png';
+// import BkMaggle from '../assets/img/bkmaggle.png';
 
 const baseAPIurl = 'https://api.keycap-archivist.com/wishlist';
 
@@ -41,7 +42,7 @@ const Wishlist = () => {
       return (
         <div className="text-center">
           <p className="animate-pulse text-lg">Currently loading</p>
-          <img src={BkMaggle} className="mx-auto max-w-half animate-spin-slow animate-pulse" />
+          <img src={flip} className="mx-auto max-w-half animate-spin-slow animate-pulse" />
         </div>
       );
     }
