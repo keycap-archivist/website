@@ -47,7 +47,7 @@ exports.createPages = async ({ graphql, actions }) => {
       const f = element.colorways.find((x) => x.isCover === true);
       if (f) {
         element.previewImg = `https://cdn.keycap-archivist.com/keycaps/250/${f.id}.jpg`;
-      } else {
+      } else if (element.colorways[rng]) {
         element.previewImg = `https://cdn.keycap-archivist.com/keycaps/250/${element.colorways[rng].id}.jpg`;
       }
     });
