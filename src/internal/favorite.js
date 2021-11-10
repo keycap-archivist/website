@@ -26,6 +26,8 @@ export function addFavMaker(maker) {
     makers.push(maker);
     localStorageSet(CONSTS.favorite, JSON.stringify(makers));
   }
+
+  return makers;
 }
 
 export function removeFavMaker(maker) {
@@ -33,4 +35,6 @@ export function removeFavMaker(maker) {
 
   makers = makers.filter((m) => m !== maker);
   localStorageSet(CONSTS.favorite, JSON.stringify(makers));
+
+  return makers;
 }

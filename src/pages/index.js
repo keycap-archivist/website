@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import Img from 'gatsby-image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { sortBy } from 'lodash';
 import Layout from '../layouts/base';
 import SEO from '../components/seo';
 import { getFavoriteMakers, addFavMaker, removeFavMaker } from '../internal/favorite';
@@ -44,13 +45,15 @@ const IndexPage = () => {
     return img.find((x) => x.name === 'nologo').childImageSharp.fluid;
   };
 
-  const favoriteMakers = getFavoriteMakers();
+  const [favoriteMakers, setFavoriteMakers] = useState(getFavoriteMakers());
+
+  const sortedMakers = sortBy(data.allSitePage.nodes, (n) => !favoriteMakers.includes(n.context.maker.id));
 
   return (
     <Layout>
       <SEO title="" img={'/android-icon-512x512.png'} />
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
-        {data.allSitePage.nodes.map((element) => (
+        {sortedMakers.map((element) => (
           <li key={element.id} className="maker_tile_item">
             <Link to={element.path} className="tile_block">
               <div className="img_holder">
@@ -66,7 +69,8 @@ const IndexPage = () => {
                       icon={['fas', 'star']}
                       onClick={(e) => {
                         e.preventDefault();
-                        removeFavMaker(element.context.maker.id);
+                        const makers = removeFavMaker(element.context.maker.id);
+                        setFavoriteMakers(makers);
                       }}
                     />
                   ) : (
@@ -76,7 +80,8 @@ const IndexPage = () => {
                       icon={['fas', 'star']}
                       onClick={(e) => {
                         e.preventDefault();
-                        addFavMaker(element.context.maker.id);
+                        const makers = addFavMaker(element.context.maker.id);
+                        setFavoriteMakers(makers);
                       }}
                     />
                   )}
