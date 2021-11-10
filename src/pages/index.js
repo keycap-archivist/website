@@ -1,8 +1,10 @@
 import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import Img from 'gatsby-image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Layout from '../layouts/base';
 import SEO from '../components/seo';
+import { getFavoriteMakers, addFavMaker, removeFavMaker } from '../internal/favorite';
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -42,6 +44,8 @@ const IndexPage = () => {
     return img.find((x) => x.name === 'nologo').childImageSharp.fluid;
   };
 
+  const favoriteMakers = getFavoriteMakers();
+
   return (
     <Layout>
       <SEO title="" img={'/android-icon-512x512.png'} />
@@ -52,8 +56,31 @@ const IndexPage = () => {
               <div className="img_holder">
                 <Img fluid={getImg(element.context.maker.id)} className="block" alt={element.context.maker.name} width="500" height="500" />
               </div>
-              <div className="text_header">
-                <div className="text-sm">{element.context.maker.name}</div>
+              <div className="text-header">
+                <div className="font-bold flex flex-row pt-3 px-2 relative">
+                  <div className="text-sm text-center w-full px-5">{element.context.maker.name}</div>
+                  {favoriteMakers.includes(element.context.maker.id) ? (
+                    <FontAwesomeIcon
+                      id="favStar"
+                      className="m-1 star-icon text-yellow-500 cursor-pointer"
+                      icon={['fas', 'star']}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        removeFavMaker(element.context.maker.id);
+                      }}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      id="favStar"
+                      className="m-1 star-icon text-gray-500 cursor-pointer"
+                      icon={['fas', 'star']}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        addFavMaker(element.context.maker.id);
+                      }}
+                    />
+                  )}
+                </div>
               </div>
             </Link>
           </li>
