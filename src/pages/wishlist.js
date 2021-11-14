@@ -353,6 +353,7 @@ const Wishlist = () => {
               id="titleText"
               type="text"
               value={wishlist.settings.title.text}
+              maxLength="50"
               onChange={(e) => setSettingWishlist('title', 'text', e)}
               placeholder={wishlist.tradeItems.length ? 'Want' : 'Wishlist'}
             />
