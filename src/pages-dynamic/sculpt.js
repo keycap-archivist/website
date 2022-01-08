@@ -56,7 +56,7 @@ const Maker = (props) => {
             ''
           )}
         </div>
-       {/* <div className="flex flex-row flex-no-wrap flex-shrink-0 mt-1 items-start">
+        {/* <div className="flex flex-row flex-no-wrap flex-shrink-0 mt-1 items-start">
           {maker.denySubmission !== true && (
             <button
               className="
@@ -76,7 +76,7 @@ const Maker = (props) => {
               Submit a Colorway
             </button>
           )}
-          </div>*/}
+          </div> */}
       </div>
 
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
