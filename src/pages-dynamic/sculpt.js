@@ -61,11 +61,11 @@ const Maker = (props) => {
               {sculpt.profile}
             </div>
           )}
-          {sculpt.master && (
+          {sculpt.design && (
             <div className="mt-2">
               <FontAwesomeIcon icon={['fa', 'brain']} />
-              <span className="font-bold mx-2">Master :</span>
-              {sculpt.master}
+              <span className="font-bold mx-2">Design :</span>
+              {sculpt.design}
             </div>
           )}
           {sculpt.cast && (
