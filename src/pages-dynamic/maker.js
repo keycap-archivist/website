@@ -2,6 +2,7 @@ import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { sortBy } from 'lodash';
+import ReactCountryFlag from 'react-country-flag';
 
 import Layout from '../layouts/base';
 import SEO from '../components/seo';
@@ -46,48 +47,64 @@ const Maker = (props) => {
           <FontAwesomeIcon icon={['fas', 'home']} />
         </Link>
       </div>
-      <div className="text-3xl my-6">
-        <h2 className="font-bold">{maker.name}</h2>
-        {(maker.website || maker.instagram || maker.discord) && (
-          <ul className="flex flex-wrap flex-row list-none -ml-1">
-            {maker.artisanCollector && (
-              <li className="flex h-auto px-1">
-                <a href={maker.artisanCollector} title="Artisan Collector" target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-600">
-                  <AClogo className="svg-inline--fa fa-w-16 h-inherit" />
-                </a>
-              </li>
-            )}
-            {maker.website && (
-              <li className="flex h-auto px-1">
-                <a href={maker.website} target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-600">
-                  <FontAwesomeIcon icon={['fas', 'globe']} />
-                </a>
-              </li>
-            )}
-            {maker.instagram && (
-              <li className="flex h-auto px-1">
-                <a href={maker.instagram} target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-600">
-                  <FontAwesomeIcon icon={['fab', 'instagram']} />
-                </a>
-              </li>
-            )}
-            {maker.discord && (
-              <li className="flex h-auto px-1">
-                <a href={maker.discord} target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-600">
-                  <FontAwesomeIcon icon={['fab', 'discord']} />
-                </a>
-              </li>
-            )}
-            {maker.src && (
-              <li className="flex h-auto px-1">
-                <a href={maker.src} target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-600">
-                  <FontAwesomeIcon icon={['fas', 'file']} />
-                </a>
-              </li>
-            )}
-          </ul>
-        )}
+      <div className="flex">
+        <div className="text-3xl my-6">
+          <h2 className="font-bold">{maker.name}</h2>
+          {(maker.website || maker.instagram || maker.discord) && (
+            <ul className="flex flex-wrap flex-row list-none -ml-1">
+              {maker.artisanCollector && (
+                <li className="flex h-auto px-1">
+                  <a href={maker.artisanCollector} title="Artisan Collector" target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-600">
+                    <AClogo className="svg-inline--fa fa-w-16 h-inherit" />
+                  </a>
+                </li>
+              )}
+              {maker.website && (
+                <li className="flex h-auto px-1">
+                  <a href={maker.website} target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-600">
+                    <FontAwesomeIcon icon={['fas', 'globe']} />
+                  </a>
+                </li>
+              )}
+              {maker.instagram && (
+                <li className="flex h-auto px-1">
+                  <a href={maker.instagram} target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-600">
+                    <FontAwesomeIcon icon={['fab', 'instagram']} />
+                  </a>
+                </li>
+              )}
+              {maker.discord && (
+                <li className="flex h-auto px-1">
+                  <a href={maker.discord} target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-600">
+                    <FontAwesomeIcon icon={['fab', 'discord']} />
+                  </a>
+                </li>
+              )}
+              {maker.src && (
+                <li className="flex h-auto px-1">
+                  <a href={maker.src} target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-600">
+                    <FontAwesomeIcon icon={['fas', 'file']} />
+                  </a>
+                </li>
+              )}
+            </ul>
+          )}
+        </div>
+        <div className="text-3xl ml-12 my-6">
+          {maker.nationality && (
+            <ReactCountryFlag
+              className="emojiFlag"
+              countryCode={`${maker.nationality.toUpperCase()}`}
+              style={{
+                fontSize: '1em',
+                lineHeight: '1em',
+              }}
+              svg
+            />
+          )}
+        </div>
       </div>
+
       <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
         {sculptList.map((s) => (
           <li key={s.id} className="tile_item">

@@ -23,6 +23,23 @@ const Maker = (props) => {
   }, []);
   const cwList = selfOrder === true ? sculpt.colorways : sortBy(sculpt.colorways, (x) => x.name);
 
+  const basicInfo = () => {
+    let result = '';
+    if (sculpt.profile) {
+      result += `profile: ${sculpt.profile}`;
+    }
+
+    if (sculpt.master) {
+      result += ` | master: ${sculpt.master}`;
+    }
+
+    if (sculpt.cast) {
+      result += ` | cast: ${sculpt.cast}`;
+    }
+
+    return result;
+  };
+
   const [showModal, setShowModal] = useState(false);
 
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
@@ -44,17 +61,20 @@ const Maker = (props) => {
         </Link>
       </div>
       <div className="flex flex-col sm:flex-row justify-between my-6">
-        <div className="mb-2 pr-3 leading-snug sm:mb-0">
-          <h2 className="text-3xl font-bold leading-none">{sculpt.name}</h2>
-          {sculpt.releaseDate ? (
-            <div className="mt-2">
-              <FontAwesomeIcon icon={['fa', 'calendar']} />
-              <span className="font-bold mx-2">Release date:</span>
-              {sculpt.releaseDate}
-            </div>
-          ) : (
-            ''
-          )}
+        <div className="flex w-full justify-between">
+          <div className="mb-2 pr-3 leading-snug sm:mb-0">
+            <h2 className="text-3xl font-bold leading-none">{sculpt.name}</h2>
+            {sculpt.releaseDate ? (
+              <div className="mt-2">
+                <FontAwesomeIcon icon={['fa', 'calendar']} />
+                <span className="font-bold mx-2">Release date:</span>
+                {sculpt.releaseDate}
+              </div>
+            ) : (
+              ''
+            )}
+          </div>
+          <div className="flex items-center">{basicInfo()}</div>
         </div>
         {/* <div className="flex flex-row flex-no-wrap flex-shrink-0 mt-1 items-start">
           {maker.denySubmission !== true && (
