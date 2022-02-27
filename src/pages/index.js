@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import Img from 'gatsby-image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -45,7 +45,14 @@ const IndexPage = () => {
     return img.find((x) => x.name === 'nologo').childImageSharp.fluid;
   };
 
-  const [favoriteMakers, setFavoriteMakers] = useState(getFavoriteMakers());
+  const [favoriteMakers, setFavoriteMakers] = useState([]);
+
+  useEffect(() => {
+    const faves = getFavoriteMakers();
+    if (faves) {
+      setFavoriteMakers(faves);
+    }
+  }, getFavoriteMakers());
 
   const sortedMakers = sortBy(data.allSitePage.nodes, (n) => !favoriteMakers.includes(n.context.maker.id));
 
