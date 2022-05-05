@@ -49,7 +49,7 @@ const Maker = (props) => {
             <div className="mt-2">
               <FontAwesomeIcon icon={['fa', 'calendar']} />
               <span className="font-bold mx-2">Release date:</span>
-              {sculpt.profile}
+              {sculpt.releaseDate}
             </div>
           ) : (
             ''
