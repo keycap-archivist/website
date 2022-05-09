@@ -116,6 +116,7 @@ const Maker = (props) => {
                 {isInWishlist(wishlist, c.id) ? (
                   <FontAwesomeIcon
                     id="favStar"
+                    title="Remove from favorites"
                     className="m-1 star-icon text-yellow-500 cursor-pointer"
                     icon={['fas', 'star']}
                     onClick={() => setStateWishlist(rmCap(c.id))}
@@ -123,6 +124,7 @@ const Maker = (props) => {
                 ) : (
                   <FontAwesomeIcon
                     id="favStar"
+                    title="Add to favorites"
                     className="m-1 star-icon text-gray-500 cursor-pointer"
                     icon={['fas', 'star']}
                     onClick={() => {
@@ -140,6 +142,7 @@ const Maker = (props) => {
                 {isInTradeList(wishlist, c.id) ? (
                   <FontAwesomeIcon
                     id="favTrade"
+                    title="Remove from trade list"
                     className="m-1 redo-icon text-yellow-500 cursor-pointer"
                     icon={['fas', 'redo']}
                     onClick={() => setStateWishlist(rmTradeCap(c.id))}
@@ -147,6 +150,7 @@ const Maker = (props) => {
                 ) : (
                   <FontAwesomeIcon
                     id="favTrade"
+                    title="Add to trade list (and remove from wishlist)"
                     className="m-1 redo-icon text-gray-500 cursor-pointer"
                     icon={['fas', 'redo']}
                     onClick={() => {
