@@ -1,5 +1,6 @@
 name: Website build
-
+concurrency:
+  group: ${{ github.ref }}
 on:
   push:
     branches:
