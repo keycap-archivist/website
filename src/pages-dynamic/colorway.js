@@ -64,7 +64,7 @@ const Maker = (props) => {
               ''
             )}
             {colorway.totalCount ? (
-               <div className="mt-2">
+              <div className="mt-2">
                 <FontAwesomeIcon icon={['fa', 'calculator']} />
                 <span className="font-bold mx-2">Total Count:</span>
                 {colorway.totalCount}
