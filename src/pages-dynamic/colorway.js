@@ -72,6 +72,15 @@ const Maker = (props) => {
             ) : (
               ''
             )}
+            {colorway.commissioned ? (
+              <div className="mt-2">
+                <FontAwesomeIcon icon={['fa', 'palette']} />
+                <span className="font-bold mx-2">Commissioned</span>
+                {colorway.totalCount}
+              </div>
+            ) : (
+              ''
+            )}
           </div>
           <div className="flex flex-row flex-no-wrap flex-shrink-0 mt-1 items-start">
             {!colorway.name && (
