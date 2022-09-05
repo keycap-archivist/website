@@ -80,6 +80,14 @@ const Maker = (props) => {
             ) : (
               ''
             )}
+            {colorway.giveaway ? (
+              <div className="mt-2">
+                <FontAwesomeIcon icon={['fa', 'gift']} />
+                <span className="font-bold mx-2">Giveaway</span>
+              </div>
+            ) : (
+              ''
+            )}
           </div>
           <div className="flex flex-row flex-no-wrap flex-shrink-0 mt-1 items-start">
             {!colorway.name && (
