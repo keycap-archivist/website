@@ -4,6 +4,7 @@
   "description": "",
   "version": "0.1.0",
   "dependencies": {
+    "@babel/plugin-proposal-decorators": "^7.19.1",
     "@fortawesome/fontawesome-svg-core": "1.2.35",
     "@fortawesome/free-brands-svg-icons": "5.15.3",
     "@fortawesome/free-solid-svg-icons": "5.15.3",
@@ -12,7 +13,7 @@
     "autoprefixer": "10.4.9",
     "axios": "0.27.2",
     "cross-env": "7.0.3",
-    "gatsby": "3.13.0",
+    "gatsby": "3.14.6",
     "gatsby-image": "3.11.0",
     "gatsby-plugin-canonical-urls": "3.5.0",
     "gatsby-plugin-google-analytics": "3.5.0",
