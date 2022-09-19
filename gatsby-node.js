@@ -4,7 +4,6 @@
  *
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
-const { createFilePath } = require('gatsby-source-filesystem');
 const slugify = require('slugify');
 const path = require('path');
 const fs = require('fs');
@@ -14,22 +13,6 @@ const webpack = require('webpack');
 const db = JSON.parse(fs.readFileSync('./src/db/catalog.json'));
 
 const slug = (d) => slugify(d, { replacement: '-', remove: /[#,.:?()'"/]/g, lower: true }).toLowerCase();
-
-exports.onCreateNode = ({ node, getNode, actions }) => {
-  const { createNodeField } = actions;
-  if (node.internal.type === 'MarkdownRemark') {
-    const nodeSlug = createFilePath({
-      node,
-      getNode,
-      basePath: 'content\\blog',
-    });
-    createNodeField({
-      node,
-      name: 'slug',
-      value: `blog${nodeSlug}`,
-    });
-  }
-};
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
