@@ -21,20 +21,19 @@ const plugins = [
         }
     }`,
       resolveSiteUrl: () => 'https://keycap-archivist.com/',
-      serialize: ({ allSitePage }) =>
+      serialize: ({ path }) => {
         // Forced to due this because of Github pages default behaviour
         // otherwise the server returns a 301 HTTP code.
-        allSitePage.nodes.map((node) => {
-          let url = node.path;
-          if (!node.path.endsWith('/')) {
-            url += '/';
-          }
-          return {
-            url: `https://keycap-archivist.com${url}`,
-            changefreq: 'daily',
-            priority: 0.7,
-          };
-        }),
+        let url = path;
+        if (!url.endsWith('/')) {
+          url += '/';
+        }
+        return {
+          url: `https://keycap-archivist.com${url}`,
+          changefreq: 'daily',
+          priority: 0.7,
+        };
+      },
     },
   },
   {
