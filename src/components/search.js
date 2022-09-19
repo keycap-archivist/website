@@ -17,23 +17,9 @@ const Search = () => {
 
   const store = useStaticQuery(graphql`
     query localSearch {
-      allSitePage(filter: { context: { type: { in: ["sculpt"] } } }) {
+      allSitePage(filter: { id: { glob: "SitePage /maker/*/*" } }) {
         nodes {
-          context {
-            sculpt {
-              colorways {
-                name
-                id
-              }
-              id
-              name
-            }
-            maker {
-              name
-              id
-            }
-            type
-          }
+          pageContext
           path
           id
         }
@@ -50,13 +36,13 @@ const Search = () => {
     const cwResults = [];
     for (const m of store) {
       cwResults.push(
-        ...m.context.sculpt.colorways.map((x) => {
-          const titleTest = `${m.context.maker.name} ${m.context.sculpt.name} ${x.name}`.toLowerCase();
-          const titleDisplay = `${m.context.maker.name} ${m.context.sculpt.name} ${x.name}`;
+        ...m.pageContext.sculpt.colorways.map((x) => {
+          const titleTest = `${m.pageContext.maker.name} ${m.pageContext.sculpt.name} ${x.name}`.toLowerCase();
+          const titleDisplay = `${m.pageContext.maker.name} ${m.pageContext.sculpt.name} ${x.name}`;
           return {
             type: 'colorway',
-            sculpt: m.context.sculpt,
-            maker: m.context.maker,
+            sculpt: m.pageContext.sculpt,
+            maker: m.pageContext.maker,
             id: x.id,
             title: titleDisplay,
             score: quickScore(titleTest, innerQuery),
