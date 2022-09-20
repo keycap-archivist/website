@@ -4,7 +4,6 @@
  *
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
-const { createFilePath } = require('gatsby-source-filesystem');
 const slugify = require('slugify');
 const path = require('path');
 const fs = require('fs');
@@ -14,22 +13,6 @@ const webpack = require('webpack');
 const db = JSON.parse(fs.readFileSync('./src/db/catalog.json'));
 
 const slug = (d) => slugify(d, { replacement: '-', remove: /[#,.:?()'"/]/g, lower: true }).toLowerCase();
-
-exports.onCreateNode = ({ node, getNode, actions }) => {
-  const { createNodeField } = actions;
-  if (node.internal.type === 'MarkdownRemark') {
-    const nodeSlug = createFilePath({
-      node,
-      getNode,
-      basePath: 'content\\blog',
-    });
-    createNodeField({
-      node,
-      name: 'slug',
-      value: `blog${nodeSlug}`,
-    });
-  }
-};
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
@@ -108,6 +91,7 @@ exports.createPages = async ({ graphql, actions }) => {
 exports.onCreateWebpackConfig = async ({ actions, plugins }) => {
   const revision = fs.readFileSync(path.join(__dirname, 'catalog-revision.txt'), 'utf-8');
   actions.setWebpackConfig({
+    resolve: { fallback: { process: require.resolve('process/browser') } },
     plugins: [
       plugins.define({ DBREV: JSON.stringify(revision) }),
       new webpack.ProvidePlugin({
