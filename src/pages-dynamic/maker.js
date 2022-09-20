@@ -55,7 +55,7 @@ const Maker = (props) => {
               {maker.artisanCollector && (
                 <li className="flex h-auto px-1">
                   <a href={maker.artisanCollector} title="Artisan Collector" target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-600">
-                    <AClogo className="svg-inline--fa fa-w-16 h-inherit" />
+                    <AClogo className="svg-inline--fa fa-w-16" />
                   </a>
                 </li>
               )}
