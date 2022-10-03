@@ -32,7 +32,7 @@
     "gatsby-transformer-sharp": "4.23.0",
     "html-to-react": "1.5.0",
     "lodash": "4.17.21",
-    "postcss": "8.4.16",
+    "postcss": "8.4.17",
     "process": "^0.11.10",
     "prop-types": "15.8.1",
     "quick-score": "0.2.0",
