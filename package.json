@@ -4,7 +4,7 @@
   "description": "",
   "version": "0.1.0",
   "dependencies": {
-    "@babel/plugin-proposal-decorators": "^7.19.1",
+    "@babel/plugin-proposal-decorators": "^7.20.0",
     "@fortawesome/fontawesome-svg-core": "6.2.0",
     "@fortawesome/free-brands-svg-icons": "6.2.0",
     "@fortawesome/free-solid-svg-icons": "6.2.0",
