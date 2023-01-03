@@ -25,7 +25,7 @@
     "gatsby-plugin-robots-txt": "1.7.1",
     "gatsby-plugin-sass": "5.23.0",
     "gatsby-plugin-sharp": "4.23.0",
-    "gatsby-plugin-sitemap": "5.23.0",
+    "gatsby-plugin-sitemap": "5.25.0",
     "gatsby-plugin-web-font-loader": "1.0.4",
     "gatsby-source-filesystem": "4.23.0",
     "gatsby-transformer-remark": "5.23.0",
