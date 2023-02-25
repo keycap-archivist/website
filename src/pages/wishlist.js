@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { ReactSortable } from 'react-sortablejs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { ReactSortable } from 'react-sortablejs';
 
+import flip from '../assets/img/flip-machine.png';
 import SEO from '../components/seo';
 import { cssColors } from '../internal/misc';
+import { getWishlistContainer, rmCap, rmTradeCap, setWishlistContainer } from '../internal/wishlist';
 import Layout from '../layouts/base';
-import { getWishlist, setWishlist, rmCap, rmTradeCap } from '../internal/wishlist';
-import flip from '../assets/img/flip-machine.png';
 // import BkMaggle from '../assets/img/bkmaggle.png';
 
 const baseAPIurl = 'https://api.keycap-archivist.com/wishlist';
@@ -16,25 +16,32 @@ const Wishlist = () => {
   const [b64Img, setB64Img] = useState(null);
   const [errorLoading, setErrorLoading] = useState(false);
   const [wishlistLoading, setWishlistLoading] = useState(false);
-  const [wishlist, setStateWishlist] = useState({
-    settings: {
-      capsPerLine: 3,
-      priority: {},
-      legends: {},
-      title: {},
-      tradeTitle: {},
-      extraText: {},
-      background: {},
-      social: {},
-    },
-    items: [],
-    tradeItems: [],
+  const [wishlistContainer, setStateWishlist] = useState({
+    activeWishlistId: 0,
+    wishlists: [
+      {
+        id: 0,
+        settings: {
+          capsPerLine: 3,
+          priority: {},
+          legends: {},
+          title: {},
+          tradeTitle: {},
+          extraText: {},
+          background: {},
+          social: {},
+        },
+        items: [],
+        tradeItems: [],
+      },
+    ],
   });
   const [fonts] = useState(['BebasNeue', 'PermanentMarker', 'Roboto', 'RedRock']);
+  const wishlist = wishlistContainer.wishlists.find((x) => x.id === wishlistContainer.activeWishlistId);
 
   // Required for SSR
   useEffect(() => {
-    setStateWishlist(getWishlist());
+    setStateWishlist(getWishlistContainer());
   }, []);
 
   const loadingPlaceholder = () => {
@@ -127,26 +134,58 @@ const Wishlist = () => {
     setWishlistLoading(false);
   };
 
-  const setPriority = (id, priority) => {
-    const idx = wishlist.items.findIndex((x) => x.id === id);
-    wishlist.items[idx].prio = priority;
-    setWishlist(wishlist);
-    setStateWishlist({ ...wishlist });
+  const setPriority = (capId, priority) => {
+    const idxWishlist = wishlistContainer.wishlists.findIndex((x) => x.id === wishlistContainer.activeWishlistId);
+    const idxCap = wishlistContainer.wishlists[idxWishlist].items.findIndex((x) => x.id === capId);
+    wishlistContainer.wishlists[idxWishlist].items[idxCap].prio = priority;
+    setWishlistContainer(wishlistContainer);
+    setStateWishlist({ ...wishlistContainer });
   };
 
   const setSettingWishlist = (property, key, e) => {
+    const idxWishlist = wishlistContainer.wishlists.findIndex((x) => x.id === wishlistContainer.activeWishlistId);
+    const newWishlistContainer = JSON.parse(JSON.stringify(wishlistContainer)); // make a deep copy of the object
     if (property === 'capsPerLine') {
-      wishlist.settings.capsPerLine = e.target.value;
+      newWishlistContainer.wishlists[idxWishlist].settings.capsPerLine = e.target.value;
     } else {
-      wishlist.settings[property][key] = e.target.value;
+      newWishlistContainer.wishlists[idxWishlist].settings[property][key] = e.target.value;
     }
-    setWishlist(wishlist);
-    setStateWishlist({ ...wishlist });
+    setWishlistContainer(newWishlistContainer);
+    setStateWishlist({ ...newWishlistContainer });
+  };
+
+  const setActiveWishlist = (e) => {
+    wishlistContainer.activeWishlistId = parseInt(e.target.value, 10);
+    setWishlistContainer(wishlistContainer);
+    setStateWishlist({ ...wishlistContainer });
   };
 
   const wishlistSettings = () => (
     <>
       <div className="mb-4">
+        <div className="flex flex-wrap mt-2">
+          <div className="w-2/3 pr-2">
+            <label className="wishlist_form" htmlFor="activeWishlist">
+              Active Wishlist
+            </label>
+            <select
+              id="activeWishlist"
+              className="shadow appearance-none
+              border border-gray-100 rounded w-full
+               py-2 px-3 text-gray-700 leading-tight
+               focus:outline-none focus:shadow-outline"
+              type="select"
+              value={wishlist.id}
+              onChange={(e) => setActiveWishlist(e)}
+            >
+              {wishlistContainer.wishlists.map((x) => (
+                <option key={x.id} value={x.id}>
+                  {x.settings.title.text} - {x.items.length + x.tradeItems.length} Items
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
         <div className="flex flex-wrap mt-2">
           <div className="w-1/3 pr-2">
             <label className="wishlist_form" htmlFor="capsPerLine">
@@ -514,13 +553,16 @@ const Wishlist = () => {
         list={wishlist ? wishlist.items : []}
         setList={(e) => {
           // Update the state of the component only
-          const w = { ...wishlist };
-          w.items = e;
-          setStateWishlist(w);
+          const activeWishlistIndex = wishlistContainer.wishlists.findIndex((w) => w.id === wishlistContainer.activeWishlistId);
+          const activeWishlistCopy = { ...wishlistContainer.wishlists[activeWishlistIndex] };
+          activeWishlistCopy.items = e;
+          const wishlistContainerCopy = { ...wishlistContainer };
+          wishlistContainerCopy.wishlists[activeWishlistIndex] = activeWishlistCopy;
+          setStateWishlist(wishlistContainerCopy);
         }}
         onEnd={() => {
           // write the wishlist in the localstorage onEnd only
-          setWishlist(wishlist);
+          setWishlistContainer(wishlistContainer);
         }}
       >
         {wishlist.items.map((x) => (
@@ -596,13 +638,16 @@ const Wishlist = () => {
         list={wishlist ? wishlist.tradeItems : []}
         setList={(e) => {
           // Update the state of the component only
-          const w = { ...wishlist };
-          w.tradeItems = e;
-          setStateWishlist(w);
+          const activeWishlistIndex = wishlistContainer.wishlists.findIndex((w) => w.id === wishlistContainer.activeWishlistId);
+          const activeWishlistCopy = { ...wishlistContainer.wishlists[activeWishlistIndex] };
+          activeWishlistCopy.tradeItems = e;
+          const wishlistContainerCopy = { ...wishlistContainer };
+          wishlistContainerCopy.wishlists[activeWishlistIndex] = activeWishlistCopy;
+          setStateWishlist(wishlistContainerCopy);
         }}
         onEnd={() => {
           // write the wishlist in the localstorage onEnd only
-          setWishlist(wishlist);
+          setWishlistContainer(wishlistContainer);
         }}
       >
         {wishlist.tradeItems.map((x) => (

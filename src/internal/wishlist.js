@@ -1,13 +1,15 @@
-import { localStorageLoad, localStorageSet } from './misc';
-import { getConfig, setConfig } from './config';
 import { getCollections, setCollection, updateCollection } from './collection';
+import { getConfig, setConfig } from './config';
+import { localStorageLoad, localStorageSet } from './misc';
 
 const CONSTS = {
   wishlist: 'Wishlist',
   wishlistV2: 'Wishlist_v2',
+  wishlistV3: 'Wishlist_v3',
 };
 
 const defaultWishlist = {
+  id: 0,
   settings: {
     capsPerLine: 3,
     priority: {
@@ -21,7 +23,7 @@ const defaultWishlist = {
     title: {
       color: 'Red',
       font: 'Roboto',
-      text: '',
+      text: 'My Wishlist',
     },
     tradeTitle: {
       color: 'Red',
@@ -45,6 +47,11 @@ const defaultWishlist = {
   tradeItems: [],
 };
 
+const defaultWishlistContainer = {
+  activeWishlistId: 0,
+  wishlists: [{ ...defaultWishlist }, { ...defaultWishlist, id: 1 }],
+};
+
 export const WishlistLimit = 50;
 export const TradeListLimit = 10;
 
@@ -59,12 +66,12 @@ export function canAdd(type, wishlist) {
   }
 }
 
-export function getDefaultWishlist() {
-  return { ...defaultWishlist };
+export function getDefaultWishlistContainer() {
+  return { ...defaultWishlistContainer };
 }
 
-export function setWishlist(wishlist) {
-  localStorageSet(CONSTS.wishlistV2, JSON.stringify(wishlist));
+export function setWishlistContainer(wishlistContainer) {
+  localStorageSet(CONSTS.wishlistV3, JSON.stringify(wishlistContainer));
   const cfg = getConfig();
   if (cfg.authorized && cfg.cloudAutoSync) {
     // eslint-disable-next-line no-use-before-define
@@ -72,31 +79,53 @@ export function setWishlist(wishlist) {
   }
 }
 
-export function getWishlist() {
+export function getWishlistContainer() {
   const w2 = localStorageLoad(CONSTS.wishlistV2);
-  if (w2) {
+  const w3 = localStorageLoad(CONSTS.wishlistV3);
+  if (w3) {
     try {
-      return JSON.parse(w2);
+      return JSON.parse(w3);
+    } catch (e) {
+      console.log('Unable to read the Wishlist v3 object');
+    }
+  } else if (w2) {
+    try {
+      return JSON.parse({ activeWishlistId: 0, wishlists: [{ id: 0, name: 'My Wishlist', ...w2 }] });
     } catch (e) {
       console.log('Unable to read the Wishlist v2 object');
     }
   }
-  const d = getDefaultWishlist();
-  setWishlist(d);
+  const d = getDefaultWishlistContainer();
+  setWishlistContainer(d);
   return d;
 }
 
-export function addCap(id) {
-  const w = getWishlist();
-  w.items.push({ id, prio: false });
-  setWishlist(w);
+export function addWishlist() {
+  const w = getWishlistContainer();
+  w.wishlists.push({ ...defaultWishlist, id: Math.max(...w.wishlists.map((wishlist) => wishlist.id)) + 1 });
+  setWishlistContainer(w);
   return w;
 }
 
-export function rmCap(id) {
-  const w = getWishlist();
-  w.items = w.items.filter((x) => x.id !== id);
-  setWishlist(w);
+export function rmWishlist(wishlistId) {
+  const w = getWishlistContainer();
+  w.wishlists = w.wishlists.filter((x) => x.id !== wishlistId);
+  setWishlistContainer(w);
+  return w;
+}
+
+export function addCap(capId) {
+  const w = getWishlistContainer();
+  w.wishlists.find((x) => x.id === w.activeWishlistId).items.push({ id: capId, prio: false });
+  setWishlistContainer(w);
+  return w;
+}
+
+export function rmCap(capId) {
+  const w = getWishlistContainer();
+  const wishlistIdx = w.wishlists.findIndex((x) => x.id === w.activeWishlistId);
+  w.wishlists[wishlistIdx].items = w.wishlists[wishlistIdx].items.filter((x) => x.id !== capId);
+  setWishlistContainer(w);
   return w;
 }
 
@@ -104,17 +133,18 @@ export function isInWishlist(w, id) {
   return w && w.items && w.items.findIndex((x) => x.id === id) > -1;
 }
 
-export function addTradeCap(id) {
-  const w = getWishlist();
-  w.tradeItems.push({ id, prio: false });
-  setWishlist(w);
+export function addTradeCap(capId) {
+  const w = getWishlistContainer();
+  w.wishlists.find((x) => x.id === w.activeWishlistId).tradeItems.push({ id: capId, prio: false });
+  setWishlistContainer(w);
   return w;
 }
 
-export function rmTradeCap(id) {
-  const w = getWishlist();
-  w.tradeItems = w.tradeItems.filter((x) => x.id !== id);
-  setWishlist(w);
+export function rmTradeCap(capId) {
+  const w = getWishlistContainer();
+  const wishlistIdx = w.wishlists.findIndex((x) => x.id === w.activeWishlistId);
+  w.wishlists[wishlistIdx].tradeItems = w.wishlists[wishlistIdx].tradeItems.filter((x) => x.id !== capId);
+  setWishlistContainer(w);
   return w;
 }
 
@@ -123,20 +153,18 @@ export function isInTradeList(w, id) {
 }
 
 export async function uploadSync(cfg) {
-  const wishlist = getWishlist();
+  const w = getWishlistContainer();
   if (cfg.wishlist_id) {
     updateCollection(cfg.wishlist_id, {
-      name: CONSTS.wishlistV2,
-      wishlist,
+      name: CONSTS.wishlistV3,
+      w,
     });
   } else {
     const id = await setCollection({
-      name: CONSTS.wishlistV2,
-      wishlist,
+      name: CONSTS.wishlistV3,
+      w,
     });
-
     const config = { ...cfg, wishlist_id: id };
-
     setConfig(config);
   }
 }
@@ -145,9 +173,12 @@ export async function downloadSync(cfg) {
   const collections = await getCollections();
   if (collections.length) {
     const config = { ...cfg, wishlist_id: collections[0].id };
-
     console.log(collections);
-    localStorageSet(CONSTS.wishlistV2, JSON.stringify(collections[0].content));
+    if (collections[0].content.wishlists) {
+      localStorageSet(CONSTS.wishlistV3, JSON.stringify(collections[0].content));
+    } else {
+      localStorageSet(CONSTS.wishlistV2, JSON.stringify(collections[0].content));
+    }
     setConfig(config);
   }
 }

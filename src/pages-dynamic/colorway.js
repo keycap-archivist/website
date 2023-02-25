@@ -1,14 +1,14 @@
 /* eslint-disable no-return-assign */
-import React, { useState, useEffect } from 'react';
-import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'gatsby';
+import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { getWishlist, isInWishlist, rmCap, addCap, isInTradeList, rmTradeCap, addTradeCap, WishlistLimit, TradeListLimit } from '../internal/wishlist';
-import Layout from '../layouts/base';
-import SEO from '../components/seo';
 import Alert from '../components/alert';
 import SubmitNameModal from '../components/modals/submit-name';
+import SEO from '../components/seo';
+import { addCap, addTradeCap, getWishlistContainer, isInTradeList, isInWishlist, rmCap, rmTradeCap, TradeListLimit, WishlistLimit } from '../internal/wishlist';
+import Layout from '../layouts/base';
 
 const Maker = (props) => {
   const { pageContext, location } = props;
@@ -26,10 +26,30 @@ const Maker = (props) => {
     setState({ text: 'Copied!' });
   };
 
-  const [wishlist, setStateWishlist] = useState(undefined);
+  const [wishlistContainer, setStateWishlist] = useState({
+    activeWishlistId: 0,
+    wishlists: [
+      {
+        id: 0,
+        settings: {
+          capsPerLine: 3,
+          priority: {},
+          legends: {},
+          title: {},
+          tradeTitle: {},
+          extraText: {},
+          background: {},
+          social: {},
+        },
+        items: [],
+        tradeItems: [],
+      },
+    ],
+  });
   useEffect(() => {
-    setStateWishlist(getWishlist());
+    setStateWishlist(getWishlistContainer());
   }, []);
+  const wishlist = wishlistContainer.wishlists.find((x) => x.id === wishlistContainer.activeWishlistId);
   const cwImg = `https://cdn.keycap-archivist.com/keycaps/720/${colorway.id}.jpg`;
   return (
     <Layout>
