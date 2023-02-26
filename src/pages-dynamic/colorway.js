@@ -168,7 +168,7 @@ const Maker = (props) => {
                   rounded"
               >
                 <FontAwesomeIcon className="mr-1" icon={['fas', 'star']} />
-                <span>Remove from wishlist</span>
+                <span>Remove from &quot;{wishlist.settings.title.text}&quot; wishlist</span>
               </button>
             ) : (
               <button
@@ -196,7 +196,7 @@ const Maker = (props) => {
                   rounded"
               >
                 <FontAwesomeIcon className="mr-1" icon={['fas', 'star']} />
-                <span>Add to wishlist</span>
+                <span>Add to &quot;{wishlist.settings.title.text}&quot; wishlist</span>
               </button>
             )}
             {isInTradeList(wishlist, colorway.id) ? (
@@ -219,7 +219,7 @@ const Maker = (props) => {
                   rounded"
               >
                 <FontAwesomeIcon className="mr-1" icon={['fas', 'redo']} />
-                <span>Remove from trade list</span>
+                <span>Remove from &quot;{wishlist.settings.title.text}&quot; trade list</span>
               </button>
             ) : (
               <button
@@ -247,7 +247,7 @@ const Maker = (props) => {
                   rounded"
               >
                 <FontAwesomeIcon className="mr-1" icon={['fas', 'redo']} />
-                <span>Add to trade list</span>
+                <span>Add to &quot;{wishlist.settings.title.text}&quot; trade list</span>
               </button>
             )}
           </div>

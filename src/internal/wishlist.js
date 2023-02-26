@@ -49,9 +49,10 @@ const defaultWishlist = {
 
 const defaultWishlistContainer = {
   activeWishlistId: 0,
-  wishlists: [{ ...defaultWishlist }, { ...defaultWishlist, id: 1 }],
+  wishlists: [{ ...defaultWishlist }],
 };
 
+export const WishlistContainerLimit = 10;
 export const WishlistLimit = 50;
 export const TradeListLimit = 10;
 
@@ -102,15 +103,30 @@ export function getWishlistContainer() {
 
 export function addWishlist() {
   const w = getWishlistContainer();
-  w.wishlists.push({ ...defaultWishlist, id: Math.max(...w.wishlists.map((wishlist) => wishlist.id)) + 1 });
-  setWishlistContainer(w);
+  if (w.wishlists.length < WishlistContainerLimit) {
+    const newTitleText = `${defaultWishlist.settings.title.text} #${w.wishlists.length + 1}`;
+    w.wishlists.push({
+      ...defaultWishlist,
+      id: Math.max(...w.wishlists.map((wishlist) => wishlist.id)) + 1,
+      settings: {
+        ...defaultWishlist.settings,
+        title: {
+          text: newTitleText,
+        },
+      },
+    });
+    setWishlistContainer(w);
+  }
   return w;
 }
 
 export function rmWishlist(wishlistId) {
   const w = getWishlistContainer();
-  w.wishlists = w.wishlists.filter((x) => x.id !== wishlistId);
-  setWishlistContainer(w);
+  if (w.wishlists.length > 1) {
+    w.wishlists = w.wishlists.filter((x) => x.id !== wishlistId);
+    w.activeWishlistId = w.wishlists[0].id;
+    setWishlistContainer(w);
+  }
   return w;
 }
 

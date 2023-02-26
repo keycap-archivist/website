@@ -6,7 +6,7 @@ import { ReactSortable } from 'react-sortablejs';
 import flip from '../assets/img/flip-machine.png';
 import SEO from '../components/seo';
 import { cssColors } from '../internal/misc';
-import { getWishlistContainer, rmCap, rmTradeCap, setWishlistContainer } from '../internal/wishlist';
+import { addWishlist, getWishlistContainer, rmCap, rmTradeCap, rmWishlist, setWishlistContainer, WishlistContainerLimit } from '../internal/wishlist';
 import Layout from '../layouts/base';
 // import BkMaggle from '../assets/img/bkmaggle.png';
 
@@ -155,16 +155,29 @@ const Wishlist = () => {
   };
 
   const setActiveWishlist = (e) => {
+    setB64Img(null);
     wishlistContainer.activeWishlistId = parseInt(e.target.value, 10);
     setWishlistContainer(wishlistContainer);
     setStateWishlist({ ...wishlistContainer });
+  };
+
+  const addNewWishlist = () => {
+    const newWishlistContainer = addWishlist();
+    setWishlistContainer(newWishlistContainer);
+    setStateWishlist({ ...newWishlistContainer });
+  };
+
+  const deleteActiveWishlist = () => {
+    const newWishlistContainer = rmWishlist(wishlistContainer.activeWishlistId);
+    setWishlistContainer(newWishlistContainer);
+    setStateWishlist({ ...newWishlistContainer });
   };
 
   const wishlistSettings = () => (
     <>
       <div className="mb-4">
         <div className="flex flex-wrap mt-2">
-          <div className="w-2/3 pr-2">
+          <div className="w-1/3 pr-2">
             <label className="wishlist_form" htmlFor="activeWishlist">
               Active Wishlist
             </label>
@@ -184,6 +197,30 @@ const Wishlist = () => {
                 </option>
               ))}
             </select>
+          </div>
+          <div className="w-1/3 pr-2 flex justify-center">
+            <button
+              id="addWishlist"
+              onClick={addNewWishlist}
+              className={`w-2/3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-7 ${
+                (wishlistLoading || wishlistContainer.wishlists.length >= WishlistContainerLimit) && 'cursor-not-allowed opacity-50'
+              }`}
+              disabled={wishlistLoading || wishlistContainer.wishlists.length >= WishlistContainerLimit}
+            >
+              Add New Wishlist
+            </button>
+          </div>
+          <div className="w-1/3 pr-2 flex justify-center">
+            <button
+              id="delWishlist"
+              onClick={deleteActiveWishlist}
+              className={`w-2/3 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-7 ${
+                (wishlistLoading || wishlistContainer.wishlists.length <= 1) && 'cursor-not-allowed opacity-50'
+              }`}
+              disabled={wishlistLoading || wishlistContainer.wishlists.length <= 1}
+            >
+              Delete Active Wishlist
+            </button>
           </div>
         </div>
         <div className="flex flex-wrap mt-2">
