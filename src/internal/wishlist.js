@@ -91,7 +91,19 @@ export function getWishlistContainer() {
     }
   } else if (w2) {
     try {
-      return JSON.parse({ activeWishlistId: 0, wishlists: [{ id: 0, name: 'My Wishlist', ...w2 }] });
+      const w2p = JSON.parse(w2);
+      const w3u = {
+        activeWishlistId: 0,
+        wishlists: [
+          {
+            id: 0,
+            ...w2p,
+          },
+        ],
+      };
+      w3u.wishlists[0].settings.title.text = 'My Wishlist';
+      setWishlistContainer(w3u);
+      return w3u;
     } catch (e) {
       console.log('Unable to read the Wishlist v2 object');
     }

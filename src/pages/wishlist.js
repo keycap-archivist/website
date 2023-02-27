@@ -165,12 +165,14 @@ const Wishlist = () => {
 
   const addNewWishlist = () => {
     const newWishlistContainer = addWishlist();
+    newWishlistContainer.activeWishlistId = newWishlistContainer.wishlists[newWishlistContainer.wishlists.length - 1].id;
     setWishlistContainer(newWishlistContainer);
     setStateWishlist({ ...newWishlistContainer });
   };
 
   const deleteActiveWishlist = () => {
     const newWishlistContainer = rmWishlist(wishlistContainer.activeWishlistId);
+    newWishlistContainer.activeWishlistId = newWishlistContainer.wishlists[newWishlistContainer.wishlists.length - 1].id;
     setWishlistContainer(newWishlistContainer);
     setStateWishlist({ ...newWishlistContainer });
     setShowWishlistDeleteModal(false);
