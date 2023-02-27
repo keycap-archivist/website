@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { ReactSortable } from 'react-sortablejs';
 
 import flip from '../assets/img/flip-machine.png';
+import ConfirmDialogModal from '../components/modals/confirm-dialog';
 import SEO from '../components/seo';
 import { cssColors } from '../internal/misc';
 import { addWishlist, getWishlistContainer, rmCap, rmTradeCap, rmWishlist, setWishlistContainer, WishlistContainerLimit } from '../internal/wishlist';
@@ -38,6 +39,7 @@ const Wishlist = () => {
   });
   const [fonts] = useState(['BebasNeue', 'PermanentMarker', 'Roboto', 'RedRock']);
   const wishlist = wishlistContainer.wishlists.find((x) => x.id === wishlistContainer.activeWishlistId);
+  const [showWishlistDeleteModal, setShowWishlistDeleteModal] = useState(false);
 
   // Required for SSR
   useEffect(() => {
@@ -171,6 +173,7 @@ const Wishlist = () => {
     const newWishlistContainer = rmWishlist(wishlistContainer.activeWishlistId);
     setWishlistContainer(newWishlistContainer);
     setStateWishlist({ ...newWishlistContainer });
+    setShowWishlistDeleteModal(false);
   };
 
   const wishlistSettings = () => (
@@ -213,7 +216,7 @@ const Wishlist = () => {
           <div className="w-1/3 pr-2 flex justify-center">
             <button
               id="delWishlist"
-              onClick={deleteActiveWishlist}
+              onClick={() => setShowWishlistDeleteModal(true)}
               className={`w-2/3 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-7 ${
                 (wishlistLoading || wishlistContainer.wishlists.length <= 1) && 'cursor-not-allowed opacity-50'
               }`}
@@ -801,6 +804,14 @@ const Wishlist = () => {
           wishlistPlaceHolder()
         )}
       </div>
+      {showWishlistDeleteModal && (
+        <ConfirmDialogModal
+          modalHeader="Delete Active Wishlist?"
+          placeholder={`Are you sure that you want to delete the '${wishlist.settings.title.text}' wishlist?`}
+          setModal={setShowWishlistDeleteModal}
+          onModalConfirm={() => deleteActiveWishlist()}
+        />
+      )}
     </Layout>
   );
 };
