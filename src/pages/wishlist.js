@@ -7,7 +7,16 @@ import flip from '../assets/img/flip-machine.png';
 import ConfirmDialogModal from '../components/modals/confirm-dialog';
 import SEO from '../components/seo';
 import { cssColors } from '../internal/misc';
-import { addWishlist, getWishlistContainer, rmCap, rmTradeCap, rmWishlist, setWishlistContainer, WishlistContainerLimit } from '../internal/wishlist';
+import {
+  addWishlist,
+  getDefaultWishlistContainer,
+  getWishlistContainer,
+  rmCap,
+  rmTradeCap,
+  rmWishlist,
+  setWishlistContainer,
+  WishlistContainerLimit,
+} from '../internal/wishlist';
 import Layout from '../layouts/base';
 // import BkMaggle from '../assets/img/bkmaggle.png';
 
@@ -17,26 +26,7 @@ const Wishlist = () => {
   const [b64Img, setB64Img] = useState(null);
   const [errorLoading, setErrorLoading] = useState(false);
   const [wishlistLoading, setWishlistLoading] = useState(false);
-  const [wishlistContainer, setStateWishlist] = useState({
-    activeWishlistId: 0,
-    wishlists: [
-      {
-        id: 0,
-        settings: {
-          capsPerLine: 3,
-          priority: {},
-          legends: {},
-          title: {},
-          tradeTitle: {},
-          extraText: {},
-          background: {},
-          social: {},
-        },
-        items: [],
-        tradeItems: [],
-      },
-    ],
-  });
+  const [wishlistContainer, setStateWishlist] = useState(getDefaultWishlistContainer());
   const [fonts] = useState(['BebasNeue', 'PermanentMarker', 'Roboto', 'RedRock']);
   const wishlist = wishlistContainer.wishlists.find((x) => x.id === wishlistContainer.activeWishlistId);
   const [showWishlistDeleteModal, setShowWishlistDeleteModal] = useState(false);

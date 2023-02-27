@@ -7,7 +7,18 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Alert from '../components/alert';
 import SubmitNameModal from '../components/modals/submit-name';
 import SEO from '../components/seo';
-import { addCap, addTradeCap, getWishlistContainer, isInTradeList, isInWishlist, rmCap, rmTradeCap, TradeListLimit, WishlistLimit } from '../internal/wishlist';
+import {
+  addCap,
+  addTradeCap,
+  getDefaultWishlistContainer,
+  getWishlistContainer,
+  isInTradeList,
+  isInWishlist,
+  rmCap,
+  rmTradeCap,
+  TradeListLimit,
+  WishlistLimit,
+} from '../internal/wishlist';
 import Layout from '../layouts/base';
 
 const Maker = (props) => {
@@ -26,26 +37,7 @@ const Maker = (props) => {
     setState({ text: 'Copied!' });
   };
 
-  const [wishlistContainer, setStateWishlist] = useState({
-    activeWishlistId: 0,
-    wishlists: [
-      {
-        id: 0,
-        settings: {
-          capsPerLine: 3,
-          priority: {},
-          legends: {},
-          title: {},
-          tradeTitle: {},
-          extraText: {},
-          background: {},
-          social: {},
-        },
-        items: [],
-        tradeItems: [],
-      },
-    ],
-  });
+  const [wishlistContainer, setStateWishlist] = useState(getDefaultWishlistContainer());
   useEffect(() => {
     setStateWishlist(getWishlistContainer());
   }, []);

@@ -8,7 +8,18 @@ import Alert from '../components/alert';
 import SubmitNewCwModal from '../components/modals/submit-new-cw';
 import SEO from '../components/seo';
 import ThumbnailImage from '../components/thumbnail-image';
-import { addCap, addTradeCap, getWishlistContainer, isInTradeList, isInWishlist, rmCap, rmTradeCap, TradeListLimit, WishlistLimit } from '../internal/wishlist';
+import {
+  addCap,
+  addTradeCap,
+  getDefaultWishlistContainer,
+  getWishlistContainer,
+  isInTradeList,
+  isInWishlist,
+  rmCap,
+  rmTradeCap,
+  TradeListLimit,
+  WishlistLimit,
+} from '../internal/wishlist';
 import Layout from '../layouts/base';
 
 const Maker = (props) => {
@@ -17,26 +28,7 @@ const Maker = (props) => {
 
   const seoTitle = `${maker.name} - ${sculpt.name}`;
 
-  const [wishlistContainer, setStateWishlist] = useState({
-    activeWishlistId: 0,
-    wishlists: [
-      {
-        id: 0,
-        settings: {
-          capsPerLine: 3,
-          priority: {},
-          legends: {},
-          title: {},
-          tradeTitle: {},
-          extraText: {},
-          background: {},
-          social: {},
-        },
-        items: [],
-        tradeItems: [],
-      },
-    ],
-  });
+  const [wishlistContainer, setStateWishlist] = useState(getDefaultWishlistContainer());
   useEffect(() => {
     setStateWishlist(getWishlistContainer());
   }, []);
