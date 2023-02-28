@@ -49,7 +49,7 @@ const defaultWishlist = {
 
 const defaultWishlistContainer = {
   activeWishlistId: 0,
-  wishlists: [{ ...defaultWishlist }],
+  wishlists: [defaultWishlist],
 };
 
 export const WishlistContainerLimit = 10;
@@ -68,7 +68,7 @@ export function canAdd(type, wishlist) {
 }
 
 export function getDefaultWishlistContainer() {
-  return { ...defaultWishlistContainer };
+  return defaultWishlistContainer;
 }
 
 export function setWishlistContainer(wishlistContainer) {
@@ -108,9 +108,8 @@ export function getWishlistContainer() {
       console.log('Unable to read the Wishlist v2 object');
     }
   }
-  const d = getDefaultWishlistContainer();
-  setWishlistContainer(d);
-  return d;
+  setWishlistContainer(defaultWishlistContainer);
+  return defaultWishlistContainer;
 }
 
 export function addWishlist() {
@@ -119,7 +118,7 @@ export function addWishlist() {
     const newTitleText = `${defaultWishlist.settings.title.text} #${w.wishlists.length + 1}`;
     w.wishlists.push({
       ...defaultWishlist,
-      id: Math.max(...w.wishlists.map((wishlist) => wishlist.id)) + 1,
+      id: w.wishlists.length,
       settings: {
         ...defaultWishlist.settings,
         title: {

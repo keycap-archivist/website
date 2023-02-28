@@ -154,6 +154,7 @@ const Wishlist = () => {
   };
 
   const addNewWishlist = () => {
+    setB64Img(null);
     const newWishlistContainer = addWishlist();
     newWishlistContainer.activeWishlistId = newWishlistContainer.wishlists[newWishlistContainer.wishlists.length - 1].id;
     setWishlistContainer(newWishlistContainer);
@@ -161,6 +162,7 @@ const Wishlist = () => {
   };
 
   const deleteActiveWishlist = () => {
+    setB64Img(null);
     const newWishlistContainer = rmWishlist(wishlistContainer.activeWishlistId);
     newWishlistContainer.activeWishlistId = newWishlistContainer.wishlists[newWishlistContainer.wishlists.length - 1].id;
     setWishlistContainer(newWishlistContainer);
@@ -197,7 +199,7 @@ const Wishlist = () => {
             <button
               id="addWishlist"
               onClick={addNewWishlist}
-              className={`w-2/3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-7 ${
+              className={`w-2/3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-7 disabled:bg-gray-600${
                 (wishlistLoading || wishlistContainer.wishlists.length >= WishlistContainerLimit) && 'cursor-not-allowed opacity-50'
               }`}
               disabled={wishlistLoading || wishlistContainer.wishlists.length >= WishlistContainerLimit}
@@ -209,7 +211,7 @@ const Wishlist = () => {
             <button
               id="delWishlist"
               onClick={() => setShowWishlistDeleteModal(true)}
-              className={`w-2/3 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-7 ${
+              className={`w-2/3 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-7 disabled:bg-gray-600${
                 (wishlistLoading || wishlistContainer.wishlists.length <= 1) && 'cursor-not-allowed opacity-50'
               }`}
               disabled={wishlistLoading || wishlistContainer.wishlists.length <= 1}
@@ -727,7 +729,7 @@ const Wishlist = () => {
           <div className="w-full md:w-1/4 mr-2">
             <button
               onClick={genWishlist}
-              className={`w-full  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 ${
+              className={`w-full  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 disabled:bg-gray-600 ${
                 (wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length)) && 'cursor-not-allowed opacity-50'
               }`}
               disabled={wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length)}
