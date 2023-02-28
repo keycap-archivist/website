@@ -47,7 +47,7 @@ const defaultWishlist = {
   tradeItems: [],
 };
 
-const defaultWishlistContainer = {
+export const defaultWishlistContainer = {
   activeWishlistId: 0,
   wishlists: [defaultWishlist],
 };
@@ -65,10 +65,6 @@ export function canAdd(type, wishlist) {
     default:
       throw Error('unknown type');
   }
-}
-
-export function getDefaultWishlistContainer() {
-  return defaultWishlistContainer;
 }
 
 export function setWishlistContainer(wishlistContainer) {
@@ -115,10 +111,12 @@ export function getWishlistContainer() {
 export function addWishlist() {
   const w = getWishlistContainer();
   if (w.wishlists.length < WishlistContainerLimit) {
-    const newTitleText = `${defaultWishlist.settings.title.text} #${w.wishlists.length + 1}`;
+    const usedIds = w.wishlists.map((wishlist) => wishlist.id);
+    const firstUnusedId = Array.from({ length: usedIds.length + 1 }, (_, i) => i + 1).find((id) => !usedIds.includes(id));
+    const newTitleText = `${defaultWishlist.settings.title.text} #${firstUnusedId}`;
     w.wishlists.push({
       ...defaultWishlist,
-      id: w.wishlists.length,
+      id: firstUnusedId,
       settings: {
         ...defaultWishlist.settings,
         title: {

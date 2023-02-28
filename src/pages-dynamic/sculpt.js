@@ -11,7 +11,7 @@ import ThumbnailImage from '../components/thumbnail-image';
 import {
   addCap,
   addTradeCap,
-  getDefaultWishlistContainer,
+  defaultWishlistContainer,
   getWishlistContainer,
   isInTradeList,
   isInWishlist,
@@ -28,7 +28,7 @@ const Maker = (props) => {
 
   const seoTitle = `${maker.name} - ${sculpt.name}`;
 
-  const [wishlistContainer, setStateWishlist] = useState(getDefaultWishlistContainer());
+  const [wishlistContainer, setStateWishlist] = useState(defaultWishlistContainer);
   useEffect(() => {
     setStateWishlist(getWishlistContainer());
   }, []);

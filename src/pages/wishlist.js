@@ -9,7 +9,7 @@ import SEO from '../components/seo';
 import { cssColors } from '../internal/misc';
 import {
   addWishlist,
-  getDefaultWishlistContainer,
+  defaultWishlistContainer,
   getWishlistContainer,
   rmCap,
   rmTradeCap,
@@ -26,7 +26,7 @@ const Wishlist = () => {
   const [b64Img, setB64Img] = useState(null);
   const [errorLoading, setErrorLoading] = useState(false);
   const [wishlistLoading, setWishlistLoading] = useState(false);
-  const [wishlistContainer, setStateWishlist] = useState(getDefaultWishlistContainer());
+  const [wishlistContainer, setStateWishlist] = useState(defaultWishlistContainer);
   const [fonts] = useState(['BebasNeue', 'PermanentMarker', 'Roboto', 'RedRock']);
   const wishlist = wishlistContainer.wishlists.find((x) => x.id === wishlistContainer.activeWishlistId);
   const [showWishlistDeleteModal, setShowWishlistDeleteModal] = useState(false);
@@ -199,7 +199,7 @@ const Wishlist = () => {
             <button
               id="addWishlist"
               onClick={addNewWishlist}
-              className={`w-2/3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-7 disabled:bg-gray-600${
+              className={`w-2/3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-7 disabled:bg-gray-600 ${
                 (wishlistLoading || wishlistContainer.wishlists.length >= WishlistContainerLimit) && 'cursor-not-allowed opacity-50'
               }`}
               disabled={wishlistLoading || wishlistContainer.wishlists.length >= WishlistContainerLimit}
@@ -211,7 +211,7 @@ const Wishlist = () => {
             <button
               id="delWishlist"
               onClick={() => setShowWishlistDeleteModal(true)}
-              className={`w-2/3 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-7 disabled:bg-gray-600${
+              className={`w-2/3 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-7 disabled:bg-gray-600 ${
                 (wishlistLoading || wishlistContainer.wishlists.length <= 1) && 'cursor-not-allowed opacity-50'
               }`}
               disabled={wishlistLoading || wishlistContainer.wishlists.length <= 1}

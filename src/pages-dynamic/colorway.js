@@ -10,7 +10,7 @@ import SEO from '../components/seo';
 import {
   addCap,
   addTradeCap,
-  getDefaultWishlistContainer,
+  defaultWishlistContainer,
   getWishlistContainer,
   isInTradeList,
   isInWishlist,
@@ -37,7 +37,7 @@ const Maker = (props) => {
     setState({ text: 'Copied!' });
   };
 
-  const [wishlistContainer, setStateWishlist] = useState(getDefaultWishlistContainer());
+  const [wishlistContainer, setStateWishlist] = useState(defaultWishlistContainer);
   useEffect(() => {
     setStateWishlist(getWishlistContainer());
   }, []);
