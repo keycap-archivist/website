@@ -1,15 +1,26 @@
 /* eslint-disable no-return-assign */
-import React, { useState, useEffect } from 'react';
-import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'gatsby';
 import { sortBy } from 'lodash';
+import React, { useEffect, useState } from 'react';
 
-import { getWishlist, isInWishlist, rmCap, addCap, isInTradeList, rmTradeCap, addTradeCap, WishlistLimit, TradeListLimit } from '../internal/wishlist';
-import Layout from '../layouts/base';
+import Alert from '../components/alert';
+import SubmitNewCwModal from '../components/modals/submit-new-cw';
 import SEO from '../components/seo';
 import ThumbnailImage from '../components/thumbnail-image';
-import SubmitNewCwModal from '../components/modals/submit-new-cw';
-import Alert from '../components/alert';
+import {
+  addCap,
+  addTradeCap,
+  defaultWishlistContainer,
+  getWishlistContainer,
+  isInTradeList,
+  isInWishlist,
+  rmCap,
+  rmTradeCap,
+  TradeListLimit,
+  WishlistLimit,
+} from '../internal/wishlist';
+import Layout from '../layouts/base';
 
 const Maker = (props) => {
   const { pageContext, location } = props;
@@ -17,10 +28,11 @@ const Maker = (props) => {
 
   const seoTitle = `${maker.name} - ${sculpt.name}`;
 
-  const [wishlist, setStateWishlist] = useState(undefined);
+  const [wishlistContainer, setStateWishlist] = useState(defaultWishlistContainer);
   useEffect(() => {
-    setStateWishlist(getWishlist());
+    setStateWishlist(getWishlistContainer());
   }, []);
+  const wishlist = wishlistContainer.wishlists.find((x) => x.id === wishlistContainer.activeWishlistId);
   const cwList = selfOrder === true ? sculpt.colorways : sortBy(sculpt.colorways, (x) => x.name);
   const [showModal, setShowModal] = useState(false);
 
@@ -116,7 +128,7 @@ const Maker = (props) => {
                 {isInWishlist(wishlist, c.id) ? (
                   <FontAwesomeIcon
                     id="favStar"
-                    title="Remove from favorites"
+                    title={`Remove from '${wishlist.settings.title.text}' list`}
                     className="m-1 star-icon text-yellow-500 cursor-pointer"
                     icon={['fas', 'star']}
                     onClick={() => setStateWishlist(rmCap(c.id))}
@@ -124,7 +136,7 @@ const Maker = (props) => {
                 ) : (
                   <FontAwesomeIcon
                     id="favStar"
-                    title="Add to favorites"
+                    title={`Add to '${wishlist.settings.title.text}' list`}
                     className="m-1 star-icon text-gray-500 cursor-pointer"
                     icon={['fas', 'star']}
                     onClick={() => {
@@ -142,7 +154,7 @@ const Maker = (props) => {
                 {isInTradeList(wishlist, c.id) ? (
                   <FontAwesomeIcon
                     id="favTrade"
-                    title="Remove from trade list"
+                    title={`Remove from '${wishlist.settings.title.text}' trade list`}
                     className="m-1 redo-icon text-yellow-500 cursor-pointer"
                     icon={['fas', 'redo']}
                     onClick={() => setStateWishlist(rmTradeCap(c.id))}
@@ -150,7 +162,7 @@ const Maker = (props) => {
                 ) : (
                   <FontAwesomeIcon
                     id="favTrade"
-                    title="Add to trade list (and remove from wishlist)"
+                    title={`Add to '${wishlist.settings.title.text}' trade list${isInWishlist(wishlist, c.id) ? ' (and remove from wishlist)' : ''}`}
                     className="m-1 redo-icon text-gray-500 cursor-pointer"
                     icon={['fas', 'redo']}
                     onClick={() => {

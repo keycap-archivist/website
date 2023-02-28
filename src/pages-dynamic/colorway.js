@@ -1,14 +1,25 @@
 /* eslint-disable no-return-assign */
-import React, { useState, useEffect } from 'react';
-import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'gatsby';
+import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { getWishlist, isInWishlist, rmCap, addCap, isInTradeList, rmTradeCap, addTradeCap, WishlistLimit, TradeListLimit } from '../internal/wishlist';
-import Layout from '../layouts/base';
-import SEO from '../components/seo';
 import Alert from '../components/alert';
 import SubmitNameModal from '../components/modals/submit-name';
+import SEO from '../components/seo';
+import {
+  addCap,
+  addTradeCap,
+  defaultWishlistContainer,
+  getWishlistContainer,
+  isInTradeList,
+  isInWishlist,
+  rmCap,
+  rmTradeCap,
+  TradeListLimit,
+  WishlistLimit,
+} from '../internal/wishlist';
+import Layout from '../layouts/base';
 
 const Maker = (props) => {
   const { pageContext, location } = props;
@@ -26,10 +37,11 @@ const Maker = (props) => {
     setState({ text: 'Copied!' });
   };
 
-  const [wishlist, setStateWishlist] = useState(undefined);
+  const [wishlistContainer, setStateWishlist] = useState(defaultWishlistContainer);
   useEffect(() => {
-    setStateWishlist(getWishlist());
+    setStateWishlist(getWishlistContainer());
   }, []);
+  const wishlist = wishlistContainer.wishlists.find((x) => x.id === wishlistContainer.activeWishlistId);
   const cwImg = `https://cdn.keycap-archivist.com/keycaps/720/${colorway.id}.jpg`;
   return (
     <Layout>
@@ -148,7 +160,7 @@ const Maker = (props) => {
                   rounded"
               >
                 <FontAwesomeIcon className="mr-1" icon={['fas', 'star']} />
-                <span>Remove from wishlist</span>
+                <span>Remove from &quot;{wishlist.settings.title.text}&quot; wishlist</span>
               </button>
             ) : (
               <button
@@ -176,7 +188,7 @@ const Maker = (props) => {
                   rounded"
               >
                 <FontAwesomeIcon className="mr-1" icon={['fas', 'star']} />
-                <span>Add to wishlist</span>
+                <span>Add to &quot;{wishlist.settings.title.text}&quot; wishlist</span>
               </button>
             )}
             {isInTradeList(wishlist, colorway.id) ? (
@@ -199,7 +211,7 @@ const Maker = (props) => {
                   rounded"
               >
                 <FontAwesomeIcon className="mr-1" icon={['fas', 'redo']} />
-                <span>Remove from trade list</span>
+                <span>Remove from &quot;{wishlist.settings.title.text}&quot; trade list</span>
               </button>
             ) : (
               <button
@@ -227,7 +239,7 @@ const Maker = (props) => {
                   rounded"
               >
                 <FontAwesomeIcon className="mr-1" icon={['fas', 'redo']} />
-                <span>Add to trade list</span>
+                <span>Add to &quot;{wishlist.settings.title.text}&quot; trade list</span>
               </button>
             )}
           </div>
