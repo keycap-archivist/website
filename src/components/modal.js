@@ -32,7 +32,7 @@ const Modal = (props) => (
                 flex
                 flex-col
                 w-full
-                bg-white
+                bg-blue_ka
                 outline-none
                 focus:outline-none"
         >
