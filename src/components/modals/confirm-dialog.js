@@ -3,7 +3,7 @@ import Modal from '../modal';
 
 const ConfirmDialogModal = (props) => (
   <Modal modalHeader={props.modalHeader} setModal={props.setModal}>
-    <div className="relative p-6 flex content-around">
+    <div className="bg-blue_ka relative p-6 flex content-around">
       <div className="w-full pr-2">
         <label>{props.placeholder}</label>
       </div>
