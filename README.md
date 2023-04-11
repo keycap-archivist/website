@@ -14,4 +14,3 @@ yarn develop
 ## ToDo
 
 - [ ] Better Wishlist UI
-- [ ] Add Multiple Wishlist selection
