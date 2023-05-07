@@ -24,17 +24,17 @@ jobs:
         uses: actions/cache@v3
         with:
           path: node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
       - name: Use Node.js ${{steps.nodeversion.outputs.NODE}}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ steps.nodeversion.outputs.NODE }}
       - name: install
-        run: yarn
+        run: pnpm i
       - name: lint
-        run: yarn lint
+        run: pnpm lint
       - name: Package website
-        run: yarn package
+        run: pnpm package
       - name: push Website
         env:
           DISCORD_HOOK: ${{ secrets.DISCORD_HOOK }}

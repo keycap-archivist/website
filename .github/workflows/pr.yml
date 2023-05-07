@@ -15,14 +15,14 @@ jobs:
         uses: actions/cache@master
         with:
           path: node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
       - name: Use Node.js ${{steps.nodeversion.outputs.NODE}}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ steps.nodeversion.outputs.NODE }}
       - name: install
-        run: yarn
+        run: pnpm 
       - name: lint
-        run: yarn lint
+        run: pnpm lint
       - name: Package website
-        run: yarn package
+        run: pnpm package
