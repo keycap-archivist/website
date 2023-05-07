@@ -14,8 +14,6 @@ li.maker_tile_item {
     @apply border;
     @apply bg-white;
     @apply hover:text-blue-600;
-    // @apply shadow-xs;
-    // @apply hover:shadow-md;
   }
 
   div.img_holder {
@@ -52,8 +50,6 @@ li.tile_item {
     @apply p-2;
     @apply bg-white;
     @apply hover:text-blue-600;
-    // @apply shadow-xs;
-    // @apply hover:shadow-md;
     @apply pb-4;
   }
 
@@ -67,8 +63,6 @@ li.tile_item {
     @apply p-2;
     @apply bg-white;
     @apply hover:text-blue-600;
-    // @apply shadow-xs;
-    // @apply hover:shadow-md;
     @apply pb-4;
   }
 
