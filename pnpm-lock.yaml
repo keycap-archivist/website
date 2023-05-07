@@ -46,6 +46,9 @@ dependencies:
   gatsby-plugin-offline:
     specifier: 5.23.0
     version: 5.23.0(gatsby@4.25.1)(react-dom@18.2.0)(react@18.2.0)
+  gatsby-plugin-pnpm:
+    specifier: ^1.2.10
+    version: 1.2.10(gatsby@4.25.1)
   gatsby-plugin-postcss:
     specifier: 5.23.0
     version: 5.23.0(gatsby@4.25.1)(postcss@8.4.18)(webpack@5.82.0)
@@ -6074,6 +6077,16 @@ packages:
       - graphql
       - supports-color
 
+  /gatsby-plugin-pnpm@1.2.10(gatsby@4.25.1):
+    resolution: {integrity: sha512-29xjIakNEUY42OBb3wI9Thmawr5EcUUOB3dB8nE51yr/TfKQFCREk+HAOATQHTNedG3VZhgU4wVjl2V3wgOXJA==}
+    peerDependencies:
+      gatsby: ~2.x.x || ~3.x.x || ~4.x.x
+    dependencies:
+      gatsby: 4.25.1(babel-eslint@10.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@3.9.10)
+      lodash.get: 4.4.2
+      lodash.uniq: 4.5.0
+    dev: false
+
   /gatsby-plugin-postcss@5.23.0(gatsby@4.25.1)(postcss@8.4.18)(webpack@5.82.0):
     resolution: {integrity: sha512-uiHPHv+i16kEXtNd+WChofJnwLReefDfQp0uOc9NNMpX73CC0cuZqenntpm/iEATKMZ/7g2uVJyDczONNHYJeg==}
     engines: {node: '>=14.15.0'}
@@ -7836,6 +7849,10 @@ packages:
 
   /lodash.foreach@4.5.0:
     resolution: {integrity: sha512-aEXTF4d+m05rVOAUG3z4vZZ4xVexLKZGF0lIxuHZ1Hplpk/3B6Z1+/ICICYRLm7c41Z2xiejbkCkJoTlypoXhQ==}
+
+  /lodash.get@4.4.2:
+    resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
+    dev: false
 
   /lodash.map@4.6.0:
     resolution: {integrity: sha512-worNHGKLDetmcEYDvh2stPCrrQRkP20E4l0iIS7F8EvzMqBBi7ltvFN5m1HvTf1P7Jk1txKhvFcmYsCr8O2F1Q==}

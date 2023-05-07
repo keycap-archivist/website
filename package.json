@@ -19,6 +19,7 @@
     "gatsby-plugin-google-analytics": "4.23.0",
     "gatsby-plugin-next-seo": "1.10.0",
     "gatsby-plugin-offline": "5.23.0",
+    "gatsby-plugin-pnpm": "^1.2.10",
     "gatsby-plugin-postcss": "5.23.0",
     "gatsby-plugin-purgecss": "6.1.2",
     "gatsby-plugin-react-helmet": "5.23.0",

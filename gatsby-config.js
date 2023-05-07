@@ -7,6 +7,7 @@ const plugins = [
       anonymize: true,
     },
   },
+  'gatsby-plugin-pnpm',
   'gatsby-plugin-next-seo',
   {
     resolve: 'gatsby-plugin-sitemap',
