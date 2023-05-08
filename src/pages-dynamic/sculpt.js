@@ -116,7 +116,7 @@ const Maker = (props) => {
         {cwList.map((c) => (
           <li key={c.id} id={c.id} className="tile_item">
             <div className="tile_sculpt">
-              <Link to={`${location.pathname}/${c.id}`} className="w-full h-full bg-gray-300 thumbnail-wrapper">
+              <Link to={`${location.pathname}${c.id}`} className="w-full h-full bg-gray-300 thumbnail-wrapper">
                 <ThumbnailImage
                   loading="lazy"
                   className="h-full w-full object-cover"
@@ -177,7 +177,7 @@ const Maker = (props) => {
                     }}
                   />
                 )}
-                <Link to={`${location.pathname}/${c.id}`} className="text-sm text-center w-full px-5">
+                <Link to={`${location.pathname}${c.id}`} className="text-sm text-center w-full px-5">
                   {c.name ? c.name : '(Unknown)'}
                 </Link>
               </div>
