@@ -47,7 +47,8 @@
     "slugify": "1.6.5",
     "sortablejs": "1.15.0",
     "svg-react-loader": "0.4.6",
-    "tailwindcss": "2.2.9"
+    "tailwindcss": "2.2.9",
+    "webpack": "^5.82.0"
   },
   "devDependencies": {
     "eslint": "8.27.0",
