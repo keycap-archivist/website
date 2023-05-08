@@ -49,7 +49,7 @@ const Maker = (props) => {
         <Link to="/" className="text-blue-600">
           <FontAwesomeIcon icon={['fas', 'home']} />
         </Link>
-        <span className="text-gray-400"> / </span>
+        <span className="text-slate-400"> / </span>
         <Link to={makerUrl} className="text-blue-600">
           {maker.name}
         </Link>
@@ -89,7 +89,7 @@ const Maker = (props) => {
           )}
         </div>
 
-        {/* <div className="flex flex-row flex-no-wrap shrink-0 mt-1 items-start">
+        {/* <div className="flex flex-row flex-nowrap shrink-0 mt-1 items-start">
           {maker.denySubmission !== true && (
             <button
               className="
@@ -116,7 +116,7 @@ const Maker = (props) => {
         {cwList.map((c) => (
           <li key={c.id} id={c.id} className="tile_item">
             <div className="tile_sculpt">
-              <Link to={`${location.pathname}/${c.id}`} className="thumbnail-wrapper h-full w-full bg-gray-300">
+              <Link to={`${location.pathname}/${c.id}`} className="thumbnail-wrapper h-full w-full bg-slate-300">
                 <ThumbnailImage
                   loading="lazy"
                   className="h-full w-full object-cover"
@@ -137,7 +137,7 @@ const Maker = (props) => {
                   <FontAwesomeIcon
                     id="favStar"
                     title={`Add to '${wishlist.settings.title.text}' list`}
-                    className="star-icon m-1 cursor-pointer text-gray-500"
+                    className="star-icon m-1 cursor-pointer text-slate-500"
                     icon={['fas', 'star']}
                     onClick={() => {
                       if (isInTradeList(wishlist, c.id)) {
@@ -163,7 +163,7 @@ const Maker = (props) => {
                   <FontAwesomeIcon
                     id="favTrade"
                     title={`Add to '${wishlist.settings.title.text}' trade list${isInWishlist(wishlist, c.id) ? ' (and remove from wishlist)' : ''}`}
-                    className="redo-icon m-1 cursor-pointer text-gray-500"
+                    className="redo-icon m-1 cursor-pointer text-slate-500"
                     icon={['fas', 'redo']}
                     onClick={() => {
                       if (isInWishlist(wishlist, c.id)) {

@@ -54,11 +54,14 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="" img={'/android-icon-512x512.png'} />
-      <ul className="-ml-2 -mr-2 flex list-none flex-row flex-wrap">
+      <ul className="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-5">
         {sortedMakers.map((element) => (
-          <li key={element.id} className="maker_tile_item">
-            <Link to={element.path} className="tile_block">
-              <div className="img_holder">
+          <li key={element.id} className="flex flex-col">
+            <Link
+              to={element.path}
+              className="block w-full border bg-white pb-4 hover:text-blue-600 dark:bg-slate-700 dark:text-slate-200 dark:hover:text-blue-600"
+            >
+              <div className="w-full border-b-2 border-slate-300 bg-white dark:border-slate-600">
                 <Img fluid={getImg(element.pageContext.maker.id)} className="block" alt={element.pageContext.maker.name} width="500" height="500" />
               </div>
               <div className="text-header">
@@ -78,7 +81,7 @@ const IndexPage = () => {
                   ) : (
                     <FontAwesomeIcon
                       id="favStar"
-                      className="star-icon m-1 cursor-pointer text-gray-500"
+                      className="star-icon m-1 cursor-pointer text-slate-500"
                       icon={['fas', 'star']}
                       onClick={(e) => {
                         e.preventDefault();

@@ -27,7 +27,7 @@
     "gatsby-plugin-sass": "6.9.0",
     "gatsby-plugin-sharp": "5.9.0",
     "gatsby-plugin-sitemap": "6.9.0",
-    "gatsby-plugin-web-font-loader": "1.0.4",
+    "gatsby-omni-font-loader": "^2.0.2",
     "gatsby-source-filesystem": "5.9.0",
     "gatsby-transformer-remark": "6.9.0",
     "gatsby-transformer-sharp": "5.9.0",
@@ -48,7 +48,9 @@
     "webpack": "^5.82.0"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.3",
     "autoprefixer": "10.4.14",
+    "clsx": "^1.2.1",
     "eslint": "8.40.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-config-prettier": "8.8.0",

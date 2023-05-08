@@ -4,10 +4,26 @@ import React, { useState } from 'react';
 import { Link, graphql, useStaticQuery } from 'gatsby';
 import { quickScore } from 'quick-score';
 import { uniqBy } from 'lodash';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const MAX_CW_RESULT = 20;
 const MAX_SCULPT_RESULT = 10;
 const MAX_MAKER_RESULT = 5;
+
+const SearchResultsCategory = ({ title, key }) => (
+  <div className="mb-2 border-b-2 border-slate-400 dark:border-slate-600 pb-1 pt-2 first:pt-0" key={key}>
+    <span className="text-xs font-bold uppercase text-slate-400 dark:text-slate-600">{title}</span>
+  </div>
+);
+
+const SearchResultsLink = ({ title, url, key }) => (
+  <div className="p-2 transition-colors rounded hover:bg-blue-500 hover:text-white" key={key}>
+    <Link to={url} className="text-sm">
+      <h4>{title}</h4>
+    </Link>
+  </div>
+);
 
 const Search = () => {
   const [showResult, setShowResult] = useState(false);
@@ -120,54 +136,22 @@ const Search = () => {
     const sculpts = results.filter((x) => x.type === 'sculpt');
     const cws = results.filter((x) => x.type === 'colorway');
     const output = [];
+
     if (artists.length) {
-      output.push(
-        <div className="item-cat-title" key={'maker-title'}>
-          <span className="item-cat-text">Artists</span>
-        </div>,
-      );
-      output.push(
-        ...artists.map((page, i) => (
-          <div className="item-search" key={`maker-${i}`}>
-            <Link to={page.url} className="link">
-              <h4>{page.title}</h4>
-            </Link>
-          </div>
-        )),
-      );
+      output.push(<SearchResultsCategory title={'Artists'} key={'maker-title'} />);
+      output.push(...artists.map((page, i) => <SearchResultsLink title={page.title} url={page.url} key={`maker-${i}`} />));
     }
+
     if (sculpts.length) {
-      output.push(
-        <div className="item-cat-title" key={'sculpt-title'}>
-          <span className="item-cat-text">Sculpts</span>
-        </div>,
-      );
-      output.push(
-        ...sculpts.map((page, i) => (
-          <div className="item-search" key={`sculpt-${i}`}>
-            <Link to={page.url} className="link">
-              <h4>{page.title}</h4>
-            </Link>
-          </div>
-        )),
-      );
+      output.push(<SearchResultsCategory title={'Sculpts'} key={'sculpt-title'} />);
+      output.push(...sculpts.map((page, i) => <SearchResultsLink title={page.title} url={page.url} key={`sculpt-${i}`} />));
     }
+
     if (cws.length) {
-      output.push(
-        <div className="item-cat-title" key={'cw-title'}>
-          <span className="item-cat-text">Colorways</span>
-        </div>,
-      );
-      output.push(
-        ...cws.map((page, i) => (
-          <div className="item-search" key={`cw-${i}`}>
-            <Link to={page.url} className="link">
-              <h4>{page.title}</h4>
-            </Link>
-          </div>
-        )),
-      );
+      output.push(<SearchResultsCategory title={'Colorways'} key={'cw-title'} />);
+      output.push(...cws.map((page, i) => <SearchResultsLink title={page.title} url={page.url} key={`cw-${i}`} />));
     }
+
     return output;
   };
 
@@ -178,22 +162,23 @@ const Search = () => {
   };
 
   return (
-    <div className="mr-6 w-full">
-      <input
-        className="bg-purple-white w-full rounded border-0 p-2 text-gray-900 shadow"
-        type="search"
-        onChange={handleChange}
-        placeholder={'Search'}
-        value={query}
-        onFocus={onFocus}
-      />
+    <div className="relative flex flex-col items-center">
+      <label className="relative block w-full items-center text-sm text-slate-600 shadow-sm transition focus-within:text-indigo-300 dark:text-slate-300">
+        <FontAwesomeIcon icon={faSearch} className="pointer-events-none absolute left-3 top-1/2 z-10 -translate-y-1/2 transform text-opacity-75" />
+        <input
+          className="rounded-md border-gray-300/90 pl-9 text-slate-600 placeholder:text-sm placeholder:font-medium placeholder:text-slate-600/50 hover:border-gray-300/100 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:border-gray-700/90 dark:bg-slate-700 dark:text-slate-300 dark:placeholder:text-slate-300/50 dark:hover:border-gray-700/100"
+          type="search"
+          onChange={handleChange}
+          placeholder={'Search'}
+          value={query}
+          onFocus={onFocus}
+        />
+      </label>
       {showResult ? (
-        <div className="absolute z-10 mr-3 mt-3 max-h-[75vh] overflow-y-scroll rounded bg-white p-3 shadow dark:bg-gray-800">
+        <div className="absolute z-10 max-h-[60vh] w-fit overflow-y-scroll rounded-md bg-white p-6 shadow dark:bg-slate-800 md:mt-16 lg:w-[600px]">
           <ResultList />
         </div>
-      ) : (
-        ''
-      )}
+      ) : null}
     </div>
   );
 };

@@ -71,7 +71,7 @@ const Config = () => {
                     }
                   }}
                 />
-                <div className="h-4 w-10 rounded-full bg-gray-400 shadow-inner"></div>
+                <div className="h-4 w-10 rounded-full bg-slate-400 shadow-inner"></div>
                 <div className="dot absolute -left-1 -top-1 h-6 w-6 rounded-full bg-white shadow transition"></div>
               </div>
             </label>
@@ -108,7 +108,7 @@ const Config = () => {
                           setComponentConfig('cloudAutoSync', e.target.checked);
                         }}
                       />
-                      <div className="h-4 w-10 rounded-full bg-gray-400 shadow-inner"></div>
+                      <div className="h-4 w-10 rounded-full bg-slate-400 shadow-inner"></div>
                       <div className="dot absolute -left-1 -top-1 h-6 w-6 rounded-full bg-white shadow transition"></div>
                     </div>
                   </label>

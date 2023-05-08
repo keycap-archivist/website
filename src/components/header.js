@@ -1,62 +1,107 @@
 import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
 import React from 'react';
+import clsx from 'clsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Search from './search';
 import Logo from '../assets/img/ka-logo.svg';
+import useScrollPosition from '../hooks/useScrollPosition';
 
-const Header = ({ siteTitle, darkMode }) => {
-  const themeClass = darkMode ? 'dark' : 'light';
+const Header = ({ siteTitle }) => {
+  const isScrolled = useScrollPosition();
+
+  const internalLinks = [
+    {
+      name: 'Wishlist',
+      url: '/wishlist',
+      isGatsbyLink: true,
+    },
+    {
+      name: 'Donate',
+      url: 'https://ko-fi.com/keycaparchivist',
+      isGatsbyLink: false,
+    },
+    {
+      name: 'Config',
+      url: '/config',
+      isGatsbyLink: true,
+    },
+    {
+      name: 'About',
+      url: '/about',
+      isGatsbyLink: true,
+    },
+  ];
+
+  const socialLinks = [
+    {
+      name: 'Github',
+      url: 'https://github.com/keycap-archivist',
+      iconName: 'github',
+    },
+    {
+      name: 'Discord',
+      url: 'https://discord.gg/nXrShaa',
+      iconName: 'discord',
+    },
+  ];
 
   return (
-    <header className={`mb-3 bg-blue_ka ${themeClass}`}>
-      <nav className="container mx-auto flex flex-col items-center justify-between px-3 py-5 md:flex-row">
-        <h1 className="mb-2 flex shrink-0 items-center text-white md:mb-0">
-          <Link to="/" className="flex flex-row items-center text-xl font-bold text-white">
-            <img src={Logo} alt={siteTitle} width="40" height="40" className="mr-2" />
-            {siteTitle}
+    <header
+      className={clsx(
+        'sticky top-0 z-50 mb-6 bg-white shadow-md shadow-slate-900/5 transition duration-300 dark:shadow-none',
+        isScrolled ? 'dark:bg-slate-950/95 dark:backdrop-blur-md dark:[@supports(backdrop-filter:blur(0))]:bg-slate-900/80' : 'dark:bg-transparent',
+      )}
+    >
+      <nav className="container mx-auto flex w-full flex-col items-center px-3 py-4 md:flex-row">
+        <div className="flex shrink-0 basis-0  md:flex-grow">
+          <Link to="/" className="mb-2 flex items-center md:mb-0">
+            <img src={Logo} alt={siteTitle} width="40" height="40" className="mr-4" />
+            <span className="text-lg font-bold uppercase text-slate-900 dark:text-white">{siteTitle}</span>
           </Link>
-        </h1>
-        <div className="md:flex-no-wrap flex w-full flex-row flex-wrap items-center justify-center md:justify-end">
-          <div className="flex-no-wrap mr-3 flex flex-row items-stretch md:mr-6">
-            <Link to="/wishlist" className="mr-3 text-white hover:text-teal-200 md:mr-6">
-              Wishlist
-            </Link>
-            <a href="https://ko-fi.com/keycaparchivist" target="_blank" rel="noopener noreferrer" className="mr-3 text-white hover:text-teal-200 md:mr-6">
-              Donate
-            </a>
-            <Link to="/config" className="mr-3 text-white hover:text-teal-200 md:mr-6">
-              Config
-            </Link>
-            <Link to="/about" className="text-white hover:text-teal-200">
-              About
-            </Link>
+        </div>
+        <div className="mt-4 flex items-center md:mt-0">
+          <Search />
+        </div>
+        <div className="flex basis-0 flex-wrap items-center md:flex-grow md:flex-nowrap md:justify-end">
+          <div className="flex items-center gap-x-5 font-semibold">
+            {internalLinks.map((link) => {
+              if (link.isGatsbyLink) {
+                return (
+                  <Link
+                    key={link.name}
+                    to={link.url}
+                    className="text-sm text-slate-900/80 transition-colors hover:text-slate-900/100 dark:text-white/80 dark:hover:text-white/100"
+                  >
+                    {link.name}
+                  </Link>
+                );
+              }
+              return (
+                <a
+                  key={link.name}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-slate-900/80 transition-colors hover:text-slate-900/100 dark:text-white/80 dark:hover:text-white/100"
+                >
+                  {link.name}
+                </a>
+              );
+            })}
           </div>
-          <ul
-            className="
-          flex
-          list-none
-          flex-row
-          items-center
-          justify-center
-          space-x-3
-          md:mr-6
-          md:justify-start
-          md:space-x-6"
-          >
-            <li>
-              <a href="https://github.com/keycap-archivist" target="_blank" rel="noopener noreferrer" className="text-xl text-white hover:text-teal-200">
-                <FontAwesomeIcon icon={['fab', 'github']} />
+          <div className="ml-5 flex items-center gap-x-5 border-l border-slate-200 pl-6 dark:border-slate-700">
+            {socialLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-lg text-slate-900/80 transition-colors hover:text-slate-900/100 dark:text-white/80 dark:hover:text-white/100"
+              >
+                <FontAwesomeIcon icon={['fab', link.iconName]} />
               </a>
-            </li>
-            <li>
-              <a href="https://discord.gg/nXrShaa" target="_blank" rel="noopener noreferrer" className="text-xl text-white hover:text-teal-200">
-                <FontAwesomeIcon icon={['fab', 'discord']} />
-              </a>
-            </li>
-          </ul>
-          <div className="mt-4 w-full md:mt-0 md:w-1/3">
-            <Search />
+            ))}
           </div>
         </div>
       </nav>

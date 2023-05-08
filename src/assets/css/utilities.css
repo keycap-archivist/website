@@ -1,4 +1,19 @@
 @layer utilities {
+  input[type='search'] {
+    &::-webkit-search-cancel-button {
+      @apply pointer-events-none h-4 w-4 cursor-pointer appearance-none rounded-full bg-gray-300 bg-contain opacity-0;
+      background: url(https://pro.fontawesome.com/releases/v5.10.0/svgs/solid/times-circle.svg) no-repeat 50% 50%;
+    }
+
+    &:focus::-webkit-search-cancel-button {
+      @apply pointer-events-auto opacity-60;
+
+      @media (prefers-color-scheme: dark) {
+        @apply invert;
+      }
+    }
+  }
+
   @keyframes modalBackgroundFade {
     from {
       @apply opacity-0;

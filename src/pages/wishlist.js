@@ -181,8 +181,8 @@ const Wishlist = () => {
             <select
               id="activeWishlist"
               className="focus:shadow-outline w-full
-              appearance-none rounded border border-gray-100
-               px-3 py-2 leading-tight text-gray-700
+              appearance-none rounded border border-slate-100
+               px-3 py-2 leading-tight text-slate-700
                shadow focus:outline-none"
               type="select"
               value={wishlist.id}
@@ -199,7 +199,7 @@ const Wishlist = () => {
             <button
               id="addWishlist"
               onClick={addNewWishlist}
-              className={`mt-7 w-2/3 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:bg-gray-600 ${
+              className={`mt-7 w-2/3 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:bg-slate-600 ${
                 (wishlistLoading || wishlistContainer.wishlists.length >= WishlistContainerLimit) && 'cursor-not-allowed opacity-50'
               }`}
               disabled={wishlistLoading || wishlistContainer.wishlists.length >= WishlistContainerLimit}
@@ -211,7 +211,7 @@ const Wishlist = () => {
             <button
               id="delWishlist"
               onClick={() => setShowWishlistDeleteModal(true)}
-              className={`mt-7 w-2/3 rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700 disabled:bg-gray-600 ${
+              className={`mt-7 w-2/3 rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700 disabled:bg-slate-600 ${
                 (wishlistLoading || wishlistContainer.wishlists.length <= 1) && 'cursor-not-allowed opacity-50'
               }`}
               disabled={wishlistLoading || wishlistContainer.wishlists.length <= 1}
@@ -230,7 +230,7 @@ const Wishlist = () => {
               value={wishlist.settings.capsPerLine}
               onChange={(e) => setSettingWishlist('capsPerLine', '', e)}
               className="focus:shadow-outline w-full appearance-none rounded border
-              border-gray-100 px-3 py-2 leading-tight text-gray-700
+              border-slate-100 px-3 py-2 leading-tight text-slate-700
               shadow focus:outline-none"
               type="number"
             />
@@ -242,8 +242,8 @@ const Wishlist = () => {
             <select
               id="priorityColor"
               className="focus:shadow-outline w-full
-              appearance-none rounded border border-gray-100
-               px-3 py-2 leading-tight text-gray-700
+              appearance-none rounded border border-slate-100
+               px-3 py-2 leading-tight text-slate-700
                shadow focus:outline-none"
               type="select"
               value={wishlist.settings.priority.color}
@@ -263,8 +263,8 @@ const Wishlist = () => {
             <select
               id="priorityFont"
               className="focus:shadow-outline w-full
-              appearance-none rounded border border-gray-100
-               px-3 py-2 leading-tight text-gray-700
+              appearance-none rounded border border-slate-100
+               px-3 py-2 leading-tight text-slate-700
                shadow focus:outline-none"
               type="select"
               value={wishlist.settings.priority.font}
@@ -288,8 +288,8 @@ const Wishlist = () => {
             <select
               id="legendsFont"
               className="focus:shadow-outline w-full
-              appearance-none rounded border border-gray-100
-               px-3 py-2 leading-tight text-gray-700
+              appearance-none rounded border border-slate-100
+               px-3 py-2 leading-tight text-slate-700
                shadow focus:outline-none"
               type="select"
               value={wishlist.settings.legends.font}
@@ -309,8 +309,8 @@ const Wishlist = () => {
             <select
               id="legendsColor"
               className="focus:shadow-outline w-full
-              appearance-none rounded border border-gray-100
-               px-3 py-2 leading-tight text-gray-700
+              appearance-none rounded border border-slate-100
+               px-3 py-2 leading-tight text-slate-700
                shadow focus:outline-none"
               type="select"
               value={wishlist.settings.legends.color}
@@ -330,8 +330,8 @@ const Wishlist = () => {
             <select
               id="backgroundColor"
               className="focus:shadow-outline w-full
-              appearance-none rounded border border-gray-100
-               px-3 py-2 leading-tight text-gray-700
+              appearance-none rounded border border-slate-100
+               px-3 py-2 leading-tight text-slate-700
                shadow focus:outline-none"
               type="select"
               value={wishlist.settings.background.color}
@@ -350,13 +350,13 @@ const Wishlist = () => {
         <div className="mb-4">
           <div className="mt-2 flex flex-wrap">
             <div className="w-1/3 pr-2">
-              <label className="mb-2 block border-gray-100 text-sm font-bold text-gray-700" htmlFor="tradeTitleText">
+              <label className="mb-2 block border-slate-100 text-sm font-bold text-slate-700" htmlFor="tradeTitleText">
                 Trade Text
               </label>
               <input
                 className="focus:shadow-outline w-full appearance-none
               rounded border
-              border-gray-100 px-3 py-2 leading-tight text-gray-700
+              border-slate-100 px-3 py-2 leading-tight text-slate-700
               shadow focus:outline-none"
                 id="tradeTitleText"
                 type="text"
@@ -372,7 +372,7 @@ const Wishlist = () => {
               <select
                 id="tradeTitleColor"
                 className="focus:shadow-outline w-full appearance-none rounded
-                border border-gray-100 px-3 py-2 leading-tight text-gray-700
+                border border-slate-100 px-3 py-2 leading-tight text-slate-700
                 shadow focus:outline-none"
                 type="select"
                 value={wishlist.settings.tradeTitle.color}
@@ -393,8 +393,8 @@ const Wishlist = () => {
                 id="tradeTitleFont"
                 className="focus:shadow-outline w-full appearance-none
                 rounded
-                border border-gray-100 px-3 py-2 leading-tight
-                text-gray-700
+                border border-slate-100 px-3 py-2 leading-tight
+                text-slate-700
                 shadow focus:outline-none"
                 type="select"
                 value={wishlist.settings.tradeTitle.font}
@@ -421,7 +421,7 @@ const Wishlist = () => {
             </label>
             <input
               className="focus:shadow-outline w-full appearance-none rounded
-              border border-gray-100 px-3 py-2 leading-tight text-gray-700
+              border border-slate-100 px-3 py-2 leading-tight text-slate-700
               shadow focus:outline-none"
               id="titleText"
               type="text"
@@ -438,7 +438,7 @@ const Wishlist = () => {
             <select
               id="titleColor"
               className="focus:shadow-outline w-full appearance-none rounded
-              border border-gray-100 px-3 py-2 leading-tight text-gray-700
+              border border-slate-100 px-3 py-2 leading-tight text-slate-700
               shadow focus:outline-none"
               type="select"
               value={wishlist.settings.title.color}
@@ -459,8 +459,8 @@ const Wishlist = () => {
               id="titleFont"
               className="focus:shadow-outline w-full appearance-none
               rounded
-              border border-gray-100 px-3 py-2 leading-tight
-              text-gray-700
+              border border-slate-100 px-3 py-2 leading-tight
+              text-slate-700
               shadow focus:outline-none"
               type="select"
               value={wishlist.settings.title.font}
@@ -485,7 +485,7 @@ const Wishlist = () => {
             <input
               className="focus:shadow-outline w-full appearance-none
               rounded border
-              border-gray-100 px-3 py-2 leading-tight text-gray-700
+              border-slate-100 px-3 py-2 leading-tight text-slate-700
               shadow focus:outline-none"
               id="extraText"
               type="text"
@@ -502,7 +502,7 @@ const Wishlist = () => {
             <select
               id="extraColor"
               className="focus:shadow-outline w-full appearance-none rounded
-                border border-gray-100 px-3 py-2 leading-tight text-gray-700
+                border border-slate-100 px-3 py-2 leading-tight text-slate-700
                 shadow focus:outline-none"
               type="select"
               value={wishlist.settings.extraText.color}
@@ -523,8 +523,8 @@ const Wishlist = () => {
               id="extraFont"
               className="focus:shadow-outline w-full appearance-none
                 rounded
-                border border-gray-100 px-3 py-2 leading-tight
-                text-gray-700
+                border border-slate-100 px-3 py-2 leading-tight
+                text-slate-700
                 shadow focus:outline-none"
               type="select"
               value={wishlist.settings.extraText.font}
@@ -548,7 +548,7 @@ const Wishlist = () => {
             <input
               className="focus:shadow-outline w-full appearance-none
               rounded border
-              border-gray-100 px-3 py-2 leading-tight text-gray-700
+              border-slate-100 px-3 py-2 leading-tight text-slate-700
               shadow focus:outline-none"
               id="socialReddit"
               type="text"
@@ -564,7 +564,7 @@ const Wishlist = () => {
             <input
               className="focus:shadow-outline w-full appearance-none
               rounded border
-              border-gray-100 px-3 py-2 leading-tight text-gray-700
+              border-slate-100 px-3 py-2 leading-tight text-slate-700
               shadow focus:outline-none"
               id="socialDiscord"
               type="text"
@@ -729,7 +729,7 @@ const Wishlist = () => {
           <div className="mr-2 w-full md:w-1/4">
             <button
               onClick={genWishlist}
-              className={`mb-2  w-full rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:bg-gray-600 ${
+              className={`mb-2  w-full rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:bg-slate-600 ${
                 (wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length)) && 'cursor-not-allowed opacity-50'
               }`}
               disabled={wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length)}
@@ -772,9 +772,9 @@ const Wishlist = () => {
             <div className="mt-2 flex flex-wrap">
               <div className="w-1/2 pr-2">
                 <label
-                  className="mb-2 block border-gray-100
+                  className="mb-2 block border-slate-100
                 text-sm font-bold
-                text-gray-700"
+                text-slate-700"
                   htmlFor="haveText"
                 >
                   {wishlist.settings.tradeTitle.text || 'Have'}
@@ -783,9 +783,9 @@ const Wishlist = () => {
               </div>
               <div className="w-1/2 pr-2">
                 <label
-                  className="mb-2 block border-gray-100
+                  className="mb-2 block border-slate-100
                 text-sm font-bold
-                text-gray-700"
+                text-slate-700"
                   htmlFor="wantText"
                 >
                   {wishlist.settings.title.text || 'Want'}

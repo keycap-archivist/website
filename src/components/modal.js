@@ -43,7 +43,7 @@ const Modal = (props) => (
                   justify-between
                   rounded-t border-b
                   border-solid
-                  border-gray-300
+                  border-slate-300
                   p-5"
           >
             <h3 className="text-2xl font-semibold">{props.modalHeader}</h3>

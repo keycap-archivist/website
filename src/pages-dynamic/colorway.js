@@ -54,11 +54,11 @@ const Maker = (props) => {
           <Link to="/" className="text-blue-600">
             <FontAwesomeIcon icon={['fas', 'home']} />
           </Link>
-          <span className="text-gray-400"> / </span>
+          <span className="text-slate-400"> / </span>
           <Link to={makerUrl} className="text-blue-600">
             {makerName}
           </Link>
-          <span className="text-gray-400"> / </span>
+          <span className="text-slate-400"> / </span>
           <Link to={sculptUrl} className="text-blue-600">
             {sculptName}
           </Link>
@@ -101,7 +101,7 @@ const Maker = (props) => {
               ''
             )}
           </div>
-          <div className="flex-no-wrap mt-1 flex shrink-0 flex-row items-start">
+          <div className="flex-nowrap mt-1 flex shrink-0 flex-row items-start">
             {!colorway.name && (
               <button
                 className="
@@ -126,7 +126,7 @@ const Maker = (props) => {
             <CopyToClipboard text={location.href} onCopy={updateText}>
               <button
                 className="
-                whitespace-no-wrap
+                whitespace-nowrap
                 block
                 w-20
                 rounded
