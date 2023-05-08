@@ -2,16 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-gray-200;
-  @apply text-gray-900;
+@layer base {
+  html {
+    body {
+      @apply bg-gray-200 text-gray-900;
+      font-family: Asap, sans-serif;
+    }
 
-  font-family: Asap, sans-serif;
-}
-
-html.dark body {
-  @apply text-gray-200;
-  @apply bg-gray-800;
+    &.dark body {
+      @apply text-gray-200;
+      @apply bg-gray-800;
+    }
+  }
 }
 
 .star-icon {

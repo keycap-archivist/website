@@ -11,7 +11,7 @@ const Header = ({ siteTitle, darkMode }) => {
   return (
     <header className={`bg-blue_ka mb-3 ${themeClass}`}>
       <nav className="container flex flex-col md:flex-row items-center justify-between mx-auto px-3 py-5">
-        <h1 className="flex items-center flex-shrink-0 mb-2 md:mb-0 text-white">
+        <h1 className="flex items-center shrink-0 mb-2 md:mb-0 text-white">
           <Link to="/" className="text-xl font-bold text-white flex flex-row items-center">
             <img src={Logo} alt={siteTitle} width="40" height="40" className="mr-2" />
             {siteTitle}

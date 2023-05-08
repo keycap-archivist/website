@@ -89,7 +89,7 @@ const Maker = (props) => {
           )}
         </div>
 
-        {/* <div className="flex flex-row flex-no-wrap flex-shrink-0 mt-1 items-start">
+        {/* <div className="flex flex-row flex-no-wrap shrink-0 mt-1 items-start">
           {maker.denySubmission !== true && (
             <button
               className="
