@@ -14,22 +14,21 @@ jobs:
           token: ${{ secrets.REPO_SCOPE }}
       - id: nodeversion
         run: echo ::set-output name=NODE::$(cat .nvmrc)
-      - name: restore Cache
-        uses: actions/cache@master
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
       - name: Use Node.js ${{steps.nodeversion.outputs.NODE}}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ steps.nodeversion.outputs.NODE }}
-      - name: install
-        run: yarn
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 8
+          run_install: true
       - name: Update database
         env:
           DISCORD_HOOK: ${{ secrets.DISCORD_HOOK }}
         run: |
-          yarn update-db
+          pnpm update-db
           git config --global user.name 'Keycap Archivist Bot'
           git add catalog-revision.txt
           git add src/db/catalog.json
