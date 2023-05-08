@@ -180,7 +180,7 @@ const Search = () => {
   return (
     <div className="w-full mr-6">
       <input
-        className="search__input bg-purple-white shadow rounded border-0 p-2 w-full"
+        className="text-gray-900 bg-purple-white shadow rounded border-0 p-2 w-full"
         type="search"
         onChange={handleChange}
         placeholder={'Search'}
@@ -188,7 +188,7 @@ const Search = () => {
         onFocus={onFocus}
       />
       {showResult ? (
-        <div className="search__list">
+        <div className="z-10 p-3 max-h-[75vh] absolute overflow-y-scroll bg-white shadow rounded dark:bg-gray-800 mt-3 mr-3">
           <ResultList />
         </div>
       ) : (

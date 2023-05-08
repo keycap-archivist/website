@@ -7,7 +7,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import '../assets/scss/style.scss';
+import '../assets/css/style.css';
 
 import Header from '../components/header';
 import { initConfig } from '../internal/config';
@@ -50,12 +50,10 @@ const Layout = ({ children }) => {
         <link rel="manifest" href="/site.webmanifest" />
       </Helmet>
       <Header siteTitle={data.site.siteMetadata.title} />
-      <div className="container mx-auto px-3 pb-8">
-        <main>
-          <AcBanner />
-          {children}
-        </main>
-      </div>
+      <main className="container mx-auto px-3 pb-8">
+        <AcBanner />
+        {children}
+      </main>
     </>
   );
 };

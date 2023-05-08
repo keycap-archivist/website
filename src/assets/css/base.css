@@ -1,0 +1,22 @@
+@layer base {
+  body {
+    @apply bg-gray-200 text-gray-900 dark:text-gray-200 dark:bg-gray-800;
+    font-family: Asap, sans-serif;
+  }
+}
+
+@layer utilities {
+  .animate-spin-slow {
+    animation: spin 2s linear infinite;
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+@layer utilities {
+  @keyframes modalBackgroundFade {
+    from {
+      @apply opacity-0;
+    }
+
+    to {
+      @apply opacity-25;
+    }
+  }
+
+  @keyframes modalFade {
+    from {
+      @apply opacity-0;
+    }
+
+    to {
+      @apply opacity-100;
+    }
+  }
+}
