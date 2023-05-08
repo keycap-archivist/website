@@ -49,7 +49,7 @@ const Maker = (props) => {
       {showErrorAlert && <Alert color="red" alertMessage="Suggestion Submission Failed" setAlert={setShowErrorAlert} />}
       {showExceedAlert && <Alert color="red" alertMessage="Wishlist or trade list items exceeded" setAlert={setShowExceedAlert} />}
       <SEO title={seoTitle} img={cwImg} />
-      <div className="lg:w-3/5 mx-auto">
+      <div className="mx-auto lg:w-3/5">
         <div className="pt-4">
           <Link to="/" className="text-blue-600">
             <FontAwesomeIcon icon={['fas', 'home']} />
@@ -63,13 +63,13 @@ const Maker = (props) => {
             {sculptName}
           </Link>
         </div>
-        <div className="flex flex-col sm:flex-row justify-between my-6">
+        <div className="my-6 flex flex-col justify-between sm:flex-row">
           <div className="mb-2 pr-3 leading-snug sm:mb-0">
             <h2 className="text-3xl font-bold leading-none">{colorway.name ? colorway.name : '(Unknown)'}</h2>
             {colorway.releaseDate ? (
               <div className="mt-2">
                 <FontAwesomeIcon icon={['fa', 'calendar']} />
-                <span className="font-bold mx-2">Release date:</span>
+                <span className="mx-2 font-bold">Release date:</span>
                 {colorway.releaseDate}
               </div>
             ) : (
@@ -78,7 +78,7 @@ const Maker = (props) => {
             {colorway.totalCount ? (
               <div className="mt-2">
                 <FontAwesomeIcon icon={['fa', 'calculator']} />
-                <span className="font-bold mx-2">Total Count:</span>
+                <span className="mx-2 font-bold">Total Count:</span>
                 {colorway.totalCount}
               </div>
             ) : (
@@ -87,7 +87,7 @@ const Maker = (props) => {
             {colorway.commissioned ? (
               <div className="mt-2">
                 <FontAwesomeIcon icon={['fa', 'palette']} />
-                <span className="font-bold mx-2">Commissioned</span>
+                <span className="mx-2 font-bold">Commissioned</span>
               </div>
             ) : (
               ''
@@ -95,29 +95,29 @@ const Maker = (props) => {
             {colorway.giveaway ? (
               <div className="mt-2">
                 <FontAwesomeIcon icon={['fa', 'gift']} />
-                <span className="font-bold mx-2">Giveaway</span>
+                <span className="mx-2 font-bold">Giveaway</span>
               </div>
             ) : (
               ''
             )}
           </div>
-          <div className="flex flex-row flex-no-wrap shrink-0 mt-1 items-start">
+          <div className="flex-no-wrap mt-1 flex shrink-0 flex-row items-start">
             {!colorway.name && (
               <button
                 className="
                   modal-open
-                  mx-2
-                  block
                   w-35
-                  bg-pink-500
-                  hover:bg-pink-700
-                  text-white
-                  font-bold
+                  mx-2
                   ml-2
-                  py-2
+                  block
+                  rounded
+                  bg-pink-500
                   px-3
+                  py-2
                   text-xs
-                  rounded"
+                  font-bold
+                  text-white
+                  hover:bg-pink-700"
                 onClick={() => setShowModal(true)}
               >
                 Suggest Name
@@ -126,16 +126,16 @@ const Maker = (props) => {
             <CopyToClipboard text={location.href} onCopy={updateText}>
               <button
                 className="
+                whitespace-no-wrap
                 block
                 w-20
-                bg-blue-500
-                hover:bg-blue-700
-                text-white
-                font-bold
-                py-2 px-3
-                text-xs
                 rounded
-                whitespace-no-wrap"
+                bg-blue-500
+                px-3
+                py-2 text-xs
+                font-bold
+                text-white
+                hover:bg-blue-700"
               >
                 {state.text}
               </button>
@@ -144,20 +144,20 @@ const Maker = (props) => {
               <button
                 onClick={() => setStateWishlist(rmCap(colorway.id))}
                 className="
+                  ml-2
                   block
-                  w-48
                   inline-flex
+                  w-48
                   items-center
                   justify-center
+                  rounded
                   bg-red-500
-                  hover:bg-red-700
-                  text-white
-                  font-bold
-                  ml-2
-                  py-2
                   px-3
+                  py-2
                   text-xs
-                  rounded"
+                  font-bold
+                  text-white
+                  hover:bg-red-700"
               >
                 <FontAwesomeIcon className="mr-1" icon={['fas', 'star']} />
                 <span>Remove from &quot;{wishlist.settings.title.text}&quot; wishlist</span>
@@ -175,17 +175,17 @@ const Maker = (props) => {
                   }
                 }}
                 className="
+                  ml-2
                   block
                   w-48
+                  rounded
                   bg-green-500
-                  hover:bg-green-700
-                  text-white
-                  font-bold
-                  ml-2
-                  py-2
                   px-3
+                  py-2
                   text-xs
-                  rounded"
+                  font-bold
+                  text-white
+                  hover:bg-green-700"
               >
                 <FontAwesomeIcon className="mr-1" icon={['fas', 'star']} />
                 <span>Add to &quot;{wishlist.settings.title.text}&quot; wishlist</span>
@@ -195,20 +195,20 @@ const Maker = (props) => {
               <button
                 onClick={() => setStateWishlist(rmTradeCap(colorway.id))}
                 className="
+                  ml-2
                   block
-                  w-48
                   inline-flex
+                  w-48
                   items-center
                   justify-center
+                  rounded
                   bg-red-500
-                  hover:bg-red-700
-                  text-white
-                  font-bold
-                  ml-2
-                  py-2
                   px-3
+                  py-2
                   text-xs
-                  rounded"
+                  font-bold
+                  text-white
+                  hover:bg-red-700"
               >
                 <FontAwesomeIcon className="mr-1" icon={['fas', 'redo']} />
                 <span>Remove from &quot;{wishlist.settings.title.text}&quot; trade list</span>
@@ -226,17 +226,17 @@ const Maker = (props) => {
                   }
                 }}
                 className="
+                  ml-2
                   block
                   w-48
+                  rounded
                   bg-green-500
-                  hover:bg-green-700
-                  text-white
-                  font-bold
-                  ml-2
-                  py-2
                   px-3
+                  py-2
                   text-xs
-                  rounded"
+                  font-bold
+                  text-white
+                  hover:bg-green-700"
               >
                 <FontAwesomeIcon className="mr-1" icon={['fas', 'redo']} />
                 <span>Add to &quot;{wishlist.settings.title.text}&quot; trade list</span>
@@ -245,7 +245,7 @@ const Maker = (props) => {
           </div>
         </div>
         <div className="colorway-wrapper">
-          <div className="flex flex-col p-5 mx-auto">
+          <div className="mx-auto flex flex-col p-5">
             <div className="colorway-wrapper">
               <img loading="lazy" className="block h-full w-full object-cover" alt={seoTitle} src={cwImg} />
             </div>

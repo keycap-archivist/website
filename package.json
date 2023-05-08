@@ -59,6 +59,7 @@
     "postcss": "8.4.23",
     "postcss-import": "^15.1.0",
     "prettier": "2.8.8",
+    "prettier-plugin-tailwindcss": "^0.2.8",
     "tailwindcss": "3.3.2"
   },
   "license": "MIT",
@@ -70,7 +71,7 @@
     "build": "gatsby build",
     "package": "cross-env TARGET=PROD gatsby build --prefix-paths && cp CNAME public/CNAME && rm -rf public/*.js.map",
     "develop": "cross-env TARGET=DEV gatsby develop --host=0.0.0.0",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "format": "prettier --write \"**/*.{js,jsx,css,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean"

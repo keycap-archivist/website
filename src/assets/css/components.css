@@ -1,11 +1,11 @@
 @layer components {
   .search__list {
     & .item-cat-title {
-      @apply pt-2 pb-1 mb-1 border-b-2 border-gray-500 first:pt-0;
+      @apply mb-1 border-b-2 border-gray-500 pb-1 pt-2 first:pt-0;
     }
 
     & .item-cat-text {
-      @apply uppercase text-xs font-bold text-gray-500;
+      @apply text-xs font-bold uppercase text-gray-500;
     }
 
     & .item-search {
@@ -18,33 +18,33 @@
   }
 
   label.wishlist_form {
-    @apply block text-gray-700 dark:text-gray-200 text-sm font-bold mb-2;
+    @apply mb-2 block text-sm font-bold text-gray-700 dark:text-gray-200;
   }
 
   li.maker_tile_item {
-    @apply flex h-auto w-1/2 md:w-1/4 lg:w-1/5 p-1;
+    @apply flex h-auto w-1/2 p-1 md:w-1/4 lg:w-1/5;
 
     & a.tile_block {
-      @apply block w-full pb-4 border bg-white hover:text-blue-600 dark:text-gray-200 dark:bg-gray-700 dark:hover:text-blue-600;
+      @apply block w-full border bg-white pb-4 hover:text-blue-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:text-blue-600;
     }
 
     & div {
       &.img_holder {
-        @apply w-full bg-white border-b-2 border-gray-300 dark:border-gray-600;
+        @apply w-full border-b-2 border-gray-300 bg-white dark:border-gray-600;
       }
 
       &.text_header {
-        @apply font-bold pt-3 px-2 text-center;
+        @apply px-2 pt-3 text-center font-bold;
       }
     }
   }
 
   li.tile_item {
-    @apply flex h-auto w-1/2 md:w-1/4 lg:w-1/5 p-1;
+    @apply flex h-auto w-1/2 p-1 md:w-1/4 lg:w-1/5;
 
     & div.tile_sculpt,
     & a.tile_block {
-      @apply flex flex-col justify-between w-full bg-white p-2 hover:text-blue-600 pb-4 dark:text-gray-200 dark:bg-gray-700 dark:hover:text-blue-600;
+      @apply flex w-full flex-col justify-between bg-white p-2 pb-4 hover:text-blue-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:text-blue-600;
     }
 
     & div.title {
@@ -66,10 +66,10 @@
   }
 
   .thumbnail-wrapper {
-    @apply relative h-auto w-auto after:content-[''] after:block after:pb-[100%];
+    @apply relative h-auto w-auto after:block after:pb-[100%] after:content-[''];
 
     & img {
-      @apply absolute top-0 left-0 w-full h-full object-cover;
+      @apply absolute left-0 top-0 h-full w-full object-cover;
     }
   }
 
@@ -78,7 +78,7 @@
   }
 
   .colorway-wrapper {
-    @apply flex bg-white border dark:bg-gray-700 dark:border-gray-600 max-w-[100vw];
+    @apply flex max-w-[100vw] border bg-white dark:border-gray-600 dark:bg-gray-700;
   }
 
   .is-in-wishlist {
@@ -87,11 +87,11 @@
 
   blockquote {
     quotes: '\201C''\201D''\2018''\2019';
-    @apply bg-slate-50 border-l-[10px] border-slate-700 my-1.5 mx-2.5 p-4;
+    @apply mx-2.5 my-1.5 border-l-[10px] border-slate-700 bg-slate-50 p-4;
 
     &::before {
       content: open-quote;
-      @apply text-slate-800 text-4xl leading-[0.1rem] mr-1 align-[-0.4rem];
+      @apply mr-1 align-[-0.4rem] text-4xl leading-[0.1rem] text-slate-800;
     }
 
     & p {

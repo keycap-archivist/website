@@ -48,10 +48,10 @@ const Maker = (props) => {
         </Link>
       </div>
       <div className="flex">
-        <div className="text-3xl my-6">
+        <div className="my-6 text-3xl">
           <h2 className="font-bold">{maker.name}</h2>
           {(maker.website || maker.instagram || maker.discord) && (
-            <ul className="flex flex-wrap flex-row list-none -ml-1">
+            <ul className="-ml-1 flex list-none flex-row flex-wrap">
               {maker.artisanCollector && (
                 <li className="flex h-auto px-1">
                   <a href={maker.artisanCollector} title="Artisan Collector" target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-600">
@@ -90,7 +90,7 @@ const Maker = (props) => {
             </ul>
           )}
         </div>
-        <div className="text-3xl ml-12 my-6">
+        <div className="my-6 ml-12 text-3xl">
           {maker.nationality && (
             <ReactCountryFlag
               className="emojiFlag"
@@ -105,11 +105,11 @@ const Maker = (props) => {
         </div>
       </div>
 
-      <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
+      <ul className="-ml-2 -mr-2 flex list-none flex-row flex-wrap">
         {sculptList.map((s) => (
           <li key={s.id} className="tile_item">
             <Link to={s.link} className="tile_block">
-              <div className="w-full h-full thumbnail-wrapper">
+              <div className="thumbnail-wrapper h-full w-full">
                 <ThumbnailImage
                   loading="lazy"
                   src={s.previewImg}
@@ -119,7 +119,7 @@ const Maker = (props) => {
                   alt={`${maker.name} - ${s.name}`}
                 />
               </div>
-              <div className="font-bold pt-3 px-2 text-center">
+              <div className="px-2 pt-3 text-center font-bold">
                 <div className="title">{s.name}</div>
               </div>
             </Link>

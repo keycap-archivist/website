@@ -1,6 +1,6 @@
 @layer base {
   body {
-    @apply bg-gray-200 text-gray-900 dark:text-gray-200 dark:bg-gray-800;
+    @apply bg-gray-200 text-gray-900 dark:bg-gray-800 dark:text-gray-200;
     font-family: Asap, sans-serif;
   }
 }

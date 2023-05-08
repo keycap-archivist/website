@@ -54,7 +54,7 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="" img={'/android-icon-512x512.png'} />
-      <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
+      <ul className="-ml-2 -mr-2 flex list-none flex-row flex-wrap">
         {sortedMakers.map((element) => (
           <li key={element.id} className="maker_tile_item">
             <Link to={element.path} className="tile_block">
@@ -62,12 +62,12 @@ const IndexPage = () => {
                 <Img fluid={getImg(element.pageContext.maker.id)} className="block" alt={element.pageContext.maker.name} width="500" height="500" />
               </div>
               <div className="text-header">
-                <div className="font-bold flex flex-row pt-3 px-2 relative">
-                  <div className="text-sm text-center w-full px-5">{element.pageContext.maker.name}</div>
+                <div className="relative flex flex-row px-2 pt-3 font-bold">
+                  <div className="w-full px-5 text-center text-sm">{element.pageContext.maker.name}</div>
                   {favoriteMakers.includes(element.pageContext.maker.id) ? (
                     <FontAwesomeIcon
                       id="favStar"
-                      className="m-1 star-icon text-yellow-500 cursor-pointer"
+                      className="star-icon m-1 cursor-pointer text-yellow-500"
                       icon={['fas', 'star']}
                       onClick={(e) => {
                         e.preventDefault();
@@ -78,7 +78,7 @@ const IndexPage = () => {
                   ) : (
                     <FontAwesomeIcon
                       id="favStar"
-                      className="m-1 star-icon text-gray-500 cursor-pointer"
+                      className="star-icon m-1 cursor-pointer text-gray-500"
                       icon={['fas', 'star']}
                       onClick={(e) => {
                         e.preventDefault();

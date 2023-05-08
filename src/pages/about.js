@@ -19,7 +19,7 @@ const About = () => {
   return (
     <Layout>
       <SEO title="About" />
-      <div className="w-full m-auto lg:w-9/12 py-10">
+      <div className="m-auto w-full py-10 lg:w-9/12">
         <h1 className="text-3xl font-bold">About</h1>
         <p className="my-5">
           <strong>Keycap Archivist</strong> is a community driven project from artisan keycap enthusiasts made for other enthusiasts. It is made in
@@ -42,7 +42,7 @@ const About = () => {
         <p className="my-5">The project is composed of the following components:</p>
         <h2 className="text-2xl font-bold">
           Database{' '}
-          <a href="https://github.com/keycap-archivist/database" target="_blank" rel="noopener noreferrer" className="hover:text-blue-700 text-xl">
+          <a href="https://github.com/keycap-archivist/database" target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-700">
             <FontAwesomeIcon icon={['fab', 'github']} />
           </a>
         </h2>
@@ -65,7 +65,7 @@ const About = () => {
         </p>
         <h2 className="text-2xl font-bold">
           App{' '}
-          <a href="https://github.com/keycap-archivist/app" target="_blank" rel="noopener noreferrer" className="hover:text-blue-700 text-xl">
+          <a href="https://github.com/keycap-archivist/app" target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-700">
             <FontAwesomeIcon icon={['fab', 'github']} />
           </a>
         </h2>
@@ -79,7 +79,7 @@ const About = () => {
         </p>
         <h2 className="text-2xl font-bold">
           Website{' '}
-          <a href="https://github.com/keycap-archivist/website" target="_blank" rel="noopener noreferrer" className="hover:text-blue-700 text-xl">
+          <a href="https://github.com/keycap-archivist/website" target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-700">
             <FontAwesomeIcon icon={['fab', 'github']} />
           </a>
         </h2>

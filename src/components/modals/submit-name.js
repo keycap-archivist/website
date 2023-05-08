@@ -21,9 +21,9 @@ const SubmitNameModal = (props) => {
 
   return (
     <Modal modalHeader={props.modalHeader} setModal={props.setModal}>
-      <div className="relative p-6 flex content-around">
+      <div className="relative flex content-around p-6">
         <input
-          className="suggest__input bg-purple-white shadow rounded border-0 p-2 w-full"
+          className="suggest__input bg-purple-white w-full rounded border-0 p-2 shadow"
           placeholder={props.placeholder}
           onChange={(event) => {
             setSuggestionName(event.target.value);
@@ -34,13 +34,13 @@ const SubmitNameModal = (props) => {
                       mx-2
                       block
                       w-20
+                      rounded
                       bg-green-500
-                      hover:bg-green-700
+                      px-3
+                      py-2
+                      text-xs font-bold
                       text-white
-                      font-bold
-                      py-2 px-3
-                      text-xs
-                      rounded"
+                      hover:bg-green-700"
           onClick={() => {
             submitName(props.clwId, suggestionName);
             props.setModal(false);

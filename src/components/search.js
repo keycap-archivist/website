@@ -178,9 +178,9 @@ const Search = () => {
   };
 
   return (
-    <div className="w-full mr-6">
+    <div className="mr-6 w-full">
       <input
-        className="text-gray-900 bg-purple-white shadow rounded border-0 p-2 w-full"
+        className="bg-purple-white w-full rounded border-0 p-2 text-gray-900 shadow"
         type="search"
         onChange={handleChange}
         placeholder={'Search'}
@@ -188,7 +188,7 @@ const Search = () => {
         onFocus={onFocus}
       />
       {showResult ? (
-        <div className="z-10 p-3 max-h-[75vh] absolute overflow-y-scroll bg-white shadow rounded dark:bg-gray-800 mt-3 mr-3">
+        <div className="absolute z-10 mr-3 mt-3 max-h-[75vh] overflow-y-scroll rounded bg-white p-3 shadow dark:bg-gray-800">
           <ResultList />
         </div>
       ) : (

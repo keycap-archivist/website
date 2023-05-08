@@ -5,35 +5,35 @@ const Modal = (props) => (
     <div
       className="
             modal
-            opacity-100
-            ease-out
-            justify-center
-            items-center
-            flex
-            overflow-x-hidden
-            overflow-y-auto
             fixed
             inset-0
             z-50
+            flex
+            items-center
+            justify-center
+            overflow-y-auto
+            overflow-x-hidden
+            opacity-100
             outline-none
+            ease-out
             focus:outline-none"
     >
-      <div className="relative w-auto my-6 mx-auto max-w-3xl">
+      <div className="relative mx-auto my-6 w-auto max-w-3xl">
         <div
           className="
-                opacity-0
-                transition-opacity
-                opacity-100
-                ease-out
-                border-0
-                rounded-lg
-                shadow-lg
                 relative
                 flex
-                flex-col
                 w-full
+                flex-col
+                rounded-lg
+                border-0
                 bg-blue_ka
+                opacity-0
+                opacity-100
+                shadow-lg
                 outline-none
+                transition-opacity
+                ease-out
                 focus:outline-none"
         >
           <div
@@ -41,24 +41,24 @@ const Modal = (props) => (
                   flex
                   items-start
                   justify-between
-                  p-5 border-b
+                  rounded-t border-b
                   border-solid
                   border-gray-300
-                  rounded-t"
+                  p-5"
           >
             <h3 className="text-2xl font-semibold">{props.modalHeader}</h3>
             <button
               className="
-                    p-1
+                    float-right
                     ml-auto
-                    bg-transparent
                     border-0
+                    bg-transparent
+                    p-1
+                    text-3xl
+                    font-semibold
+                    leading-none
                     text-black
                     opacity-5
-                    float-right
-                    text-3xl
-                    leading-none
-                    font-semibold
                     outline-none
                     focus:outline-none"
               onClick={() => {
@@ -67,13 +67,13 @@ const Modal = (props) => (
             >
               <span
                 className="
-                      bg-transparent
-                      text-black
-                      opacity-5
+                      block
                       h-6
                       w-6
+                      bg-transparent
                       text-2xl
-                      block
+                      text-black
+                      opacity-5
                       outline-none
                       focus:outline-none"
               >
@@ -85,7 +85,7 @@ const Modal = (props) => (
         </div>
       </div>
     </div>
-    <div className="modal-background opacity-25 fixed inset-0 z-40 bg-black"></div>
+    <div className="modal-background fixed inset-0 z-40 bg-black opacity-25"></div>
   </>
 );
 

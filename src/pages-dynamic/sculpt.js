@@ -54,13 +54,13 @@ const Maker = (props) => {
           {maker.name}
         </Link>
       </div>
-      <div className="flex flex-col sm:flex-row justify-between my-6">
+      <div className="my-6 flex flex-col justify-between sm:flex-row">
         <div className="mb-2 pr-3 leading-snug sm:mb-0">
           <h2 className="text-3xl font-bold leading-none">{sculpt.name}</h2>
           {sculpt.releaseDate ? (
             <div className="mt-2">
               <FontAwesomeIcon icon={['fa', 'calendar']} />
-              <span className="font-bold mx-2">Release date:</span>
+              <span className="mx-2 font-bold">Release date:</span>
               {sculpt.releaseDate}
             </div>
           ) : (
@@ -69,21 +69,21 @@ const Maker = (props) => {
           {sculpt.profile && (
             <div className="mt-2">
               <FontAwesomeIcon icon={['fa', 'keyboard']} />
-              <span className="font-bold mx-2">Profile :</span>
+              <span className="mx-2 font-bold">Profile :</span>
               {sculpt.profile}
             </div>
           )}
           {sculpt.design && (
             <div className="mt-2">
               <FontAwesomeIcon icon={['fa', 'brain']} />
-              <span className="font-bold mx-2">Design :</span>
+              <span className="mx-2 font-bold">Design :</span>
               {sculpt.design}
             </div>
           )}
           {sculpt.cast && (
             <div className="mt-2">
               <FontAwesomeIcon icon={['fa', 'palette']} />
-              <span className="font-bold mx-2">Cast :</span>
+              <span className="mx-2 font-bold">Cast :</span>
               {sculpt.cast}
             </div>
           )}
@@ -112,11 +112,11 @@ const Maker = (props) => {
           </div> */}
       </div>
 
-      <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
+      <ul className="-ml-2 -mr-2 flex list-none flex-row flex-wrap">
         {cwList.map((c) => (
           <li key={c.id} id={c.id} className="tile_item">
             <div className="tile_sculpt">
-              <Link to={`${location.pathname}${c.id}`} className="w-full h-full bg-gray-300 thumbnail-wrapper">
+              <Link to={`${location.pathname}/${c.id}`} className="thumbnail-wrapper h-full w-full bg-gray-300">
                 <ThumbnailImage
                   loading="lazy"
                   className="h-full w-full object-cover"
@@ -124,12 +124,12 @@ const Maker = (props) => {
                   alt={`${maker.name} - ${sculpt.name} - ${c.name}`}
                 />
               </Link>
-              <div className="font-bold flex flex-row pt-3 px-2 relative">
+              <div className="relative flex flex-row px-2 pt-3 font-bold">
                 {isInWishlist(wishlist, c.id) ? (
                   <FontAwesomeIcon
                     id="favStar"
                     title={`Remove from '${wishlist.settings.title.text}' list`}
-                    className="m-1 star-icon text-yellow-500 cursor-pointer"
+                    className="star-icon m-1 cursor-pointer text-yellow-500"
                     icon={['fas', 'star']}
                     onClick={() => setStateWishlist(rmCap(c.id))}
                   />
@@ -137,7 +137,7 @@ const Maker = (props) => {
                   <FontAwesomeIcon
                     id="favStar"
                     title={`Add to '${wishlist.settings.title.text}' list`}
-                    className="m-1 star-icon text-gray-500 cursor-pointer"
+                    className="star-icon m-1 cursor-pointer text-gray-500"
                     icon={['fas', 'star']}
                     onClick={() => {
                       if (isInTradeList(wishlist, c.id)) {
@@ -155,7 +155,7 @@ const Maker = (props) => {
                   <FontAwesomeIcon
                     id="favTrade"
                     title={`Remove from '${wishlist.settings.title.text}' trade list`}
-                    className="m-1 redo-icon text-yellow-500 cursor-pointer"
+                    className="redo-icon m-1 cursor-pointer text-yellow-500"
                     icon={['fas', 'redo']}
                     onClick={() => setStateWishlist(rmTradeCap(c.id))}
                   />
@@ -163,7 +163,7 @@ const Maker = (props) => {
                   <FontAwesomeIcon
                     id="favTrade"
                     title={`Add to '${wishlist.settings.title.text}' trade list${isInWishlist(wishlist, c.id) ? ' (and remove from wishlist)' : ''}`}
-                    className="m-1 redo-icon text-gray-500 cursor-pointer"
+                    className="redo-icon m-1 cursor-pointer text-gray-500"
                     icon={['fas', 'redo']}
                     onClick={() => {
                       if (isInWishlist(wishlist, c.id)) {
@@ -177,7 +177,7 @@ const Maker = (props) => {
                     }}
                   />
                 )}
-                <Link to={`${location.pathname}${c.id}`} className="text-sm text-center w-full px-5">
+                <Link to={`${location.pathname}/${c.id}`} className="w-full px-5 text-center text-sm">
                   {c.name ? c.name : '(Unknown)'}
                 </Link>
               </div>

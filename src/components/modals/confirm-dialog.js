@@ -3,24 +3,24 @@ import Modal from '../modal';
 
 const ConfirmDialogModal = (props) => (
   <Modal modalHeader={props.modalHeader} setModal={props.setModal}>
-    <div className="bg-blue_ka relative p-6 flex content-around">
+    <div className="relative flex content-around bg-blue_ka p-6">
       <div className="w-full pr-2">
         <label>{props.placeholder}</label>
       </div>
-      <div className="flex flex-wrap mt-2">
-        <div className="w-1/3 pr-2 flex justify-right">
+      <div className="mt-2 flex flex-wrap">
+        <div className="justify-right flex w-1/3 pr-2">
           <button
             className="
                       mx-2
                       block
                       w-20
+                      rounded
                       bg-green-500
-                      hover:bg-green-700
+                      px-3
+                      py-2
+                      text-xs font-bold
                       text-white
-                      font-bold
-                      py-2 px-3
-                      text-xs
-                      rounded"
+                      hover:bg-green-700"
             onClick={() => {
               props.onModalConfirm();
               props.setModal(false);
@@ -29,19 +29,19 @@ const ConfirmDialogModal = (props) => (
             Okey
           </button>
         </div>
-        <div className="w-1/3 ml-8 pr-2 flex justify-right">
+        <div className="justify-right ml-8 flex w-1/3 pr-2">
           <button
             className="
                       mx-2
                       block
                       w-20
+                      rounded
                       bg-red-500
-                      hover:bg-red-700
+                      px-3
+                      py-2
+                      text-xs font-bold
                       text-white
-                      font-bold
-                      py-2 px-3
-                      text-xs
-                      rounded"
+                      hover:bg-red-700"
             onClick={() => {
               props.setModal(false);
             }}

@@ -39,19 +39,19 @@ const SubmitNewCwModal = (props) => {
 
   return (
     <Modal modalHeader="Submit a New Colorway" setModal={props.setModal}>
-      <div className="relative p-6 flex content-around">
+      <div className="relative flex content-around p-6">
         <button
           className={`
             mr-3
             block
             w-20
-            bg-indigo-500
-            hover:bg-indigo-700
-            text-white
-            font-bold
-            py-2 px-3
-            text-xs
             rounded
+            bg-indigo-500
+            px-3
+            py-2
+            text-xs font-bold
+            text-white
+            hover:bg-indigo-700
             ${fileUploaded && 'cursor-not-allowed opacity-50'}
             `}
           onClick={handleClick}
@@ -61,7 +61,7 @@ const SubmitNewCwModal = (props) => {
         </button>
         <input type="file" ref={hiddenFileInput} onChange={handleChange} style={{ display: 'none' }} />
         <input
-          className="suggest__input bg-purple-white shadow rounded border-0 p-2 w-full"
+          className="suggest__input bg-purple-white w-full rounded border-0 p-2 shadow"
           placeholder="Colorway Name"
           onChange={(event) => {
             setCwName(event.target.value);
@@ -72,13 +72,13 @@ const SubmitNewCwModal = (props) => {
           ml-3
           block
           w-20
+          rounded
           bg-green-500
-          hover:bg-green-700
+          px-3
+          py-2
+          text-xs font-bold
           text-white
-          font-bold
-          py-2 px-3
-          text-xs
-          rounded"
+          hover:bg-green-700"
           onClick={() => {
             submitForm(props.maker, props.sculpt, cwName, uploadedPhoto);
             props.setModal(false);

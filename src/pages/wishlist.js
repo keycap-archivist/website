@@ -41,7 +41,7 @@ const Wishlist = () => {
       return (
         <div className="text-center">
           <p className="animate-pulse text-lg">Currently loading</p>
-          <img src={flip} className="mx-auto max-w-half animate-spin-slow animate-pulse" />
+          <img src={flip} className="max-w-half animate-spin-slow mx-auto animate-pulse" />
         </div>
       );
     }
@@ -173,17 +173,17 @@ const Wishlist = () => {
   const wishlistSettings = () => (
     <>
       <div className="mb-4">
-        <div className="flex flex-wrap mt-2">
+        <div className="mt-2 flex flex-wrap">
           <div className="w-1/3 pr-2">
             <label className="wishlist_form" htmlFor="activeWishlist">
               Active Wishlist
             </label>
             <select
               id="activeWishlist"
-              className="shadow appearance-none
-              border border-gray-100 rounded w-full
-               py-2 px-3 text-gray-700 leading-tight
-               focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full
+              appearance-none rounded border border-gray-100
+               px-3 py-2 leading-tight text-gray-700
+               shadow focus:outline-none"
               type="select"
               value={wishlist.id}
               onChange={(e) => setActiveWishlist(e)}
@@ -195,11 +195,11 @@ const Wishlist = () => {
               ))}
             </select>
           </div>
-          <div className="w-1/3 pr-2 flex justify-center">
+          <div className="flex w-1/3 justify-center pr-2">
             <button
               id="addWishlist"
               onClick={addNewWishlist}
-              className={`w-2/3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-7 disabled:bg-gray-600 ${
+              className={`mt-7 w-2/3 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:bg-gray-600 ${
                 (wishlistLoading || wishlistContainer.wishlists.length >= WishlistContainerLimit) && 'cursor-not-allowed opacity-50'
               }`}
               disabled={wishlistLoading || wishlistContainer.wishlists.length >= WishlistContainerLimit}
@@ -207,11 +207,11 @@ const Wishlist = () => {
               Add New Wishlist
             </button>
           </div>
-          <div className="w-1/3 pr-2 flex justify-center">
+          <div className="flex w-1/3 justify-center pr-2">
             <button
               id="delWishlist"
               onClick={() => setShowWishlistDeleteModal(true)}
-              className={`w-2/3 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-7 disabled:bg-gray-600 ${
+              className={`mt-7 w-2/3 rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700 disabled:bg-gray-600 ${
                 (wishlistLoading || wishlistContainer.wishlists.length <= 1) && 'cursor-not-allowed opacity-50'
               }`}
               disabled={wishlistLoading || wishlistContainer.wishlists.length <= 1}
@@ -220,7 +220,7 @@ const Wishlist = () => {
             </button>
           </div>
         </div>
-        <div className="flex flex-wrap mt-2">
+        <div className="mt-2 flex flex-wrap">
           <div className="w-1/3 pr-2">
             <label className="wishlist_form" htmlFor="capsPerLine">
               No. Keycaps Per Line
@@ -229,9 +229,9 @@ const Wishlist = () => {
               id="capsPerLine"
               value={wishlist.settings.capsPerLine}
               onChange={(e) => setSettingWishlist('capsPerLine', '', e)}
-              className="shadow appearance-none border border-gray-100 rounded
-              w-full py-2 px-3 text-gray-700 leading-tight
-              focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full appearance-none rounded border
+              border-gray-100 px-3 py-2 leading-tight text-gray-700
+              shadow focus:outline-none"
               type="number"
             />
           </div>
@@ -241,10 +241,10 @@ const Wishlist = () => {
             </label>
             <select
               id="priorityColor"
-              className="shadow appearance-none
-              border border-gray-100 rounded w-full
-               py-2 px-3 text-gray-700 leading-tight
-               focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full
+              appearance-none rounded border border-gray-100
+               px-3 py-2 leading-tight text-gray-700
+               shadow focus:outline-none"
               type="select"
               value={wishlist.settings.priority.color}
               onChange={(e) => setSettingWishlist('priority', 'color', e)}
@@ -262,10 +262,10 @@ const Wishlist = () => {
             </label>
             <select
               id="priorityFont"
-              className="shadow appearance-none
-              border border-gray-100 rounded w-full
-               py-2 px-3 text-gray-700 leading-tight
-               focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full
+              appearance-none rounded border border-gray-100
+               px-3 py-2 leading-tight text-gray-700
+               shadow focus:outline-none"
               type="select"
               value={wishlist.settings.priority.font}
               onChange={(e) => setSettingWishlist('priority', 'font', e)}
@@ -280,17 +280,17 @@ const Wishlist = () => {
         </div>
       </div>
       <div className="mb-4">
-        <div className="flex flex-wrap mt-2">
+        <div className="mt-2 flex flex-wrap">
           <div className="w-1/3 pr-2">
             <label className="wishlist_form" htmlFor="legendsFont">
               Legends Font
             </label>
             <select
               id="legendsFont"
-              className="shadow appearance-none
-              border border-gray-100 rounded w-full
-               py-2 px-3 text-gray-700 leading-tight
-               focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full
+              appearance-none rounded border border-gray-100
+               px-3 py-2 leading-tight text-gray-700
+               shadow focus:outline-none"
               type="select"
               value={wishlist.settings.legends.font}
               onChange={(e) => setSettingWishlist('legends', 'font', e)}
@@ -308,10 +308,10 @@ const Wishlist = () => {
             </label>
             <select
               id="legendsColor"
-              className="shadow appearance-none
-              border border-gray-100 rounded w-full
-               py-2 px-3 text-gray-700 leading-tight
-               focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full
+              appearance-none rounded border border-gray-100
+               px-3 py-2 leading-tight text-gray-700
+               shadow focus:outline-none"
               type="select"
               value={wishlist.settings.legends.color}
               onChange={(e) => setSettingWishlist('legends', 'color', e)}
@@ -329,10 +329,10 @@ const Wishlist = () => {
             </label>
             <select
               id="backgroundColor"
-              className="shadow appearance-none
-              border border-gray-100 rounded w-full
-               py-2 px-3 text-gray-700 leading-tight
-               focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full
+              appearance-none rounded border border-gray-100
+               px-3 py-2 leading-tight text-gray-700
+               shadow focus:outline-none"
               type="select"
               value={wishlist.settings.background.color}
               onChange={(e) => setSettingWishlist('background', 'color', e)}
@@ -348,16 +348,16 @@ const Wishlist = () => {
       </div>
       {wishlist.tradeItems.length ? (
         <div className="mb-4">
-          <div className="flex flex-wrap mt-2">
+          <div className="mt-2 flex flex-wrap">
             <div className="w-1/3 pr-2">
-              <label className="block text-gray-700 border-gray-100 text-sm font-bold mb-2" htmlFor="tradeTitleText">
+              <label className="mb-2 block border-gray-100 text-sm font-bold text-gray-700" htmlFor="tradeTitleText">
                 Trade Text
               </label>
               <input
-                className="shadow appearance-none border
-              rounded border-gray-100
-              w-full py-2 px-3 text-gray-700 leading-tight
-              focus:outline-none focus:shadow-outline"
+                className="focus:shadow-outline w-full appearance-none
+              rounded border
+              border-gray-100 px-3 py-2 leading-tight text-gray-700
+              shadow focus:outline-none"
                 id="tradeTitleText"
                 type="text"
                 value={wishlist.settings.tradeTitle.text}
@@ -371,9 +371,9 @@ const Wishlist = () => {
               </label>
               <select
                 id="tradeTitleColor"
-                className="shadow appearance-none border border-gray-100
-                rounded w-full py-2 px-3 text-gray-700 leading-tight
-                focus:outline-none focus:shadow-outline"
+                className="focus:shadow-outline w-full appearance-none rounded
+                border border-gray-100 px-3 py-2 leading-tight text-gray-700
+                shadow focus:outline-none"
                 type="select"
                 value={wishlist.settings.tradeTitle.color}
                 onChange={(e) => setSettingWishlist('tradeTitle', 'color', e)}
@@ -391,11 +391,11 @@ const Wishlist = () => {
               </label>
               <select
                 id="tradeTitleFont"
-                className="shadow appearance-none border
-                border-gray-100
-                rounded w-full py-2 px-3 text-gray-700
-                leading-tight
-                focus:outline-none focus:shadow-outline"
+                className="focus:shadow-outline w-full appearance-none
+                rounded
+                border border-gray-100 px-3 py-2 leading-tight
+                text-gray-700
+                shadow focus:outline-none"
                 type="select"
                 value={wishlist.settings.tradeTitle.font}
                 onChange={(e) => setSettingWishlist('tradeTitle', 'font', e)}
@@ -414,15 +414,15 @@ const Wishlist = () => {
       )}
 
       <div className="mb-4">
-        <div className="flex flex-wrap mt-2">
+        <div className="mt-2 flex flex-wrap">
           <div className="w-1/3 pr-2">
             <label className="wishlist_form" htmlFor="titleText">
               Title
             </label>
             <input
-              className="shadow appearance-none border border-gray-100
-              rounded w-full py-2 px-3 text-gray-700 leading-tight
-              focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full appearance-none rounded
+              border border-gray-100 px-3 py-2 leading-tight text-gray-700
+              shadow focus:outline-none"
               id="titleText"
               type="text"
               value={wishlist.settings.title.text}
@@ -437,9 +437,9 @@ const Wishlist = () => {
             </label>
             <select
               id="titleColor"
-              className="shadow appearance-none border border-gray-100
-              rounded w-full py-2 px-3 text-gray-700 leading-tight
-              focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full appearance-none rounded
+              border border-gray-100 px-3 py-2 leading-tight text-gray-700
+              shadow focus:outline-none"
               type="select"
               value={wishlist.settings.title.color}
               onChange={(e) => setSettingWishlist('title', 'color', e)}
@@ -457,11 +457,11 @@ const Wishlist = () => {
             </label>
             <select
               id="titleFont"
-              className="shadow appearance-none border
-              border-gray-100
-              rounded w-full py-2 px-3 text-gray-700
-              leading-tight
-              focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full appearance-none
+              rounded
+              border border-gray-100 px-3 py-2 leading-tight
+              text-gray-700
+              shadow focus:outline-none"
               type="select"
               value={wishlist.settings.title.font}
               onChange={(e) => setSettingWishlist('title', 'font', e)}
@@ -477,16 +477,16 @@ const Wishlist = () => {
       </div>
 
       <div className="mb-4">
-        <div className="flex flex-wrap mt-2">
+        <div className="mt-2 flex flex-wrap">
           <div className="w-1/3 pr-2">
             <label className="wishlist_form" htmlFor="extraText">
               Extra Text
             </label>
             <input
-              className="shadow appearance-none border
-              rounded border-gray-100
-              w-full py-2 px-3 text-gray-700 leading-tight
-              focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full appearance-none
+              rounded border
+              border-gray-100 px-3 py-2 leading-tight text-gray-700
+              shadow focus:outline-none"
               id="extraText"
               type="text"
               maxLength="50"
@@ -501,9 +501,9 @@ const Wishlist = () => {
             </label>
             <select
               id="extraColor"
-              className="shadow appearance-none border border-gray-100
-                rounded w-full py-2 px-3 text-gray-700 leading-tight
-                focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full appearance-none rounded
+                border border-gray-100 px-3 py-2 leading-tight text-gray-700
+                shadow focus:outline-none"
               type="select"
               value={wishlist.settings.extraText.color}
               onChange={(e) => setSettingWishlist('extraText', 'color', e)}
@@ -521,11 +521,11 @@ const Wishlist = () => {
             </label>
             <select
               id="extraFont"
-              className="shadow appearance-none border
-                border-gray-100
-                rounded w-full py-2 px-3 text-gray-700
-                leading-tight
-                focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full appearance-none
+                rounded
+                border border-gray-100 px-3 py-2 leading-tight
+                text-gray-700
+                shadow focus:outline-none"
               type="select"
               value={wishlist.settings.extraText.font}
               onChange={(e) => setSettingWishlist('extraText', 'font', e)}
@@ -540,16 +540,16 @@ const Wishlist = () => {
         </div>
       </div>
       <div className="mb-4">
-        <div className="flex flex-wrap mt-2">
+        <div className="mt-2 flex flex-wrap">
           <div className="w-1/2 pr-2">
             <label className="wishlist_font" htmlFor="socialReddit">
               Reddit
             </label>
             <input
-              className="shadow appearance-none border
-              rounded border-gray-100
-              w-full py-2 px-3 text-gray-700 leading-tight
-              focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full appearance-none
+              rounded border
+              border-gray-100 px-3 py-2 leading-tight text-gray-700
+              shadow focus:outline-none"
               id="socialReddit"
               type="text"
               value={wishlist.settings.social.reddit}
@@ -562,10 +562,10 @@ const Wishlist = () => {
               Discord
             </label>
             <input
-              className="shadow appearance-none border
-              rounded border-gray-100
-              w-full py-2 px-3 text-gray-700 leading-tight
-              focus:outline-none focus:shadow-outline"
+              className="focus:shadow-outline w-full appearance-none
+              rounded border
+              border-gray-100 px-3 py-2 leading-tight text-gray-700
+              shadow focus:outline-none"
               id="socialDiscord"
               type="text"
               value={wishlist.settings.social.discord}
@@ -601,61 +601,61 @@ const Wishlist = () => {
       >
         {wishlist.items.map((x) => (
           <li key={x.id} className="mt-2" style={{ minHeight: '150px' }}>
-            <FontAwesomeIcon className="cursor-move handle inline-block text-3xl mr-6" icon="align-justify" />
+            <FontAwesomeIcon className="handle mr-6 inline-block cursor-move text-3xl" icon="align-justify" />
             <img
               style={{ maxWidth: '150px' }}
               src={`https://cdn.keycap-archivist.com/keycaps/250/${x.id}.jpg`}
-              className="cursor-move handle inline-block rounded-lg max-h-full mr-6"
+              className="handle mr-6 inline-block max-h-full cursor-move rounded-lg"
             />
             <span></span>
             {x.prio ? (
               <button
                 onClick={() => setPriority(x.id, false)}
-                className="bg-red-500
-                  hover:bg-red-700
-                  text-white
-                  font-bold
-                  py-1
-                  px-2
+                className="mr-6
+                  inline-block
+                  rounded
                   border
                   border-red-700
-                  rounded
-                  inline-block
-                  mr-6"
+                  bg-red-500
+                  px-2
+                  py-1
+                  font-bold
+                  text-white
+                  hover:bg-red-700"
               >
-                <FontAwesomeIcon id="removePriority" className="m-1 arrow-down-icon cursor-pointer" icon={['fas', 'sort-numeric-down']} />
+                <FontAwesomeIcon id="removePriority" className="arrow-down-icon m-1 cursor-pointer" icon={['fas', 'sort-numeric-down']} />
               </button>
             ) : (
               <button
                 onClick={() => setPriority(x.id, true)}
-                className="bg-green-500
-                  hover:bg-green-700
-                  text-white
-                  font-bold
-                  py-1 px-2
-                  border
-                  border-green-700
+                className="mr-6
+                  inline-block
                   rounded
-                  inline-block mr-6"
+                  border
+                  border-green-700 bg-green-500
+                  px-2
+                  py-1
+                  font-bold
+                  text-white hover:bg-green-700"
               >
-                <FontAwesomeIcon id="addPriority" className="m-1 arrow-up-icon cursor-pointer" icon={['fas', 'sort-numeric-up']} />
+                <FontAwesomeIcon id="addPriority" className="arrow-up-icon m-1 cursor-pointer" icon={['fas', 'sort-numeric-up']} />
               </button>
             )}
             <button
               onClick={() => setStateWishlist(rmCap(x.id))}
-              className="bg-red-500
-                hover:bg-red-700
-                text-white
-                font-bold
-                py-1
-                px-2
+              className="mr-6
+                inline-block
+                rounded
                 border
                 border-red-700
-                rounded
-                inline-block
-                mr-6"
+                bg-red-500
+                px-2
+                py-1
+                font-bold
+                text-white
+                hover:bg-red-700"
             >
-              <FontAwesomeIcon id="removeWishlist" className="m-1 trash-alt-icon cursor-pointer" icon={['fas', 'trash-alt']} />
+              <FontAwesomeIcon id="removeWishlist" className="trash-alt-icon m-1 cursor-pointer" icon={['fas', 'trash-alt']} />
             </button>
           </li>
         ))}
@@ -686,28 +686,28 @@ const Wishlist = () => {
       >
         {wishlist.tradeItems.map((x) => (
           <li key={x.id} className="mt-2" style={{ minHeight: '150px' }}>
-            <FontAwesomeIcon className="cursor-move handle inline-block text-3xl mr-6" icon="align-justify" />
+            <FontAwesomeIcon className="handle mr-6 inline-block cursor-move text-3xl" icon="align-justify" />
             <img
               style={{ maxWidth: '150px' }}
               src={`https://cdn.keycap-archivist.com/keycaps/250/${x.id}.jpg`}
-              className="cursor-move handle inline-block rounded-lg max-h-full mr-6"
+              className="handle mr-6 inline-block max-h-full cursor-move rounded-lg"
             />
             <span></span>
             <button
               onClick={() => setStateWishlist(rmTradeCap(x.id))}
-              className="bg-red-500
-              hover:bg-red-700
-              text-white
-              font-bold
-              py-1
-              px-2
+              className="mr-6
+              inline-block
+              rounded
               border
               border-red-700
-              rounded
-              inline-block
-              mr-6"
+              bg-red-500
+              px-2
+              py-1
+              font-bold
+              text-white
+              hover:bg-red-700"
             >
-              <FontAwesomeIcon id="removeTradeList" className="m-1 trash-alt-icon cursor-pointer" icon={['fas', 'trash-alt']} />
+              <FontAwesomeIcon id="removeTradeList" className="trash-alt-icon m-1 cursor-pointer" icon={['fas', 'trash-alt']} />
             </button>
           </li>
         ))}
@@ -719,17 +719,17 @@ const Wishlist = () => {
     <Layout>
       <SEO title="Wishlist" img={'/android-chrome-512x512.png'} />
       <h1 className="text-3xl font-bold">Wishlist</h1>
-      <div className="m-auto lg:w-9/12 md:w-full">
+      <div className="m-auto md:w-full lg:w-9/12">
         {errorPlaceholder()}
         {loadingPlaceholder()}
         {imgPlaceholder()}
         {wishlistSettings()}
 
         <div className="flex flex-wrap">
-          <div className="w-full md:w-1/4 mr-2">
+          <div className="mr-2 w-full md:w-1/4">
             <button
               onClick={genWishlist}
-              className={`w-full  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 disabled:bg-gray-600 ${
+              className={`mb-2  w-full rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:bg-gray-600 ${
                 (wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length)) && 'cursor-not-allowed opacity-50'
               }`}
               disabled={wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length)}
@@ -738,9 +738,9 @@ const Wishlist = () => {
             </button>
           </div>
           {!wishlist.items.length && !wishlist.tradeItems.length && (
-            <b className={'text-lg mt-2'}>Add caps to your wishlist or tradelist to generate a wishlist</b>
+            <b className={'mt-2 text-lg'}>Add caps to your wishlist or tradelist to generate a wishlist</b>
           )}
-          <div className="w-full md:w-1/4 mr-2">
+          <div className="mr-2 w-full md:w-1/4">
             {b64Img ? (
               <a
                 href={`data:image/png;base64,${b64Img}`}
@@ -748,14 +748,14 @@ const Wishlist = () => {
                 className={`
                   block
                   w-full
-                  bg-green-500
-                  hover:bg-green-700
-                  text-white
-                  font-bold
-                  py-2
-                  px-4
                   rounded
+                  bg-green-500
+                  px-4
+                  py-2
                   text-center
+                  font-bold
+                  text-white
+                  hover:bg-green-700
                   ${wishlistLoading && 'cursor-not-allowed opacity-50'}
                 `}
                 disabled={wishlistLoading}
@@ -769,12 +769,12 @@ const Wishlist = () => {
         </div>
         {wishlist.tradeItems.length ? (
           <div className="mb-4">
-            <div className="flex flex-wrap mt-2">
+            <div className="mt-2 flex flex-wrap">
               <div className="w-1/2 pr-2">
                 <label
-                  className="block text-gray-700 border-gray-100
+                  className="mb-2 block border-gray-100
                 text-sm font-bold
-                mb-2"
+                text-gray-700"
                   htmlFor="haveText"
                 >
                   {wishlist.settings.tradeTitle.text || 'Have'}
@@ -783,9 +783,9 @@ const Wishlist = () => {
               </div>
               <div className="w-1/2 pr-2">
                 <label
-                  className="block text-gray-700 border-gray-100
+                  className="mb-2 block border-gray-100
                 text-sm font-bold
-                mb-2"
+                text-gray-700"
                   htmlFor="wantText"
                 >
                   {wishlist.settings.title.text || 'Want'}
