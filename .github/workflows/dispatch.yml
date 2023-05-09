@@ -28,8 +28,9 @@ jobs:
         env:
           DISCORD_HOOK: ${{ secrets.DISCORD_HOOK }}
         run: |
-          pnpm update-db
           git config --global user.name 'Keycap Archivist Bot'
+          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          pnpm update-db
           git add catalog-revision.txt
           git add src/db/catalog.json
           git commit -m "Update catalog" || true
