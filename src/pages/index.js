@@ -6,6 +6,7 @@ import { sortBy } from 'lodash';
 import Layout from '../layouts/base';
 import SEO from '../components/seo';
 import { getFavoriteMakers, addFavMaker, removeFavMaker } from '../internal/favorite';
+import clsx from 'clsx';
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -30,6 +31,7 @@ const IndexPage = () => {
       }
     }
   `);
+
   const img = data.allFile.nodes;
 
   const getImg = (id) => {
@@ -54,43 +56,39 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="" img={'/android-icon-512x512.png'} />
-      <ul className="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-5">
+      <ul className="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-5 lg:gap-4">
         {sortedMakers.map((element) => (
           <li key={element.id} className="flex flex-col">
             <Link
               to={element.path}
-              className="block w-full border bg-white pb-4 hover:text-blue-600 dark:bg-slate-700 dark:text-slate-200 dark:hover:text-blue-600"
+              className="block w-full overflow-hidden rounded-md border border-slate-600/50 bg-white  transition-colors hover:border-slate-400/80 dark:bg-slate-700 dark:text-slate-200"
             >
               <div className="w-full border-b-2 border-slate-300 bg-white dark:border-slate-600">
-                <Img fluid={getImg(element.pageContext.maker.id)} className="block" alt={element.pageContext.maker.name} width="500" height="500" />
+                <Img
+                  fluid={getImg(element.pageContext.maker.id)}
+                  className="block rounded-t-md"
+                  alt={element.pageContext.maker.name}
+                  width="500"
+                  height="500"
+                />
               </div>
-              <div className="text-header">
-                <div className="relative flex flex-row px-2 pt-3 font-bold">
-                  <div className="w-full px-5 text-center text-sm">{element.pageContext.maker.name}</div>
-                  {favoriteMakers.includes(element.pageContext.maker.id) ? (
-                    <FontAwesomeIcon
-                      id="favStar"
-                      className="star-icon m-1 cursor-pointer text-yellow-500"
-                      icon={['fas', 'star']}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const makers = removeFavMaker(element.pageContext.maker.id);
-                        setFavoriteMakers(makers);
-                      }}
-                    />
-                  ) : (
-                    <FontAwesomeIcon
-                      id="favStar"
-                      className="star-icon m-1 cursor-pointer text-slate-500"
-                      icon={['fas', 'star']}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const makers = addFavMaker(element.pageContext.maker.id);
-                        setFavoriteMakers(makers);
-                      }}
-                    />
+              <div className="text-header flex items-center justify-between p-4">
+                <span className="grow text-center text-lg font-bold">{element.pageContext.maker.name}</span>
+                <FontAwesomeIcon
+                  id="favStar"
+                  className={clsx(
+                    'star-icon ml-auto cursor-pointer',
+                    favoriteMakers.includes(element.pageContext.maker.id) ? 'text-yellow-500' : 'text-slate-500',
                   )}
-                </div>
+                  icon={['fas', 'star']}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const makers = favoriteMakers.includes(element.pageContext.maker.id)
+                      ? removeFavMaker(element.pageContext.maker.id)
+                      : addFavMaker(element.pageContext.maker.id);
+                    setFavoriteMakers(makers);
+                  }}
+                />
               </div>
             </Link>
           </li>
