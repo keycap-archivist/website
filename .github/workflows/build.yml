@@ -19,7 +19,7 @@ jobs:
           path: bin-repo
           token: ${{ secrets.REPO_SCOPE }}
       - id: nodeversion
-        run: echo ::set-output name=NODE::$(cat .nvmrc)
+        run: echo "NODE=$(cat .nvmrc)" >> $GITHUB_OUTPUT
       - name: Use Node.js ${{steps.nodeversion.outputs.NODE}}
         uses: actions/setup-node@v3
         with:
