@@ -43,6 +43,7 @@ const Maker = (props) => {
   }, []);
   const wishlist = wishlistContainer.wishlists.find((x) => x.id === wishlistContainer.activeWishlistId);
   const cwImg = `https://cdn.keycap-archivist.com/keycaps/720/${colorway.id}.jpg`;
+
   return (
     <Layout>
       {showSuccessAlert && <Alert color="green" alertMessage="Suggestion Successfully Submited" setAlert={setShowSuccessAlert} />}
@@ -52,7 +53,7 @@ const Maker = (props) => {
       <div className="mx-auto lg:w-3/5">
         <div className="pt-4">
           <Link to="/" className="text-blue-600">
-            <FontAwesomeIcon icon={['fas', 'home']} />
+            <FontAwesomeIcon icon={['fas', 'home']} /> test
           </Link>
           <span className="text-slate-400"> / </span>
           <Link to={makerUrl} className="text-blue-600">

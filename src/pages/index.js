@@ -23,12 +23,7 @@ const IndexPage = () => {
           name
           relativePath
           childImageSharp {
-            gatsbyImageData(
-              layout: FULL_WIDTH
-              placeholder: BLURRED
-              formats: [WEBP]
-              width: 300
-            )
+            gatsbyImageData(layout: CONSTRAINED, placeholder: BLURRED, formats: [WEBP], width: 500)
           }
         }
       }
@@ -39,7 +34,7 @@ const IndexPage = () => {
 
   const getImg = (id) => {
     const f = img.find((x) => x.name === id);
-    
+
     if (!isNil(f)) {
       return getImage(f);
     }
@@ -66,9 +61,9 @@ const IndexPage = () => {
           <li key={element.id} className="flex flex-col">
             <Link
               to={element.path}
-              className="block w-full overflow-hidden rounded-md border border-slate-600/50 bg-white  transition-colors hover:border-slate-400/80 dark:bg-slate-700 dark:text-slate-200"
+              className="block w-full overflow-hidden rounded-md bg-white shadow-md transition hover:border-slate-400/80 hover:shadow-lg dark:border dark:border-slate-600/50 dark:bg-slate-700 dark:text-slate-200 dark:shadow-none"
             >
-              <div className="w-full border-b-2 border-slate-300 bg-white dark:border-slate-600">
+              <div className="w-full border-b border-slate-200 bg-white dark:border-b-2 dark:border-slate-600">
                 <GatsbyImage
                   image={getImg(element.pageContext.maker.id)}
                   className="block rounded-t-md"
@@ -83,7 +78,7 @@ const IndexPage = () => {
                   id="favStar"
                   className={clsx(
                     'star-icon ml-auto cursor-pointer',
-                    favoriteMakers.includes(element.pageContext.maker.id) ? 'text-yellow-500' : 'text-slate-500',
+                    favoriteMakers.includes(element.pageContext.maker.id) ? 'text-yellow-500' : 'text-slate-400',
                   )}
                   icon={['fas', 'star']}
                   onClick={(e) => {

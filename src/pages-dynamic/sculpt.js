@@ -45,47 +45,61 @@ const Maker = (props) => {
       {showErrorAlert && <Alert color="red" alertMessage="Colorway Submission Failed" setAlert={setShowErrorAlert} />}
       {showExceedAlert && <Alert color="red" alertMessage="Wishlist or trade list items exceeded" setAlert={setShowExceedAlert} />}
       <SEO title={seoTitle} img={sculpt.previewImg} />
-      <div className="pt-4">
-        <Link to="/" className="text-blue-600">
-          <FontAwesomeIcon icon={['fas', 'home']} />
-        </Link>
-        <span className="text-slate-400"> / </span>
-        <Link to={makerUrl} className="text-blue-600">
-          {maker.name}
-        </Link>
+      <div className="mt-6">
+        {[
+          {
+            label: 'Home',
+            link: '/',
+          },
+          {
+            label: maker.name,
+            link: makerUrl,
+          },
+        ].map((x) => (
+          <>
+            <Link
+              to={x.link}
+              className="text-sm font-medium text-slate-900/60 underline transition-colors hover:text-slate-800/60 dark:text-slate-50/80 dark:hover:text-white/90"
+            >
+              {x.label}
+            </Link>{' '}
+            /{' '}
+          </>
+        ))}
       </div>
       <div className="my-6 flex flex-col justify-between sm:flex-row">
-        <div className="mb-2 pr-3 leading-snug sm:mb-0">
-          <h2 className="text-3xl font-bold leading-none">{sculpt.name}</h2>
-          {sculpt.releaseDate ? (
-            <div className="mt-2">
+        <div className="space-y-1">
+          <h2 className="text-2xl font-bold">{sculpt.name}</h2>
+          {sculpt.releaseDate && (
+            <dl>
               <FontAwesomeIcon icon={['fa', 'calendar']} />
-              <span className="mx-2 font-bold">Release date:</span>
-              {sculpt.releaseDate}
-            </div>
-          ) : (
-            ''
+              <dt className="font-bold">- Release date:</dt>
+              <dd>{sculpt.releaseDate}</dd>
+            </dl>
           )}
+
           {sculpt.profile && (
-            <div className="mt-2">
+            <dl>
               <FontAwesomeIcon icon={['fa', 'keyboard']} />
-              <span className="mx-2 font-bold">Profile :</span>
-              {sculpt.profile}
-            </div>
+              <dt className="font-bold">- Profile :</dt>
+              <dd>{sculpt.profile}</dd>
+            </dl>
           )}
+
           {sculpt.design && (
-            <div className="mt-2">
+            <dl>
               <FontAwesomeIcon icon={['fa', 'brain']} />
-              <span className="mx-2 font-bold">Design :</span>
-              {sculpt.design}
-            </div>
+              <dt className="font-bold">- Design :</dt>
+              <dd>{sculpt.design}</dd>
+            </dl>
           )}
+
           {sculpt.cast && (
-            <div className="mt-2">
+            <dl>
               <FontAwesomeIcon icon={['fa', 'palette']} />
-              <span className="mx-2 font-bold">Cast :</span>
-              {sculpt.cast}
-            </div>
+              <dt className="font-bold">- Cast :</dt>
+              <dd>{sculpt.cast}</dd>
+            </dl>
           )}
         </div>
 
@@ -112,76 +126,86 @@ const Maker = (props) => {
           </div> */}
       </div>
 
-      <ul className="-ml-2 -mr-2 flex list-none flex-row flex-wrap">
+      <ul className="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-5 lg:gap-4">
         {cwList.map((c) => (
-          <li key={c.id} id={c.id} className="tile_item">
-            <div className="tile_sculpt">
-              <Link to={`${location.pathname}/${c.id}`} className="thumbnail-wrapper h-full w-full bg-slate-300">
+          <li key={c.id} id={c.id} className="flex flex-col">
+            <Link
+              to={`${location.pathname}${c.id}`}
+              className="block w-full overflow-hidden rounded-md bg-white shadow-md transition hover:border-slate-400/80 hover:shadow-lg dark:border dark:border-slate-600/50 dark:bg-slate-700 dark:text-slate-200 dark:shadow-none"
+            >
+              <div className="h-[250px] w-[250px] border-b border-slate-200 bg-white dark:border-b-2 dark:border-slate-600">
                 <ThumbnailImage
-                  loading="lazy"
                   className="h-full w-full object-cover"
                   src={`https://cdn.keycap-archivist.com/keycaps/250/${c.id}.jpg`}
                   alt={`${maker.name} - ${sculpt.name} - ${c.name}`}
                 />
-              </Link>
-              <div className="relative flex flex-row px-2 pt-3 font-bold">
-                {isInWishlist(wishlist, c.id) ? (
-                  <FontAwesomeIcon
-                    id="favStar"
-                    title={`Remove from '${wishlist.settings.title.text}' list`}
-                    className="star-icon m-1 cursor-pointer text-yellow-500"
-                    icon={['fas', 'star']}
-                    onClick={() => setStateWishlist(rmCap(c.id))}
-                  />
-                ) : (
-                  <FontAwesomeIcon
-                    id="favStar"
-                    title={`Add to '${wishlist.settings.title.text}' list`}
-                    className="star-icon m-1 cursor-pointer text-slate-500"
-                    icon={['fas', 'star']}
-                    onClick={() => {
-                      if (isInTradeList(wishlist, c.id)) {
-                        rmTradeCap(c.id);
-                      }
-                      if (wishlist.items.length >= WishlistLimit) {
-                        setShowExceedAlert(true);
-                      } else {
-                        setStateWishlist(addCap(c.id));
-                      }
-                    }}
-                  />
-                )}
-                {isInTradeList(wishlist, c.id) ? (
-                  <FontAwesomeIcon
-                    id="favTrade"
-                    title={`Remove from '${wishlist.settings.title.text}' trade list`}
-                    className="redo-icon m-1 cursor-pointer text-yellow-500"
-                    icon={['fas', 'redo']}
-                    onClick={() => setStateWishlist(rmTradeCap(c.id))}
-                  />
-                ) : (
-                  <FontAwesomeIcon
-                    id="favTrade"
-                    title={`Add to '${wishlist.settings.title.text}' trade list${isInWishlist(wishlist, c.id) ? ' (and remove from wishlist)' : ''}`}
-                    className="redo-icon m-1 cursor-pointer text-slate-500"
-                    icon={['fas', 'redo']}
-                    onClick={() => {
-                      if (isInWishlist(wishlist, c.id)) {
-                        rmCap(c.id);
-                      }
-                      if (wishlist.tradeItems.length >= TradeListLimit) {
-                        setShowExceedAlert(true);
-                      } else {
-                        setStateWishlist(addTradeCap(c.id));
-                      }
-                    }}
-                  />
-                )}
-                <Link to={`${location.pathname}/${c.id}`} className="w-full px-5 text-center text-sm">
-                  {c.name ? c.name : '(Unknown)'}
-                </Link>
               </div>
-            </div>
+              <div className="flex items-center justify-between gap-x-2 p-4 font-bold">
+                <span className="truncate">{c.name ? c.name : '(Unknown)'}</span>
+                <div className="flex shrink-0 items-center">
+                  {isInWishlist(wishlist, c.id) ? (
+                    <FontAwesomeIcon
+                      id="favStar"
+                      title={`Remove from '${wishlist.settings.title.text}' list`}
+                      className="star-icon m-1 cursor-pointer text-yellow-500"
+                      icon={['fas', 'star']}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setStateWishlist(rmCap(c.id));
+                      }}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      id="favStar"
+                      title={`Add to '${wishlist.settings.title.text}' list`}
+                      className="star-icon m-1 cursor-pointer text-slate-500"
+                      icon={['fas', 'star']}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (isInTradeList(wishlist, c.id)) {
+                          rmTradeCap(c.id);
+                        }
+                        if (wishlist.items.length >= WishlistLimit) {
+                          setShowExceedAlert(true);
+                        } else {
+                          setStateWishlist(addCap(c.id));
+                        }
+                      }}
+                    />
+                  )}
+                  {isInTradeList(wishlist, c.id) ? (
+                    <FontAwesomeIcon
+                      id="favTrade"
+                      title={`Remove from '${wishlist.settings.title.text}' trade list`}
+                      className="redo-icon m-1 cursor-pointer text-yellow-500"
+                      icon={['fas', 'redo']}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setStateWishlist(rmTradeCap(c.id));
+                      }}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      id="favTrade"
+                      title={`Add to '${wishlist.settings.title.text}' trade list${isInWishlist(wishlist, c.id) ? ' (and remove from wishlist)' : ''}`}
+                      className="redo-icon m-1 cursor-pointer text-slate-500"
+                      icon={['fas', 'redo']}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (isInWishlist(wishlist, c.id)) {
+                          rmCap(c.id);
+                        }
+                        if (wishlist.tradeItems.length >= TradeListLimit) {
+                          setShowExceedAlert(true);
+                        } else {
+                          setStateWishlist(addTradeCap(c.id));
+                        }
+                      }}
+                    />
+                  )}
+                </div>
+              </div>
+            </Link>
           </li>
         ))}
       </ul>
