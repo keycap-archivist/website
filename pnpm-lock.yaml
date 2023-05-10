@@ -43,6 +43,9 @@ dependencies:
   gatsby-plugin-google-analytics:
     specifier: 5.9.0
     version: 5.9.0(gatsby@5.9.0)(react-dom@18.2.0)(react@18.2.0)
+  gatsby-plugin-image:
+    specifier: ^3.9.0
+    version: 3.9.0(@babel/core@7.21.8)(gatsby-plugin-sharp@5.9.0)(gatsby-source-filesystem@5.9.0)(gatsby@5.9.0)(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0)
   gatsby-plugin-next-seo:
     specifier: 1.10.0
     version: 1.10.0(gatsby@5.9.0)(react-helmet-async@1.3.0)(typescript@3.9.10)
@@ -5915,6 +5918,46 @@ packages:
       web-vitals: 1.1.2
     dev: false
 
+  /gatsby-plugin-image@3.9.0(@babel/core@7.21.8)(gatsby-plugin-sharp@5.9.0)(gatsby-source-filesystem@5.9.0)(gatsby@5.9.0)(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-9oTzosYPRwrw3BNgHgh+0BCpqBE83tBnuM7wuorHehdo1dmcGmz96e7qWfaRLY1LR08kxXLmbW0dWNZJXv66CQ==}
+    peerDependencies:
+      '@babel/core': ^7.12.3
+      gatsby: ^5.0.0-next
+      gatsby-plugin-sharp: ^5.0.0-next
+      gatsby-source-filesystem: ^5.0.0-next
+      react: ^18.0.0 || ^0.0.0
+      react-dom: ^18.0.0 || ^0.0.0
+    peerDependenciesMeta:
+      gatsby-plugin-sharp:
+        optional: true
+      gatsby-source-filesystem:
+        optional: true
+    dependencies:
+      '@babel/code-frame': 7.21.4
+      '@babel/core': 7.21.8
+      '@babel/parser': 7.21.8
+      '@babel/runtime': 7.21.5
+      '@babel/traverse': 7.21.5
+      babel-jsx-utils: 1.1.0
+      babel-plugin-remove-graphql-queries: 5.9.0(@babel/core@7.21.8)(gatsby@5.9.0)
+      camelcase: 6.3.0
+      chokidar: 3.5.3
+      common-tags: 1.8.2
+      fs-extra: 11.1.1
+      gatsby: 5.9.0(babel-eslint@10.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@3.9.10)
+      gatsby-core-utils: 4.9.0
+      gatsby-plugin-sharp: 5.9.0(gatsby@5.9.0)(graphql@16.6.0)
+      gatsby-plugin-utils: 4.9.0(gatsby@5.9.0)(graphql@16.6.0)
+      gatsby-source-filesystem: 5.9.0(gatsby@5.9.0)
+      objectFitPolyfill: 2.3.5
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    transitivePeerDependencies:
+      - graphql
+      - supports-color
+    dev: false
+
   /gatsby-plugin-next-seo@1.10.0(gatsby@5.9.0)(react-helmet-async@1.3.0)(typescript@3.9.10):
     resolution: {integrity: sha512-G7oMbEucgREmfCpDgr2JLvcfGbk3981XhbZ6JJnFoKDL5B6A9wJqIfQpr/1wpD1GuFltDH3ZNxjUMTHUQjCnZw==}
     peerDependencies:
@@ -8425,6 +8468,10 @@ packages:
       call-bind: 1.0.2
       define-properties: 1.2.0
       es-abstract: 1.21.2
+
+  /objectFitPolyfill@2.3.5:
+    resolution: {integrity: sha512-8Quz071ZmGi0QWEG4xB3Bv5Lpw6K0Uca87FLoLMKMWjB6qIq9IyBegP3b/VLNxv2WYvIMGoeUQ+c6ibUkNa8TA==}
+    dev: false
 
   /on-finished@2.4.1:
     resolution: {integrity: sha512-oVlzkg3ENAhCk2zdv7IJwd/QUD4z2RxRwpkcGY8psCVcCYZNq4wYnVWALHM+brtuJjePWiYF/ClmuDr8Ch5+kg==}

@@ -59,8 +59,9 @@ const plugins = [
       path: `${__dirname}/src/assets/img`,
     },
   },
-  'gatsby-transformer-sharp',
+  'gatsby-plugin-image',
   'gatsby-plugin-sharp',
+  'gatsby-transformer-sharp',
   'gatsby-transformer-remark',
   {
     resolve: `gatsby-omni-font-loader`,

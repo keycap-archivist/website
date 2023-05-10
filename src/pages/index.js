@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
-import Img from 'gatsby-image';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { sortBy } from 'lodash';
+import { isNil, sortBy } from 'lodash';
 import Layout from '../layouts/base';
 import SEO from '../components/seo';
 import { getFavoriteMakers, addFavMaker, removeFavMaker } from '../internal/favorite';
@@ -23,9 +23,12 @@ const IndexPage = () => {
           name
           relativePath
           childImageSharp {
-            fluid(maxWidth: 300) {
-              ...GatsbyImageSharpFluid
-            }
+            gatsbyImageData(
+              layout: FULL_WIDTH
+              placeholder: BLURRED
+              formats: [WEBP]
+              width: 300
+            )
           }
         }
       }
@@ -36,10 +39,12 @@ const IndexPage = () => {
 
   const getImg = (id) => {
     const f = img.find((x) => x.name === id);
-    if (f !== undefined) {
-      return f.childImageSharp.fluid;
+    
+    if (!isNil(f)) {
+      return getImage(f);
     }
-    return img.find((x) => x.name === 'nologo').childImageSharp.fluid;
+
+    return getImage(img.find((x) => x.name === 'nologo'));
   };
 
   const [favoriteMakers, setFavoriteMakers] = useState([]);
@@ -64,8 +69,8 @@ const IndexPage = () => {
               className="block w-full overflow-hidden rounded-md border border-slate-600/50 bg-white  transition-colors hover:border-slate-400/80 dark:bg-slate-700 dark:text-slate-200"
             >
               <div className="w-full border-b-2 border-slate-300 bg-white dark:border-slate-600">
-                <Img
-                  fluid={getImg(element.pageContext.maker.id)}
+                <GatsbyImage
+                  image={getImg(element.pageContext.maker.id)}
                   className="block rounded-t-md"
                   alt={element.pageContext.maker.name}
                   width="500"
