@@ -47,7 +47,7 @@ const Search = () => {
             title: titleDisplay,
             score: quickScore(titleTest, innerQuery),
             sculptUrl: `${m.path}`,
-            url: `${m.path}/${x.id}`,
+            url: `${m.path}${x.id}`,
           };
         }),
       );
