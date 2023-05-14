@@ -47,7 +47,7 @@ const Search = () => {
             title: titleDisplay,
             score: quickScore(titleTest, innerQuery),
             sculptUrl: `${m.path}`,
-            url: `${m.path}/${x.id}`,
+            url: `${m.path}${x.id}`,
           };
         }),
       );
@@ -78,7 +78,7 @@ const Search = () => {
         ...preResult.map((x) => {
           const arrUrl = x.sculptUrl.split('/');
           return {
-            url: `${arrUrl.slice(0, arrUrl.length - 1).join('/')}`,
+            url: `${arrUrl.slice(0, arrUrl.length - 2).join('/')}`,
             type: 'artist',
             title: x.maker.name,
             id: x.maker.id,
