@@ -133,7 +133,7 @@ const Maker = (props) => {
               to={`${location.pathname}${c.id}`}
               className="block w-full overflow-hidden rounded-md bg-white shadow-md transition hover:border-slate-400/80 hover:shadow-lg dark:border dark:border-slate-600/50 dark:bg-slate-700 dark:text-slate-200 dark:shadow-none"
             >
-              <div className="h-[250px] w-[250px] border-b border-slate-200 bg-white dark:border-b-2 dark:border-slate-600">
+              <div className="h-[250px] border-b border-slate-200 bg-white dark:border-b-2 dark:border-slate-600">
                 <ThumbnailImage
                   className="h-full w-full object-cover"
                   src={`https://cdn.keycap-archivist.com/keycaps/250/${c.id}.jpg`}
@@ -209,6 +209,12 @@ const Maker = (props) => {
           </li>
         ))}
       </ul>
+
+      {/*
+        todo : change this one when it'll be used by the new modal component
+        there is an exemple in the colorway page              
+      */}
+
       {showModal && (
         <SubmitNewCwModal
           setModal={setShowModal}

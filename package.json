@@ -48,6 +48,8 @@
     "webpack": "^5.82.0"
   },
   "devDependencies": {
+    "@radix-ui/react-dialog": "^1.0.3",
+    "@radix-ui/react-tooltip": "^1.0.5",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/typography": "^0.5.9",
     "autoprefixer": "10.4.14",

@@ -11,14 +11,14 @@ const MAX_CW_RESULT = 20;
 const MAX_SCULPT_RESULT = 10;
 const MAX_MAKER_RESULT = 5;
 
-const SearchResultsCategory = ({ title, key }) => (
-  <div className="mb-2 border-b-2 border-slate-400 pb-1 pt-2 first:pt-0 dark:border-slate-600" key={key}>
+const SearchResultsCategory = ({ title }) => (
+  <div className="mb-2 border-b-2 border-slate-400 pb-1 pt-2 first:pt-0 dark:border-slate-600">
     <span className="text-xs font-bold uppercase text-slate-400 dark:text-slate-600">{title}</span>
   </div>
 );
 
-const SearchResultsLink = ({ title, url, key }) => (
-  <div className="rounded p-2 transition-colors hover:bg-slate-500/50 hover:text-white" key={key}>
+const SearchResultsLink = ({ title, url }) => (
+  <div className="rounded p-2 text-slate-800 transition-colors hover:bg-slate-200/40 dark:text-slate-300 dark:hover:bg-slate-500/50 dark:hover:text-white">
     <Link to={url} className="text-sm">
       <h4>{title}</h4>
     </Link>
@@ -131,7 +131,6 @@ const Search = () => {
   };
 
   const ResultList = () => {
-    // TODO: add beeautifull scrollbar
     const artists = results.filter((x) => x.type === 'artist');
     const sculpts = results.filter((x) => x.type === 'sculpt');
     const cws = results.filter((x) => x.type === 'colorway');
@@ -175,7 +174,7 @@ const Search = () => {
         />
       </label>
       {showResult ? (
-        <div className="absolute z-10 max-h-[60vh] w-fit overflow-y-scroll rounded-md bg-white p-6 shadow scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-600 dark:bg-slate-800 md:mt-16 lg:w-[600px]">
+        <div className="absolute z-10 max-h-[60vh] w-fit overflow-y-scroll rounded-md bg-white p-6 shadow scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-300 dark:bg-slate-800 dark:scrollbar-thumb-slate-600 md:mt-16 lg:w-[600px]">
           <ResultList />
         </div>
       ) : null}

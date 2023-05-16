@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { ReactSortable } from 'react-sortablejs';
 
 import flip from '../assets/img/flip-machine.png';
-import ConfirmDialogModal from '../components/modals/confirm-dialog';
 import SEO from '../components/seo';
 import { cssColors } from '../internal/misc';
 import {
@@ -18,6 +17,9 @@ import {
   WishlistContainerLimit,
 } from '../internal/wishlist';
 import Layout from '../layouts/base';
+
+import Modal from '../components/modal';
+import ConfirmDialogModal from '../components/modals/confirm-dialog';
 // import BkMaggle from '../assets/img/bkmaggle.png';
 
 const baseAPIurl = 'https://api.keycap-archivist.com/wishlist';
@@ -199,25 +201,22 @@ const Wishlist = () => {
             <button
               id="addWishlist"
               onClick={addNewWishlist}
-              className={`mt-7 w-2/3 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:bg-slate-600 ${
-                (wishlistLoading || wishlistContainer.wishlists.length >= WishlistContainerLimit) && 'cursor-not-allowed opacity-50'
-              }`}
+              className={`mt-7 w-2/3 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:bg-slate-600 ${(wishlistLoading || wishlistContainer.wishlists.length >= WishlistContainerLimit) && 'cursor-not-allowed opacity-50'
+                }`}
               disabled={wishlistLoading || wishlistContainer.wishlists.length >= WishlistContainerLimit}
             >
               Add New Wishlist
             </button>
           </div>
           <div className="flex w-1/3 justify-center pr-2">
-            <button
-              id="delWishlist"
-              onClick={() => setShowWishlistDeleteModal(true)}
-              className={`mt-7 w-2/3 rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700 disabled:bg-slate-600 ${
-                (wishlistLoading || wishlistContainer.wishlists.length <= 1) && 'cursor-not-allowed opacity-50'
-              }`}
-              disabled={wishlistLoading || wishlistContainer.wishlists.length <= 1}
-            >
-              Delete Active Wishlist
-            </button>
+            <Modal buttonTitle="Delete active wishlist" modalTitle="Delete active wishlist" open={showWishlistDeleteModal} setOpen={setShowWishlistDeleteModal}>
+              <ConfirmDialogModal
+                modalHeader="Delete Active Wishlist ?"
+                placeholder={`Are you sure that you want to delete the '${wishlist.settings.title.text}' wishlist?`}
+                setModal={setShowWishlistDeleteModal}
+                onModalConfirm={() => deleteActiveWishlist()}
+              />
+            </Modal>
           </div>
         </div>
         <div className="mt-2 flex flex-wrap">
@@ -729,9 +728,8 @@ const Wishlist = () => {
           <div className="mr-2 w-full md:w-1/4">
             <button
               onClick={genWishlist}
-              className={`mb-2  w-full rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:bg-slate-600 ${
-                (wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length)) && 'cursor-not-allowed opacity-50'
-              }`}
+              className={`mb-2  w-full rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:bg-slate-600 ${(wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length)) && 'cursor-not-allowed opacity-50'
+                }`}
               disabled={wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length)}
             >
               Generate
@@ -798,14 +796,6 @@ const Wishlist = () => {
           wishlistPlaceHolder()
         )}
       </div>
-      {showWishlistDeleteModal && (
-        <ConfirmDialogModal
-          modalHeader="Delete Active Wishlist?"
-          placeholder={`Are you sure that you want to delete the '${wishlist.settings.title.text}' wishlist?`}
-          setModal={setShowWishlistDeleteModal}
-          onModalConfirm={() => deleteActiveWishlist()}
-        />
-      )}
     </Layout>
   );
 };

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Modal from '../modal';
 
 const SubmitNameModal = (props) => {
   const [suggestionName, setSuggestionName] = useState('');
@@ -20,36 +19,25 @@ const SubmitNameModal = (props) => {
   };
 
   return (
-    <Modal modalHeader={props.modalHeader} setModal={props.setModal}>
-      <div className="relative flex content-around p-6">
-        <input
-          className="suggest__input bg-purple-white w-full rounded border-0 p-2 shadow"
-          placeholder={props.placeholder}
-          onChange={(event) => {
-            setSuggestionName(event.target.value);
-          }}
-        ></input>
-        <button
-          className="
-                      mx-2
-                      block
-                      w-20
-                      rounded
-                      bg-green-500
-                      px-3
-                      py-2
-                      text-xs font-bold
-                      text-white
-                      hover:bg-green-700"
-          onClick={() => {
-            submitName(props.clwId, suggestionName);
-            props.setModal(false);
-          }}
-        >
-          Submit
-        </button>
-      </div>
-    </Modal>
+    <div className="relative mt-6 flex flex-col justify-between gap-6">
+      <input
+        className="grow rounded-md border-gray-300/90 p-2 text-slate-600 placeholder:text-sm placeholder:font-medium placeholder:text-slate-600/50 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-gray-300/100 dark:border-gray-700/90 dark:bg-slate-700 dark:text-slate-300 dark:placeholder:text-slate-300/50 dark:hover:border-gray-700/100"
+        placeholder={props.placeholder}
+        type="text"
+        onChange={(event) => {
+          setSuggestionName(event.target.value);
+        }}
+      />
+      <button
+        className="flex items-center justify-center self-end rounded bg-green-500 px-3 py-2 text-sm font-bold text-white transition-colors hover:bg-green-700"
+        onClick={() => {
+          submitName(props.clwId, suggestionName);
+          props.setModal(false);
+        }}
+      >
+        Submit
+      </button>
+    </div>
   );
 };
 

@@ -1,12 +1,15 @@
 /* eslint-disable no-return-assign */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'gatsby';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+
 
 import Alert from '../components/alert';
 import SubmitNameModal from '../components/modals/submit-name';
+import TooltipWrapper from '../components/tooltip';
 import SEO from '../components/seo';
+
 import {
   addCap,
   addTradeCap,
@@ -20,6 +23,8 @@ import {
   WishlistLimit,
 } from '../internal/wishlist';
 import Layout from '../layouts/base';
+import clsx from 'clsx';
+import Modal from '../components/modal';
 
 const Maker = (props) => {
   const { pageContext, location } = props;
@@ -38,11 +43,17 @@ const Maker = (props) => {
   };
 
   const [wishlistContainer, setStateWishlist] = useState(defaultWishlistContainer);
+
   useEffect(() => {
     setStateWishlist(getWishlistContainer());
   }, []);
+
   const wishlist = wishlistContainer.wishlists.find((x) => x.id === wishlistContainer.activeWishlistId);
   const cwImg = `https://cdn.keycap-archivist.com/keycaps/720/${colorway.id}.jpg`;
+
+  const hasAdditionalInfo = useMemo(() => {
+    return colorway.releaseDate || colorway.totalCount || colorway.commissioned || colorway.giveaway || false;
+  }, [colorway]);
 
   return (
     <Layout>
@@ -50,219 +61,228 @@ const Maker = (props) => {
       {showErrorAlert && <Alert color="red" alertMessage="Suggestion Submission Failed" setAlert={setShowErrorAlert} />}
       {showExceedAlert && <Alert color="red" alertMessage="Wishlist or trade list items exceeded" setAlert={setShowExceedAlert} />}
       <SEO title={seoTitle} img={cwImg} />
-      <div className="mx-auto lg:w-3/5">
-        <div className="pt-4">
-          <Link to="/" className="text-blue-600">
-            <FontAwesomeIcon icon={['fas', 'home']} /> test
-          </Link>
-          <span className="text-slate-400"> / </span>
-          <Link to={makerUrl} className="text-blue-600">
-            {makerName}
-          </Link>
-          <span className="text-slate-400"> / </span>
-          <Link to={sculptUrl} className="text-blue-600">
-            {sculptName}
-          </Link>
+      <div className="">
+        <div className="mt-6">
+          {[
+            {
+              label: 'Home',
+              link: '/',
+            },
+            {
+              label: makerName,
+              link: makerUrl,
+            },
+            {
+              label: sculptName,
+              link: sculptUrl,
+            },
+          ].map((x) => (
+            <>
+              <Link
+                to={x.link}
+                className="text-sm font-medium text-slate-900/60 underline transition-colors hover:text-slate-800/60 dark:text-slate-50/80 dark:hover:text-white/90"
+              >
+                {x.label}
+              </Link>{' '}
+              /{' '}
+            </>
+          ))}
         </div>
-        <div className="my-6 flex flex-col justify-between sm:flex-row">
+
+        <div className="my-6 flex flex-col items-center justify-between sm:flex-row">
           <div className="mb-2 pr-3 leading-snug sm:mb-0">
             <h2 className="text-3xl font-bold leading-none">{colorway.name ? colorway.name : '(Unknown)'}</h2>
-            {colorway.releaseDate ? (
-              <div className="mt-2">
-                <FontAwesomeIcon icon={['fa', 'calendar']} />
-                <span className="mx-2 font-bold">Release date:</span>
-                {colorway.releaseDate}
-              </div>
-            ) : (
-              ''
-            )}
-            {colorway.totalCount ? (
-              <div className="mt-2">
-                <FontAwesomeIcon icon={['fa', 'calculator']} />
-                <span className="mx-2 font-bold">Total Count:</span>
-                {colorway.totalCount}
-              </div>
-            ) : (
-              ''
-            )}
-            {colorway.commissioned ? (
-              <div className="mt-2">
-                <FontAwesomeIcon icon={['fa', 'palette']} />
-                <span className="mx-2 font-bold">Commissioned</span>
-              </div>
-            ) : (
-              ''
-            )}
-            {colorway.giveaway ? (
-              <div className="mt-2">
-                <FontAwesomeIcon icon={['fa', 'gift']} />
-                <span className="mx-2 font-bold">Giveaway</span>
-              </div>
-            ) : (
-              ''
-            )}
           </div>
-          <div className="flex-nowrap mt-1 flex shrink-0 flex-row items-start">
-            {!colorway.name && (
-              <button
-                className="
-                  modal-open
-                  w-35
-                  mx-2
-                  ml-2
-                  block
-                  rounded
-                  bg-pink-500
-                  px-3
-                  py-2
-                  text-xs
-                  font-bold
-                  text-white
-                  hover:bg-pink-700"
-                onClick={() => setShowModal(true)}
-              >
-                Suggest Name
-              </button>
-            )}
-            <CopyToClipboard text={location.href} onCopy={updateText}>
-              <button
-                className="
-                whitespace-nowrap
-                block
-                w-20
-                rounded
-                bg-blue-500
-                px-3
-                py-2 text-xs
-                font-bold
-                text-white
-                hover:bg-blue-700"
-              >
-                {state.text}
-              </button>
-            </CopyToClipboard>
-            {isInWishlist(wishlist, colorway.id) ? (
-              <button
-                onClick={() => setStateWishlist(rmCap(colorway.id))}
-                className="
-                  ml-2
-                  block
-                  inline-flex
-                  w-48
-                  items-center
-                  justify-center
-                  rounded
-                  bg-red-500
-                  px-3
-                  py-2
-                  text-xs
-                  font-bold
-                  text-white
-                  hover:bg-red-700"
-              >
-                <FontAwesomeIcon className="mr-1" icon={['fas', 'star']} />
-                <span>Remove from &quot;{wishlist.settings.title.text}&quot; wishlist</span>
-              </button>
-            ) : (
-              <button
-                onClick={() => {
-                  if (isInTradeList(wishlist, colorway.id)) {
-                    rmTradeCap(colorway.id);
-                  }
-                  if (wishlist.items.length >= WishlistLimit) {
-                    setShowExceedAlert(true);
-                  } else {
-                    setStateWishlist(addCap(colorway.id));
-                  }
-                }}
-                className="
-                  ml-2
-                  block
-                  w-48
-                  rounded
-                  bg-green-500
-                  px-3
-                  py-2
-                  text-xs
-                  font-bold
-                  text-white
-                  hover:bg-green-700"
-              >
-                <FontAwesomeIcon className="mr-1" icon={['fas', 'star']} />
-                <span>Add to &quot;{wishlist.settings.title.text}&quot; wishlist</span>
-              </button>
-            )}
-            {isInTradeList(wishlist, colorway.id) ? (
-              <button
-                onClick={() => setStateWishlist(rmTradeCap(colorway.id))}
-                className="
-                  ml-2
-                  block
-                  inline-flex
-                  w-48
-                  items-center
-                  justify-center
-                  rounded
-                  bg-red-500
-                  px-3
-                  py-2
-                  text-xs
-                  font-bold
-                  text-white
-                  hover:bg-red-700"
-              >
-                <FontAwesomeIcon className="mr-1" icon={['fas', 'redo']} />
-                <span>Remove from &quot;{wishlist.settings.title.text}&quot; trade list</span>
-              </button>
-            ) : (
-              <button
-                onClick={() => {
-                  if (isInWishlist(wishlist, colorway.id)) {
-                    rmCap(colorway.id);
-                  }
-                  if (wishlist.tradeItems.length >= TradeListLimit) {
-                    setShowExceedAlert(true);
-                  } else {
-                    setStateWishlist(addTradeCap(colorway.id));
-                  }
-                }}
-                className="
-                  ml-2
-                  block
-                  w-48
-                  rounded
-                  bg-green-500
-                  px-3
-                  py-2
-                  text-xs
-                  font-bold
-                  text-white
-                  hover:bg-green-700"
-              >
-                <FontAwesomeIcon className="mr-1" icon={['fas', 'redo']} />
-                <span>Add to &quot;{wishlist.settings.title.text}&quot; trade list</span>
-              </button>
-            )}
-          </div>
+          <div className="mt-1 flex shrink-0 flex-row flex-nowrap items-center"></div>
         </div>
-        <div className="colorway-wrapper">
-          <div className="mx-auto flex flex-col p-5">
-            <div className="colorway-wrapper">
-              <img loading="lazy" className="block h-full w-full object-cover" alt={seoTitle} src={cwImg} />
-            </div>
+        <div className={clsx('mt-12 flex gap-x-8', hasAdditionalInfo ? '' : 'justify-center')}>
+          <div className={clsx(hasAdditionalInfo ? 'flex basis-1/2' : 'relative')}>
+            <img loading="lazy" className="block h-full w-full rounded-lg object-cover" alt={seoTitle} src={cwImg} />
+            {!hasAdditionalInfo && (
+              <div className={clsx('absolute right-4 top-4 flex items-center gap-x-3 rounded bg-black/80 p-3')}>
+                {!colorway.name && (
+                  <Modal buttonTitle="Suggest name" modalTitle="Suggest name" open={showModal} setOpen={setShowModal}>
+                    <SubmitNameModal
+                      modalHeader="Suggest Colorway Name"
+                      placeholder="Suggested name #1"
+                      clwId={colorway.id}
+                      setModal={setShowModal}
+                      setErrorAlert={setShowErrorAlert}
+                      setSuccessAlert={setShowSuccessAlert}
+                    />
+                  </Modal>
+                )}
+                <CopyToClipboard text={location.href} onCopy={updateText}>
+                  <button className="flex items-center justify-center rounded bg-blue-500 px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-blue-700">
+                    {state.text}
+                  </button>
+                </CopyToClipboard>
+                {isInWishlist(wishlist, colorway.id) ? (
+                  <TooltipWrapper tooltipTitle={`Remove from "${wishlist.settings.title.text}" wishlist`}>
+                    <button
+                      onClick={() => setStateWishlist(rmCap(colorway.id))}
+                      className="inline-flex items-center justify-center rounded-full bg-red-500 px-3 py-2 text-white transition-colors hover:bg-red-700"
+                    >
+                      <FontAwesomeIcon icon={['fas', 'star']} />
+                    </button>
+                  </TooltipWrapper>
+                ) : (
+                  <TooltipWrapper tooltipTitle={`Add to "${wishlist.settings.title.text}" wishlist`}>
+                    <button
+                      onClick={() => {
+                        if (isInTradeList(wishlist, colorway.id)) {
+                          rmTradeCap(colorway.id);
+                        }
+                        if (wishlist.items.length >= WishlistLimit) {
+                          setShowExceedAlert(true);
+                        } else {
+                          setStateWishlist(addCap(colorway.id));
+                        }
+                      }}
+                      className="inline-flex items-center justify-center rounded-full bg-green-500 px-3 py-2 text-white transition-colors hover:bg-green-700"
+                    >
+                      <FontAwesomeIcon icon={['fas', 'star']} />
+                    </button>
+                  </TooltipWrapper>
+                )}
+                {isInTradeList(wishlist, colorway.id) ? (
+                  <TooltipWrapper tooltipTitle={`Remove from "${wishlist.settings.title.text}" trade list`}>
+                    <button
+                      onClick={() => setStateWishlist(rmTradeCap(colorway.id))}
+                      className="inline-flex items-center justify-center rounded-full bg-red-500 px-3 py-2 text-white transition-colors hover:bg-red-700"
+                    >
+                      <FontAwesomeIcon icon={['fas', 'redo']} />
+                    </button>
+                  </TooltipWrapper>
+                ) : (
+                  <TooltipWrapper tooltipTitle={`Add to "${wishlist.settings.title.text}" trade list`}>
+                    <button
+                      onClick={() => {
+                        if (isInWishlist(wishlist, colorway.id)) {
+                          rmCap(colorway.id);
+                        }
+                        if (wishlist.tradeItems.length >= TradeListLimit) {
+                          setShowExceedAlert(true);
+                        } else {
+                          setStateWishlist(addTradeCap(colorway.id));
+                        }
+                      }}
+                      className="inline-flex items-center justify-center rounded-full bg-green-500 px-3 py-2 text-white transition-colors hover:bg-green-700"
+                    >
+                      <FontAwesomeIcon icon={['fas', 'redo']} />
+                    </button>
+                  </TooltipWrapper>
+                )}
+              </div>
+            )}
           </div>
+          {hasAdditionalInfo && (
+            <div className="flex flex-1 flex-col gap-y-2">
+              {colorway.releaseDate ? (
+                <dl className="flex items-center">
+                  <FontAwesomeIcon icon={['fa', 'calendar']} />
+                  <dd className="mx-2 font-bold">Release date:</dd>
+                  <dt>{colorway.releaseDate}</dt>
+                </dl>
+              ) : null}
+              {colorway.totalCount ? (
+                <dl className="flex items-center">
+                  <FontAwesomeIcon icon={['fa', 'calculator']} />
+                  <dd className="mx-2 font-bold">Total Count:</dd>
+                  <dt>{colorway.totalCount}</dt>
+                </dl>
+              ) : null}
+              {colorway.commissioned ? (
+                <dl className="flex items-center">
+                  <FontAwesomeIcon icon={['fa', 'palette']} />
+                  <dd className="mx-2 font-bold">Commissioned</dd>
+                </dl>
+              ) : null}
+              {colorway.giveaway ? (
+                <dl className="flex items-center">
+                  <FontAwesomeIcon icon={['fa', 'gift']} />
+                  <dd className="mx-2 font-bold">Giveaway</dd>
+                </dl>
+              ) : null}
+              <div className={clsx('flex items-center gap-x-3', hasAdditionalInfo ? 'mt-6' : null)}>
+                {!colorway.name && (
+                  <Modal buttonTitle="Suggest name" modalTitle="Suggest name" open={showModal} setOpen={setShowModal}>
+                    <SubmitNameModal
+                      modalHeader="Suggest Colorway Name"
+                      placeholder="Suggested name #2"
+                      clwId={colorway.id}
+                      setModal={setShowModal}
+                      setErrorAlert={setShowErrorAlert}
+                      setSuccessAlert={setShowSuccessAlert}
+                    />
+                  </Modal>
+                )}
+                <CopyToClipboard text={location.href} onCopy={updateText}>
+                  <button className="flex items-center justify-center rounded bg-blue-500 px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-blue-700">
+                    {state.text}
+                  </button>
+                </CopyToClipboard>
+                {isInWishlist(wishlist, colorway.id) ? (
+                  <TooltipWrapper tooltipTitle={`Remove from "${wishlist.settings.title.text}" wishlist`}>
+                    <button
+                      onClick={() => setStateWishlist(rmCap(colorway.id))}
+                      className="inline-flex items-center justify-center rounded-full bg-red-500 px-3 py-2 text-white transition-colors hover:bg-red-700"
+                    >
+                      <FontAwesomeIcon icon={['fas', 'star']} />
+                    </button>
+                  </TooltipWrapper>
+                ) : (
+                  <TooltipWrapper tooltipTitle={`Add to "${wishlist.settings.title.text}" wishlist`}>
+                    <button
+                      onClick={() => {
+                        if (isInTradeList(wishlist, colorway.id)) {
+                          rmTradeCap(colorway.id);
+                        }
+                        if (wishlist.items.length >= WishlistLimit) {
+                          setShowExceedAlert(true);
+                        } else {
+                          setStateWishlist(addCap(colorway.id));
+                        }
+                      }}
+                      className="inline-flex items-center justify-center rounded-full bg-green-500 px-3 py-2 text-white transition-colors hover:bg-green-700"
+                    >
+                      <FontAwesomeIcon icon={['fas', 'star']} />
+                    </button>
+                  </TooltipWrapper>
+                )}
+                {isInTradeList(wishlist, colorway.id) ? (
+                  <TooltipWrapper tooltipTitle={`Remove from "${wishlist.settings.title.text}" trade list`}>
+                    <button
+                      onClick={() => setStateWishlist(rmTradeCap(colorway.id))}
+                      className="inline-flex items-center justify-center rounded-full bg-red-500 px-3 py-2 text-white transition-colors hover:bg-red-700"
+                    >
+                      <FontAwesomeIcon icon={['fas', 'redo']} />
+                    </button>
+                  </TooltipWrapper>
+                ) : (
+                  <TooltipWrapper tooltipTitle={`Add to "${wishlist.settings.title.text}" trade list`}>
+                    <button
+                      onClick={() => {
+                        if (isInWishlist(wishlist, colorway.id)) {
+                          rmCap(colorway.id);
+                        }
+                        if (wishlist.tradeItems.length >= TradeListLimit) {
+                          setShowExceedAlert(true);
+                        } else {
+                          setStateWishlist(addTradeCap(colorway.id));
+                        }
+                      }}
+                      className="inline-flex items-center justify-center rounded-full bg-green-500 px-3 py-2 text-white transition-colors hover:bg-green-700"
+                    >
+                      <FontAwesomeIcon icon={['fas', 'redo']} />
+                    </button>
+                  </TooltipWrapper>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
-      {showModal && (
-        <SubmitNameModal
-          modalHeader="Suggest Colorway Name"
-          placeholder="Suggestion Name"
-          clwId={colorway.id}
-          setModal={setShowModal}
-          setErrorAlert={setShowErrorAlert}
-          setSuccessAlert={setShowSuccessAlert}
-        />
-      )}
     </Layout>
   );
 };

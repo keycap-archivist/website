@@ -14,23 +14,34 @@
     }
   }
 
-  @keyframes modalBackgroundFade {
+  @keyframes overlayShow {
     from {
       @apply opacity-0;
     }
-
     to {
-      @apply opacity-25;
+      @apply opacity-100;
     }
   }
 
-  @keyframes modalFade {
+  @keyframes contentShow {
     from {
       @apply opacity-0;
+      transform: translate(-50%, -48%) scale(0.96);
     }
-
     to {
       @apply opacity-100;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  @keyframes slideDownAndFade {
+    from {
+      @apply opacity-0;
+      transform: translateY(-2px);
+    }
+    to {
+      @apply opacity-100;
+      transform: translateY(0);
     }
   }
 }

@@ -16,6 +16,30 @@
     animation-duration: 0.3s;
   }
 
+  .dialog-overlay {
+    animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .dialog-content {
+    animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .tooltip-content {
+    box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+    animation-duration: 400ms;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+    @apply select-none rounded bg-white p-3 text-sm text-slate-700 dark:bg-slate-700 dark:text-slate-200;
+  }
+
+  .tooltip-content[data-state='delayed-open'][data-side='top'] {
+    animation-name: slideDownAndFade;
+  }
+
+  .tooltip-arrow {
+    @apply fill-white dark:fill-slate-700;
+  }
+
   .star-icon {
     @apply top-[14px];
   }
