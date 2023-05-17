@@ -9,7 +9,7 @@ const TooltipWrapper = (props) => (
       </Tooltip.Trigger>
       <Tooltip.Portal>
         <Tooltip.Content className="tooltip-content" sideOffset={5}>
-          <span className="text-sm font-medium">{props.tooltipTitle}</span>
+          <span className="text-xs font-medium p-1">{props.tooltipTitle}</span>
           <Tooltip.Arrow className="tooltip-arrow" />
         </Tooltip.Content>
       </Tooltip.Portal>
