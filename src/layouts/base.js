@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 import { Helmet } from 'react-helmet-async';
@@ -29,6 +29,19 @@ const Layout = ({ children }) => {
       }
     }
   `);
+
+  // useEffect(() => {
+  //   console.log('theme: ', localStorage.getItem('theme'));
+  //   if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  //     document.documentElement.classList.add('dark');
+  //     localStorage.setItem('theme', 'dark');
+  //   } else {
+  //     if (document.documentElement.classList.contains('dark')) {
+  //       document.documentElement.classList.remove('dark');
+  //       localStorage.setItem('theme', 'light');
+  //     }
+  //   }
+  // }, []);
 
   return (
     <>

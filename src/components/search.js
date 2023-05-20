@@ -165,7 +165,7 @@ const Search = () => {
       <label className="relative block w-full items-center text-sm text-slate-600 shadow-sm transition focus-within:text-indigo-300 dark:text-slate-300">
         <FontAwesomeIcon icon={faSearch} className="pointer-events-none absolute left-3 top-1/2 z-10 -translate-y-1/2 transform text-opacity-75" />
         <input
-          className="rounded-md border-gray-300/90 pl-9 text-slate-600 placeholder:text-sm placeholder:font-medium placeholder:text-slate-600/50 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-gray-300/100 dark:border-gray-700/90 dark:bg-slate-700 dark:text-slate-300 dark:placeholder:text-slate-300/50 dark:hover:border-gray-700/100"
+          className="rounded-md border-slate-300/90 pl-9 text-slate-600 placeholder:text-sm placeholder:font-medium placeholder:text-slate-600/50 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 hover:border-slate-300/100 dark:border-slate-700/90 dark:bg-slate-700 dark:text-slate-300 dark:placeholder:text-slate-300/50 dark:hover:border-slate-700/100"
           type="search"
           onChange={handleChange}
           placeholder={'Search'}

@@ -1,5 +1,4 @@
 import React from 'react';
-import Modal from '../modal';
 
 const ConfirmDialogModal = (props) => (
   <div className="relative mt-6 flex flex-col justify-between gap-6">

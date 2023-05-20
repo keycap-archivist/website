@@ -54,8 +54,7 @@ const Maker = (props) => {
   const cwImg = `https://cdn.keycap-archivist.com/keycaps/720/${colorway.id}.jpg`;
 
   const hasAdditionalInfo = useMemo(() => {
-    // return colorway.releaseDate || colorway.totalCount || colorway.commissioned || colorway.giveaway || false;
-    return true;
+    return colorway.releaseDate || colorway.totalCount || colorway.commissioned || colorway.giveaway || false;
   }, [colorway]);
 
   return (
@@ -112,7 +111,7 @@ const Maker = (props) => {
             <div className="mt-1 flex shrink-0 flex-row flex-nowrap items-center"></div>
           </div>
           <div className={clsx('mt-12 flex gap-x-8', hasAdditionalInfo ? '' : 'justify-center')}>
-            <div className={clsx(hasAdditionalInfo ? 'flex basis-1/2' : 'relative')}>
+            <div className={clsx(hasAdditionalInfo ? 'flex basis-1/2' : 'relative w-1/2')}>
               <img loading="lazy" className="block h-full w-full rounded-lg object-cover" alt={seoTitle} src={cwImg} />
               {!hasAdditionalInfo && (
                 <div className={clsx('absolute right-4 top-4 flex items-center gap-x-3 rounded bg-black/80 p-3')}>

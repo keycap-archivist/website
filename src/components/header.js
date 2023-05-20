@@ -1,14 +1,23 @@
 import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Search from './search';
 import Logo from '../assets/img/ka-logo.svg';
 import useScrollPosition from '../hooks/useScrollPosition';
+import ThemeSwitcher from './theme-switcher';
+import { getConfig, setConfig } from '../internal/config';
 
 const Header = ({ siteTitle }) => {
   const isScrolled = useScrollPosition();
+  const [config, setStateConfig] = useState(getConfig());
+
+  const setComponentConfig = (property, value) => {
+    config[property] = value;
+    setConfig(config);
+    setStateConfig({ ...config });
+  };
 
   const internalLinks = [
     {
@@ -102,6 +111,7 @@ const Header = ({ siteTitle }) => {
                 <FontAwesomeIcon icon={['fab', link.iconName]} />
               </a>
             ))}
+            <ThemeSwitcher className="-ml-[6px]" />
           </div>
         </div>
       </nav>

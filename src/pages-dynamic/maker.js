@@ -32,15 +32,11 @@ const Maker = (props) => {
 
   const getLogoMaker = (id) => {
     const f = LogoAndBanner.logos.nodes.find((x) => x.relativePath.includes(id));
-    console.log(f);
-    if (!isNil(f)) {
-      return getImage(f);
-    }
+    if (!isNil(f)) return getImage(f);
     return '/android-chrome-512x512.png';
   };
 
   const sculptList = selfOrder === true ? maker.sculpts : sortBy(maker.sculpts, (x) => x.name);
-  console.log(sculptList);
 
   return (
     <Layout>

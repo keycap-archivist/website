@@ -36,39 +36,38 @@
 
   @keyframes slideDownAndFade {
     from {
-      @apply opacity-0;
-      transform: translateY(-2px);
+      @apply translate-y-[2px] opacity-0;
     }
+
     to {
-      @apply opacity-100;
-      transform: translateY(0);
+      @apply translate-y-0 opacity-100;
     }
   }
 
   @keyframes hide {
-  from {
-    opacity: 1;
+    from {
+      @apply opacity-100;
+    }
+    to {
+      @apply opacity-0;
+    }
   }
-  to {
-    opacity: 0;
-  }
-}
 
-@keyframes slideIn {
-  from {
-    transform: translateX(calc(100% + 24px));
+  @keyframes slideIn {
+    from {
+      transform: translateX(calc(100% + 24px));
+    }
+    to {
+      transform: translateX(0);
+    }
   }
-  to {
-    transform: translateX(0);
-  }
-}
 
-@keyframes swipeOut {
-  from {
-    transform: translateX(var(--radix-toast-swipe-end-x));
+  @keyframes swipeOut {
+    from {
+      transform: translateX(var(--radix-toast-swipe-end-x));
+    }
+    to {
+      transform: translateX(calc(100% + 24px));
+    }
   }
-  to {
-    transform: translateX(calc(100% + 24px));
-  }
-}
 }
