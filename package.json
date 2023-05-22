@@ -25,7 +25,7 @@
     "gatsby-plugin-purgecss": "6.2.1",
     "gatsby-plugin-react-helmet": "6.9.0",
     "gatsby-plugin-robots-txt": "1.8.0",
-    "gatsby-plugin-sass": "6.9.0",
+    "gatsby-plugin-sass": "6.10.0",
     "gatsby-plugin-sharp": "5.9.0",
     "gatsby-plugin-sitemap": "6.9.0",
     "gatsby-plugin-web-font-loader": "1.0.4",
