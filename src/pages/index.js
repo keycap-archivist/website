@@ -6,7 +6,7 @@ import { isNil, sortBy } from 'lodash';
 import Layout from '../layouts/base';
 import SEO from '../components/seo';
 import { getFavoriteMakers, addFavMaker, removeFavMaker } from '../internal/favorite';
-import clsx from 'clsx';
+import { cn } from '../internal/twMerge';
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -76,7 +76,7 @@ const IndexPage = () => {
                 <span className="grow text-center text-lg font-bold">{element.pageContext.maker.name}</span>
                 <FontAwesomeIcon
                   id="favStar"
-                  className={clsx(
+                  className={cn(
                     'star-icon ml-auto cursor-pointer',
                     favoriteMakers.includes(element.pageContext.maker.id) ? 'text-yellow-500' : 'text-slate-400',
                   )}

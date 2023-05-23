@@ -1,23 +1,17 @@
 import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import clsx from 'clsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Search from './search';
 import Logo from '../assets/img/ka-logo.svg';
 import useScrollPosition from '../hooks/useScrollPosition';
 import ThemeSwitcher from './theme-switcher';
 import { getConfig, setConfig } from '../internal/config';
+import { cn } from '../internal/twMerge';
 
 const Header = ({ siteTitle }) => {
   const isScrolled = useScrollPosition();
   const [config, setStateConfig] = useState(getConfig());
-
-  const setComponentConfig = (property, value) => {
-    config[property] = value;
-    setConfig(config);
-    setStateConfig({ ...config });
-  };
 
   const internalLinks = [
     {
@@ -57,12 +51,12 @@ const Header = ({ siteTitle }) => {
 
   return (
     <header
-      className={clsx(
+      className={cn(
         'sticky top-0 z-50 mb-6 bg-white shadow-md shadow-slate-900/5 transition duration-300 dark:shadow-none',
         isScrolled ? 'dark:bg-slate-950/95 dark:backdrop-blur-md dark:[@supports(backdrop-filter:blur(0))]:bg-slate-900/80' : 'dark:bg-transparent',
       )}
     >
-      <nav className="container mx-auto flex w-full flex-col items-center px-3 py-4 md:flex-row">
+      <nav className="container flex w-full flex-col items-center py-4 md:flex-row">
         <div className="flex shrink-0 basis-0  md:flex-grow">
           <Link to="/" className="mb-2 flex items-center md:mb-0">
             <img src={Logo} alt={siteTitle} width="40" height="40" className="mr-4" />

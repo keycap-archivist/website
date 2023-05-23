@@ -63,7 +63,7 @@ const Layout = ({ children }) => {
         <link rel="manifest" href="/site.webmanifest" />
       </Helmet>
       <Header siteTitle={data.site.siteMetadata.title} />
-      <main className="container mx-auto px-3 pb-8">
+      <main className="container pb-16">
         <AcBanner />
         {children}
       </main>

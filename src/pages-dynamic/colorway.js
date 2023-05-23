@@ -25,8 +25,8 @@ import {
 } from '../internal/wishlist';
 
 import Layout from '../layouts/base';
-import clsx from 'clsx';
 import Modal from '../components/modal';
+import { cn } from '../internal/twMerge';
 
 const Maker = (props) => {
   const { pageContext, location } = props;
@@ -110,11 +110,11 @@ const Maker = (props) => {
             </div>
             <div className="mt-1 flex shrink-0 flex-row flex-nowrap items-center"></div>
           </div>
-          <div className={clsx('mt-12 flex gap-x-8', hasAdditionalInfo ? '' : 'justify-center')}>
-            <div className={clsx(hasAdditionalInfo ? 'flex basis-1/2' : 'relative w-1/2')}>
+          <div className={cn('mt-12 flex gap-x-8', hasAdditionalInfo ? '' : 'justify-center')}>
+            <div className={cn(hasAdditionalInfo ? 'flex basis-1/2' : 'relative w-1/2')}>
               <img loading="lazy" className="block h-full w-full rounded-lg object-cover" alt={seoTitle} src={cwImg} />
               {!hasAdditionalInfo && (
-                <div className={clsx('absolute right-4 top-4 flex items-center gap-x-3 rounded bg-black/80 p-3')}>
+                <div className={cn('absolute right-4 top-4 flex items-center gap-x-3 rounded bg-black/80 p-3')}>
                   {!colorway.name && (
                     <Modal buttonTitle="Suggest name" modalTitle="Suggest name" open={showModal} setOpen={setShowModal}>
                       <SubmitNameModal
@@ -219,7 +219,7 @@ const Maker = (props) => {
                     <dd className="mx-2 font-bold">Giveaway</dd>
                   </dl>
                 ) : null}
-                <div className={clsx('flex items-center gap-x-3', hasAdditionalInfo ? 'mt-6' : null)}>
+                <div className={cn('flex items-center gap-x-3', hasAdditionalInfo ? 'mt-6' : null)}>
                   {/* {!colorway.name && ( */}
                   <Modal buttonTitle="Suggest name" modalTitle="Suggest name" open={showModal} setOpen={setShowModal}>
                     <SubmitNameModal

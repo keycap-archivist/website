@@ -50,7 +50,7 @@ const Config = () => {
   return (
     <Layout>
       <SEO title="Configuration" img={'/android-chrome-512x512.png'} />
-      <div className="container mx-auto">
+      <div className="container">
         <h1 className="mt-10 text-3xl font-bold">Configuration panel</h1>
 
         <div className="lg:flex lg:gap-x-16">
