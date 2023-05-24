@@ -62,20 +62,10 @@ const Maker = (props) => {
       <div className="my-6 flex items-center justify-between">
         <div className="flex items-center gap-x-4 text-2xl">
           <h2 className="font-bold">{maker.name}</h2>
-          {maker.nationality && (
-            <ReactCountryFlag
-              className="emojiFlag"
-              countryCode={`${maker.nationality.toUpperCase()}`}
-              style={{
-                fontSize: '1em',
-                lineHeight: '1em',
-              }}
-              svg
-            />
-          )}
+          {maker.nationality && <ReactCountryFlag className="emojiFlag text-base leading-4" countryCode={`${maker.nationality.toUpperCase()}`} svg />}
         </div>
         <div className="flex items-center gap-x-2">
-          <span>External links :</span>
+          <span className="max-lg:hidden">External links :</span>
           {(maker.website || maker.instagram || maker.discord) && (
             <ul className="-ml-1 flex list-none flex-row flex-wrap">
               {maker.artisanCollector && (
@@ -144,7 +134,7 @@ const Maker = (props) => {
         </div>
       </div>
 
-      <ul className="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-5 lg:gap-4">
+      <ul className="grid grid-cols-1 gap-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-4">
         {sculptList.map((s) => (
           <li key={s.id} className="flex flex-col">
             <Link

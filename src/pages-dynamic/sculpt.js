@@ -126,7 +126,7 @@ const Maker = (props) => {
           </div> */}
       </div>
 
-      <ul className="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-5 lg:gap-4">
+      <ul className="grid grid-cols-1 gap-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-4">
         {cwList.map((c) => (
           <li key={c.id} id={c.id} className="flex flex-col">
             <Link

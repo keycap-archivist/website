@@ -54,29 +54,45 @@ const Maker = (props) => {
   const cwImg = `https://cdn.keycap-archivist.com/keycaps/720/${colorway.id}.jpg`;
 
   const hasAdditionalInfo = useMemo(() => {
-    return colorway.releaseDate || colorway.totalCount || colorway.commissioned || colorway.giveaway || false;
+    return true;
+    // return colorway.releaseDate || colorway.totalCount || colorway.commissioned || colorway.giveaway || false;
   }, [colorway]);
 
   return (
     <Toast.Provider swipeDirection="right">
       <Layout>
         {showSuccessAlert && (
-          <ToastWrapper variant="success" open={showSuccessAlert} onOpenChange={setShowSuccessAlert} className="toast-root rounded-md bg-white p-4 shadow-md">
-            <span>Suggestion successfully submitted</span>
+          <ToastWrapper
+            variant="success"
+            open={showSuccessAlert}
+            onOpenChange={setShowSuccessAlert}
+            className="toast-root rounded-md bg-white p-4 shadow-md"
+          >
+            <span>Suggestion successfully submitted !</span>
           </ToastWrapper>
         )}
         {showErrorAlert && (
-          <ToastWrapper variant="error" open={showErrorAlert} onOpenChange={setShowErrorAlert} className="toast-root rounded-md bg-white p-4 shadow-md">
-            <span>Suggestion submission failed</span>
+          <ToastWrapper
+            variant="error"
+            open={showErrorAlert}
+            onOpenChange={setShowErrorAlert}
+            className="toast-root rounded-md bg-white p-4 shadow-md"
+          >
+            <span>Suggestion submission failed.</span>
           </ToastWrapper>
         )}
         {showExceedAlert && (
-          <ToastWrapper variant="error" open={showExceedAlert} onOpenChange={setShowExceedAlert} className="toast-root rounded-md bg-white p-4 shadow-md">
-            <span>Wishlist or trade list items exceeded</span>
+          <ToastWrapper
+            variant="error"
+            open={showExceedAlert}
+            onOpenChange={setShowExceedAlert}
+            className="toast-root rounded-md bg-white p-4 shadow-md"
+          >
+            <span>Wishlist or trade list items exceeded.</span>
           </ToastWrapper>
         )}
         <SEO title={seoTitle} img={cwImg} />
-        <div className="">
+        <div>
           <div className="mt-6">
             {[
               {
@@ -104,14 +120,14 @@ const Maker = (props) => {
             ))}
           </div>
 
-          <div className="my-6 flex flex-col items-center justify-between sm:flex-row">
+          <div className="mb-6 mt-10 flex flex-col items-center justify-between sm:flex-row lg:my-6">
             <div className="mb-2 pr-3 leading-snug sm:mb-0">
               <h2 className="text-3xl font-bold leading-none">{colorway.name ? colorway.name : '(Unknown)'}</h2>
             </div>
             <div className="mt-1 flex shrink-0 flex-row flex-nowrap items-center"></div>
           </div>
-          <div className={cn('mt-12 flex gap-x-8', hasAdditionalInfo ? '' : 'justify-center')}>
-            <div className={cn(hasAdditionalInfo ? 'flex basis-1/2' : 'relative w-1/2')}>
+          <div className={cn('mt-0 flex flex-col gap-8 lg:mt-12 lg:flex-row', hasAdditionalInfo ? '' : 'justify-center')}>
+            <div className={cn(hasAdditionalInfo ? 'flex basis-auto lg:basis-1/2' : 'relative w-full lg:w-1/2')}>
               <img loading="lazy" className="block h-full w-full rounded-lg object-cover" alt={seoTitle} src={cwImg} />
               {!hasAdditionalInfo && (
                 <div className={cn('absolute right-4 top-4 flex items-center gap-x-3 rounded bg-black/80 p-3')}>
@@ -219,7 +235,7 @@ const Maker = (props) => {
                     <dd className="mx-2 font-bold">Giveaway</dd>
                   </dl>
                 ) : null}
-                <div className={cn('flex items-center gap-x-3', hasAdditionalInfo ? 'mt-6' : null)}>
+                <div className={cn('flex items-center gap-3', hasAdditionalInfo ? 'mt-0 lg:mt-6' : null)}>
                   {/* {!colorway.name && ( */}
                   <Modal buttonTitle="Suggest name" modalTitle="Suggest name" open={showModal} setOpen={setShowModal}>
                     <SubmitNameModal

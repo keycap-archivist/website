@@ -72,8 +72,8 @@ const IndexPage = () => {
                   height="500"
                 />
               </div>
-              <div className="text-header flex items-center justify-between p-4">
-                <span className="grow text-center text-lg font-bold">{element.pageContext.maker.name}</span>
+              <div className="text-header flex items-center justify-between gap-x-2 p-4">
+                <span className="grow text-center font-semibold max-lg:truncate lg:text-lg lg:font-bold">{element.pageContext.maker.name}</span>
                 <FontAwesomeIcon
                   id="favStar"
                   className={cn(
