@@ -14,7 +14,7 @@ const db = JSON.parse(fs.readFileSync('./src/db/catalog.json'));
 
 const slug = (d) => slugify(d, { replacement: '-', remove: /[#,.:?()'"/]/g, lower: true }).toLowerCase();
 
-exports.createPages = async ({ graphql, actions }) => {
+exports.createPages = async ({ actions }) => {
   const { createPage } = actions;
   const makerTpl = require.resolve('./src/pages-dynamic/maker.js');
   const cwTpl = require.resolve('./src/pages-dynamic/colorway.js');
