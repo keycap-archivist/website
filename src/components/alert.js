@@ -3,16 +3,16 @@ import React from 'react';
 const Alert = (props) => (
   <>
     <div
-      className={`border px-4 py-3 rounded relative w-auto 
+      className={`relative w-auto rounded border px-4 py-3 
         bg-${props.color}-100 
         border-${props.color}-400 
         text-${props.color}-700`}
       role="alert"
     >
       <strong className="font-bold">{props.alertMessage}</strong>
-      <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
+      <span className="absolute bottom-0 right-0 top-0 px-4 py-3">
         <svg
-          className={`fill-current h-6 w-6 text-${props.color}-500`}
+          className={`h-6 w-6 fill-current text-${props.color}-500`}
           role="button"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"

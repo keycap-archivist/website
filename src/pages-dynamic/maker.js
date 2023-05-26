@@ -1,14 +1,17 @@
 import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { sortBy } from 'lodash';
+import { isNil, sortBy } from 'lodash';
 import ReactCountryFlag from 'react-country-flag';
+import { getImage } from 'gatsby-plugin-image';
 
 import Layout from '../layouts/base';
 import SEO from '../components/seo';
-import ThumbnailImage from '../components/thumbnail-image';
+
 // eslint-disable-next-line
 import AClogo from '-!svg-react-loader?name=AClogo!../assets/img/svg/ac-logo.inline.svg';
+import ThumbnailImage from '../components/thumbnail-image';
+import cn from '../internal/twMerge';
 
 const Maker = (props) => {
   const { pageContext } = props;
@@ -20,10 +23,7 @@ const Maker = (props) => {
         nodes {
           id
           childImageSharp {
-            fixed(jpegQuality: 10, jpegProgressive: true) {
-              src
-              originalName
-            }
+            gatsbyImageData(layout: CONSTRAINED, placeholder: BLURRED, formats: [WEBP], width: 500)
           }
           relativePath
         }
@@ -32,57 +32,105 @@ const Maker = (props) => {
   `);
 
   const getLogoMaker = (id) => {
-    const f = LogoAndBanner.logos.nodes.find((x) => x.childImageSharp.fixed.originalName.startsWith(id));
-    if (f) {
-      return f.childImageSharp.fixed.src;
-    }
+    const f = LogoAndBanner.logos.nodes.find((x) => x.relativePath.includes(id));
+    if (!isNil(f)) return getImage(f);
     return '/android-chrome-512x512.png';
   };
+
   const sculptList = selfOrder === true ? maker.sculpts : sortBy(maker.sculpts, (x) => x.name);
+
   return (
     <Layout>
-      <SEO title={maker.name} img={getLogoMaker(maker.id)} />
-      <div className="pt-4">
-        <Link to="/" className="text-blue-600">
-          <FontAwesomeIcon icon={['fas', 'home']} />
-        </Link>
+      <SEO title={maker.name} img={getLogoMaker(maker.id).src} />
+      <div className="mt-6">
+        {[
+          {
+            label: 'Home',
+            link: '/',
+          },
+        ].map((x) => (
+          <>
+            <Link
+              to={x.link}
+              className={cn(
+                'text-sm font-medium text-slate-900/60 underline transition-colors',
+                'hover:text-slate-800/60',
+                'dark:text-slate-50/80',
+                'dark:hover:text-white/90',
+              )}
+            >
+              {x.label}
+            </Link>{' '}
+            /{' '}
+          </>
+        ))}
       </div>
-      <div className="flex">
-        <div className="text-3xl my-6">
+      <div className="my-6 flex items-center justify-between">
+        <div className="flex items-center gap-x-4 text-2xl">
           <h2 className="font-bold">{maker.name}</h2>
+          {maker.nationality && <ReactCountryFlag className="emojiFlag text-base leading-4" countryCode={`${maker.nationality.toUpperCase()}`} svg />}
+        </div>
+        <div className="flex items-center gap-x-2">
+          <span className="text-xs font-semibold uppercase max-lg:hidden">External links :</span>
           {(maker.website || maker.instagram || maker.discord) && (
-            <ul className="flex flex-wrap flex-row list-none -ml-1">
+            <ul className="-ml-1 flex list-none flex-row flex-wrap">
               {maker.artisanCollector && (
                 <li className="flex h-auto px-1">
-                  <a href={maker.artisanCollector} title="Artisan Collector" target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-600">
+                  <a
+                    href={maker.artisanCollector}
+                    title="Artisan Collector"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-lg text-slate-900/80 transition-colors hover:text-slate-900/100 dark:text-white/80 dark:hover:text-white/100"
+                  >
                     <AClogo className="svg-inline--fa fa-w-16" />
                   </a>
                 </li>
               )}
               {maker.website && (
                 <li className="flex h-auto px-1">
-                  <a href={maker.website} target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-600">
+                  <a
+                    href={maker.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-lg text-slate-900/80 transition-colors hover:text-slate-900/100 dark:text-white/80 dark:hover:text-white/100"
+                  >
                     <FontAwesomeIcon icon={['fas', 'globe']} />
                   </a>
                 </li>
               )}
               {maker.instagram && (
                 <li className="flex h-auto px-1">
-                  <a href={maker.instagram} target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-600">
+                  <a
+                    href={maker.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-lg text-slate-900/80 transition-colors hover:text-slate-900/100 dark:text-white/80 dark:hover:text-white/100"
+                  >
                     <FontAwesomeIcon icon={['fab', 'instagram']} />
                   </a>
                 </li>
               )}
               {maker.discord && (
                 <li className="flex h-auto px-1">
-                  <a href={maker.discord} target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-600">
+                  <a
+                    href={maker.discord}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-lg text-slate-900/80 transition-colors hover:text-slate-900/100 dark:text-white/80 dark:hover:text-white/100"
+                  >
                     <FontAwesomeIcon icon={['fab', 'discord']} />
                   </a>
                 </li>
               )}
               {maker.src && (
                 <li className="flex h-auto px-1">
-                  <a href={maker.src} target="_blank" rel="noopener noreferrer" className="text-xl hover:text-blue-600">
+                  <a
+                    href={maker.src}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-lg text-slate-900/80 transition-colors hover:text-slate-900/100 dark:text-white/80 dark:hover:text-white/100"
+                  >
                     <FontAwesomeIcon icon={['fas', 'file']} />
                   </a>
                 </li>
@@ -90,37 +138,24 @@ const Maker = (props) => {
             </ul>
           )}
         </div>
-        <div className="text-3xl ml-12 my-6">
-          {maker.nationality && (
-            <ReactCountryFlag
-              className="emojiFlag"
-              countryCode={`${maker.nationality.toUpperCase()}`}
-              style={{
-                fontSize: '1em',
-                lineHeight: '1em',
-              }}
-              svg
-            />
-          )}
-        </div>
       </div>
 
-      <ul className="flex flex-wrap flex-row list-none -ml-2 -mr-2">
+      <ul className="grid grid-cols-1 gap-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-4 xl:grid-cols-5">
         {sculptList.map((s) => (
-          <li key={s.id} className="tile_item">
-            <Link to={s.link} className="tile_block">
-              <div className="w-full h-full thumbnail-wrapper">
-                <ThumbnailImage
-                  loading="lazy"
-                  src={s.previewImg}
-                  className="h-full
-                    w-full
-                    object-cover"
-                  alt={`${maker.name} - ${s.name}`}
-                />
+          <li key={s.id} className="flex flex-col">
+            <Link
+              to={s.link}
+              className={cn(
+                'block w-full overflow-hidden rounded-md bg-white shadow-md transition',
+                'hover:border-slate-400/80 hover:shadow-lg',
+                'dark:border dark:border-slate-600/50 dark:bg-slate-700 dark:text-slate-200 dark:shadow-none',
+              )}
+            >
+              <div className="h-[250px] border-b border-slate-200 bg-white dark:border-b-2 dark:border-slate-600">
+                <ThumbnailImage src={s.previewImg} className="h-full w-full object-cover" alt={`${maker.name} - ${s.name}`} />
               </div>
-              <div className="font-bold pt-3 px-2 text-center">
-                <div className="title">{s.name}</div>
+              <div className="p-4 text-center font-bold">
+                <div className="text-sm">{s.name}</div>
               </div>
             </Link>
           </li>

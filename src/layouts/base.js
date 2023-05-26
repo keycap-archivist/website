@@ -7,7 +7,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import '../assets/scss/style.scss';
+import '../assets/css/style.css';
 
 import Header from '../components/header';
 import { initConfig } from '../internal/config';
@@ -30,6 +30,19 @@ const Layout = ({ children }) => {
     }
   `);
 
+  // useEffect(() => {
+  //   console.log('theme: ', localStorage.getItem('theme'));
+  //   if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  //     document.documentElement.classList.add('dark');
+  //     localStorage.setItem('theme', 'dark');
+  //   } else {
+  //     if (document.documentElement.classList.contains('dark')) {
+  //       document.documentElement.classList.remove('dark');
+  //       localStorage.setItem('theme', 'light');
+  //     }
+  //   }
+  // }, []);
+
   return (
     <>
       <Helmet htmlAttributes={{ lang: 'en' }}>
@@ -50,12 +63,10 @@ const Layout = ({ children }) => {
         <link rel="manifest" href="/site.webmanifest" />
       </Helmet>
       <Header siteTitle={data.site.siteMetadata.title} />
-      <div className="container mx-auto px-3 pb-8">
-        <main>
-          <AcBanner />
-          {children}
-        </main>
-      </div>
+      <main className="container pb-16">
+        <AcBanner />
+        {children}
+      </main>
     </>
   );
 };

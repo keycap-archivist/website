@@ -52,7 +52,6 @@ const plugins = [
     },
   },
   'gatsby-plugin-postcss',
-  'gatsby-plugin-sass',
   {
     resolve: 'gatsby-source-filesystem',
     options: {
@@ -60,15 +59,21 @@ const plugins = [
       path: `${__dirname}/src/assets/img`,
     },
   },
-  'gatsby-transformer-sharp',
+  'gatsby-plugin-image',
   'gatsby-plugin-sharp',
+  'gatsby-transformer-sharp',
   'gatsby-transformer-remark',
   {
-    resolve: 'gatsby-plugin-web-font-loader',
+    resolve: `gatsby-omni-font-loader`,
     options: {
-      google: {
-        families: ['Asap:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap'],
-      },
+      enableListener: true,
+      preconnect: [`https://fonts.googleapis.com`, `https://fonts.gstatic.com`],
+      web: [
+        {
+          name: 'Inter',
+          file: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+        },
+      ],
     },
   },
 ];

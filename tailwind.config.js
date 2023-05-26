@@ -1,17 +1,25 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
-  purge: [],
+  darkMode: 'class',
+  content: ['src/**/*.js', 'src/**/*.css'],
   theme: {
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: {
+        '2xl': '1400px',
+      },
+    },
     extend: {
+      fontFamily: {
+        sans: ['Inter', ...defaultTheme.fontFamily.sans],
+      },
       colors: {
-        blue_ka: '#181e35',
+        'blue-ka': { primary: '#181e35' },
         discord: '#7289da',
       },
     },
   },
-  variants: {
-    extend: {
-      backgroundColor: ['disabled'],
-    },
-  },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography'), require('tailwind-scrollbar'), require('tailwindcss-animate')],
 };

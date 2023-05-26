@@ -1,57 +1,39 @@
 import React from 'react';
-import Modal from '../modal';
+import cn from '../../internal/twMerge';
 
 const ConfirmDialogModal = (props) => (
-  <Modal modalHeader={props.modalHeader} setModal={props.setModal}>
-    <div className="bg-blue_ka relative p-6 flex content-around">
-      <div className="w-full pr-2">
-        <label>{props.placeholder}</label>
-      </div>
-      <div className="flex flex-wrap mt-2">
-        <div className="w-1/3 pr-2 flex justify-right">
-          <button
-            className="
-                      mx-2
-                      block
-                      w-20
-                      bg-green-500
-                      hover:bg-green-700
-                      text-white
-                      font-bold
-                      py-2 px-3
-                      text-xs
-                      rounded"
-            onClick={() => {
-              props.onModalConfirm();
-              props.setModal(false);
-            }}
-          >
-            Okey
-          </button>
-        </div>
-        <div className="w-1/3 ml-8 pr-2 flex justify-right">
-          <button
-            className="
-                      mx-2
-                      block
-                      w-20
-                      bg-red-500
-                      hover:bg-red-700
-                      text-white
-                      font-bold
-                      py-2 px-3
-                      text-xs
-                      rounded"
-            onClick={() => {
-              props.setModal(false);
-            }}
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
+  <div className="relative mt-6 flex flex-col justify-between gap-6">
+    <div className="grow">
+      <label>{props.placeholder}</label>
     </div>
-  </Modal>
+    <div className="flex items-center gap-x-3 self-end">
+      <button
+        className={cn(
+          'inline-flex items-center justify-center self-end rounded',
+          'bg-red-500 px-3 py-2 text-sm font-bold text-white transition-colors',
+          'hover:bg-red-600',
+        )}
+        onClick={() => {
+          props.setModal(false);
+        }}
+      >
+        Cancel
+      </button>
+      <button
+        className={cn(
+          'inline-flex items-center justify-center self-end rounded',
+          'bg-green-500 px-3 py-2 text-sm font-bold text-white transition-colors',
+          'hover:bg-green-600',
+        )}
+        onClick={() => {
+          props.onModalConfirm();
+          props.setModal(false);
+        }}
+      >
+        Confirm
+      </button>
+    </div>
+  </div>
 );
 
 export default ConfirmDialogModal;

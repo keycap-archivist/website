@@ -1,92 +1,47 @@
 import React from 'react';
+import * as Dialog from '@radix-ui/react-dialog';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import cn from '../internal/twMerge';
 
 const Modal = (props) => (
-  <>
-    <div
-      className="
-            modal
-            opacity-100
-            ease-out
-            justify-center
-            items-center
-            flex
-            overflow-x-hidden
-            overflow-y-auto
-            fixed
-            inset-0
-            z-50
-            outline-none
-            focus:outline-none"
-    >
-      <div className="relative w-auto my-6 mx-auto max-w-3xl">
-        <div
-          className="
-                opacity-0
-                transition-opacity
-                opacity-100
-                ease-out
-                border-0
-                rounded-lg
-                shadow-lg
-                relative
-                flex
-                flex-col
-                w-full
-                bg-blue_ka
-                outline-none
-                focus:outline-none"
+  <Dialog.Root open={props.open} onOpenChange={props.setOpen}>
+    <Dialog.Trigger asChild>
+      <button
+        disabled={props.disabled}
+        className={cn(
+          'inline-flex items-center justify-center rounded-md bg-pink-500 px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-pink-700',
+          props.disabled ? 'cursor-not-allowed opacity-50' : '',
+        )}
+      >
+        {props.buttonTitle}
+      </button>
+    </Dialog.Trigger>
+    <Dialog.Portal>
+      <Dialog.Overlay className="dialog-overlay fixed inset-0 z-50 bg-black/20 dark:bg-black/80" />
+      <Dialog.Content
+        className={cn(
+          'dialog-content fixed left-1/2 top-1/2 z-[60] w-[90vw] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white p-6 shadow-md',
+          'focus:outline-none',
+          'dark:bg-slate-800',
+          'sm:max-w-[450px]',
+        )}
+      >
+        <Dialog.Title className="m-0 font-medium">{props.modalTitle}</Dialog.Title>
+        <Dialog.Close
+          className={cn(
+            'absolute right-2 top-2 inline-flex h-6 w-6 items-center justify-center rounded-full text-slate-400/80 transition-colors',
+            'hover:bg-slate-200/50',
+            'dark:text-slate-700/90',
+            'dark:hover:bg-slate-600',
+          )}
+          aria-label="Close"
         >
-          <div
-            className="
-                  flex
-                  items-start
-                  justify-between
-                  p-5 border-b
-                  border-solid
-                  border-gray-300
-                  rounded-t"
-          >
-            <h3 className="text-2xl font-semibold">{props.modalHeader}</h3>
-            <button
-              className="
-                    p-1
-                    ml-auto
-                    bg-transparent
-                    border-0
-                    text-black
-                    opacity-5
-                    float-right
-                    text-3xl
-                    leading-none
-                    font-semibold
-                    outline-none
-                    focus:outline-none"
-              onClick={() => {
-                props.setModal(false);
-              }}
-            >
-              <span
-                className="
-                      bg-transparent
-                      text-black
-                      opacity-5
-                      h-6
-                      w-6
-                      text-2xl
-                      block
-                      outline-none
-                      focus:outline-none"
-              >
-                ×
-              </span>
-            </button>
-          </div>
-          <div>{props.children}</div>
-        </div>
-      </div>
-    </div>
-    <div className="modal-background opacity-25 fixed inset-0 z-40 bg-black"></div>
-  </>
+          <FontAwesomeIcon icon={['fas', 'xmark']} />
+        </Dialog.Close>
+        {props.children}
+      </Dialog.Content>
+    </Dialog.Portal>
+  </Dialog.Root>
 );
 
 export default Modal;

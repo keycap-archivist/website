@@ -4,7 +4,7 @@
     "commonjs": true,
     "es6": true
   },
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "react"],
   "extends": ["eslint:recommended", "airbnb-base", "plugin:react/recommended"],
   "globals": {
     "Atomics": "readonly",

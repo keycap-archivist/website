@@ -1,62 +1,185 @@
 import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as Collapsible from '@radix-ui/react-collapsible';
+
 import Search from './search';
 import Logo from '../assets/img/ka-logo.svg';
+import useScrollPosition from '../hooks/useScrollPosition';
+import ThemeSwitcher from './theme-switcher';
+import cn from '../internal/twMerge';
 
-const Header = ({ siteTitle, darkMode }) => {
-  const themeClass = darkMode ? 'dark' : 'light';
+const Header = ({ siteTitle }) => {
+  const isScrolled = useScrollPosition();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const internalLinks = [
+    {
+      name: 'Wishlist',
+      url: '/wishlist',
+      isGatsbyLink: true,
+    },
+    {
+      name: 'Donate',
+      url: 'https://ko-fi.com/keycaparchivist',
+      isGatsbyLink: false,
+    },
+    {
+      name: 'Config',
+      url: '/config',
+      isGatsbyLink: true,
+    },
+    {
+      name: 'About',
+      url: '/about',
+      isGatsbyLink: true,
+    },
+  ];
+
+  const socialLinks = [
+    {
+      name: 'Github',
+      url: 'https://github.com/keycap-archivist',
+      iconName: 'github',
+    },
+    {
+      name: 'Discord',
+      url: 'https://discord.gg/nXrShaa',
+      iconName: 'discord',
+    },
+  ];
 
   return (
-    <header className={`bg-blue_ka mb-3 ${themeClass}`}>
-      <nav className="container flex flex-col md:flex-row items-center justify-between mx-auto px-3 py-5">
-        <h1 className="flex items-center flex-shrink-0 mb-2 md:mb-0 text-white">
-          <Link to="/" className="text-xl font-bold text-white flex flex-row items-center">
-            <img src={Logo} alt={siteTitle} width="40" height="40" className="mr-2" />
-            {siteTitle}
+    <header
+      className={cn(
+        'sticky top-0 z-50 mb-6 bg-white shadow-md shadow-slate-900/5 transition duration-300 dark:shadow-none',
+        isScrolled ? 'dark:bg-slate-950/95 dark:backdrop-blur-md dark:[@supports(backdrop-filter:blur(0))]:bg-slate-900/80' : 'dark:bg-transparent',
+      )}
+    >
+      <nav className="container flex w-full items-center justify-between gap-x-6 py-4 lg:justify-evenly">
+        <div className="flex shrink-0 lg:flex-grow lg:basis-0">
+          <Link to="/" className="flex items-center">
+            <img src={Logo} alt={siteTitle} className="h-8 w-8 lg:h-10 lg:w-10" />
+            <span className="ml-4 hidden text-lg font-bold uppercase text-slate-900 dark:text-white lg:inline-block">{siteTitle}</span>
           </Link>
-        </h1>
-        <div className="w-full flex flex-row flex-wrap md:flex-no-wrap items-center justify-center md:justify-end">
-          <div className="flex flex-row flex-no-wrap items-stretch mr-3 md:mr-6">
-            <Link to="/wishlist" className="text-white hover:text-teal-200 mr-3 md:mr-6">
-              Wishlist
-            </Link>
-            <a href="https://ko-fi.com/keycaparchivist" target="_blank" rel="noopener noreferrer" className="text-white hover:text-teal-200 mr-3 md:mr-6">
-              Donate
-            </a>
-            <Link to="/config" className="text-white hover:text-teal-200 mr-3 md:mr-6">
-              Config
-            </Link>
-            <Link to="/about" className="text-white hover:text-teal-200">
-              About
-            </Link>
+        </div>
+        <Search />
+        <Collapsible.Root open={isOpen} onOpenChange={setIsOpen} className="block lg:hidden">
+          <Collapsible.Trigger asChild>
+            <button
+              className={cn(
+                'inline-flex items-center justify-center rounded-md p-2 text-gray-400',
+                'focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500',
+                'hover:bg-gray-100 hover:text-gray-500',
+              )}
+            >
+              {isOpen ? <FontAwesomeIcon icon={['fas', 'xmark']} aria-hidden="true" /> : <FontAwesomeIcon icon={['fas', 'bars']} aria-hidden="true" />}{' '}
+            </button>
+          </Collapsible.Trigger>
+          <Collapsible.Content>
+            <div className="container absolute inset-0 top-0 z-50 flex h-[32vh] w-full flex-col overflow-hidden bg-white py-4 pt-6 shadow-md dark:bg-slate-950">
+              <div className="flex items-center justify-between">
+                <div className="flex shrink-0 lg:flex-grow">
+                  <Link to="/" className="flex items-center">
+                    <img src={Logo} alt={siteTitle} className="h-8 w-8 lg:h-10 lg:w-10" />
+                    <span className="ml-4 hidden text-lg font-bold uppercase text-slate-900 dark:text-white lg:inline-block">{siteTitle}</span>
+                  </Link>
+                </div>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className={cn(
+                    'inline-flex items-center justify-center rounded-md p-2 text-gray-400',
+                    'focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500',
+                    'hover:bg-gray-100 hover:text-gray-500',
+                  )}
+                >
+                  <FontAwesomeIcon icon={['fas', 'xmark']} aria-hidden="true" />
+                </button>
+              </div>
+              <div className="mt-6 flex w-full flex-col gap-y-1 font-semibold">
+                {internalLinks.map((link) => {
+                  if (link.isGatsbyLink) {
+                    return (
+                      <Link
+                        key={link.name}
+                        to={link.url}
+                        className="py-1.5 text-sm text-slate-900/80 transition-colors hover:text-slate-900/100 dark:text-white/80 dark:hover:text-white/100"
+                      >
+                        {link.name}
+                      </Link>
+                    );
+                  }
+                  return (
+                    <a
+                      key={link.name}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="py-1.5 text-sm text-slate-900/80 transition-colors hover:text-slate-900/100 dark:text-white/80 dark:hover:text-white/100"
+                    >
+                      {link.name}
+                    </a>
+                  );
+                })}
+                <div className="flex items-center gap-x-5 pt-2">
+                  {socialLinks.map((link) => (
+                    <a
+                      key={link.name}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-lg text-slate-900/80 transition-colors hover:text-slate-900/100 dark:text-white/80 dark:hover:text-white/100"
+                    >
+                      <FontAwesomeIcon icon={['fab', link.iconName]} />
+                    </a>
+                  ))}
+                  <ThemeSwitcher className="-ml-[6px]" />
+                </div>
+              </div>
+            </div>
+          </Collapsible.Content>
+        </Collapsible.Root>
+        <div className="hidden basis-0 flex-wrap items-center lg:flex lg:flex-grow lg:flex-nowrap lg:justify-end">
+          <div className="flex items-center gap-x-5 font-semibold">
+            {internalLinks.map((link) => {
+              if (link.isGatsbyLink) {
+                return (
+                  <Link
+                    key={link.name}
+                    to={link.url}
+                    className="text-sm text-slate-900/80 transition-colors hover:text-slate-900/100 dark:text-white/80 dark:hover:text-white/100"
+                  >
+                    {link.name}
+                  </Link>
+                );
+              }
+              return (
+                <a
+                  key={link.name}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-slate-900/80 transition-colors hover:text-slate-900/100 dark:text-white/80 dark:hover:text-white/100"
+                >
+                  {link.name}
+                </a>
+              );
+            })}
           </div>
-          <ul
-            className="
-          flex
-          flex-row
-          items-center
-          list-none
-          space-x-3
-          md:space-x-6
-          justify-center
-          md:justify-start
-          md:mr-6"
-          >
-            <li>
-              <a href="https://github.com/keycap-archivist" target="_blank" rel="noopener noreferrer" className="text-white text-xl hover:text-teal-200">
-                <FontAwesomeIcon icon={['fab', 'github']} />
+          <div className="ml-5 flex items-center gap-x-5 border-l border-slate-200 pl-6 dark:border-slate-700">
+            {socialLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-lg text-slate-900/80 transition-colors hover:text-slate-900/100 dark:text-white/80 dark:hover:text-white/100"
+              >
+                <FontAwesomeIcon icon={['fab', link.iconName]} />
               </a>
-            </li>
-            <li>
-              <a href="https://discord.gg/nXrShaa" target="_blank" rel="noopener noreferrer" className="text-white text-xl hover:text-teal-200">
-                <FontAwesomeIcon icon={['fab', 'discord']} />
-              </a>
-            </li>
-          </ul>
-          <div className="w-full md:w-1/3 mt-4 md:mt-0">
-            <Search />
+            ))}
+            <ThemeSwitcher className="-ml-[6px]" />
           </div>
         </div>
       </nav>
