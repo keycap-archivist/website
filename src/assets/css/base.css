@@ -4,19 +4,3 @@
     font-feature-settings: 'rlig' 1, 'calt' 1;
   }
 }
-
-@layer utilities {
-  .animate-spin-slow {
-    animation: spin 2s linear infinite;
-
-    @keyframes spin {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
-        transform: rotate(360deg);
-      }
-    }
-  }
-}

@@ -81,7 +81,7 @@ const IndexPage = () => {
                 <FontAwesomeIcon
                   id="favStar"
                   className={cn(
-                    'star-icon ml-auto cursor-pointer',
+                    'top-[14px] ml-auto cursor-pointer',
                     favoriteMakers.includes(element.pageContext.maker.id) ? 'text-yellow-500' : 'text-slate-400',
                   )}
                   icon={['fas', 'star']}

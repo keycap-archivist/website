@@ -27,18 +27,6 @@
     @apply fill-white dark:fill-slate-700;
   }
 
-  .star-icon {
-    @apply top-[14px];
-  }
-
-  .colorway-wrapper {
-    @apply flex max-w-[100vw] border bg-white dark:border-slate-600 dark:bg-slate-700;
-  }
-
-  .is-in-wishlist {
-    @apply relative;
-  }
-
   .toast-root[data-state='open'] {
     animation: slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -58,24 +46,5 @@
 
   .toast-root[data-swipe='end'] {
     animation: swipeOut 100ms ease-out;
-  }
-
-  blockquote {
-    quotes: '\201C''\201D''\2018''\2019';
-    @apply mx-2.5 my-1.5 border-l-[10px] border-slate-700 bg-slate-50 p-4;
-
-    &::before {
-      content: open-quote;
-      @apply mr-1 align-[-0.4rem] text-4xl leading-[0.1rem] text-slate-800;
-    }
-
-    & p {
-      @apply inline italic;
-    }
-  }
-
-  input:checked ~ .dot {
-    background-color: #48bb78;
-    @apply translate-x-full;
   }
 }
