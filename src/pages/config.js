@@ -134,7 +134,8 @@ const Config = () => {
                         className={cn(
                           'inline-flex w-full items-center justify-center gap-x-2 rounded-md bg-indigo-500 px-3 py-2 text-xs font-bold text-white',
                           'transition-colors',
-                          'hover:bg-indigo-700 lg:w-fit',
+                          'hover:bg-indigo-700',
+                          'lg:w-fit',
                         )}
                       >
                         <FontAwesomeIcon icon={['fa', 'upload']} /> Upload wishlist

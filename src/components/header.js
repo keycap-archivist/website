@@ -78,7 +78,11 @@ const Header = ({ siteTitle }) => {
             </button>
           </Collapsible.Trigger>
           <Collapsible.Content>
-            <div className="container absolute inset-0 top-0 z-50 flex h-[32vh] w-full flex-col overflow-hidden bg-white py-4 pt-6 shadow-md dark:bg-slate-950">
+            <div
+              className={cn(
+                'container absolute inset-0 top-0 z-50 flex h-[34dvh] w-full flex-col overflow-hidden bg-white py-4 pt-6 shadow-md dark:bg-slate-950',
+              )}
+            >
               <div className="flex items-center justify-between">
                 <div className="flex shrink-0 lg:flex-grow">
                   <Link to="/" className="flex items-center">
