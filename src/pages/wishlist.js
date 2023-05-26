@@ -508,15 +508,15 @@ const Wishlist = () => {
                             id="capsPerLine"
                             value={wishlist.settings.capsPerLine}
                             onChange={(e) => setSettingWishlist('capsPerLine', '', e, 'input')}
-                            className={
-                              ('w-full rounded-md border-slate-300/90 pl-3 text-sm text-slate-600',
+                            className={cn(
+                              'w-full rounded-md border-slate-300/90 pl-3 text-sm text-slate-600',
                               'placeholder:text-sm placeholder:font-medium placeholder:text-slate-600/50',
                               'focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50',
                               'hover:border-slate-300/100',
                               'dark:border-slate-700/90 dark:bg-slate-700 dark:text-slate-300',
                               'dark:placeholder:text-slate-300/50',
-                              'dark:hover:border-slate-700/100')
-                            }
+                              'dark:hover:border-slate-700/100',
+                            )}
                             type="number"
                           />
                         </div>
@@ -662,15 +662,15 @@ const Wishlist = () => {
                             id="wishlistTitle"
                             value={wishlist.settings.title.text}
                             onChange={(e) => setSettingWishlist('title', 'text', e, 'input')}
-                            className={
-                              ('w-full rounded-md border-slate-300/90 pl-3 text-sm text-slate-600',
+                            className={cn(
+                              'w-full rounded-md border-slate-300/90 pl-3 text-sm text-slate-600',
                               'placeholder:text-sm placeholder:font-medium placeholder:text-slate-600/50',
                               'focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50',
                               'hover:border-slate-300/100',
                               'dark:border-slate-700/90 dark:bg-slate-700 dark:text-slate-300',
                               'dark:placeholder:text-slate-300/50',
-                              'dark:hover:border-slate-700/100')
-                            }
+                              'dark:hover:border-slate-700/100',
+                            )}
                             type="text"
                             maxLength="50"
                             placeholder={wishlist.tradeItems.length ? 'Want' : 'Wishlist'}
@@ -740,15 +740,15 @@ const Wishlist = () => {
                             id="extraText"
                             value={wishlist.settings.extraText.text}
                             onChange={(e) => setSettingWishlist('extraText', 'text', e, 'input')}
-                            className={
-                              ('w-full rounded-md border-slate-300/90 pl-3 text-sm text-slate-600',
+                            className={cn(
+                              'w-full rounded-md border-slate-300/90 pl-3 text-sm text-slate-600',
                               'placeholder:text-sm placeholder:font-medium placeholder:text-slate-600/50',
                               'focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50',
                               'hover:border-slate-300/100',
                               'dark:border-slate-700/90 dark:bg-slate-700 dark:text-slate-300',
                               'dark:placeholder:text-slate-300/50',
-                              'dark:hover:border-slate-700/100')
-                            }
+                              'dark:hover:border-slate-700/100',
+                            )}
                             type="text"
                             maxLength="50"
                             placeholder="Willing to topup if needed"
@@ -759,7 +759,7 @@ const Wishlist = () => {
                           <Select
                             className="w-full"
                             value={wishlist.settings.extraText.color}
-                            onValueChange={(e) => setSettingWishlist('extraText', 'color', e, 'input')}
+                            onValueChange={(e) => setSettingWishlist('extraText', 'color', e, 'select')}
                           >
                             <SelectTrigger>
                               <SelectValue placeholder="Select the extras text' color" />
