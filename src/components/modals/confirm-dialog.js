@@ -5,7 +5,7 @@ const ConfirmDialogModal = (props) => (
     <div className="grow">
       <label>{props.placeholder}</label>
     </div>
-    <div className="flex items-center self-end gap-x-3">
+    <div className="flex items-center gap-x-3 self-end">
       <button
         className="inline-flex items-center justify-center self-end rounded bg-red-500 px-3 py-2 text-sm font-bold text-white transition-colors hover:bg-red-600"
         onClick={() => {

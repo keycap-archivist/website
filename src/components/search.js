@@ -174,7 +174,7 @@ const Search = () => {
         />
       </label>
       {showResult ? (
-        <div className="absolute z-10 max-h-[60vh] w-[90vw] mt-16 overflow-y-scroll rounded-md bg-white p-6 shadow scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-300 dark:bg-slate-800 dark:scrollbar-thumb-slate-600 md:mt-16 lg:w-[600px]">
+        <div className="absolute z-10 mt-16 max-h-[60vh] w-[90vw] overflow-y-scroll rounded-md bg-white p-6 shadow scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-300 dark:bg-slate-800 dark:scrollbar-thumb-slate-600 md:mt-16 lg:w-[600px]">
           <ResultList />
         </div>
       ) : null}

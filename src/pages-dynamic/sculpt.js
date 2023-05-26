@@ -71,7 +71,7 @@ const Maker = (props) => {
         <div className="space-y-1">
           <h2 className="text-2xl font-bold">{sculpt.name}</h2>
           {sculpt.releaseDate && (
-            <dl className="pt-3 flex items-center">
+            <dl className="flex items-center pt-3">
               <FontAwesomeIcon className={'h-4 w-4 text-xl text-indigo-500'} icon={['fa', 'calendar']} />
               <dt className="mx-2 font-bold">Release date:</dt>
               <dd>{sculpt.releaseDate}</dd>

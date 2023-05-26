@@ -266,7 +266,7 @@ const Wishlist = () => {
                     {!wishlist.items.length && !wishlist.tradeItems.length && (
                       <span className="text-sm leading-6 text-slate-500">Add caps to your wishlist or tradelist to generate a wishlist.</span>
                     )}
-                    <div className="flex grow items-center gap-x-2 lg:grow-0">
+                    <div className="flex grow items-center gap-x-2 lg:grow-0 max-lg:mt-2">
                       {b64Img ? (
                         <a
                           href={`data:image/png;base64,${b64Img}`}

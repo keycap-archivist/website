@@ -57,7 +57,7 @@ const Header = ({ siteTitle }) => {
       )}
     >
       <nav className="container flex w-full items-center justify-between gap-x-6 py-4 lg:justify-evenly">
-        <div className="flex shrink-0 lg:flex-grow">
+        <div className="flex shrink-0 lg:basis-0 lg:flex-grow">
           <Link to="/" className="flex items-center">
             <img src={Logo} alt={siteTitle} className="h-8 w-8 lg:h-10 lg:w-10" />
             <span className="ml-4 hidden text-lg font-bold uppercase text-slate-900 dark:text-white lg:inline-block">{siteTitle}</span>
@@ -71,7 +71,7 @@ const Header = ({ siteTitle }) => {
             </button>
           </Collapsible.Trigger>
           <Collapsible.Content>
-            <div className="container absolute inset-0 top-0 z-50 flex h-[32vh] w-full flex-col overflow-hidden bg-white dark:bg-slate-950 py-4 pt-6 shadow-md">
+            <div className="container absolute inset-0 top-0 z-50 flex h-[32vh] w-full flex-col overflow-hidden bg-white py-4 pt-6 shadow-md dark:bg-slate-950">
               <div className="flex items-center justify-between">
                 <div className="flex shrink-0 lg:flex-grow">
                   <Link to="/" className="flex items-center">

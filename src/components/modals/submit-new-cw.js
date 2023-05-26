@@ -41,7 +41,9 @@ const SubmitNewCwModal = (props) => {
     <Modal modalHeader="Submit a New Colorway" setModal={props.setModal}>
       <div className="relative flex content-around p-6">
         <button
-          className={`mr-3 block w-20 rounded bg-indigo-500 px-3 py-2 text-xs font-bold text-white hover:bg-indigo-700 ${fileUploaded && 'cursor-not-allowed opacity-50'}`}
+          className={`mr-3 block w-20 rounded bg-indigo-500 px-3 py-2 text-xs font-bold text-white hover:bg-indigo-700 ${
+            fileUploaded && 'cursor-not-allowed opacity-50'
+          }`}
           onClick={handleClick}
           disabled={fileUploaded}
         >
