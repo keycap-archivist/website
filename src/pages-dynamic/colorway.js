@@ -1,15 +1,13 @@
 /* eslint-disable no-return-assign */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as Toast from '@radix-ui/react-toast';
 import { Link } from 'gatsby';
 import React, { useEffect, useState, useMemo } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import Alert from '../components/alert';
-import SubmitNameModal from '../components/modals/submit-name';
 import TooltipWrapper from '../components/tooltip';
 import SEO from '../components/seo';
 import ToastWrapper from '../components/toast';
-import * as Toast from '@radix-ui/react-toast';
 
 import {
   addCap,
@@ -25,16 +23,13 @@ import {
 } from '../internal/wishlist';
 
 import Layout from '../layouts/base';
-import Modal from '../components/modal';
-import { cn } from '../internal/twMerge';
+import cn from '../internal/twMerge';
 
 const Maker = (props) => {
   const { pageContext, location } = props;
   const { makerUrl, makerName, sculptUrl, sculptName, colorway } = pageContext;
   const seoTitle = `${makerName} - ${colorway.name} ${sculptName}`;
   const [state, setState] = useState({ text: 'Copy link' });
-
-  const [showModal, setShowModal] = useState(false);
 
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
@@ -53,9 +48,7 @@ const Maker = (props) => {
   const wishlist = wishlistContainer.wishlists.find((x) => x.id === wishlistContainer.activeWishlistId);
   const cwImg = `https://cdn.keycap-archivist.com/keycaps/720/${colorway.id}.jpg`;
 
-  const hasAdditionalInfo = useMemo(() => {
-    return colorway.releaseDate || colorway.totalCount || colorway.commissioned || colorway.giveaway || false;
-  }, [colorway]);
+  const hasAdditionalInfo = useMemo(() => colorway.releaseDate || colorway.totalCount || colorway.commissioned || colorway.giveaway || false, [colorway]);
 
   return (
     <Toast.Provider swipeDirection="right">
@@ -95,7 +88,11 @@ const Maker = (props) => {
               <>
                 <Link
                   to={x.link}
-                  className="text-sm font-medium text-slate-900/60 underline transition-colors hover:text-slate-800/60 dark:text-slate-50/80 dark:hover:text-white/90"
+                  className={cn(
+                    'text-sm font-medium text-slate-900/60 underline transition-colors',
+                    'hover:text-slate-800/60',
+                    'dark:text-slate-50/80 dark:hover:text-white/90',
+                  )}
                 >
                   {x.label}
                 </Link>{' '}
@@ -128,7 +125,12 @@ const Maker = (props) => {
                     </Modal>
                   )} */}
                   <CopyToClipboard text={location.href} onCopy={updateText}>
-                    <button className="flex items-center justify-center rounded bg-blue-500 px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-blue-700">
+                    <button
+                      className={cn(
+                        'flex items-center justify-center rounded bg-blue-500 px-3 py-2 text-xs font-bold text-white transition-colors',
+                        'hover:bg-blue-700',
+                      )}
+                    >
                       {state.text}
                     </button>
                   </CopyToClipboard>
@@ -233,7 +235,12 @@ const Maker = (props) => {
                     </Modal>
                   )} */}
                   <CopyToClipboard text={location.href} onCopy={updateText}>
-                    <button className="flex items-center justify-center rounded bg-blue-500 px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-blue-700">
+                    <button
+                      className={cn(
+                        'flex items-center justify-center rounded bg-blue-500 px-3 py-2 text-xs font-bold text-white transition-colors',
+                        ' hover:bg-blue-700',
+                      )}
+                    >
                       {state.text}
                     </button>
                   </CopyToClipboard>

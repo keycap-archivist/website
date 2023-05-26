@@ -1,16 +1,17 @@
 import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { isNil, sortBy, join } from 'lodash';
+import { isNil, sortBy } from 'lodash';
 import ReactCountryFlag from 'react-country-flag';
+import { getImage } from 'gatsby-plugin-image';
 
 import Layout from '../layouts/base';
 import SEO from '../components/seo';
 
 // eslint-disable-next-line
 import AClogo from '-!svg-react-loader?name=AClogo!../assets/img/svg/ac-logo.inline.svg';
-import { getImage } from 'gatsby-plugin-image';
 import ThumbnailImage from '../components/thumbnail-image';
+import cn from '../internal/twMerge';
 
 const Maker = (props) => {
   const { pageContext } = props;
@@ -51,7 +52,12 @@ const Maker = (props) => {
           <>
             <Link
               to={x.link}
-              className="text-sm font-medium text-slate-900/60 underline transition-colors hover:text-slate-800/60 dark:text-slate-50/80 dark:hover:text-white/90"
+              className={cn(
+                'text-sm font-medium text-slate-900/60 underline transition-colors',
+                'hover:text-slate-800/60',
+                'dark:text-slate-50/80',
+                'dark:hover:text-white/90',
+              )}
             >
               {x.label}
             </Link>{' '}
@@ -139,7 +145,11 @@ const Maker = (props) => {
           <li key={s.id} className="flex flex-col">
             <Link
               to={s.link}
-              className="block w-full overflow-hidden rounded-md bg-white shadow-md transition hover:border-slate-400/80 hover:shadow-lg dark:border dark:border-slate-600/50 dark:bg-slate-700 dark:text-slate-200 dark:shadow-none"
+              className={cn(
+                'block w-full overflow-hidden rounded-md bg-white shadow-md transition',
+                'hover:border-slate-400/80 hover:shadow-lg',
+                'dark:border dark:border-slate-600/50 dark:bg-slate-700 dark:text-slate-200 dark:shadow-none',
+              )}
             >
               <div className="h-[250px] border-b border-slate-200 bg-white dark:border-b-2 dark:border-slate-600">
                 <ThumbnailImage src={s.previewImg} className="h-full w-full object-cover" alt={`${maker.name} - ${s.name}`} />

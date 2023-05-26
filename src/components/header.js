@@ -2,12 +2,13 @@ import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as Collapsible from '@radix-ui/react-collapsible';
+
 import Search from './search';
 import Logo from '../assets/img/ka-logo.svg';
 import useScrollPosition from '../hooks/useScrollPosition';
 import ThemeSwitcher from './theme-switcher';
-import { cn } from '../internal/twMerge';
-import * as Collapsible from '@radix-ui/react-collapsible';
+import cn from '../internal/twMerge';
 
 const Header = ({ siteTitle }) => {
   const isScrolled = useScrollPosition();
@@ -57,7 +58,7 @@ const Header = ({ siteTitle }) => {
       )}
     >
       <nav className="container flex w-full items-center justify-between gap-x-6 py-4 lg:justify-evenly">
-        <div className="flex shrink-0 lg:basis-0 lg:flex-grow">
+        <div className="flex shrink-0 lg:flex-grow lg:basis-0">
           <Link to="/" className="flex items-center">
             <img src={Logo} alt={siteTitle} className="h-8 w-8 lg:h-10 lg:w-10" />
             <span className="ml-4 hidden text-lg font-bold uppercase text-slate-900 dark:text-white lg:inline-block">{siteTitle}</span>
@@ -66,7 +67,13 @@ const Header = ({ siteTitle }) => {
         <Search />
         <Collapsible.Root open={isOpen} onOpenChange={setIsOpen} className="block lg:hidden">
           <Collapsible.Trigger asChild>
-            <button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 hover:bg-gray-100 hover:text-gray-500">
+            <button
+              className={cn(
+                'inline-flex items-center justify-center rounded-md p-2 text-gray-400',
+                'focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500',
+                'hover:bg-gray-100 hover:text-gray-500',
+              )}
+            >
               {isOpen ? <FontAwesomeIcon icon={['fas', 'xmark']} aria-hidden="true" /> : <FontAwesomeIcon icon={['fas', 'bars']} aria-hidden="true" />}{' '}
             </button>
           </Collapsible.Trigger>
@@ -81,7 +88,11 @@ const Header = ({ siteTitle }) => {
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 hover:bg-gray-100 hover:text-gray-500"
+                  className={cn(
+                    'inline-flex items-center justify-center rounded-md p-2 text-gray-400',
+                    'focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500',
+                    'hover:bg-gray-100 hover:text-gray-500',
+                  )}
                 >
                   <FontAwesomeIcon icon={['fas', 'xmark']} aria-hidden="true" />
                 </button>

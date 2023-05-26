@@ -1,8 +1,7 @@
 import React from 'react';
 import * as Toast from '@radix-ui/react-toast';
-import clsx from 'clsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { cn } from '../internal/twMerge';
+import cn from '../internal/twMerge';
 
 const getToastClass = (variant) => {
   switch (variant) {
@@ -48,7 +47,7 @@ const ToastWrapper = (props) => (
     <Toast.Root
       open={props.open}
       onOpenChange={props.onOpenChange}
-      className={clsx('flex items-center gap-x-3 bg-white dark:bg-slate-900', props.className, getToastClass(props.variant))}
+      className={cn('flex items-center gap-x-3 bg-white dark:bg-slate-900', props.className, getToastClass(props.variant))}
     >
       <FontAwesomeIcon icon={['fas', getVariantIcon(props.variant)]} className={cn(getVariantIconColor(props.variant, 'h-3 w-3'))} />
       <div className="flex grow items-center justify-between">
@@ -57,7 +56,12 @@ const ToastWrapper = (props) => (
           <Toast.Description>{props.children}</Toast.Description>
         </div>
         <Toast.Close
-          className="inline-flex h-6 w-6 items-center justify-center rounded-full text-slate-400/80 transition-colors hover:bg-slate-200/50 dark:text-slate-500/90 dark:hover:bg-slate-600 dark:hover:text-slate-300"
+          className={cn(
+            'inline-flex h-6 w-6 items-center justify-center rounded-full text-slate-400/80 transition-colors',
+            'hover:bg-slate-200/50',
+            'dark:text-slate-500/90',
+            'dark:hover:bg-slate-600 dark:hover:text-slate-300',
+          )}
           aria-label="Close"
         >
           <FontAwesomeIcon icon={['fas', 'xmark']} />

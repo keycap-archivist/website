@@ -6,7 +6,7 @@ import { isNil, sortBy } from 'lodash';
 import Layout from '../layouts/base';
 import SEO from '../components/seo';
 import { getFavoriteMakers, addFavMaker, removeFavMaker } from '../internal/favorite';
-import { cn } from '../internal/twMerge';
+import cn from '../internal/twMerge';
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -61,7 +61,11 @@ const IndexPage = () => {
           <li key={element.id} className="flex flex-col">
             <Link
               to={element.path}
-              className="block w-full overflow-hidden rounded-md bg-white shadow-md transition hover:border-slate-400/80 hover:shadow-lg dark:border dark:border-slate-600/50 dark:bg-slate-700 dark:text-slate-200 dark:shadow-none"
+              className={cn(
+                'block w-full overflow-hidden rounded-md bg-white shadow-md transition',
+                'hover:border-slate-400/80 hover:shadow-lg',
+                'dark:border dark:border-slate-600/50 dark:bg-slate-700 dark:text-slate-200 dark:shadow-none',
+              )}
             >
               <div className="w-full border-b border-slate-200 bg-white dark:border-b-2 dark:border-slate-600">
                 <GatsbyImage

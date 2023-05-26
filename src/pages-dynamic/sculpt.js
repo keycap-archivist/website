@@ -21,6 +21,7 @@ import {
   WishlistLimit,
 } from '../internal/wishlist';
 import Layout from '../layouts/base';
+import cn from '../internal/twMerge';
 
 const Maker = (props) => {
   const { pageContext, location } = props;
@@ -59,7 +60,12 @@ const Maker = (props) => {
           <>
             <Link
               to={x.link}
-              className="text-sm font-medium text-slate-900/60 underline transition-colors hover:text-slate-800/60 dark:text-slate-50/80 dark:hover:text-white/90"
+              className={cn(
+                'text-sm font-medium text-slate-900/60 underline transition-colors',
+                'hover:text-slate-800/60',
+                'dark:text-slate-50/80',
+                'dark:hover:text-white/90',
+              )}
             >
               {x.label}
             </Link>{' '}
@@ -131,7 +137,11 @@ const Maker = (props) => {
           <li key={c.id} id={c.id} className="flex flex-col">
             <Link
               to={`${location.pathname}${c.id}`}
-              className="block w-full overflow-hidden rounded-md bg-white shadow-md transition hover:border-slate-400/80 hover:shadow-lg dark:border dark:border-slate-600/50 dark:bg-slate-700 dark:text-slate-200 dark:shadow-none"
+              className={cn(
+                'block w-full overflow-hidden rounded-md bg-white shadow-md transition',
+                'hover:border-slate-400/80 hover:shadow-lg',
+                'dark:border dark:border-slate-600/50 dark:bg-slate-700 dark:text-slate-200 dark:shadow-none',
+              )}
             >
               <div className="h-[250px] border-b border-slate-200 bg-white dark:border-b-2 dark:border-slate-600">
                 <ThumbnailImage
@@ -212,7 +222,7 @@ const Maker = (props) => {
 
       {/*
         todo : change this one when it'll be used by the new modal component
-        there is an exemple in the colorway page              
+        there is an exemple in the colorway page
       */}
 
       {showModal && (
