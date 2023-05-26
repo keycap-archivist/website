@@ -38,7 +38,7 @@ const Wishlist = () => {
   const [showWishlistDeleteModal, setShowWishlistDeleteModal] = useState(false);
   const [isSortableHaveListOpen, setIsSortableHaveListOpen] = React.useState(false);
   const [isSortableTradeListOpen, setIsSortableTradeListOpen] = React.useState(false);
-  const [isPreviewModalOpen, setIsPreviewModalOpen] = React.useState(false);
+  const [isPreviewCollapsibleOpen, setIsPreviewCollapsibleOpen] = React.useState(true);
 
   const wishlist = useMemo(
     () => wishlistContainer.wishlists.find((x) => x.id === wishlistContainer.activeWishlistId),
@@ -228,9 +228,10 @@ const Wishlist = () => {
                       <button
                         id="addWishlist"
                         onClick={addNewWishlist}
-                        className={`inline-flex flex-1 items-center justify-center rounded-md bg-indigo-500 px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-indigo-700 lg:flex-initial ${
-                          (wishlistLoading || wishlistContainer.wishlists.length >= WishlistContainerLimit) && 'cursor-not-allowed opacity-50'
-                        }`}
+                        className={cn(
+                          'inline-flex flex-1 items-center justify-center rounded-md border border-indigo-500 px-3 py-2 text-xs font-bold text-indigo-500 transition-colors hover:border-indigo-600 hover:text-indigo-600 lg:flex-auto',
+                          (wishlistLoading || wishlistContainer.wishlists.length >= WishlistContainerLimit) && 'cursor-not-allowed opacity-50',
+                        )}
                         disabled={wishlistLoading || wishlistContainer.wishlists.length >= WishlistContainerLimit}
                       >
                         Add new wishlist
@@ -240,6 +241,7 @@ const Wishlist = () => {
                         modalTitle="Delete active wishlist"
                         open={showWishlistDeleteModal}
                         setOpen={setShowWishlistDeleteModal}
+                        disabled={wishlistLoading || wishlistContainer.wishlists.length >= WishlistContainerLimit}
                       >
                         <ConfirmDialogModal
                           modalHeader="Delete active wishlist"
@@ -252,21 +254,85 @@ const Wishlist = () => {
                   </dd>
                 </div>
               </dl>
+              <dl className="mt-6 space-y-6 divide-y divide-slate-100 border-t border-slate-200 text-sm leading-6 dark:divide-slate-800 dark:border-slate-700">
+                <div className="pt-6 sm:flex sm:items-center">
+                  <dt className="font-medium text-slate-900 dark:text-slate-100 sm:w-64 sm:flex-none sm:pr-6">Generate wishlist</dt>
+                  <dd
+                    className={cn(
+                      'mt-4 flex w-full flex-col sm:mt-0 lg:mt-1 lg:flex-row lg:items-center',
+                      !wishlist.items.length && !wishlist.tradeItems.length ? 'justify-between' : 'justify-end',
+                    )}
+                  >
+                    {!wishlist.items.length && !wishlist.tradeItems.length && (
+                      <span className="text-sm leading-6 text-slate-500">Add caps to your wishlist or tradelist to generate a wishlist.</span>
+                    )}
+                    <div className="flex grow items-center gap-x-2 lg:grow-0">
+                      {b64Img ? (
+                        <a
+                          href={`data:image/png;base64,${b64Img}`}
+                          download="wishlist.png"
+                          className={cn(
+                            'inline-flex flex-1 items-center justify-center rounded-md border border-indigo-500 px-3 py-2 text-xs font-bold text-indigo-500  transition-colors hover:border-indigo-600 hover:text-indigo-600 lg:flex-auto',
+                            wishlistLoading && 'cursor-not-allowed opacity-50',
+                          )}
+                          disabled={wishlistLoading}
+                        >
+                          Download wishlist
+                        </a>
+                      ) : null}
+                      <button
+                        onClick={genWishlist}
+                        className={cn(
+                          'inline-flex flex-1 items-center justify-center rounded-md bg-indigo-500 px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-indigo-600 lg:flex-auto',
+                          (wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length)) && 'cursor-not-allowed opacity-50',
+                        )}
+                        disabled={wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length)}
+                      >
+                        {wishlistLoading ? (
+                          <>
+                            <FontAwesomeIcon className="spinner-icon mr-2" icon={['fas', 'spinner']} spin />
+                            <span>Generating wishlist...</span>
+                          </>
+                        ) : (
+                          <>Generate wishlist</>
+                        )}
+                      </button>
+                    </div>
+                  </dd>
+                </div>
+              </dl>
             </div>
           </div>
         </div>
       </div>
 
-      <Collapsible.Root open={isConfigClosed} onOpenChange={setIsConfigClosed} className="space-y-6">
+      {b64Img ? (
+        <Collapsible.Root open={isPreviewCollapsibleOpen} onOpenChange={setIsPreviewCollapsibleOpen} className="mt-6 lg:mt-0">
+          <Collapsible.Trigger asChild>
+            <div className="flex items-center gap-x-2">
+              <FontAwesomeIcon
+                icon={['fa', 'chevron-right']}
+                className={cn('h-4 w-4 opacity-50', isPreviewCollapsibleOpen ? 'rotate-90 transition-transform' : null)}
+              />
+              <span className="cursor-pointer font-medium hover:underline">See your image preview</span>
+            </div>
+          </Collapsible.Trigger>
+          <Collapsible.Content>
+            <img src={`data:image/png;base64,${b64Img}`} className={cn('w-full rounded-md lg:mx-auto lg:w-1/2')} />
+          </Collapsible.Content>
+        </Collapsible.Root>
+      ) : null}
+
+      <Collapsible.Root open={isConfigClosed} onOpenChange={setIsConfigClosed} className="mt-6 space-y-6">
         <Collapsible.Trigger asChild>
           <div className="flex items-center gap-x-2">
             <FontAwesomeIcon icon={['fa', 'chevron-right']} className={cn('h-4 w-4 opacity-50', isConfigClosed ? 'rotate-90 transition-transform' : null)} />
-            <span className="cursor-pointer font-medium hover:underline">Start configuration your list</span>
+            <span className="cursor-pointer font-medium hover:underline">Start configurating your list</span>
           </div>
         </Collapsible.Trigger>
         <Collapsible.Content>
           <div className="lg:flex lg:gap-x-16">
-            <aside className="flex overflow-x-auto border-b border-slate-900/5 py-4 dark:border-slate-100/5 lg:block lg:w-64 lg:flex-none lg:border-0 lg:pb-20 lg:pt-8">
+            <aside className="my-6 flex overflow-x-auto border-b border-slate-900/5 py-4 dark:border-slate-100/5 lg:my-0 lg:block lg:w-64 lg:flex-none lg:border-0 lg:py-20">
               <nav className="mt-0 flex-none px-0">
                 <ul role="list" className="flex gap-x-3 gap-y-1 whitespace-nowrap lg:flex-col">
                   <li>
@@ -279,7 +345,7 @@ const Wishlist = () => {
               </nav>
             </aside>
 
-            <div className="px-4 py-16 sm:px-6 lg:flex-auto lg:px-0 lg:pb-20 lg:pt-8">
+            <div className="p-0 pb-6 lg:flex-auto lg:py-20">
               <div className="mx-auto max-w-2xl space-y-16 sm:space-y-20 lg:mx-0 lg:max-w-none">
                 <div>
                   <p className="mt-1 text-sm leading-6 text-slate-500">
@@ -557,7 +623,7 @@ const Wishlist = () => {
           </div>
 
           <div className="lg:flex lg:gap-x-16">
-            <aside className="flex overflow-x-auto border-b border-slate-900/5 py-4 dark:border-slate-100/5 lg:block lg:w-64 lg:flex-none lg:border-0 lg:py-20">
+            <aside className="my-6 flex overflow-x-auto border-b border-slate-900/5 py-4 dark:border-slate-100/5 lg:my-0 lg:block lg:w-64 lg:flex-none lg:border-0 lg:py-20">
               <nav className="mt-0 flex-none px-0">
                 <ul role="list" className="flex gap-x-3 gap-y-1 whitespace-nowrap lg:flex-col">
                   <li>
@@ -570,7 +636,7 @@ const Wishlist = () => {
               </nav>
             </aside>
 
-            <div className="px-4 py-16 sm:px-6 lg:flex-auto lg:px-0 lg:py-20">
+            <div className="p-0 pb-6 lg:flex-auto lg:py-20">
               <div className="mx-auto max-w-2xl space-y-16 sm:space-y-20 lg:mx-0 lg:max-w-none">
                 <div>
                   <p className="mt-1 text-sm leading-6 text-slate-500">Get your socials in before exporting your wishlist.</p>
@@ -788,48 +854,6 @@ const Wishlist = () => {
         <h1 className="mt-10 text-xl font-bold lg:text-3xl">Wishlists management</h1>
 
         {wishlistSettings()}
-
-        <div className="flex flex-col gap-4 md:flex-row md:justify-end">
-          {!wishlist.items.length && !wishlist.tradeItems.length && (
-            <span className={'mt-2 font-medium'}>Add caps to your wishlist or tradelist to generate a wishlist.</span>
-          )}
-
-          {b64Img ? (
-            <>
-              <Modal buttonTitle="Preview image" modalTitle="" open={isPreviewModalOpen} setOpen={setIsPreviewModalOpen}>
-                <img src={`data:image/png;base64,${b64Img}`} className="w-full rounded-md" />
-              </Modal>
-              <a
-                href={`data:image/png;base64,${b64Img}`}
-                download="wishlist.png"
-                className={cn(
-                  'inline-flex items-center  justify-center rounded-md border border-indigo-500 px-3 py-2 font-medium text-indigo-500 transition-colors hover:border-indigo-600 hover:text-indigo-600',
-                  wishlistLoading && 'cursor-not-allowed opacity-50',
-                )}
-                disabled={wishlistLoading}
-              >
-                Download wishlist
-              </a>
-            </>
-          ) : null}
-          <button
-            onClick={genWishlist}
-            className={cn(
-              'inline-flex items-center justify-center rounded-md bg-indigo-500 px-3 py-2 font-medium text-white transition-colors hover:bg-indigo-600',
-              (wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length)) && 'cursor-not-allowed opacity-50',
-            )}
-            disabled={wishlistLoading || (!wishlist.items.length && !wishlist.tradeItems.length)}
-          >
-            {wishlistLoading ? (
-              <>
-                <FontAwesomeIcon className="spinner-icon mr-2" icon={['fas', 'spinner']} spin />
-                <span>Generating wishlist...</span>
-              </>
-            ) : (
-              <>Generate wishlist</>
-            )}
-          </button>
-        </div>
       </Layout>
     </Provider>
   );

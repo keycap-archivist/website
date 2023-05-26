@@ -1,11 +1,18 @@
 import React from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { cn } from '../internal/twMerge';
 
 const Modal = (props) => (
   <Dialog.Root open={props.open} onOpenChange={props.setOpen}>
     <Dialog.Trigger asChild>
-      <button className="inline-flex items-center justify-center rounded-md bg-pink-500 px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-pink-700">
+      <button
+        disabled={props.disabled}
+        className={cn(
+          'inline-flex items-center justify-center rounded-md bg-pink-500 px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-pink-700',
+          props.disabled ? 'cursor-not-allowed opacity-50' : '',
+        )}
+      >
         {props.buttonTitle}
       </button>
     </Dialog.Trigger>

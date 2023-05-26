@@ -71,33 +71,33 @@ const Maker = (props) => {
         <div className="space-y-1">
           <h2 className="text-2xl font-bold">{sculpt.name}</h2>
           {sculpt.releaseDate && (
-            <dl>
-              <FontAwesomeIcon icon={['fa', 'calendar']} />
-              <dt className="font-bold">- Release date:</dt>
+            <dl className="pt-3 flex items-center">
+              <FontAwesomeIcon className={'h-4 w-4 text-xl text-indigo-500'} icon={['fa', 'calendar']} />
+              <dt className="mx-2 font-bold">Release date:</dt>
               <dd>{sculpt.releaseDate}</dd>
             </dl>
           )}
 
           {sculpt.profile && (
-            <dl>
-              <FontAwesomeIcon icon={['fa', 'keyboard']} />
-              <dt className="font-bold">- Profile :</dt>
+            <dl className="flex items-center">
+              <FontAwesomeIcon className={'h-4 w-4 text-xl text-indigo-500'} icon={['fa', 'keyboard']} />
+              <dt className="mx-2 font-bold">- Profile:</dt>
               <dd>{sculpt.profile}</dd>
             </dl>
           )}
 
           {sculpt.design && (
-            <dl>
-              <FontAwesomeIcon icon={['fa', 'brain']} />
-              <dt className="font-bold">- Design :</dt>
+            <dl className="flex items-center">
+              <FontAwesomeIcon className={'h-4 w-4 text-xl text-indigo-500'} icon={['fa', 'brain']} />
+              <dt className="mx-2 font-bold">- Design:</dt>
               <dd>{sculpt.design}</dd>
             </dl>
           )}
 
           {sculpt.cast && (
-            <dl>
-              <FontAwesomeIcon icon={['fa', 'palette']} />
-              <dt className="font-bold">- Cast :</dt>
+            <dl className="flex items-center">
+              <FontAwesomeIcon className={'h-4 w-4 text-xl text-indigo-500'} icon={['fa', 'palette']} />
+              <dt className="mx-2 font-bold">- Cast:</dt>
               <dd>{sculpt.cast}</dd>
             </dl>
           )}
@@ -126,7 +126,7 @@ const Maker = (props) => {
           </div> */}
       </div>
 
-      <ul className="grid grid-cols-1 gap-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 lg:gap-4">
+      <ul className="grid grid-cols-1 gap-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-4 xl:grid-cols-5">
         {cwList.map((c) => (
           <li key={c.id} id={c.id} className="flex flex-col">
             <Link

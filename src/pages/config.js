@@ -57,7 +57,7 @@ const Config = () => {
             <ul role="list" className="flex gap-x-3 gap-y-1 whitespace-nowrap lg:flex-col">
               <li>
                 <div className="group flex gap-x-3 rounded-md text-lg font-semibold leading-6 text-slate-800 dark:text-slate-200">
-                  <FontAwesomeIcon icon={['fas', 'user']} className="text-xl h-2 w-2 text-indigo-500" />
+                  <FontAwesomeIcon icon={['fas', 'user']} className="text-xl text-indigo-500" />
                   Cloudsync
                 </div>
               </li>
@@ -73,11 +73,11 @@ const Config = () => {
               </p>
               {!initiated ? (
                 <p className="pt-6 text-sm font-semibold">Currently loading...</p>
-              ) : (
+              ) : connected ? (
                 <dl className="mt-6 space-y-6 divide-y divide-slate-100 border-t border-slate-200 text-sm leading-6 dark:divide-slate-800 dark:border-slate-700">
                   <div className="pt-6 sm:flex">
                     <dt className="font-medium text-slate-900 dark:text-slate-100 sm:w-64 sm:flex-none sm:pr-6">Discord ID</dt>
-                    <dd className="mt-4 lg:mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+                    <dd className="mt-4 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto lg:mt-1">
                       <div className="inline-flex items-center gap-x-2 text-slate-900 dark:text-slate-100">
                         <img className="inline-block h-6 w-6 rounded-full" src={avatar} />
                         <span>{name}</span>
@@ -126,6 +126,13 @@ const Config = () => {
                     </dd>
                   </div>
                 </dl>
+              ) : (
+                <a
+                  href={`${baseAPI}/auth/discord`}
+                  className="mt-4 inline-flex items-center justify-center gap-x-2 rounded-md bg-indigo-500 px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-indigo-700"
+                >
+                  <FontAwesomeIcon icon={['fab', 'discord']} /> Login with Discord{' '}
+                </a>
               )}
             </div>
           </div>

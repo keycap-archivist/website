@@ -54,40 +54,24 @@ const Maker = (props) => {
   const cwImg = `https://cdn.keycap-archivist.com/keycaps/720/${colorway.id}.jpg`;
 
   const hasAdditionalInfo = useMemo(() => {
-    return true;
-    // return colorway.releaseDate || colorway.totalCount || colorway.commissioned || colorway.giveaway || false;
+    return colorway.releaseDate || colorway.totalCount || colorway.commissioned || colorway.giveaway || false;
   }, [colorway]);
 
   return (
     <Toast.Provider swipeDirection="right">
       <Layout>
         {showSuccessAlert && (
-          <ToastWrapper
-            variant="success"
-            open={showSuccessAlert}
-            onOpenChange={setShowSuccessAlert}
-            className="toast-root rounded-md bg-white p-4 shadow-md"
-          >
+          <ToastWrapper variant="success" open={showSuccessAlert} onOpenChange={setShowSuccessAlert} className="toast-root rounded-md bg-white p-4 shadow-md">
             <span>Suggestion successfully submitted !</span>
           </ToastWrapper>
         )}
         {showErrorAlert && (
-          <ToastWrapper
-            variant="error"
-            open={showErrorAlert}
-            onOpenChange={setShowErrorAlert}
-            className="toast-root rounded-md bg-white p-4 shadow-md"
-          >
+          <ToastWrapper variant="error" open={showErrorAlert} onOpenChange={setShowErrorAlert} className="toast-root rounded-md bg-white p-4 shadow-md">
             <span>Suggestion submission failed.</span>
           </ToastWrapper>
         )}
         {showExceedAlert && (
-          <ToastWrapper
-            variant="error"
-            open={showExceedAlert}
-            onOpenChange={setShowExceedAlert}
-            className="toast-root rounded-md bg-white p-4 shadow-md"
-          >
+          <ToastWrapper variant="error" open={showExceedAlert} onOpenChange={setShowExceedAlert} className="toast-root rounded-md bg-white p-4 shadow-md">
             <span>Wishlist or trade list items exceeded.</span>
           </ToastWrapper>
         )}
@@ -131,7 +115,7 @@ const Maker = (props) => {
               <img loading="lazy" className="block h-full w-full rounded-lg object-cover" alt={seoTitle} src={cwImg} />
               {!hasAdditionalInfo && (
                 <div className={cn('absolute right-4 top-4 flex items-center gap-x-3 rounded bg-black/80 p-3')}>
-                  {!colorway.name && (
+                  {/* {!colorway.name && (
                     <Modal buttonTitle="Suggest name" modalTitle="Suggest name" open={showModal} setOpen={setShowModal}>
                       <SubmitNameModal
                         modalHeader="Suggest Colorway Name"
@@ -142,7 +126,7 @@ const Maker = (props) => {
                         setSuccessAlert={setShowSuccessAlert}
                       />
                     </Modal>
-                  )}
+                  )} */}
                   <CopyToClipboard text={location.href} onCopy={updateText}>
                     <button className="flex items-center justify-center rounded bg-blue-500 px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-blue-700">
                       {state.text}
@@ -211,43 +195,43 @@ const Maker = (props) => {
               <div className="flex flex-1 flex-col gap-y-2">
                 {colorway.releaseDate ? (
                   <dl className="flex items-center">
-                    <FontAwesomeIcon icon={['fa', 'calendar']} />
+                    <FontAwesomeIcon className={'h-4 w-4 text-xl text-indigo-500'} icon={['fa', 'calendar']} />
                     <dd className="mx-2 font-bold">Release date:</dd>
                     <dt>{colorway.releaseDate}</dt>
                   </dl>
                 ) : null}
                 {colorway.totalCount ? (
                   <dl className="flex items-center">
-                    <FontAwesomeIcon icon={['fa', 'calculator']} />
+                    <FontAwesomeIcon className={'h-4 w-4 text-xl text-indigo-500'} icon={['fa', 'calculator']} />
                     <dd className="mx-2 font-bold">Total Count:</dd>
                     <dt>{colorway.totalCount}</dt>
                   </dl>
                 ) : null}
                 {colorway.commissioned ? (
                   <dl className="flex items-center">
-                    <FontAwesomeIcon icon={['fa', 'palette']} />
+                    <FontAwesomeIcon className={'h-4 w-4 text-xl text-indigo-500'} icon={['fa', 'palette']} />
                     <dd className="mx-2 font-bold">Commissioned</dd>
                   </dl>
                 ) : null}
                 {colorway.giveaway ? (
                   <dl className="flex items-center">
-                    <FontAwesomeIcon icon={['fa', 'gift']} />
+                    <FontAwesomeIcon className={'h-4 w-4 text-xl text-indigo-500'} icon={['fa', 'gift']} />
                     <dd className="mx-2 font-bold">Giveaway</dd>
                   </dl>
                 ) : null}
-                <div className={cn('flex items-center gap-3', hasAdditionalInfo ? 'mt-0 lg:mt-6' : null)}>
-                  {/* {!colorway.name && ( */}
-                  <Modal buttonTitle="Suggest name" modalTitle="Suggest name" open={showModal} setOpen={setShowModal}>
-                    <SubmitNameModal
-                      modalHeader="Suggest Colorway Name"
-                      placeholder="Suggested name #2"
-                      clwId={colorway.id}
-                      setModal={setShowModal}
-                      setErrorAlert={setShowErrorAlert}
-                      setSuccessAlert={setShowSuccessAlert}
-                    />
-                  </Modal>
-                  {/* )} */}
+                <div className={cn('flex items-center gap-3', hasAdditionalInfo ? 'mt-0 lg:mt-3' : null)}>
+                  {/* {!colorway.name && (
+                    <Modal buttonTitle="Suggest name" modalTitle="Suggest name" open={showModal} setOpen={setShowModal}>
+                      <SubmitNameModal
+                        modalHeader="Suggest Colorway Name"
+                        placeholder="Suggested name #2"
+                        clwId={colorway.id}
+                        setModal={setShowModal}
+                        setErrorAlert={setShowErrorAlert}
+                        setSuccessAlert={setShowSuccessAlert}
+                      />
+                    </Modal>
+                  )} */}
                   <CopyToClipboard text={location.href} onCopy={updateText}>
                     <button className="flex items-center justify-center rounded bg-blue-500 px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-blue-700">
                       {state.text}
