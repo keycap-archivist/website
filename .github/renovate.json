@@ -1,0 +1,38 @@
+{
+    "labels": [
+        "dependencies"
+    ],
+    "packageRules": [
+        {
+            "matchUpdateTypes": [
+                "minor",
+                "patch",
+                "pin",
+                "digest"
+            ],
+            "automerge": true
+        },
+        {
+            "matchDepTypes": [
+                "devDependencies"
+            ],
+            "automerge": false
+        },
+        {
+            "matchPackagePatterns": [
+                "eslint"
+            ],
+            "labels": [
+                "linting"
+            ]
+        },
+        {
+            "matchDepTypes": [
+                "optionalDependencies"
+            ],
+            "addLabels": [
+                "optional"
+            ]
+        }
+    ]
+}
