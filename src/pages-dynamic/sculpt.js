@@ -157,7 +157,7 @@ const Maker = (props) => {
                     <FontAwesomeIcon
                       id="favStar"
                       title={`Remove from '${wishlist.settings.title.text}' list`}
-                      className="star-icon m-1 cursor-pointer text-yellow-500"
+                      className="top-[14px] m-1 cursor-pointer text-yellow-500"
                       icon={['fas', 'star']}
                       onClick={(e) => {
                         e.preventDefault();
@@ -168,7 +168,7 @@ const Maker = (props) => {
                     <FontAwesomeIcon
                       id="favStar"
                       title={`Add to '${wishlist.settings.title.text}' list`}
-                      className="star-icon m-1 cursor-pointer text-slate-500"
+                      className="top-[14px] m-1 cursor-pointer text-slate-500"
                       icon={['fas', 'star']}
                       onClick={(e) => {
                         e.preventDefault();

@@ -80,7 +80,7 @@ const Header = ({ siteTitle }) => {
           <Collapsible.Content>
             <div
               className={cn(
-                'container absolute inset-0 top-0 z-50 flex h-[34dvh] w-full flex-col overflow-hidden bg-white py-4 pt-6 shadow-md dark:bg-slate-950',
+                'container absolute inset-0 top-0 z-50 flex h-screen w-full flex-col overflow-hidden bg-white py-4 pt-6 shadow-md dark:bg-slate-950',
               )}
             >
               <div className="flex items-center justify-between">
