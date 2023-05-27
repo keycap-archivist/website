@@ -12,7 +12,7 @@ jobs:
       - id: nodeversion
         run: echo "NODE=$(cat .nvmrc)" >> $GITHUB_OUTPUT
       - name: Use Node.js ${{steps.nodeversion.outputs.NODE}}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ steps.nodeversion.outputs.NODE }}
       - uses: pnpm/action-setup@v2
