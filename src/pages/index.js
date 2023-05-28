@@ -7,6 +7,7 @@ import Layout from '../layouts/base';
 import SEO from '../components/seo';
 import { getFavoriteMakers, addFavMaker, removeFavMaker } from '../internal/favorite';
 import cn from '../internal/twMerge';
+import TooltipWrapper from '../components/tooltip';
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -52,6 +53,7 @@ const IndexPage = () => {
   }, getFavoriteMakers());
 
   const sortedMakers = sortBy(data.allSitePage.nodes, (n) => !favoriteMakers.includes(n.pageContext.maker.id));
+  console.log(sortedMakers)
 
   return (
     <Layout>
@@ -78,21 +80,24 @@ const IndexPage = () => {
               </div>
               <div className="text-header flex items-center justify-between gap-x-2 p-4">
                 <span className="grow text-center font-semibold max-lg:truncate lg:text-lg lg:font-bold">{element.pageContext.maker.name}</span>
-                <FontAwesomeIcon
-                  id="favStar"
-                  className={cn(
-                    'top-[14px] ml-auto cursor-pointer',
-                    favoriteMakers.includes(element.pageContext.maker.id) ? 'text-yellow-500' : 'text-slate-400',
-                  )}
-                  icon={['fas', 'star']}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const makers = favoriteMakers.includes(element.pageContext.maker.id)
-                      ? removeFavMaker(element.pageContext.maker.id)
-                      : addFavMaker(element.pageContext.maker.id);
-                    setFavoriteMakers(makers);
-                  }}
-                />
+                <TooltipWrapper 
+                  tooltipTitle={favoriteMakers.includes(element.pageContext.maker.id)?`Remove from wishlist`:'Add to wishlist'}>
+                  <FontAwesomeIcon
+                    id="favStar"
+                    className={cn(
+                      'top-[14px] ml-auto cursor-pointer',
+                      favoriteMakers.includes(element.pageContext.maker.id) ? 'text-yellow-500' : 'text-slate-400',
+                    )}
+                    icon={['fas', 'star']}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const makers = favoriteMakers.includes(element.pageContext.maker.id)
+                        ? removeFavMaker(element.pageContext.maker.id)
+                        : addFavMaker(element.pageContext.maker.id);
+                      setFavoriteMakers(makers);
+                    }}
+                  />
+                </TooltipWrapper>
               </div>
             </Link>
           </li>
