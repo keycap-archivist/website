@@ -152,24 +152,25 @@ const Maker = (props) => {
               </div>
               <div className="flex items-center justify-between gap-x-2 p-4 font-bold">
                 <span className="truncate">{c.name ? c.name : '(Unknown)'}</span>
-                <div className="flex shrink-0 items-center">
+                <div className="flex shrink-0 items-center gap-x-1">
                   {isInWishlist(wishlist, c.id) ? (
-                    <FontAwesomeIcon
-                      id="favStar"
-                      title={`Remove from '${wishlist.settings.title.text}' list`}
-                      className="top-[14px] m-1 cursor-pointer text-yellow-500"
-                      icon={['fas', 'star']}
+                    <button
+                      className="p-1 lg:p-px"
                       onClick={(e) => {
                         e.preventDefault();
                         setStateWishlist(rmCap(c.id));
                       }}
-                    />
+                    >
+                      <FontAwesomeIcon
+                        id="favStar"
+                        title={`Remove from '${wishlist.settings.title.text}' list`}
+                        className="top-[14px] cursor-pointer text-yellow-500"
+                        icon={['fas', 'star']}
+                      />
+                    </button>
                   ) : (
-                    <FontAwesomeIcon
-                      id="favStar"
-                      title={`Add to '${wishlist.settings.title.text}' list`}
-                      className="top-[14px] m-1 cursor-pointer text-slate-500"
-                      icon={['fas', 'star']}
+                    <button
+                      className="p-1 lg:p-px"
                       onClick={(e) => {
                         e.preventDefault();
                         if (isInTradeList(wishlist, c.id)) {
@@ -181,25 +182,33 @@ const Maker = (props) => {
                           setStateWishlist(addCap(c.id));
                         }
                       }}
-                    />
+                    >
+                      <FontAwesomeIcon
+                        id="favStar"
+                        title={`Add to '${wishlist.settings.title.text}' list`}
+                        className="top-[14px] cursor-pointer text-slate-500"
+                        icon={['fas', 'star']}
+                      />
+                    </button>
                   )}
                   {isInTradeList(wishlist, c.id) ? (
-                    <FontAwesomeIcon
-                      id="favTrade"
-                      title={`Remove from '${wishlist.settings.title.text}' trade list`}
-                      className="redo-icon m-1 cursor-pointer text-yellow-500"
-                      icon={['fas', 'redo']}
+                    <button
+                      className="p-1 lg:p-px"
                       onClick={(e) => {
                         e.preventDefault();
                         setStateWishlist(rmTradeCap(c.id));
                       }}
-                    />
+                    >
+                      <FontAwesomeIcon
+                        id="favTrade"
+                        title={`Remove from '${wishlist.settings.title.text}' trade list`}
+                        className="redo-icon cursor-pointer text-yellow-500"
+                        icon={['fas', 'redo']}
+                      />
+                    </button>
                   ) : (
-                    <FontAwesomeIcon
-                      id="favTrade"
-                      title={`Add to '${wishlist.settings.title.text}' trade list${isInWishlist(wishlist, c.id) ? ' (and remove from wishlist)' : ''}`}
-                      className="redo-icon m-1 cursor-pointer text-slate-500"
-                      icon={['fas', 'redo']}
+                    <button
+                      className="p-1 lg:p-px"
                       onClick={(e) => {
                         e.preventDefault();
                         if (isInWishlist(wishlist, c.id)) {
@@ -211,7 +220,14 @@ const Maker = (props) => {
                           setStateWishlist(addTradeCap(c.id));
                         }
                       }}
-                    />
+                    >
+                      <FontAwesomeIcon
+                        id="favTrade"
+                        title={`Add to '${wishlist.settings.title.text}' trade list${isInWishlist(wishlist, c.id) ? ' (and remove from wishlist)' : ''}`}
+                        className="redo-icon cursor-pointer text-slate-500"
+                        icon={['fas', 'redo']}
+                      />
+                    </button>
                   )}
                 </div>
               </div>
