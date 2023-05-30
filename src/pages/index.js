@@ -78,13 +78,8 @@ const IndexPage = () => {
               </div>
               <div className="text-header flex items-center justify-between gap-x-2 p-4">
                 <span className="grow text-center font-semibold max-lg:truncate lg:text-lg lg:font-bold">{element.pageContext.maker.name}</span>
-                <FontAwesomeIcon
-                  id="favStar"
-                  className={cn(
-                    'top-[14px] ml-auto cursor-pointer',
-                    favoriteMakers.includes(element.pageContext.maker.id) ? 'text-yellow-500' : 'text-slate-400',
-                  )}
-                  icon={['fas', 'star']}
+                <button
+                  className="p-1 lg:p-px"
                   onClick={(e) => {
                     e.preventDefault();
                     const makers = favoriteMakers.includes(element.pageContext.maker.id)
@@ -92,7 +87,16 @@ const IndexPage = () => {
                       : addFavMaker(element.pageContext.maker.id);
                     setFavoriteMakers(makers);
                   }}
-                />
+                >
+                  <FontAwesomeIcon
+                    id="favStar"
+                    className={cn(
+                      'top-[14px] ml-auto cursor-pointer',
+                      favoriteMakers.includes(element.pageContext.maker.id) ? 'text-yellow-500' : 'text-slate-400',
+                    )}
+                    icon={['fas', 'star']}
+                  />
+                </button>
               </div>
             </Link>
           </li>

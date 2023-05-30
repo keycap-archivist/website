@@ -73,8 +73,9 @@ const Header = ({ siteTitle }) => {
                 'focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500',
                 'hover:bg-gray-100 hover:text-gray-500',
               )}
+              aria-label="Open menu"
             >
-              {isOpen ? <FontAwesomeIcon icon={['fas', 'xmark']} aria-hidden="true" /> : <FontAwesomeIcon icon={['fas', 'bars']} aria-hidden="true" />}{' '}
+              {isOpen ? <FontAwesomeIcon icon={['fas', 'xmark']} aria-hidden="true" /> : <FontAwesomeIcon icon={['fas', 'bars']} aria-hidden="true" />}
             </button>
           </Collapsible.Trigger>
           <Collapsible.Content>
