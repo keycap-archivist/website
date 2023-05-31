@@ -723,6 +723,86 @@ const Wishlist = () => {
                       </dd>
                     </div>
                   </dl>
+                  {wishlist.tradeItems.length > 0 ? (
+                    <dl
+                      className={cn(
+                        'mt-6 space-y-6 divide-y divide-slate-100 border-t border-slate-200 text-sm leading-6',
+                        'dark:divide-slate-800 dark:border-slate-700',
+                      )}
+                    >
+                      <div className="pt-6 sm:flex sm:items-center">
+                        <dt className="font-medium text-slate-900 dark:text-slate-100 sm:w-64 sm:flex-none sm:pr-6">Tradelist options</dt>
+                        <dd className="mt-1 grid w-full grid-cols-1 gap-6 sm:mt-0 md:grid-cols-2 lg:grid-cols-3">
+                          <div className="space-y-2">
+                            <label htmlFor="tradeTitle" className="text-xs font-medium ">
+                              Tradelist title
+                            </label>
+                            <input
+                              id="tradeTitle"
+                              value={wishlist.settings.tradeTitle.text}
+                              onChange={(e) => setSettingWishlist('tradeTitle', 'text', e, 'input')}
+                              className={cn(
+                                'w-full rounded-md border-slate-300/90 pl-3 text-sm text-slate-600',
+                                'placeholder:text-sm placeholder:font-medium placeholder:text-slate-600/50',
+                                'focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50',
+                                'hover:border-slate-300/100',
+                                'dark:border-slate-700/90 dark:bg-slate-700 dark:text-slate-300',
+                                'dark:placeholder:text-slate-300/50',
+                                'dark:hover:border-slate-700/100',
+                              )}
+                              type="text"
+                              maxLength="50"
+                              placeholder="Have"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <span className="text-xs font-medium ">Tradelist color</span>
+                            <Select
+                              className="w-full"
+                              value={wishlist.settings.tradeTitle.color}
+                              onValueChange={(e) => setSettingWishlist('tradeTitle', 'color', e, 'select')}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select the tradelist's color" />
+                              </SelectTrigger>
+                              <SelectContent className="max-h-80">
+                                <SelectGroup>
+                                  <SelectLabel>All colors</SelectLabel>
+                                  {cssColors.map((x) => (
+                                    <SelectItem key={x} value={x}>
+                                      {x}
+                                    </SelectItem>
+                                  ))}
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          <div className="space-y-2">
+                            <span className="text-xs font-medium ">Tradelist font</span>
+                            <Select
+                              className="w-full"
+                              value={wishlist.settings.tradeTitle.font}
+                              onValueChange={(e) => setSettingWishlist('tradeTitle', 'font', e, 'select')}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select the tradelist's font" />
+                              </SelectTrigger>
+                              <SelectContent className="max-h-80">
+                                <SelectGroup>
+                                  <SelectLabel>All fonts</SelectLabel>
+                                  {fonts.map((x) => (
+                                    <SelectItem key={x} value={x}>
+                                      {x}
+                                    </SelectItem>
+                                  ))}
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </dd>
+                      </div>
+                    </dl>
+                  ) : null}
                   <dl
                     className={cn(
                       'mt-6 space-y-6 divide-y divide-slate-100 border-t border-slate-200 text-sm leading-6',
@@ -838,10 +918,11 @@ const Wishlist = () => {
                   >
                     <div className="pt-6 sm:flex sm:items-center">
                       <dt className="font-medium text-slate-900 dark:text-slate-100 sm:w-64 sm:flex-none sm:pr-6">Reddit</dt>
-                      <dd className="mt-1 flex items-center justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+                      <dd className="mt-2 flex items-center justify-between gap-x-6 sm:mt-0 sm:flex-auto lg:mt-1">
                         <input
                           className={cn(
                             'basis-1/3 rounded-md border-slate-300/90 pl-3 text-sm text-slate-600',
+                            'lg:basis-auto',
                             'placeholder:text-sm placeholder:font-medium placeholder:text-slate-600/50',
                             'focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50',
                             'hover:border-slate-300/100',
@@ -865,10 +946,11 @@ const Wishlist = () => {
                   >
                     <div className="pt-6 sm:flex sm:items-center">
                       <dt className="font-medium text-slate-900 dark:text-slate-100 sm:w-64 sm:flex-none sm:pr-6">Discord</dt>
-                      <dd className="mt-1 flex items-center justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+                      <dd className="mt-2 flex items-center justify-between gap-x-6 sm:mt-0 sm:flex-auto lg:mt-1">
                         <input
                           className={cn(
                             'basis-1/3 rounded-md border-slate-300/90 pl-3 text-sm text-slate-600',
+                            'lg:basis-auto',
                             'placeholder:text-sm placeholder:font-medium placeholder:text-slate-600/50',
                             'focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50',
                             'hover:border-slate-300/100',
@@ -891,7 +973,7 @@ const Wishlist = () => {
         </Collapsible.Content>
       </Collapsible.Root>
 
-      {wishlist.items.length || wishlist.tradeItems.length ? (
+      {wishlist.items.length > 0 || wishlist.tradeItems.length > 0 ? (
         <div className="lg:flex lg:gap-x-16">
           <aside
             className={cn(
@@ -916,7 +998,7 @@ const Wishlist = () => {
             <div className="mx-auto max-w-2xl space-y-16 sm:space-y-20 lg:mx-0 lg:max-w-none">
               <div>
                 <p className="mt-1 text-sm leading-6 text-slate-500">Order your caps before generating or downloading your list.</p>
-                {wishlist.tradeItems.length ? (
+                {wishlist.tradeItems.length > 0 ? (
                   <dl
                     className={cn(
                       'mt-6 space-y-6 divide-y divide-slate-100 border-t border-slate-200 text-sm leading-6',
