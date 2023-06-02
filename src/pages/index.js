@@ -53,7 +53,6 @@ const IndexPage = () => {
   }, getFavoriteMakers());
 
   const sortedMakers = sortBy(data.allSitePage.nodes, (n) => !favoriteMakers.includes(n.pageContext.maker.id));
-  console.log(sortedMakers)
 
   return (
     <Layout>
