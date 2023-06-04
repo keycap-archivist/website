@@ -153,7 +153,7 @@ const Maker = (props) => {
               <div className="flex items-center justify-between gap-x-2 p-4 font-bold">
                 <span className="truncate" title={c.name ? c.name : '(Unknown)'}>
                   {c.name ? c.name : '(Unknown)'}
-                 </span>
+                </span>
                 <div className="flex shrink-0 items-center">
 
                   {isInWishlist(wishlist, c.id) ? (
