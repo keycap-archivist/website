@@ -155,7 +155,6 @@ const Maker = (props) => {
                   {c.name ? c.name : '(Unknown)'}
                 </span>
                 <div className="flex shrink-0 items-center">
-
                   {isInWishlist(wishlist, c.id) ? (
                     <button
                       className="p-1 lg:p-px"
