@@ -154,7 +154,7 @@ const Maker = (props) => {
                 <span className="truncate" title={c.name ? c.name : '(Unknown)'}>
                   {c.name ? c.name : '(Unknown)'}
                 </span>
-                <div className="flex shrink-0 items-center">
+                <div className="flex shrink-0 items-center gap-x-1">
                   {isInWishlist(wishlist, c.id) ? (
                     <button
                       className="p-1 lg:p-px"
