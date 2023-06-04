@@ -108,8 +108,8 @@ dependencies:
     specifier: 5.10.0
     version: 5.10.0(gatsby-plugin-sharp@5.10.0)(gatsby@5.10.0)(graphql@16.6.0)
   html-to-react:
-    specifier: 1.5.1
-    version: 1.5.1
+    specifier: 1.6.0
+    version: 1.6.0(react@18.2.0)
   lodash:
     specifier: 4.17.21
     version: 4.17.21
@@ -7556,8 +7556,10 @@ packages:
   /html-entities@2.3.3:
     resolution: {integrity: sha512-DV5Ln36z34NNTDgnz0EWGBLZENelNAtkiFA4kyNOG2tDI6Mz1uSWiq1wAKdyjnJwyDiDO7Fa2SO1CTxPXL8VxA==}
 
-  /html-to-react@1.5.1:
-    resolution: {integrity: sha512-dFLZRBjpMk89Ukwa6Fq7oApinn3TEZD0gGFUkmI9DqNQxTjN7gF9owhyu+t8h+bpEZrX2DMxZLYjEfw0C/iL7A==}
+  /html-to-react@1.6.0(react@18.2.0):
+    resolution: {integrity: sha512-W7HvCu2fipgz3F7fpEtIt2Ty6XcqFGQXOorR4+HQAk72y9mTtUH3BmJ43BEvXQHO+bt//z1Hbfe6JzojpSC/9w==}
+    peerDependencies:
+      react: ^0.13.0 || ^0.14.0 || >=15
     dependencies:
       domhandler: 5.0.3
       htmlparser2: 8.0.2
