@@ -102,16 +102,27 @@ const Maker = (props) => {
           </div>
 
           <div className="mb-6 mt-10 flex flex-col items-center justify-between sm:flex-row lg:my-6">
-            <div className="mb-2 pr-3 leading-snug sm:mb-0">
-              <h2 className="text-3xl font-bold leading-none">{colorway.name ? colorway.name : '(Unknown)'}</h2>
+            <div className="mb-2 inline-flex items-center gap-x-3 pr-3 leading-snug sm:mb-0">
+              <h2 className="text-3xl font-bold leading-none">{colorway.name ? colorway.name : '(Unknown)'}</h2>{' '}
+              <CopyToClipboard text={location.href} onCopy={updateText}>
+                <button
+                  className={cn(
+                    'flex items-center justify-center gap-x-3 rounded bg-blue-500 px-3 py-2 text-xs font-bold text-white transition-colors',
+                    'hover:bg-blue-700',
+                  )}
+                >
+                  <FontAwesomeIcon icon={['fa-solid', 'copy']} />
+                  {state.text}
+                </button>
+              </CopyToClipboard>
             </div>
             <div className="mt-1 flex shrink-0 flex-row flex-nowrap items-center"></div>
           </div>
           <div className={cn('mt-0 flex flex-col gap-8 lg:mt-12 lg:flex-row', hasAdditionalInfo ? '' : 'justify-center')}>
-            <div className={cn(hasAdditionalInfo ? 'flex basis-auto lg:basis-1/2' : 'relative w-full lg:w-1/2')}>
+            <div className={cn(hasAdditionalInfo ? 'flex basis-auto lg:basis-1/2' : 'relative w-full lg:w-1/2', 'space-y-4')}>
               <img loading="lazy" className="block h-full w-full rounded-lg object-cover" alt={seoTitle} src={cwImg} />
               {!hasAdditionalInfo && (
-                <div className={cn('absolute right-4 top-4 flex items-center gap-x-3 rounded bg-black/80 p-3')}>
+                <div className={cn('flex items-center justify-between gap-x-3 rounded-lg bg-black/80 p-3')}>
                   {/* {!colorway.name && (
                     <Modal buttonTitle="Suggest name" modalTitle="Suggest name" open={showModal} setOpen={setShowModal}>
                       <SubmitNameModal
@@ -124,23 +135,17 @@ const Maker = (props) => {
                       />
                     </Modal>
                   )} */}
-                  <CopyToClipboard text={location.href} onCopy={updateText}>
-                    <button
-                      className={cn(
-                        'flex items-center justify-center rounded bg-blue-500 px-3 py-2 text-xs font-bold text-white transition-colors',
-                        'hover:bg-blue-700',
-                      )}
-                    >
-                      {state.text}
-                    </button>
-                  </CopyToClipboard>
                   {isInWishlist(wishlist, colorway.id) ? (
                     <TooltipWrapper tooltipTitle={`Remove from "${wishlist.settings.title.text}" wishlist`}>
                       <button
                         onClick={() => setStateWishlist(rmCap(colorway.id))}
-                        className="inline-flex items-center justify-center rounded-full bg-red-500 px-3 py-2 text-white transition-colors hover:bg-red-700"
+                        className={cn(
+                          'inline-flex flex-1 items-center justify-center gap-x-2 rounded-lg bg-red-500 px-3 py-2 text-white transition-colors',
+                          'hover:bg-red-700',
+                        )}
                       >
                         <FontAwesomeIcon icon={['fas', 'star']} />
+                        <span className="truncate text-xs font-medium">{`Remove from "${wishlist.settings.title.text}" wishlist`}</span>
                       </button>
                     </TooltipWrapper>
                   ) : (
@@ -156,9 +161,13 @@ const Maker = (props) => {
                             setStateWishlist(addCap(colorway.id));
                           }
                         }}
-                        className="inline-flex items-center justify-center rounded-full bg-green-500 px-3 py-2 text-white transition-colors hover:bg-green-700"
+                        className={cn(
+                          'inline-flex flex-1 items-center justify-center gap-x-2 rounded-lg bg-green-500 px-3 py-2 text-white transition-colors',
+                          'hover:bg-green-700',
+                        )}
                       >
                         <FontAwesomeIcon icon={['fas', 'star']} />
+                        <span className="truncate text-xs font-medium">{`Add to "${wishlist.settings.title.text}" wishlist`}</span>
                       </button>
                     </TooltipWrapper>
                   )}
@@ -166,9 +175,13 @@ const Maker = (props) => {
                     <TooltipWrapper tooltipTitle={`Remove from "${wishlist.settings.title.text}" trade list`}>
                       <button
                         onClick={() => setStateWishlist(rmTradeCap(colorway.id))}
-                        className="inline-flex items-center justify-center rounded-full bg-red-500 px-3 py-2 text-white transition-colors hover:bg-red-700"
+                        className={cn(
+                          'inline-flex flex-1 items-center justify-center gap-x-2 rounded-lg bg-red-500 px-3 py-2 text-white transition-colors',
+                          'hover:bg-red-700',
+                        )}
                       >
                         <FontAwesomeIcon icon={['fas', 'redo']} />
+                        <span className="truncate text-xs font-medium">{`Remove from "${wishlist.settings.title.text}" trade list`}</span>
                       </button>
                     </TooltipWrapper>
                   ) : (
@@ -184,9 +197,13 @@ const Maker = (props) => {
                             setStateWishlist(addTradeCap(colorway.id));
                           }
                         }}
-                        className="inline-flex items-center justify-center rounded-full bg-green-500 px-3 py-2 text-white transition-colors hover:bg-green-700"
+                        className={cn(
+                          'inline-flex flex-1 items-center justify-center gap-x-2 rounded-lg bg-green-500 px-3 py-2 text-white transition-colors',
+                          'hover:bg-green-700',
+                        )}
                       >
                         <FontAwesomeIcon icon={['fas', 'redo']} />
+                        <span className="truncate text-xs font-medium">{`Add to "${wishlist.settings.title.text}" trade list`}</span>
                       </button>
                     </TooltipWrapper>
                   )}
