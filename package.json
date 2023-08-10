@@ -27,7 +27,7 @@
     "gatsby-plugin-canonical-urls": "5.11.0",
     "gatsby-plugin-google-analytics": "5.11.0",
     "gatsby-plugin-image": "^3.9.0",
-    "gatsby-plugin-next-seo": "1.10.0",
+    "gatsby-plugin-next-seo": "1.11.0",
     "gatsby-plugin-offline": "6.11.0",
     "gatsby-plugin-pnpm": "1.2.10",
     "gatsby-plugin-postcss": "6.11.0",
