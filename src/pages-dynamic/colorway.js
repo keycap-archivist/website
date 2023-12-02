@@ -48,7 +48,9 @@ const Maker = (props) => {
   const wishlist = wishlistContainer.wishlists.find((x) => x.id === wishlistContainer.activeWishlistId);
   const cwImg = `https://cdn.keycap-archivist.com/keycaps/720/${colorway.id}.jpg`;
 
-  const hasAdditionalInfo = useMemo(() => colorway.releaseDate || colorway.totalCount || colorway.commissioned || colorway.giveaway || colorway.photoCredit || false, [colorway]);
+  const hasAdditionalInfo = useMemo(() => colorway.releaseDate || colorway.totalCount || colorway.commissioned || colorway.giveaway || colorway.photoCredit || false,
+  [colorway],
+  );
 
   return (
     <Toast.Provider swipeDirection="right">
