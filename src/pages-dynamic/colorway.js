@@ -51,7 +51,7 @@ const Maker = (props) => {
   const hasAdditionalInfo = useMemo(
     () => colorway.releaseDate || colorway.totalCount || colorway.commissioned || colorway.giveaway || colorway.photoCredit || false,
     [colorway],
-    );
+  );
 
   return (
     <Toast.Provider swipeDirection="right">
