@@ -238,13 +238,13 @@ const Maker = (props) => {
                     <dd className="mx-2 font-bold">Giveaway</dd>
                   </dl>
                 ) : null}
-                { (
+                {colorway.photoCredit ? (
                   <dl className="flex items-center">
                     <FontAwesomeIcon className={'h-4 w-4 text-xl text-indigo-500'} icon={['fa', 'camera']} />
                     <dd className="mx-2 font-bold">Photo Credit: </dd>
-                    <dt>{colorway.photoCredit}</dt>                  
+                    <dt>{colorway.photoCredit}</dt>
                   </dl>
-                )}
+                ) : null}
                 <div className={cn('flex items-center gap-3', hasAdditionalInfo ? 'mt-0 lg:mt-3' : null)}>
                   {/* {!colorway.name && (
                     <Modal buttonTitle="Suggest name" modalTitle="Suggest name" open={showModal} setOpen={setShowModal}>
