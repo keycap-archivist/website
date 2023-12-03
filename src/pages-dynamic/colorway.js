@@ -48,7 +48,10 @@ const Maker = (props) => {
   const wishlist = wishlistContainer.wishlists.find((x) => x.id === wishlistContainer.activeWishlistId);
   const cwImg = `https://cdn.keycap-archivist.com/keycaps/720/${colorway.id}.jpg`;
 
-  const hasAdditionalInfo = useMemo(() => colorway.releaseDate || colorway.totalCount || colorway.commissioned || colorway.giveaway || false, [colorway]);
+  const hasAdditionalInfo = useMemo(
+    () => colorway.releaseDate || colorway.totalCount || colorway.commissioned || colorway.giveaway || colorway.photoCredit || false,
+    [colorway],
+  );
 
   return (
     <Toast.Provider swipeDirection="right">
@@ -236,6 +239,13 @@ const Maker = (props) => {
                   <dl className="flex items-center">
                     <FontAwesomeIcon className={'h-4 w-4 text-xl text-indigo-500'} icon={['fa', 'gift']} />
                     <dd className="mx-2 font-bold">Giveaway</dd>
+                  </dl>
+                ) : null}
+                {colorway.photoCredit ? (
+                  <dl className="flex items-center">
+                    <FontAwesomeIcon className={'h-4 w-4 text-xl text-indigo-500'} icon={['fa', 'camera']} />
+                    <dd className="mx-2 font-bold">Photo Credit: </dd>
+                    <dt>{colorway.photoCredit}</dt>
                   </dl>
                 ) : null}
                 <div className={cn('flex items-center gap-3', hasAdditionalInfo ? 'mt-0 lg:mt-3' : null)}>
