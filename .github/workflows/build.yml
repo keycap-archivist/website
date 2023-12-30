@@ -10,10 +10,10 @@ jobs:
     name: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.REPO_SCOPE }}
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           repository: keycap-archivist/website-bin
           path: bin-repo
