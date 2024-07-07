@@ -45,7 +45,7 @@ jobs:
           rm -rf ./*
           ls -al ../
           cp -r ../public/* ./
-          cp -r ../build/* ./
+          cp -ar ../build/* ./
           git add .
           git commit -m "update-website" || true
           git branch -D master
