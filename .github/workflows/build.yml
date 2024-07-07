@@ -45,7 +45,8 @@ jobs:
           rm -rf ./*
           ls -al ../
           cp -r ../public/* ./
-          cp -ar ../build/* ./
+          mkdir -p ./.github/workflows
+          cp -ar ../build/push.yml ./.github/workflows/push.yml
           git add .
           git commit -m "update-website" || true
           git branch -D master
