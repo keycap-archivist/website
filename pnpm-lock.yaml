@@ -54,8 +54,8 @@ importers:
         specifier: ^3.9.0
         version: 3.9.0(@babel/core@7.21.8)(core-js@3.32.1)
       clsx:
-        specifier: ^1.2.1
-        version: 1.2.1
+        specifier: ^2.0.0
+        version: 2.1.0
       cross-env:
         specifier: 7.0.3
         version: 7.0.3
@@ -2542,8 +2542,8 @@ packages:
     resolution: {integrity: sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==}
     engines: {node: '>=0.8'}
 
-  clsx@1.2.1:
-    resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==}
+  clsx@2.1.0:
+    resolution: {integrity: sha512-m3iNNWpd9rl3jvvcBnu70ylMdrXt8Vlq4HYadnU5fwcOtvkSQWPmj7amUcDT2qYI7risszBjI5AUIUox9D16pg==}
     engines: {node: '>=6'}
 
   color-convert@1.9.3:
@@ -10228,7 +10228,7 @@ snapshots:
 
   clone@2.1.2: {}
 
-  clsx@1.2.1: {}
+  clsx@2.1.0: {}
 
   color-convert@1.9.3:
     dependencies:
