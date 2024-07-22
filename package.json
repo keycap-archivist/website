@@ -52,7 +52,7 @@
     "slugify": "1.6.6",
     "sortablejs": "1.15.0",
     "svg-react-loader": "0.4.6",
-    "tailwind-merge": "^1.12.0",
+    "tailwind-merge": "^2.0.0",
     "webpack": "^5.82.0"
   },
   "devDependencies": {
