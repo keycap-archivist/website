@@ -44,7 +44,7 @@ jobs:
           git checkout --orphan temp
           rm -rf ./*
           ls -al ../
-          cp -r ../public/* ./
+          mv ../public/* ./
           mkdir -p ./.github/workflows
           cp -ar ../build/push.yml ./.github/workflows/push.yml
           git add .
