@@ -3,6 +3,7 @@
   "private": true,
   "description": "",
   "version": "0.1.0",
+  "packageManager": "pnpm@9.15.9",
   "dependencies": {
     "@babel/plugin-proposal-decorators": "7.24.1",
     "@fortawesome/fontawesome-svg-core": "6.5.2",
